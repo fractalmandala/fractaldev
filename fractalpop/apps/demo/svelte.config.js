@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-auto'
+import adapter from '@sveltejs/adapter-vercel'
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
 import { mdsvex } from 'mdsvex'
 import { fractalpopHighlighter } from '@fractalpop/mdsvex'
@@ -16,5 +16,9 @@ export default {
   // vitePreprocess runs, so a `<style lang="sass">` shown inside a code fence
   // isn't mistaken for a real Sass style block.
   preprocess: [mdsvex(mdsvexConfig), vitePreprocess()],
-  kit: { adapter: adapter() },
+  kit: {
+    adapter: adapter({
+      runtime: 'nodejs20.x',
+    }),
+  },
 }

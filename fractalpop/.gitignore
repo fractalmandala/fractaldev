@@ -5,3 +5,4 @@ dist/
 coverage/
 .turbo/
 .svelte-kit/
+.vercel/
