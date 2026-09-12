@@ -1,0 +1,37 @@
+<script lang="ts">
+	import { GraphBullet } from '$lib';
+</script>
+
+# GraphBullet
+
+## Import
+
+```svelte
+import { GraphBullet } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphBullet
+  title="example"
+  ticks={20}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `items` | `BulletItem[]` | `—` | — |
+| `ticks?` | `number` | `20` | — |
+| `glyphs?` | `Glyphs` | `—` | — |
+| `palette?` | `GraphPalette` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `BulletItem`
+- `GraphBulletProps`

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en" data-accent="#ff3e00" data-mode="dark">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<script>
+			// Restore the saved accent before first paint.
+			(function () {
+				try {
+					var i = localStorage.getItem('markgraphy-accent');
+					var valid = ['#ff3e00','#e67700','#5c940d','#2f9e44','#087f5b','#1098ad','#1971c2','#862e9c','#c2255c','#c92a2a'];
+					if (valid.indexOf(i) === -1) i = '#ff3e00';
+					document.documentElement.setAttribute('data-accent', i);
+				} catch (e) {
+					/* defaults already set on <html> */
+				}
+			})();
+		</script>
+		%sveltekit.head%
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">%sveltekit.body%</div>
+	</body>
+</html>

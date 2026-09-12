@@ -1,0 +1,24 @@
+{
+  "name": "fractalpop-monorepo",
+  "private": true,
+  "type": "module",
+  "description": "Monorepo for Fractalpop - a lightweight, Svelte-first code highlighter",
+  "packageManager": "pnpm@11.20.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "pnpm -r run build",
+    "test": "pnpm -r run test",
+    "test:ci": "pnpm run build && pnpm -r run test --run && node scripts/bundle-size.mjs && pnpm audit --audit-level=moderate",
+    "test:size": "node scripts/bundle-size.mjs",
+    "dev": "pnpm -r run dev",
+    "clean": "pnpm -r run clean",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "pnpm test && pnpm build && changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.0",
+    "typescript": "^5.6.0",
+    "vitest": "^4.1.11"
+  }
+}

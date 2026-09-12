@@ -1,0 +1,4576 @@
+{
+  "GraphAgni": {
+    "file": "animated/GraphAgni.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": true,
+        "description": "Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Animate the burn. Default true. Reduced motion freezes a mid-burn frame."
+      },
+      {
+        "name": "showControls",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Show the playback controls. Default true."
+      },
+      {
+        "name": "cols",
+        "type": "number",
+        "optional": true,
+        "default": "56",
+        "description": "Width of the scene in characters. Default 56."
+      },
+      {
+        "name": "rows",
+        "type": "number",
+        "optional": true,
+        "default": "16",
+        "description": "Height of the scene in rows. Default 16."
+      },
+      {
+        "name": "speedMs",
+        "type": "number",
+        "optional": true,
+        "default": "90",
+        "description": "Milliseconds per simulation step. Default 90."
+      },
+      {
+        "name": "cooling",
+        "type": "number",
+        "optional": true,
+        "default": "0.6",
+        "description": "Random decay strength; higher burns out sooner. Default 0.6."
+      },
+      {
+        "name": "seedNum",
+        "type": "number",
+        "optional": true,
+        "default": "3",
+        "description": "Seed for the reproducible burn. Default 3."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "optional": true,
+        "description": "Short caption under the art; the art itself is decorative."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "GraphAgniProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphAum": {
+    "file": "animated/GraphAum.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false,
+        "description": "Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Animate the ink-in and resonance. Default true. Reduced motion freezes a settled frame."
+      },
+      {
+        "name": "cols",
+        "type": "number",
+        "optional": true,
+        "default": "56",
+        "description": "Width of the scene in characters; at least 46 so the figure fits. Default 56."
+      },
+      {
+        "name": "rows",
+        "type": "number",
+        "optional": true,
+        "default": "22",
+        "description": "Height of the scene in rows. Default 22."
+      },
+      {
+        "name": "speedMs",
+        "type": "number",
+        "optional": true,
+        "default": "110",
+        "description": "Milliseconds per tick. Default 110."
+      },
+      {
+        "name": "seedNum",
+        "type": "number",
+        "optional": true,
+        "default": "7",
+        "description": "Seed offsets the resonance wave along the stroke. Default 7."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "optional": true,
+        "default": "'the primordial vibration'",
+        "description": "Short caption under the art; the art itself is decorative."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "GraphAumProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphBoot": {
+    "file": "animated/GraphBoot.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false,
+        "description": "Caption on the frame's top edge as `[ TITLE ]`. Uppercase, 1–2 words."
+      },
+      {
+        "name": "steps",
+        "type": "GraphBootStep[]",
+        "optional": false,
+        "description": "Ordered list of deploy/boot steps to show."
+      },
+      {
+        "name": "speedMs",
+        "type": "number",
+        "optional": true,
+        "default": "90",
+        "description": "Milliseconds per tick of the boot animation. Default 90."
+      },
+      {
+        "name": "stepTicks",
+        "type": "number",
+        "optional": true,
+        "default": "14",
+        "description": "Total ticks each step is \"in progress\" before flipping to ✓/✗. Default 14."
+      },
+      {
+        "name": "seedNum",
+        "type": "number",
+        "optional": true,
+        "default": "5",
+        "description": "Seed for any stochastic timing jitter per step. Default 5."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Animate the boot. Default true. Reduced motion freezes a mid-run frame."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "optional": true,
+        "default": "'from cold to live'",
+        "description": "Short caption under the art."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "GraphBootStep",
+        "kind": "type"
+      },
+      {
+        "name": "GraphBootProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphCron": {
+    "file": "animated/GraphCron.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false,
+        "description": "Caption drawn on the top edge as `[ TITLE ]`."
+      },
+      {
+        "name": "expr",
+        "type": "string",
+        "optional": false,
+        "description": "Standard 5-field cron expression: `min hour dom mon dow`."
+      },
+      {
+        "name": "count",
+        "type": "number",
+        "optional": true,
+        "default": "8",
+        "description": "Number of next runs to render on the tick timeline. Default 8."
+      },
+      {
+        "name": "baseTime",
+        "type": "number",
+        "optional": true,
+        "description": "Base time as ms since epoch; next runs are computed from this point. Default now."
+      },
+      {
+        "name": "cols",
+        "type": "number",
+        "optional": true,
+        "default": "60",
+        "description": "Scene width in characters. Default 60."
+      },
+      {
+        "name": "rows",
+        "type": "number",
+        "optional": true,
+        "default": "12",
+        "description": "Scene height in rows. Default 12."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Animate the tick highlight. Default true. Reduced motion freezes on first run."
+      },
+      {
+        "name": "speedMs",
+        "type": "number",
+        "optional": true,
+        "default": "220",
+        "description": "Milliseconds per tick. Default 220."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "optional": true,
+        "default": "''",
+        "description": "Caption rendered muted under the timeline."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "GraphCronProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphDamru": {
+    "file": "animated/GraphDamru.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false,
+        "description": "Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Animate the tala. Default true. Reduced motion freezes a clap beat."
+      },
+      {
+        "name": "cols",
+        "type": "number",
+        "optional": true,
+        "default": "60",
+        "description": "Width of the scene in characters. Default 60."
+      },
+      {
+        "name": "rows",
+        "type": "number",
+        "optional": true,
+        "default": "16",
+        "description": "Height of the scene in rows. Default 16."
+      },
+      {
+        "name": "speedMs",
+        "type": "number",
+        "optional": true,
+        "default": "220",
+        "description": "Milliseconds per beat. Default 220."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "optional": true,
+        "default": "'the first sound'",
+        "description": "Short caption under the art; the art itself is decorative."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "GraphDamruProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphDeps": {
+    "file": "animated/GraphDeps.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false,
+        "description": "Caption drawn on the top edge as `[ TITLE ]`."
+      },
+      {
+        "name": "deps",
+        "type": "DepNode[]",
+        "optional": false,
+        "description": "Root-level dependencies, each with a name and version."
+      },
+      {
+        "name": "depth",
+        "type": "number",
+        "optional": true,
+        "default": "6",
+        "description": "Maximum depth to render. Default 6. Clamped 1..16."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Animate the cascade. Default true. Reduced motion shows the full tree."
+      },
+      {
+        "name": "speedMs",
+        "type": "number",
+        "optional": true,
+        "default": "80",
+        "description": "Milliseconds between cascading reveals. Default 80."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "optional": true,
+        "default": "''",
+        "description": "Caption rendered muted under the tree."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "DepNode",
+        "kind": "type"
+      },
+      {
+        "name": "GraphDepsProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphDiya": {
+    "file": "animated/GraphDiya.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false,
+        "description": "Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Animate the lighting and the breathing. Default true. Reduced motion freezes a fully lit row."
+      },
+      {
+        "name": "cols",
+        "type": "number",
+        "optional": true,
+        "default": "60",
+        "description": "Width of the scene in characters. Default 60."
+      },
+      {
+        "name": "rows",
+        "type": "number",
+        "optional": true,
+        "default": "14",
+        "description": "Height of the scene in rows. Default 14."
+      },
+      {
+        "name": "lamps",
+        "type": "number",
+        "optional": true,
+        "default": "5",
+        "description": "Number of diyas in the row. Default 5."
+      },
+      {
+        "name": "speedMs",
+        "type": "number",
+        "optional": true,
+        "default": "110",
+        "description": "Milliseconds per tick. Default 110."
+      },
+      {
+        "name": "seedNum",
+        "type": "number",
+        "optional": true,
+        "default": "13",
+        "description": "Seed for the per-lamp phase and gutter schedule. Default 13."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "optional": true,
+        "default": "'row of light'",
+        "description": "Short caption under the art; the art itself is decorative."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "GraphDiyaProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphFire": {
+    "file": "animated/GraphFire.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false,
+        "description": "Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Animate the burn. Default true. Reduced motion freezes a mid-burn frame."
+      },
+      {
+        "name": "cols",
+        "type": "number",
+        "optional": true,
+        "default": "60",
+        "description": "Width of the fire in characters. Default 60."
+      },
+      {
+        "name": "rows",
+        "type": "number",
+        "optional": true,
+        "default": "14",
+        "description": "Height of the fire in rows. Default 14."
+      },
+      {
+        "name": "speedMs",
+        "type": "number",
+        "optional": true,
+        "default": "90",
+        "description": "Milliseconds per simulation step. Default 90."
+      },
+      {
+        "name": "cooling",
+        "type": "number",
+        "optional": true,
+        "default": "0.6",
+        "description": "Random decay strength; higher burns out sooner. Default 0.6."
+      },
+      {
+        "name": "seedNum",
+        "type": "number",
+        "optional": true,
+        "default": "3",
+        "description": "Seed for the reproducible burn. Default 3."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "optional": true,
+        "default": "'simulated fire'",
+        "description": "Short caption under the art; the art itself is decorative."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "GraphFireProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": [],
+    "description": "Each cell takes heat from below minus random cooling; the base row stays max."
+  },
+  "GraphFlame": {
+    "file": "animated/GraphFlame.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false,
+        "description": "Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Animate the hot-path cycle. Default true. Reduced motion freezes on the first leaf."
+      },
+      {
+        "name": "speedMs",
+        "type": "number",
+        "optional": true,
+        "default": "600",
+        "description": "Milliseconds per leaf. Default 600."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "optional": true,
+        "default": "'flame graph",
+        "description": "Short caption under the art; the chart itself is the message."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "GraphFlameProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": [],
+    "description": "Draw one frame as a bar of glyphs. Narrow frames collapse to just the\nside borders; wider frames get a left-aligned label and a fill of\nshade glyphs. The fill density is the only thing that distinguishes\na hot frame from a cool one in monochrome."
+  },
+  "GraphFlowPlayer": {
+    "file": "animated/GraphFlowPlayer.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false,
+        "description": "Caption drawn on the frame's top edge as `[ TITLE ]`."
+      },
+      {
+        "name": "steps",
+        "type": "FlowStep[]",
+        "optional": false,
+        "description": "Steps in playback order."
+      },
+      {
+        "name": "autoPlay",
+        "type": "boolean",
+        "optional": true,
+        "default": "false",
+        "description": "Start playing on mount. Default false. Never autoplays under reduced motion."
+      },
+      {
+        "name": "speedMs",
+        "type": "number",
+        "optional": true,
+        "default": "1600",
+        "description": "Milliseconds per step. Default 1600."
+      },
+      {
+        "name": "showControls",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Show the playback controls. Default true."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Animate transitions and the active marker pulse. Default true."
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true,
+        "description": "Character at each corner of the frame. Default '+'."
+      },
+      {
+        "name": "frame",
+        "type": "FrameProps",
+        "optional": true,
+        "description": "Anything the frame itself takes — dash, motion, speed, easing, pad,\npauseOnHover, cornerBlink, ink, accent. Forwarded straight to `Graph`,\nso the frame's whole vocabulary is reachable without this component\nhaving to restate every prop.\n/"
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "\"\""
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "FrameProps",
+        "kind": "type"
+      },
+      {
+        "name": "FlowStep",
+        "kind": "type"
+      },
+      {
+        "name": "GraphFlowPlayerProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": [],
+    "description": "One entry per step — not per rendered line, so each is its own box."
+  },
+  "GraphGanga": {
+    "file": "animated/GraphGanga.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false,
+        "description": "Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Animate the flow and the floating diya. Default true. Reduced motion freezes a frame mid-flow."
+      },
+      {
+        "name": "cols",
+        "type": "number",
+        "optional": true,
+        "default": "60",
+        "description": "Width of the scene in characters. Default 60."
+      },
+      {
+        "name": "rows",
+        "type": "number",
+        "optional": true,
+        "default": "18",
+        "description": "Height of the scene in rows. Default 18."
+      },
+      {
+        "name": "speedMs",
+        "type": "number",
+        "optional": true,
+        "default": "110",
+        "description": "Milliseconds per tick. Default 110."
+      },
+      {
+        "name": "seedNum",
+        "type": "number",
+        "optional": true,
+        "default": "17",
+        "description": "Seed for the flow pattern and the diya's vertical bob. Default 17."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "optional": true,
+        "default": "'the descent'",
+        "description": "Short caption under the art; the art itself is decorative."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "GraphGangaProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphHash": {
+    "file": "animated/GraphHash.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false,
+        "description": "Caption on the frame's top edge as `[ TITLE ]`. Uppercase, 1–2 words."
+      },
+      {
+        "name": "input",
+        "type": "string",
+        "optional": true,
+        "default": "'markgraphy'",
+        "description": "Any string — its digest is the seed. Default 'markgraphy'."
+      },
+      {
+        "name": "cols",
+        "type": "number",
+        "optional": true,
+        "default": "16",
+        "description": "Grid width in cells. Default 16."
+      },
+      {
+        "name": "rows",
+        "type": "number",
+        "optional": true,
+        "default": "6",
+        "description": "Grid height in rows. Default 6."
+      },
+      {
+        "name": "speedMs",
+        "type": "number",
+        "optional": true,
+        "default": "60",
+        "description": "Milliseconds per tick of the scan-line sweep. Default 60."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Animate the scan line. Default true. Reduced motion freezes mid-sweep."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "optional": true,
+        "default": "'any string → a glyph fingerprint'",
+        "description": "Short caption under the art."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "GraphHashProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": [],
+    "description": "64-bit FNV-1a-ish digest. Pure function of the input string — same input\nalways yields the same 64-bit digest, no PRNG state. This is the\n\"any string → deterministic fingerprint\" property."
+  },
+  "GraphJapa": {
+    "file": "animated/GraphJapa.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false,
+        "description": "Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Animate the marker around the mala. Default true. Reduced motion freezes a mid-mala frame."
+      },
+      {
+        "name": "cols",
+        "type": "number",
+        "optional": true,
+        "default": "60",
+        "description": "Width of the scene in characters. Default 60."
+      },
+      {
+        "name": "rows",
+        "type": "number",
+        "optional": true,
+        "default": "22",
+        "description": "Height of the scene in rows. Default 22."
+      },
+      {
+        "name": "beads",
+        "type": "number",
+        "optional": true,
+        "default": "108",
+        "description": "Total beads per mala. The mala is 108; the counter shows current/total. Default 108."
+      },
+      {
+        "name": "speedMs",
+        "type": "number",
+        "optional": true,
+        "default": "110",
+        "description": "Milliseconds per bead. Default 110."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "optional": true,
+        "default": "'a breath for every bead'",
+        "description": "Short caption under the art; the art itself is decorative."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "GraphJapaProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphLife": {
+    "file": "animated/GraphLife.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false,
+        "description": "Caption drawn on the top edge as `[ TITLE ]`."
+      },
+      {
+        "name": "cols",
+        "type": "number",
+        "optional": true,
+        "default": "44",
+        "description": "Columns of the board. Default 44."
+      },
+      {
+        "name": "rows",
+        "type": "number",
+        "optional": true,
+        "default": "14",
+        "description": "Rows of the board. Default 14."
+      },
+      {
+        "name": "density",
+        "type": "number",
+        "optional": true,
+        "default": "0.28",
+        "description": "Random fill probability when no `seed` is given. Default 0.28."
+      },
+      {
+        "name": "seed",
+        "type": "boolean[][]",
+        "optional": true,
+        "description": "Explicit initial board. Padded/cropped to `cols` x `rows`."
+      },
+      {
+        "name": "seedNum",
+        "type": "number",
+        "optional": true,
+        "default": "7",
+        "description": "PRNG seed for the random board, reproducible. Default 7."
+      },
+      {
+        "name": "speedMs",
+        "type": "number",
+        "optional": true,
+        "default": "220",
+        "description": "Milliseconds per generation. Default 220."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Start playing on mount. Default true. Reduced motion starts paused."
+      },
+      {
+        "name": "showControls",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Show the playback controls. Default true."
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true,
+        "description": "Character at each corner of the frame. Default \"+\"."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "GraphLifeProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphMandala": {
+    "file": "animated/GraphMandala.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false,
+        "description": "Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Animate the bloom. Default true. Reduced motion freezes a fully bloomed frame."
+      },
+      {
+        "name": "cols",
+        "type": "number",
+        "optional": true,
+        "default": "48",
+        "description": "Width of the scene in characters; at least 38 so the outermost ring fits. Default 48."
+      },
+      {
+        "name": "rows",
+        "type": "number",
+        "optional": true,
+        "default": "24",
+        "description": "Height of the scene in rows; at least 20 so the circle fits the cell aspect. Default 24."
+      },
+      {
+        "name": "folds",
+        "type": "number",
+        "optional": true,
+        "default": "8",
+        "description": "Rotational folds (K). One cell of the canonical petal is rotated K times. Default 8."
+      },
+      {
+        "name": "rings",
+        "type": "number",
+        "optional": true,
+        "default": "5",
+        "description": "Number of concentric lotus-petal rings. Default 5."
+      },
+      {
+        "name": "speedMs",
+        "type": "number",
+        "optional": true,
+        "default": "130",
+        "description": "Milliseconds per tick. Default 130."
+      },
+      {
+        "name": "seedNum",
+        "type": "number",
+        "optional": true,
+        "default": "11",
+        "description": "Seed for the per-ring radius and phase perturbation. Default 11."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "optional": true,
+        "default": "'the circle that holds'",
+        "description": "Short caption under the art; the art itself is decorative."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "GraphMandalaProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphMandel": {
+    "file": "animated/GraphMandel.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false,
+        "description": "Caption drawn on the top edge as `[ TITLE ]`."
+      },
+      {
+        "name": "cols",
+        "type": "number",
+        "optional": true,
+        "default": "66",
+        "description": "Columns of the grid. Default 66."
+      },
+      {
+        "name": "rows",
+        "type": "number",
+        "optional": true,
+        "default": "20",
+        "description": "Rows of the grid. Default 20."
+      },
+      {
+        "name": "charset",
+        "type": "string",
+        "optional": true,
+        "default": "' .:-=+*#%@'",
+        "description": "Escape count -> glyph, low to high. Keep it ASCII for grid alignment."
+      },
+      {
+        "name": "speedMs",
+        "type": "number",
+        "optional": true,
+        "default": "140",
+        "description": "Milliseconds per zoom tick. Default 140."
+      },
+      {
+        "name": "zoomPerTick",
+        "type": "number",
+        "optional": true,
+        "default": "1.06",
+        "description": "Window shrink factor per tick. Default 1.06."
+      },
+      {
+        "name": "maxIter",
+        "type": "number",
+        "optional": true,
+        "default": "90",
+        "description": "Starting iteration budget; grows +2 per tick, capped at 300. Default 90."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Start playing on mount. Default true. Reduced motion starts paused."
+      },
+      {
+        "name": "showControls",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Show the playback controls. Default true."
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true,
+        "description": "Character at each corner of the frame. Default \"+\"."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "GraphMandelProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphPulse": {
+    "file": "animated/GraphPulse.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false,
+        "description": "Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Append a live blip every interval. Default true. Reduced motion freezes a pre-filled window."
+      },
+      {
+        "name": "length",
+        "type": "number",
+        "optional": true,
+        "default": "60",
+        "description": "Window size in blips, newest at the right. Default 60."
+      },
+      {
+        "name": "intervalMs",
+        "type": "number",
+        "optional": true,
+        "default": "1000",
+        "description": "Milliseconds between appends. Default 1000."
+      },
+      {
+        "name": "okRate",
+        "type": "number",
+        "optional": true,
+        "default": "0.94",
+        "description": "Chance an appended blip is ok; about 4% of the rest degrade, the rest go down. Default 0.94."
+      },
+      {
+        "name": "feed",
+        "type": "() => PulseStatus",
+        "optional": true,
+        "description": "Replace the built-in generator with your own stream of statuses."
+      },
+      {
+        "name": "seedNum",
+        "type": "number",
+        "optional": true,
+        "default": "11",
+        "description": "Seed for the reproducible generator. Default 11."
+      },
+      {
+        "name": "from",
+        "type": "string",
+        "optional": true,
+        "default": "'now'",
+        "description": "Label at the left edge of the caption row. Default 'now'."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "PulseStatus",
+        "kind": "type"
+      },
+      {
+        "name": "GraphPulseProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphRain": {
+    "file": "animated/GraphRain.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false,
+        "description": "Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Animate the rain. Default true. Reduced motion freezes a single frame."
+      },
+      {
+        "name": "cols",
+        "type": "number",
+        "optional": true,
+        "default": "56",
+        "description": "Width in character columns. Default 56."
+      },
+      {
+        "name": "rows",
+        "type": "number",
+        "optional": true,
+        "default": "16",
+        "description": "Height in rows. Default 16."
+      },
+      {
+        "name": "speedMs",
+        "type": "number",
+        "optional": true,
+        "default": "110",
+        "description": "Milliseconds per tick. Default 110."
+      },
+      {
+        "name": "trail",
+        "type": "number",
+        "optional": true,
+        "default": "8",
+        "description": "Trail length behind each head. Default 8."
+      },
+      {
+        "name": "seedNum",
+        "type": "number",
+        "optional": true,
+        "default": "5",
+        "description": "Seed for the reproducible rain. Default 5."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "optional": true,
+        "default": "'glyph rain'",
+        "description": "Short caption under the art; the art itself is decorative."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "GraphRainProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": [],
+    "description": "Advance every column; heads step on their own cadence and respawn once clear."
+  },
+  "GraphScatter": {
+    "file": "animated/GraphScatter.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false,
+        "description": "Caption drawn on the top edge as `[ TITLE ]`."
+      },
+      {
+        "name": "data",
+        "type": "ScatterPoint[]",
+        "optional": false,
+        "description": "Points to plot. x and y are real numbers; the plot scales them."
+      },
+      {
+        "name": "cols",
+        "type": "number",
+        "optional": true,
+        "default": "60",
+        "description": "Scene width in columns (excluding y-axis gutter). Default 60."
+      },
+      {
+        "name": "rows",
+        "type": "number",
+        "optional": true,
+        "default": "14",
+        "description": "Scene height in rows (excluding x-axis row and optional trend row). Default 14."
+      },
+      {
+        "name": "trend",
+        "type": "boolean",
+        "optional": true,
+        "default": "false",
+        "description": "Render a single-row linear trend strip below the plot. Default false."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Animate the reveal. Default true. Reduced motion shows the full plot."
+      },
+      {
+        "name": "speedMs",
+        "type": "number",
+        "optional": true,
+        "default": "60",
+        "description": "Milliseconds between reveals of new points. Default 60."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "optional": true,
+        "default": "''",
+        "description": "Caption rendered muted under the plot."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "ScatterPoint",
+        "kind": "type"
+      },
+      {
+        "name": "GraphScatterProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphScope": {
+    "file": "animated/GraphScope.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false,
+        "description": "Caption on the frame's top edge."
+      },
+      {
+        "name": "data",
+        "type": "number[]",
+        "optional": false,
+        "description": "Series to scroll through. The window loops over it."
+      },
+      {
+        "name": "window",
+        "type": "number",
+        "optional": true,
+        "default": "44",
+        "description": "Visible columns. Default 44."
+      },
+      {
+        "name": "rows",
+        "type": "number",
+        "optional": true,
+        "default": "6",
+        "description": "Grid height in rows. Default 6."
+      },
+      {
+        "name": "speedMs",
+        "type": "number",
+        "optional": true,
+        "default": "160",
+        "description": "Milliseconds between ticks. Default 160."
+      },
+      {
+        "name": "mode",
+        "type": "ScopeMode",
+        "optional": true,
+        "default": "'line'",
+        "description": "'line' draws one block per column; 'area' fills down to the baseline."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Animate the scroll. Default true. Reduced motion freezes the window."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "ScopeMode",
+        "kind": "type"
+      },
+      {
+        "name": "GraphScopeProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": [],
+    "description": "The values currently inside the window, left to right."
+  },
+  "GraphSequence": {
+    "file": "animated/GraphSequence.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false,
+        "description": "Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Animate the message flow. Default true. Reduced motion freezes the first message as current."
+      },
+      {
+        "name": "cols",
+        "type": "number",
+        "optional": true,
+        "default": "68",
+        "description": "Width of the scene in characters; at least 40 so four participants fit. Default 68."
+      },
+      {
+        "name": "rows",
+        "type": "number",
+        "optional": true,
+        "default": "12",
+        "description": "Height of the scene in rows; at least 10 so header + 6 messages fit. Default 12."
+      },
+      {
+        "name": "speedMs",
+        "type": "number",
+        "optional": true,
+        "default": "600",
+        "description": "Milliseconds per message. Default 600."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "optional": true,
+        "default": "'who calls who",
+        "description": "Short caption under the art; the diagram itself is the message."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "GraphSequenceProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": [],
+    "description": "Build the three cells that draw a single arrow: a run of dashes, a\ncentered label, and the head. The label is opaque so it sits on top of\nthe dashes without us having to split the run."
+  },
+  "GraphSpinners": {
+    "file": "animated/GraphSpinners.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false,
+        "description": "Caption drawn on the frame's top edge as `[ TITLE ]`."
+      },
+      {
+        "name": "kind",
+        "type": "SpinnerKind",
+        "optional": true,
+        "default": "'dots'",
+        "description": "Which glyph spinner to show. Default 'dots'."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "optional": true,
+        "default": "'loading'",
+        "description": "Text shown after the spinner. Default 'loading'."
+      },
+      {
+        "name": "speedMs",
+        "type": "number",
+        "optional": true,
+        "default": "120",
+        "description": "Milliseconds per frame. Default 120."
+      },
+      {
+        "name": "frames",
+        "type": "string[]",
+        "optional": true,
+        "description": "Custom frame set. Overrides `kind` when non-empty. Padded to equal width."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Animate the frames. Default true. Reduced motion holds frame 0."
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true,
+        "description": "Character at each corner of the frame. Default '+'."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "SpinnerKind",
+        "kind": "type"
+      },
+      {
+        "name": "GraphSpinnersProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": [],
+    "description": "Active frames, padded with trailing spaces so nothing shifts between steps."
+  },
+  "GraphState": {
+    "file": "animated/GraphState.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false,
+        "description": "Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Animate the state cycle. Default true. Reduced motion freezes on the start state."
+      },
+      {
+        "name": "speedMs",
+        "type": "number",
+        "optional": true,
+        "default": "700",
+        "description": "Milliseconds per state step. Default 700."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "optional": true,
+        "default": "'state machine",
+        "description": "Short caption under the art; the chart itself is the message."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "GraphStateProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": [],
+    "description": "Build the three cells that draw one state box at (col, row)."
+  },
+  "GraphStream": {
+    "file": "animated/GraphStream.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false,
+        "description": "Caption on the frame's top edge."
+      },
+      {
+        "name": "length",
+        "type": "number",
+        "optional": true,
+        "default": "40",
+        "description": "Points kept in the rolling history. Default 40."
+      },
+      {
+        "name": "intervalMs",
+        "type": "number",
+        "optional": true,
+        "default": "900",
+        "description": "Milliseconds between appends. Default 900."
+      },
+      {
+        "name": "values",
+        "type": "number[]",
+        "optional": true,
+        "description": "Initial history. Default a seeded, SSR-safe random walk from 50."
+      },
+      {
+        "name": "generate",
+        "type": "(tick: number, previous: number) => number",
+        "optional": true,
+        "description": "Next-value generator. Default a gentle random walk clamped to 0..100."
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "optional": true,
+        "default": "''",
+        "description": "Suffix after the value, e.g. 'ms' or '%'. Default ''."
+      },
+      {
+        "name": "kind",
+        "type": "StreamKind",
+        "optional": true,
+        "default": "'ago'",
+        "description": "Caption flavor: 'ago' counts since the last append; 'elapsed' since mount."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Animate the appends. Default true. Reduced motion freezes the stream."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "StreamKind",
+        "kind": "type"
+      },
+      {
+        "name": "GraphStreamProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": [],
+    "description": "Block-glyph mapping, same approach as GraphSpark."
+  },
+  "GraphSurya": {
+    "file": "animated/GraphSurya.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false,
+        "description": "Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Animate the day cycle. Default true. Reduced motion freezes a mid-morning frame."
+      },
+      {
+        "name": "cols",
+        "type": "number",
+        "optional": true,
+        "default": "60",
+        "description": "Width of the scene in characters. Default 60."
+      },
+      {
+        "name": "rows",
+        "type": "number",
+        "optional": true,
+        "default": "18",
+        "description": "Height of the scene in rows. Default 18."
+      },
+      {
+        "name": "speedMs",
+        "type": "number",
+        "optional": true,
+        "default": "120",
+        "description": "Milliseconds per tick. Default 120."
+      },
+      {
+        "name": "rays",
+        "type": "number",
+        "optional": true,
+        "default": "12",
+        "description": "Number of spokes on the wheel. Default 12."
+      },
+      {
+        "name": "seedNum",
+        "type": "number",
+        "optional": true,
+        "default": "5",
+        "description": "Seed for the per-spoke length jitter. Default 5."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "optional": true,
+        "default": "'the mover of days'",
+        "description": "Short caption under the art; the art itself is decorative."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "GraphSuryaProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphTerminal": {
+    "file": "animated/GraphTerminal.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false,
+        "description": "Caption on the frame's top edge as `[ TITLE ]`. Uppercase, 1–2 words."
+      },
+      {
+        "name": "lines",
+        "type": "TerminalLine[]",
+        "optional": false,
+        "description": "Scripted session: prompt lines get typed character-by-character; output lines stream."
+      },
+      {
+        "name": "typeMs",
+        "type": "number",
+        "optional": true,
+        "default": "28",
+        "description": "Milliseconds per character (typing). Default 28."
+      },
+      {
+        "name": "streamMs",
+        "type": "number",
+        "optional": true,
+        "default": "14",
+        "description": "Milliseconds per character (streaming output). Default 14."
+      },
+      {
+        "name": "holdMs",
+        "type": "number",
+        "optional": true,
+        "default": "1600",
+        "description": "Milliseconds to hold the fully-revealed script before restarting. Default 1600."
+      },
+      {
+        "name": "loop",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Loop the session. Default true."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Animate the typing and streaming. Default true. Reduced motion shows full script."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "optional": true,
+        "default": "'a session",
+        "description": "Short caption under the art."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "TerminalLine",
+        "kind": "type"
+      },
+      {
+        "name": "GraphTerminalProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphTicker": {
+    "file": "animated/GraphTicker.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false,
+        "description": "Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words."
+      },
+      {
+        "name": "items",
+        "type": "TickerItem[]",
+        "optional": false,
+        "description": "Tokens rotated through the row, in order."
+      },
+      {
+        "name": "speedMs",
+        "type": "number",
+        "optional": true,
+        "default": "140",
+        "description": "Milliseconds per rotation step. Default 140."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Animate the rotation. Default true. Reduced motion shows the first items."
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true,
+        "description": "Character at each corner of the frame. Default '+'."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "TickerItem",
+        "kind": "type"
+      },
+      {
+        "name": "GraphTickerProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphTypewriter": {
+    "file": "animated/GraphTypewriter.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false,
+        "description": "Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words."
+      },
+      {
+        "name": "lines",
+        "type": "string[]",
+        "optional": false,
+        "description": "Lines typed one character at a time, in order."
+      },
+      {
+        "name": "speedMs",
+        "type": "number",
+        "optional": true,
+        "default": "55",
+        "description": "Milliseconds per character. Default 55."
+      },
+      {
+        "name": "holdMs",
+        "type": "number",
+        "optional": true,
+        "default": "1400",
+        "description": "Milliseconds to hold the full text before restarting. Default 1400."
+      },
+      {
+        "name": "loop",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Clear and retype after the hold. Default true."
+      },
+      {
+        "name": "cursor",
+        "type": "string",
+        "optional": true,
+        "default": "'█'",
+        "description": "Cursor character shown after the last revealed character. Default '█'."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Animate the typing. Default true. Reduced motion shows the full text."
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true,
+        "description": "Character at each corner of the frame. Default '+'."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "GraphTypewriterProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphWorkflow": {
+    "file": "animated/GraphWorkflow.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "nodes",
+        "type": "WorkflowNode[]",
+        "optional": false
+      },
+      {
+        "name": "edges",
+        "type": "WorkflowEdge[]",
+        "optional": true
+      },
+      {
+        "name": "path",
+        "type": "string[]",
+        "optional": true
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "optional": true,
+        "default": "true"
+      },
+      {
+        "name": "autoPlay",
+        "type": "boolean",
+        "optional": true,
+        "default": "false"
+      },
+      {
+        "name": "speedMs",
+        "type": "number",
+        "optional": true,
+        "default": "1200"
+      },
+      {
+        "name": "showControls",
+        "type": "boolean",
+        "optional": true,
+        "default": "true"
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "WorkflowTone",
+        "kind": "type"
+      },
+      {
+        "name": "WorkflowNode",
+        "kind": "type"
+      },
+      {
+        "name": "WorkflowEdge",
+        "kind": "type"
+      },
+      {
+        "name": "GraphWorkflowProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "ShuffleText": {
+    "file": "animated/ShuffleText.svelte",
+    "props": [
+      {
+        "name": "text",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      },
+      {
+        "name": "style",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      },
+      {
+        "name": "shuffleDirection",
+        "type": "ShuffleDirection",
+        "optional": true,
+        "default": "'right'"
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "optional": true,
+        "default": "0.35"
+      },
+      {
+        "name": "maxDelay",
+        "type": "number",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "ease",
+        "type": "string | EasingFunction",
+        "optional": true,
+        "default": "'power3.out'"
+      },
+      {
+        "name": "threshold",
+        "type": "number",
+        "optional": true,
+        "default": "0.1"
+      },
+      {
+        "name": "rootMargin",
+        "type": "string",
+        "optional": true,
+        "default": "'-100px'"
+      },
+      {
+        "name": "tag",
+        "type": "TagName",
+        "optional": true,
+        "default": "'p'"
+      },
+      {
+        "name": "textAlign",
+        "type": "string",
+        "optional": true,
+        "default": "'center'"
+      },
+      {
+        "name": "onShuffleComplete",
+        "type": "() => void",
+        "optional": true
+      },
+      {
+        "name": "shuffleTimes",
+        "type": "number",
+        "optional": true,
+        "default": "1"
+      },
+      {
+        "name": "animationMode",
+        "type": "AnimationMode",
+        "optional": true,
+        "default": "'evenodd'"
+      },
+      {
+        "name": "loop",
+        "type": "boolean",
+        "optional": true,
+        "default": "false"
+      },
+      {
+        "name": "loopDelay",
+        "type": "number",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "stagger",
+        "type": "number",
+        "optional": true,
+        "default": "0.03"
+      },
+      {
+        "name": "scrambleCharset",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      },
+      {
+        "name": "colorFrom",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "colorTo",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "triggerOnce",
+        "type": "boolean",
+        "optional": true,
+        "default": "true"
+      },
+      {
+        "name": "respectReducedMotion",
+        "type": "boolean",
+        "optional": true,
+        "default": "true"
+      },
+      {
+        "name": "triggerOnHover",
+        "type": "boolean",
+        "optional": true,
+        "default": "true"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "ShuffleDirection",
+        "kind": "type"
+      },
+      {
+        "name": "AnimationMode",
+        "kind": "type"
+      },
+      {
+        "name": "TagName",
+        "kind": "type"
+      },
+      {
+        "name": "ShuffleTextProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": [],
+    "description": "Parse a CSS color string to [r, g, b] via a temporary canvas."
+  },
+  "TextTyping": {
+    "file": "animated/TextTyping.svelte",
+    "props": [
+      {
+        "name": "textToAnimate",
+        "optional": false,
+        "default": "'this is the one'"
+      },
+      {
+        "name": "active",
+        "optional": false,
+        "default": "true"
+      },
+      {
+        "name": "duration",
+        "optional": false,
+        "default": "900"
+      }
+    ],
+    "moduleExports": [],
+    "events": [],
+    "slots": [],
+    "description": "Types only while true. Flip it on and the line types from empty; flip\nit off and the full text is shown at once. Anything not currently\nbeing animated should read its label plainly, not re-type."
+  },
+  "AmplifierDiagram": {
+    "file": "diagram/AmplifierDiagram.svelte",
+    "props": [
+      {
+        "name": "gain",
+        "type": "number",
+        "optional": true,
+        "default": "3.5",
+        "description": "Starting gain multiplier. Default 3.5."
+      },
+      {
+        "name": "interactive",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Show the gain slider and dB readout. Default true."
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Animate the waves. Default true. Reduced motion freezes them."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "AmplifierDiagramProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "AsciiDiagram": {
+    "file": "diagram/AsciiDiagram.svelte",
+    "props": [
+      {
+        "name": "content",
+        "type": "string",
+        "optional": true,
+        "default": "''",
+        "description": "Raw ASCII or Unicode diagram text."
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "optional": true,
+        "default": "''",
+        "description": "Optional label above the diagram. Uppercase, 1-2 words."
+      },
+      {
+        "name": "showCopy",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Show a copy-to-clipboard button. Default true."
+      },
+      {
+        "name": "bordered",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Dashed border around the diagram. Default true."
+      },
+      {
+        "name": "glow",
+        "type": "boolean",
+        "optional": true,
+        "default": "false",
+        "description": "Phosphor glow on accent tokens. Default false."
+      },
+      {
+        "name": "fontSize",
+        "type": "string",
+        "optional": true,
+        "default": "'0.85rem'",
+        "description": "Font size of the diagram text."
+      },
+      {
+        "name": "lineHeight",
+        "type": "string",
+        "optional": true,
+        "default": "'1.35'",
+        "description": "Line height of the diagram text."
+      },
+      {
+        "name": "align",
+        "type": "'left' | 'center'",
+        "optional": true,
+        "default": "'left'"
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      },
+      {
+        "name": "children",
+        "type": "Snippet",
+        "optional": true,
+        "description": "Custom content instead of text."
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "AsciiDiagramProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "DiagramEditor": {
+    "file": "diagram/DiagramEditor.svelte",
+    "props": [],
+    "moduleExports": [],
+    "events": [],
+    "slots": []
+  },
+  "MetricsTableDiagram": {
+    "file": "diagram/MetricsTableDiagram.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": true,
+        "description": "Caption on the top edge, uppercased. Default \"COST\"."
+      },
+      {
+        "name": "rows",
+        "type": "MetricRow[]",
+        "optional": true
+      },
+      {
+        "name": "totalCalls",
+        "type": "number | string",
+        "optional": true
+      },
+      {
+        "name": "totalTime",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "showTotal",
+        "type": "boolean",
+        "optional": true,
+        "description": "Show the total row. Default true."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "MetricRow",
+        "kind": "type"
+      },
+      {
+        "name": "MetricsTableDiagramProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "NestedRadiiDiagram": {
+    "file": "diagram/NestedRadiiDiagram.svelte",
+    "props": [
+      {
+        "name": "initialOuter",
+        "type": "number",
+        "optional": true,
+        "default": "16",
+        "description": "Starting outer radius in px. Default 16."
+      },
+      {
+        "name": "initialInset",
+        "type": "number",
+        "optional": true,
+        "default": "4",
+        "description": "Starting inset (padding) in px. Default 4."
+      },
+      {
+        "name": "interactive",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Show the sliders and the live CSS preview. Default true."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "NestedRadiiDiagramProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "PromptLoopDiagram": {
+    "file": "diagram/PromptLoopDiagram.svelte",
+    "props": [
+      {
+        "name": "autoPlay",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Start playing on mount. Default true."
+      },
+      {
+        "name": "speedMs",
+        "type": "number",
+        "optional": true,
+        "default": "1200",
+        "description": "Milliseconds per step. Default 1200."
+      },
+      {
+        "name": "showControls",
+        "type": "boolean",
+        "optional": true,
+        "default": "true",
+        "description": "Show the playback controls. Default true."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "PromptLoopDiagramProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "Graph": {
+    "file": "frame/Graph.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": true,
+        "description": "Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words."
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true,
+        "default": "'+'",
+        "description": "Character at each corner of the frame. Default \"+\"."
+      },
+      {
+        "name": "dash",
+        "type": "GraphDash",
+        "optional": true,
+        "default": "'token'",
+        "description": "Dash rhythm. Default 'token' (follows `--graph-framer`)."
+      },
+      {
+        "name": "motion",
+        "type": "GraphMotion",
+        "optional": true,
+        "default": "'none'",
+        "description": "Frame motion. Every loop is off under `prefers-reduced-motion`. Default 'none'."
+      },
+      {
+        "name": "speed",
+        "type": "number",
+        "optional": true,
+        "description": "Seconds per motion cycle — for `draw`, the hover duration.\nDefaults per motion (draw 0.3, march 0.7, pulse 2, scan 3)."
+      },
+      {
+        "name": "easing",
+        "type": "Easing",
+        "optional": true,
+        "description": "Curve the motion runs on — an `EASINGS` name or a raw timing function."
+      },
+      {
+        "name": "pauseOnHover",
+        "type": "boolean",
+        "optional": true,
+        "default": "false",
+        "description": "Pause the loop while hovered. Default false."
+      },
+      {
+        "name": "cornerBlink",
+        "type": "boolean",
+        "optional": true,
+        "default": "false",
+        "description": "Blink the corner glyphs. Default false."
+      },
+      {
+        "name": "pad",
+        "type": "GraphPad",
+        "optional": true,
+        "default": "'none'",
+        "description": "Inner padding. Default 'none'."
+      },
+      {
+        "name": "ink",
+        "type": "string",
+        "optional": true,
+        "description": "Frame colour override. Defaults to `--text-primary`."
+      },
+      {
+        "name": "accent",
+        "type": "string",
+        "optional": true,
+        "description": "Corner + title colour override. Defaults to `--graph-accent`."
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      },
+      {
+        "name": "children",
+        "type": "Snippet",
+        "optional": true
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "GraphDash",
+        "kind": "type"
+      },
+      {
+        "name": "GraphMotion",
+        "kind": "type"
+      },
+      {
+        "name": "GraphPad",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": [],
+    "description": "Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words."
+  },
+  "GraphArrow": {
+    "file": "frame/GraphArrow.svelte",
+    "props": [
+      {
+        "name": "accent",
+        "type": "boolean",
+        "optional": true,
+        "default": "false"
+      },
+      {
+        "name": "stretch",
+        "type": "boolean",
+        "optional": true,
+        "default": "false"
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [],
+    "events": [],
+    "slots": [],
+    "description": "Dashed arrow between flow nodes. `stretch` spans the available row."
+  },
+  "GraphBody": {
+    "file": "frame/GraphBody.svelte",
+    "props": [
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      },
+      {
+        "name": "tight",
+        "type": "boolean",
+        "optional": true,
+        "default": "false",
+        "description": "Compact padding for dense graphs like Table and Invoice."
+      },
+      {
+        "name": "children",
+        "type": "Snippet",
+        "optional": true
+      }
+    ],
+    "moduleExports": [],
+    "events": [],
+    "slots": [],
+    "description": "Compact padding for dense graphs like Table and Invoice."
+  },
+  "GraphRule": {
+    "file": "frame/GraphRule.svelte",
+    "props": [
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [],
+    "events": [],
+    "slots": []
+  },
+  "GraphTick": {
+    "file": "frame/GraphTick.svelte",
+    "props": [
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      },
+      {
+        "name": "children",
+        "type": "Snippet",
+        "optional": true
+      }
+    ],
+    "moduleExports": [],
+    "events": [],
+    "slots": [],
+    "description": "One glyph on a GraphTrack: flexes to fill, stays 1ch wide, centered."
+  },
+  "GraphTrack": {
+    "file": "frame/GraphTrack.svelte",
+    "props": [
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      },
+      {
+        "name": "children",
+        "type": "Snippet",
+        "optional": true
+      }
+    ],
+    "moduleExports": [],
+    "events": [],
+    "slots": [],
+    "description": "Horizontal track that spans the frame. Use for graphs that represent\na range (meter, stack, bullet, rank) — pair with GraphTick so ticks\nflex edge to edge. Packed graphs (spark, bars, cells, uptime) should\nnot use tracks."
+  },
+  "GraphActivity": {
+    "file": "graphs/GraphActivity.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "days",
+        "type": "ActivityDay[]",
+        "optional": false
+      },
+      {
+        "name": "weekStartsOn",
+        "type": "0 | 1",
+        "optional": true,
+        "default": "0"
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "optional": true
+      },
+      {
+        "name": "legend",
+        "type": "boolean",
+        "optional": true,
+        "default": "true"
+      },
+      {
+        "name": "caption",
+        "type": "string | false",
+        "optional": true
+      },
+      {
+        "name": "glyphs",
+        "type": "Glyphs",
+        "optional": true
+      },
+      {
+        "name": "palette",
+        "type": "GraphPalette",
+        "optional": true
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "ActivityDay",
+        "kind": "type"
+      },
+      {
+        "name": "GraphActivityProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphBars": {
+    "file": "graphs/GraphBars.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "from",
+        "type": "BarSeries",
+        "optional": false
+      },
+      {
+        "name": "to",
+        "type": "BarSeries",
+        "optional": false
+      },
+      {
+        "name": "processor",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "glyphs",
+        "type": "Glyphs",
+        "optional": true
+      },
+      {
+        "name": "palette",
+        "type": "GraphPalette",
+        "optional": true
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "BarSeries",
+        "kind": "type"
+      },
+      {
+        "name": "GraphBarsProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphBullet": {
+    "file": "graphs/GraphBullet.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "items",
+        "type": "BulletItem[]",
+        "optional": false
+      },
+      {
+        "name": "ticks",
+        "type": "number",
+        "optional": true,
+        "default": "20"
+      },
+      {
+        "name": "glyphs",
+        "type": "Glyphs",
+        "optional": true
+      },
+      {
+        "name": "palette",
+        "type": "GraphPalette",
+        "optional": true
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "BulletItem",
+        "kind": "type"
+      },
+      {
+        "name": "GraphBulletProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphCalendar": {
+    "file": "graphs/GraphCalendar.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "year",
+        "type": "number",
+        "optional": false
+      },
+      {
+        "name": "month",
+        "type": "number",
+        "optional": false
+      },
+      {
+        "name": "weekStartsOn",
+        "type": "0 | 1",
+        "optional": true,
+        "default": "1"
+      },
+      {
+        "name": "marks",
+        "type": "CalendarMark[] | number[]",
+        "optional": true
+      },
+      {
+        "name": "today",
+        "type": "number",
+        "optional": true
+      },
+      {
+        "name": "palette",
+        "type": "GraphPalette",
+        "optional": true
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "CalendarMark",
+        "kind": "type"
+      },
+      {
+        "name": "GraphCalendarProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphCells": {
+    "file": "graphs/GraphCells.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "items",
+        "type": "CellGrid[]",
+        "optional": false
+      },
+      {
+        "name": "glyphs",
+        "type": "Glyphs",
+        "optional": true
+      },
+      {
+        "name": "palette",
+        "type": "GraphPalette",
+        "optional": true
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "CellGrid",
+        "kind": "type"
+      },
+      {
+        "name": "GraphCellsProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphCompare": {
+    "file": "graphs/GraphCompare.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "columns",
+        "type": "string[]",
+        "optional": false
+      },
+      {
+        "name": "rows",
+        "type": "CompareRow[]",
+        "optional": false
+      },
+      {
+        "name": "accent",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "palette",
+        "type": "GraphPalette",
+        "optional": true
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "CompareCell",
+        "kind": "type"
+      },
+      {
+        "name": "CompareRow",
+        "kind": "type"
+      },
+      {
+        "name": "GraphCompareProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphCountdown": {
+    "file": "graphs/GraphCountdown.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "to",
+        "type": "Date | number | string",
+        "optional": false
+      },
+      {
+        "name": "done",
+        "type": "string",
+        "optional": true,
+        "default": "'done'"
+      },
+      {
+        "name": "caption",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "palette",
+        "type": "GraphPalette",
+        "optional": true
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "GraphCountdownProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphDiff": {
+    "file": "graphs/GraphDiff.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "rows",
+        "type": "DiffRow[]",
+        "optional": false
+      },
+      {
+        "name": "footer",
+        "type": "DiffRow",
+        "optional": true
+      },
+      {
+        "name": "palette",
+        "type": "GraphPalette",
+        "optional": true
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "DiffSign",
+        "kind": "type"
+      },
+      {
+        "name": "DiffRow",
+        "kind": "type"
+      },
+      {
+        "name": "GraphDiffProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphFlow": {
+    "file": "graphs/GraphFlow.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "rows",
+        "type": "FlowRow[]",
+        "optional": false
+      },
+      {
+        "name": "palette",
+        "type": "GraphPalette",
+        "optional": true
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "FlowTone",
+        "kind": "type"
+      },
+      {
+        "name": "FlowNode",
+        "kind": "type"
+      },
+      {
+        "name": "FlowRow",
+        "kind": "type"
+      },
+      {
+        "name": "GraphFlowProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphFunnel": {
+    "file": "graphs/GraphFunnel.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "steps",
+        "type": "FunnelStep[]",
+        "optional": false
+      },
+      {
+        "name": "ticks",
+        "type": "number",
+        "optional": true,
+        "default": "20"
+      },
+      {
+        "name": "stage",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "glyphs",
+        "type": "Glyphs",
+        "optional": true
+      },
+      {
+        "name": "palette",
+        "type": "GraphPalette",
+        "optional": true
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "FunnelStep",
+        "kind": "type"
+      },
+      {
+        "name": "GraphFunnelProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphGantt": {
+    "file": "graphs/GraphGantt.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "items",
+        "type": "GanttItem[]",
+        "optional": false
+      },
+      {
+        "name": "ticks",
+        "type": "string[]",
+        "optional": true
+      },
+      {
+        "name": "columns",
+        "type": "number",
+        "optional": true,
+        "default": "24"
+      },
+      {
+        "name": "stage",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "progress",
+        "type": "number",
+        "optional": true
+      },
+      {
+        "name": "glyphs",
+        "type": "Glyphs",
+        "optional": true
+      },
+      {
+        "name": "palette",
+        "type": "GraphPalette",
+        "optional": true
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "GanttItem",
+        "kind": "type"
+      },
+      {
+        "name": "GraphGanttProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphHeatmap": {
+    "file": "graphs/GraphHeatmap.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "columns",
+        "type": "string[]",
+        "optional": false
+      },
+      {
+        "name": "rows",
+        "type": "HeatRow[]",
+        "optional": false
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "optional": true
+      },
+      {
+        "name": "legend",
+        "type": "boolean",
+        "optional": true,
+        "default": "true"
+      },
+      {
+        "name": "caption",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "glyphs",
+        "type": "Glyphs",
+        "optional": true
+      },
+      {
+        "name": "palette",
+        "type": "GraphPalette",
+        "optional": true
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "HeatRow",
+        "kind": "type"
+      },
+      {
+        "name": "GraphHeatmapProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphInvoice": {
+    "file": "graphs/GraphInvoice.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "from",
+        "type": "InvoiceParty",
+        "optional": true
+      },
+      {
+        "name": "to",
+        "type": "InvoiceParty",
+        "optional": true
+      },
+      {
+        "name": "meta",
+        "type": "InvoiceMeta[]",
+        "optional": true
+      },
+      {
+        "name": "items",
+        "type": "InvoiceItem[]",
+        "optional": false
+      },
+      {
+        "name": "totals",
+        "type": "InvoiceTotal[]",
+        "optional": true
+      },
+      {
+        "name": "note",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "InvoiceParty",
+        "kind": "type"
+      },
+      {
+        "name": "InvoiceMeta",
+        "kind": "type"
+      },
+      {
+        "name": "InvoiceItem",
+        "kind": "type"
+      },
+      {
+        "name": "InvoiceTotal",
+        "kind": "type"
+      },
+      {
+        "name": "GraphInvoiceProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphKpi": {
+    "file": "graphs/GraphKpi.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "hint",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "data",
+        "type": "number[]",
+        "optional": false
+      },
+      {
+        "name": "glyphs",
+        "type": "Glyphs",
+        "optional": true
+      },
+      {
+        "name": "palette",
+        "type": "GraphPalette",
+        "optional": true
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "GraphKpiProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphLatency": {
+    "file": "graphs/GraphLatency.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "data",
+        "type": "LatencyPoint[]",
+        "optional": false
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "optional": true,
+        "default": "'ms'"
+      },
+      {
+        "name": "height",
+        "type": "number",
+        "optional": true,
+        "default": "8"
+      },
+      {
+        "name": "labels",
+        "type": "[string, string]",
+        "optional": true
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "optional": true
+      },
+      {
+        "name": "palette",
+        "type": "GraphPalette",
+        "optional": true
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "LatencyPoint",
+        "kind": "type"
+      },
+      {
+        "name": "GraphLatencyProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphMeter": {
+    "file": "graphs/GraphMeter.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "optional": false
+      },
+      {
+        "name": "ticks",
+        "type": "number",
+        "optional": true,
+        "default": "14"
+      },
+      {
+        "name": "caption",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "glyphs",
+        "type": "Glyphs",
+        "optional": true
+      },
+      {
+        "name": "palette",
+        "type": "GraphPalette",
+        "optional": true
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "GraphMeterProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphPlot": {
+    "file": "graphs/GraphPlot.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "data",
+        "type": "number[]",
+        "optional": false
+      },
+      {
+        "name": "labels",
+        "type": "string[]",
+        "optional": true
+      },
+      {
+        "name": "height",
+        "type": "number",
+        "optional": true,
+        "default": "7"
+      },
+      {
+        "name": "variant",
+        "type": "'line' | 'area'",
+        "optional": true,
+        "default": "'area'"
+      },
+      {
+        "name": "progress",
+        "type": "number",
+        "optional": true,
+        "default": "1"
+      },
+      {
+        "name": "glyphs",
+        "type": "Glyphs",
+        "optional": true
+      },
+      {
+        "name": "palette",
+        "type": "GraphPalette",
+        "optional": true
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "GraphPlotProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphQuota": {
+    "file": "graphs/GraphQuota.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "used",
+        "type": "number",
+        "optional": false
+      },
+      {
+        "name": "limit",
+        "type": "number",
+        "optional": false
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "optional": true,
+        "description": "Unit label, e.g. \"API calls\" or \"GB\"."
+      },
+      {
+        "name": "resets",
+        "type": "string",
+        "optional": true,
+        "description": "Optional reset label, e.g. \"Oct 1\" or \"in 4 days\"."
+      },
+      {
+        "name": "daysInto",
+        "type": "number",
+        "optional": true,
+        "description": "Days elapsed in the current window. Enables the projection."
+      },
+      {
+        "name": "daysTotal",
+        "type": "number",
+        "optional": true,
+        "description": "Window length in days."
+      },
+      {
+        "name": "format",
+        "type": "(n: number) => string",
+        "optional": true,
+        "description": "Optional number formatter. Defaults to thousands-grouped."
+      },
+      {
+        "name": "caption",
+        "type": "string",
+        "optional": true,
+        "description": "Optional caption below the panel."
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "GraphQuotaProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphRank": {
+    "file": "graphs/GraphRank.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "items",
+        "type": "RankItem[]",
+        "optional": false
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "optional": true
+      },
+      {
+        "name": "ticks",
+        "type": "number",
+        "optional": true,
+        "default": "20"
+      },
+      {
+        "name": "glyphs",
+        "type": "Glyphs",
+        "optional": true
+      },
+      {
+        "name": "palette",
+        "type": "GraphPalette",
+        "optional": true
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "RankItem",
+        "kind": "type"
+      },
+      {
+        "name": "GraphRankProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphSlo": {
+    "file": "graphs/GraphSlo.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "budget",
+        "type": "number",
+        "optional": false,
+        "description": "Fraction of the error budget consumed, 0–1."
+      },
+      {
+        "name": "window",
+        "type": "number",
+        "optional": true,
+        "default": "30",
+        "description": "Window length in the chosen unit. Default 30."
+      },
+      {
+        "name": "unit",
+        "type": "'h' | 'd' | 'w' | 'mo'",
+        "optional": true,
+        "default": "'d'",
+        "description": "Window unit. Default 'd'."
+      },
+      {
+        "name": "target",
+        "type": "number",
+        "optional": true,
+        "description": "Allowed error rate as a fraction, e.g. 0.001 for 99.9%."
+      },
+      {
+        "name": "actual",
+        "type": "number",
+        "optional": true,
+        "description": "Actual error rate as a fraction."
+      },
+      {
+        "name": "burnRate",
+        "type": "number",
+        "optional": true,
+        "description": "Burn rate multiplier (1 = on pace). If set, takes precedence over elapsed."
+      },
+      {
+        "name": "elapsed",
+        "type": "number",
+        "optional": true,
+        "description": "Days (or hours, weeks) elapsed so far. Used to compute time-to-empty."
+      },
+      {
+        "name": "daily",
+        "type": "number[]",
+        "optional": true,
+        "description": "Optional sparkline of daily burn samples, 0..1 each."
+      },
+      {
+        "name": "caption",
+        "type": "string",
+        "optional": true,
+        "description": "Optional caption below the panel."
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "GraphSloProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphSlope": {
+    "file": "graphs/GraphSlope.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "fromLabel",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "toLabel",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "items",
+        "type": "SlopeItem[]",
+        "optional": false
+      },
+      {
+        "name": "palette",
+        "type": "GraphPalette",
+        "optional": true
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "SlopeItem",
+        "kind": "type"
+      },
+      {
+        "name": "GraphSlopeProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphSpark": {
+    "file": "graphs/GraphSpark.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "data",
+        "type": "number[]",
+        "optional": false
+      },
+      {
+        "name": "caption",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "glyphs",
+        "type": "Glyphs",
+        "optional": true
+      },
+      {
+        "name": "palette",
+        "type": "GraphPalette",
+        "optional": true
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "GraphSparkProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphSpec": {
+    "file": "graphs/GraphSpec.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "rows",
+        "type": "SpecRow[]",
+        "optional": false
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "SpecRow",
+        "kind": "type"
+      },
+      {
+        "name": "GraphSpecProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphStack": {
+    "file": "graphs/GraphStack.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "rows",
+        "type": "StackRow[]",
+        "optional": false
+      },
+      {
+        "name": "accent",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "ticks",
+        "type": "number",
+        "optional": true,
+        "default": "24"
+      },
+      {
+        "name": "glyphs",
+        "type": "Glyphs",
+        "optional": true
+      },
+      {
+        "name": "palette",
+        "type": "GraphPalette",
+        "optional": true
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "StackSegment",
+        "kind": "type"
+      },
+      {
+        "name": "StackRow",
+        "kind": "type"
+      },
+      {
+        "name": "GraphStackProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphStat": {
+    "file": "graphs/GraphStat.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "items",
+        "type": "StatItem[]",
+        "optional": false
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "StatItem",
+        "kind": "type"
+      },
+      {
+        "name": "GraphStatProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphTable": {
+    "file": "graphs/GraphTable.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "headers",
+        "type": "string[]",
+        "optional": false
+      },
+      {
+        "name": "rows",
+        "type": "Cell[][]",
+        "optional": false
+      },
+      {
+        "name": "footer",
+        "type": "Cell[]",
+        "optional": true
+      },
+      {
+        "name": "align",
+        "type": "('left' | 'right')[]",
+        "optional": true
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "Cell",
+        "kind": "type"
+      },
+      {
+        "name": "GraphTableProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphTimeline": {
+    "file": "graphs/GraphTimeline.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "events",
+        "type": "TimelineEvent[]",
+        "optional": false
+      },
+      {
+        "name": "palette",
+        "type": "GraphPalette",
+        "optional": true
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "TimelineState",
+        "kind": "type"
+      },
+      {
+        "name": "TimelineEvent",
+        "kind": "type"
+      },
+      {
+        "name": "GraphTimelineProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphTimer": {
+    "file": "graphs/GraphTimer.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "kind",
+        "type": "TimerKind",
+        "optional": true,
+        "default": "'elapsed'"
+      },
+      {
+        "name": "at",
+        "type": "Date | number | string",
+        "optional": true
+      },
+      {
+        "name": "caption",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "palette",
+        "type": "GraphPalette",
+        "optional": true
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "TimerKind",
+        "kind": "type"
+      },
+      {
+        "name": "GraphTimerProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphTree": {
+    "file": "graphs/GraphTree.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "nodes",
+        "type": "TreeNode[]",
+        "optional": false
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "TreeNode",
+        "kind": "type"
+      },
+      {
+        "name": "GraphTreeProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphUptime": {
+    "file": "graphs/GraphUptime.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "days",
+        "type": "UptimeStatus[]",
+        "optional": false
+      },
+      {
+        "name": "from",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "to",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "columns",
+        "type": "number",
+        "optional": true,
+        "default": "30"
+      },
+      {
+        "name": "glyphs",
+        "type": "Glyphs",
+        "optional": true
+      },
+      {
+        "name": "palette",
+        "type": "GraphPalette",
+        "optional": true
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "UptimeStatus",
+        "kind": "type"
+      },
+      {
+        "name": "GraphUptimeProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphWaffle": {
+    "file": "graphs/GraphWaffle.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "optional": false
+      },
+      {
+        "name": "cells",
+        "type": "number",
+        "optional": true,
+        "default": "100"
+      },
+      {
+        "name": "columns",
+        "type": "number",
+        "optional": true,
+        "default": "10"
+      },
+      {
+        "name": "caption",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "glyphs",
+        "type": "Glyphs",
+        "optional": true
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "GraphWaffleProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  },
+  "GraphWaterfall": {
+    "file": "graphs/GraphWaterfall.svelte",
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "optional": false
+      },
+      {
+        "name": "items",
+        "type": "WaterfallItem[]",
+        "optional": false
+      },
+      {
+        "name": "ticks",
+        "type": "number",
+        "optional": true,
+        "default": "24"
+      },
+      {
+        "name": "glyphs",
+        "type": "Glyphs",
+        "optional": true
+      },
+      {
+        "name": "palette",
+        "type": "GraphPalette",
+        "optional": true
+      },
+      {
+        "name": "corner",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "name": "class",
+        "type": "string",
+        "optional": true,
+        "default": "''"
+      }
+    ],
+    "moduleExports": [
+      {
+        "name": "WaterfallKind",
+        "kind": "type"
+      },
+      {
+        "name": "WaterfallItem",
+        "kind": "type"
+      },
+      {
+        "name": "GraphWaterfallProps",
+        "kind": "type"
+      }
+    ],
+    "events": [],
+    "slots": []
+  }
+}

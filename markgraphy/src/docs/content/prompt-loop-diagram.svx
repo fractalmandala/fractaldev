@@ -1,0 +1,42 @@
+<script lang="ts">
+	import { PromptLoopDiagram } from '$lib';
+</script>
+
+# PromptLoopDiagram
+
+## Import
+
+```svelte
+import { PromptLoopDiagram } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<PromptLoopDiagram
+  autoPlay={true}
+  speedMs={1200}
+  showControls={true}
+/>
+```
+
+<div class="live">
+<PromptLoopDiagram
+  autoPlay={true}
+  speedMs={1200}
+  showControls={true}
+/>
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `autoPlay?` | `boolean` | `true` | Start playing on mount. Default true. |
+| `speedMs?` | `number` | `1200` | Milliseconds per step. Default 1200. |
+| `showControls?` | `boolean` | `true` | Show the playback controls. Default true. |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `PromptLoopDiagramProps`

@@ -1,0 +1,127 @@
+// =============================================================================
+// 00_TOKENS — the single source of truth for runtime CSS custom properties.
+// -----------------------------------------------------------------------------
+// Light is the marker-free default so tokens stay defined during SSR and with
+// JS disabled; dark comes from prefers-color-scheme and explicit [data-mode='dark'].
+// =============================================================================
+
+=light-theme-tokens
+	color-scheme: light
+	--bg: #ffffff
+	--bg-surface: #eae9e8
+	--bg-raised: #d0d0d2
+	--bg-panel: #eae9e8
+	--bg-footer: #E9ECEF
+	--bg-popover: #e6e8e9
+	--bg-dialog: #e6e6e6
+	--bg-terminal: #0F172A
+	--bg-input: #FFFFFF
+	--bg-button: #9a9a9a
+	--text-primary: #0f172a
+	--text-secondary: #717171
+	--text-muted: #a3a4a7
+	--text-inverse: #ffffff
+	--text-richtext: #3d3d3d
+	--state-hover: #dcdee0
+	--state-hover-subtle: #edebeb
+	--state-selected: #d1d2d4
+	--border: #d1d0d0
+	--border-subtle: #d4d4d4
+	--border-strong: #a09e9e
+	--theme-color: #2F9E44
+	--theme-color-alt: #2d9206
+	--success: #10B981
+	--success-hover: #059669
+	--warning: #F59E0B
+	--warning-hover: #D97706
+	--danger: #EF4444
+	--danger-hover: #DC2626
+	--info: #3B82F6
+	--info-hover: #2563EB
+	--feedback-error: #DC2626
+	--ring: rgba(0, 127, 78, 0.35)
+	// Per-mode shadows (registry v1)
+	--shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06)
+	--shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08)
+	--shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.12)
+
+=dark-theme-tokens
+	color-scheme: dark
+	--bg: #101010
+	--bg-surface: #202021
+	--bg-raised: #3a3a3a
+	--bg-panel: #1f1f20
+	--bg-footer: #111111
+	--bg-popover: #363637
+	--bg-dialog: #39393a
+	--bg-terminal: #121213
+	--bg-input: #1c1c1d
+	--bg-canvas: #171818
+	--border: #2f2f2f
+	--border-subtle: #1e1e1f
+	--text-primary: #EDF2F7
+	--text-secondary: #c7c7c7
+	--text-muted: #7c7c7c
+	--state-hover: #4a4a4b
+	--state-hover-subtle: #2b2b2b
+	--state-selected: #666668
+	--theme-color: #2F9E44
+	--theme-color-alt: #36731d
+	--text-inverse: #0E1118
+	--text-richtext: #797878
+	--success: #34D399
+	--success-hover: #6EE7B7
+	--warning: #FBBF24
+	--warning-hover: #FCD34D
+	--danger: #F87171
+	--danger-hover: #FCA5A5
+	--info: #60A5FA
+	--info-hover: #93C5FD
+	--feedback-error: #F87171
+	--ring: rgba(16, 185, 129, 0.4)
+	// Per-mode shadows (registry v1)
+	--shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4)
+	--shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35)
+	--shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.45)
+
+:root
+	color-scheme: light
+	--font-sans: Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif
+	--font-mono: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace
+
+
+
+	// Layout
+	--header-height: 48px
+	// The shell default (lrf) HAS a footer, and a default preset value removes its
+	// attribute entirely — so the no-attribute case must carry the live height, not
+	// zero. Without this every calc() below is invalid at computed-value time and
+	// silently collapses the element. [data-shell] overrides it either way.
+	--footer-height: 32px
+	--blur-sm: 12px
+
+	// Default Light Palette
+	+light-theme-tokens
+// Footer height follows the shell composition: 0 when the footer is not part of
+// the declared shell (value has no `f`), 32px when it is. The attribute is absent
+// on the default shell (lrf), which HAS a footer — that case is covered by the
+// :root declaration above, not here. Letters in the shell vocabulary are disjoint,
+// so the *= substring match is safe. See [data-shell] in _05_shells.sass.
+[data-shell]:not([data-shell*="f"])
+	--footer-height: 0px
+[data-shell*="f"]
+	--footer-height: 32px
+// Plain :root, NOT :root:not([data-mode='light']). The :not() was redundant —
+// [data-mode='light'] is emitted below and wins on source order at equal
+// specificity — and it was harmful: :not() pushed this to (0,2,0), which
+// outranks a .theme-* class at (0,1,0). Under OS dark mode every theme's
+// surface tokens were silently overridden by these generic defaults.
+@media (prefers-color-scheme: dark)
+	:root
+		+dark-theme-tokens
+
+[data-mode='dark']
+	+dark-theme-tokens
+
+[data-mode='light']
+	+light-theme-tokens

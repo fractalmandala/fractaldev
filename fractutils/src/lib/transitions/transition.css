@@ -1,0 +1,38 @@
+/*
+ * Required once, app-wide, for the transition engine.
+ *
+ * The browser's default root transition is a cross-fade of the two snapshots.
+ * Every kind here drives the snapshots explicitly instead, so the default is
+ * switched off — otherwise it fights the wipe and washes it out.
+ */
+
+::view-transition-group(root) {
+	animation: none;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation: none;
+	mix-blend-mode: normal;
+	/* Snapshots are sized to the viewport, so a wipe covers the full screen. */
+	width: 100vw;
+	height: 100vh;
+	object-fit: cover;
+	object-position: top left;
+}
+
+/* The incoming page rides over the outgoing one. */
+::view-transition-old(root) {
+	z-index: 0;
+}
+
+::view-transition-new(root) {
+	z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation: none;
+	}
+}

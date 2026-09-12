@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" class="theme-light-default" data-theme="theme-light-default" data-mode="light" data-bg-style="plain">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Fractal Themer — Svelte 5 Theming System</title>
+		<script>
+			(function () {
+				try {
+					var darkThemes = [
+						'theme-lagoona-dark',
+						'theme-frozen-dark',
+						'theme-night-dark',
+						'theme-inkworm-dark',
+						'theme-monochrono-dark',
+						'theme-fouram-dark',
+						'theme-wintercame-dark',
+						'theme-sun-dark',
+						'theme-console-dark',
+						'theme-dracula-dark',
+						'theme-catppuccin-mocha',
+						'theme-nord-dark',
+						'theme-gruvbox-dark',
+						'theme-onedark-pro',
+						'theme-rose-pine-dark',
+						'theme-midnight-emerald-dark',
+						'theme-obsidian-crimson-dark',
+						'theme-synthwave-dark',
+						'theme-deep-ocean-dark',
+						'theme-amethyst-void-dark'
+					];
+					var saved = localStorage.getItem('theme') || 'theme-light-default';
+					var savedBg = localStorage.getItem('bgStyle') || 'plain';
+					var isDark = darkThemes.indexOf(saved) !== -1 || saved.indexOf('-dark') !== -1 || saved.indexOf('-mocha') !== -1;
+					var mode = isDark ? 'dark' : 'light';
+
+					var root = document.documentElement;
+					root.className = saved;
+					root.setAttribute('data-theme', saved);
+					root.setAttribute('data-mode', mode);
+					root.setAttribute('data-bg-style', savedBg);
+					root.style.colorScheme = mode;
+				} catch (e) {}
+			})();
+		</script>
+		%sveltekit.head%
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">%sveltekit.body%</div>
+	</body>
+</html>

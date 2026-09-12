@@ -1,0 +1,160 @@
+// =============================================================================
+// 00_TOKENS — the single source of truth for runtime CSS custom properties.
+// -----------------------------------------------------------------------------
+// Light is the marker-free default so tokens stay defined during SSR and with
+// JS disabled; dark comes from prefers-color-scheme and explicit [data-mode='dark'].
+// =============================================================================
+
+=light-theme-tokens
+	color-scheme: light
+	--bg: #fdfefe
+	--bg-surface: #f8f7f7
+	--bg-raised: #f1f5f9
+	--bg-panel: #F1F3F5
+	--bg-footer: #E9ECEF
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #0F172A
+	--bg-input: #FFFFFF
+	--bg-canvas: #F8F9FA
+	--text-primary: #0f172a
+	--text-secondary: #5b6472
+	--text-muted: #929497
+	--text-inverse: #ffffff
+	--state-hover: #E2E8F0
+	--state-hover-subtle: #F1F5F9
+	--state-selected: #CBD5E1
+	--border: #bbbcbc
+	--border-subtle: #EDF2F7
+	--theme-color: #04825B
+	--theme-color-alt: #047857
+	--success: #10B981
+	--success-hover: #059669
+	--warning: #F59E0B
+	--warning-hover: #D97706
+	--danger: #EF4444
+	--danger-hover: #DC2626
+	--info: #3B82F6
+	--info-hover: #2563EB
+	--feedback-error: #DC2626
+	--ring: rgba(0, 127, 78, 0.35)
+	// Per-mode shadows (registry v1)
+	--shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06)
+	--shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08)
+	--shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.12)
+
+=dark-theme-tokens
+	color-scheme: dark
+	--bg: #101010
+	--bg-surface: #151515
+	--bg-raised: #191919
+	--bg-panel: #101010
+	--bg-footer: #121212
+	--bg-popover: #212121
+	--bg-dialog: #1C1C1C
+	--bg-terminal: #191919
+	--bg-input: #232323
+	--bg-canvas: #101010
+	--border: #202020
+	--border-subtle: #171717
+	--text-primary: #EDF2F7
+	--text-secondary: #6D6D6D
+	--text-muted: #3E3E3E
+	--state-hover: #292929
+	--state-hover-subtle: #222222
+	--state-selected: #373737
+	--theme-color: #38BDF8
+	--theme-color-alt: #0EA5E9
+	--text-inverse: #0E1118
+	--success: #34D399
+	--success-hover: #6EE7B7
+	--warning: #FBBF24
+	--warning-hover: #FCD34D
+	--danger: #F87171
+	--danger-hover: #FCA5A5
+	--info: #60A5FA
+	--info-hover: #93C5FD
+	--feedback-error: #F87171
+	--ring: rgba(16, 185, 129, 0.4)
+	// Per-mode shadows (registry v1)
+	--shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4)
+	--shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35)
+	--shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.45)
+
+:root
+	color-scheme: dark
+	--font-sans: "Stack Sans Text", sans-serif
+	--font-mono: "Google Sans Code", monospace
+	--text-xs: 0.8rem
+	--text-sm: 0.9rem
+	--text-md: 1rem
+	--text-bs: clamp(1rem, 0.9489rem + 0.2273vw, 1.125rem)
+	--text-lg: clamp(1.2rem, 1.1795rem + 0.0909vw, 1.25rem)
+	--text-xl: clamp(1.44rem, 1.3899rem + 0.2227vw, 1.5625rem)
+	--text-2xl: clamp(1.728rem, 1.6359rem + 0.4093vw, 1.9531rem)
+	--text-3xl: clamp(2.0736rem, 1.9231rem + 0.6687vw, 2.4414rem)
+	--text-4xl: clamp(2.4883rem, 2.2578rem + 1.0244vw, 3.0518rem)
+	--text-5xl: clamp(2.986rem, 2.647rem + 1.5068vw, 3.8147rem)
+	--space-3xs: clamp(0.3125rem, 0.3125rem + 0vw, 0.3125rem)
+	--space-2xs: clamp(0.5625rem, 0.5369rem + 0.1136vw, 0.625rem)
+	--space-xs: clamp(0.875rem, 0.8494rem + 0.1136vw, 0.9375rem)
+	--space-sm: clamp(1.125rem, 1.0739rem + 0.2273vw, 1.25rem)
+	--space-md: clamp(1.6875rem, 1.6108rem + 0.3409vw, 1.875rem)
+	--space-lg: clamp(2.25rem, 2.1477rem + 0.4545vw, 2.5rem)
+	--space-xl: clamp(3.375rem, 3.2216rem + 0.6818vw, 3.75rem)
+	--space-2xl: clamp(4.5rem, 4.2955rem + 0.9091vw, 5rem)
+	--space-3xl: clamp(6.75rem, 6.4432rem + 1.3636vw, 7.5rem)
+	--radius-0: 0
+	--radius-2: 2px
+	--radius-3: 3px
+	--radius-4: 4px
+	--radius-6: 6px
+	--radius-8: 8px
+	--radius-12: 12px
+	--radius-16: 16px
+	--radius-24: 24px
+	--radius-full: 9999px
+	--radius-sm: 8px
+	--radius-md: 16px
+	--radius-lg: 24px
+	--motion-fast: 120ms
+	--motion-base: 160ms
+	--motion-slow: 240ms
+	--ease-out: cubic-bezier(0.16, 1, 0.3, 1)
+	--ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1)
+	--control-h-sm: 26px
+	--control-h-md: 32px
+	--control-h-lg: 38px
+	--z-base: 0
+	--z-raised: 10
+	--z-sticky: 100
+	--z-modal: 200
+	--z-toast: 300
+	--header-height: 48px
+	--footer-height: 32px
+	--measure: 65ch
+	--page-gutter: clamp(1rem, 4vw, 2rem)
+	--sidebar-width: 260px
+	--toc-width: 240px
+	--card-min: 16rem
+	--breakpoint: 768px
+	+light-theme-tokens
+
+@media (prefers-color-scheme: dark)
+	:root
+		+dark-theme-tokens
+
+[data-mode='dark']
+	color-scheme: dark
+	+dark-theme-tokens
+
+[data-mode='light']
+	color-scheme: light
+	+light-theme-tokens
+
+$radius: 6px
+
+@mixin ellipsis
+	overflow: hidden
+	text-overflow: ellipsis
+	white-space: nowrap

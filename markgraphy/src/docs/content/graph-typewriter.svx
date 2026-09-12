@@ -1,0 +1,42 @@
+<script lang="ts">
+	import { GraphTypewriter } from '$lib';
+</script>
+
+# GraphTypewriter
+
+## Import
+
+```svelte
+import { GraphTypewriter } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphTypewriter
+  title="example"
+  speedMs={55}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words. |
+| `lines` | `string[]` | `—` | Lines typed one character at a time, in order. |
+| `speedMs?` | `number` | `55` | Milliseconds per character. Default 55. |
+| `holdMs?` | `number` | `1400` | Milliseconds to hold the full text before restarting. Default 1400. |
+| `loop?` | `boolean` | `true` | Clear and retype after the hold. Default true. |
+| `cursor?` | `string` | `'█'` | Cursor character shown after the last revealed character. Default '█'. |
+| `animated?` | `boolean` | `true` | Animate the typing. Default true. Reduced motion shows the full text. |
+| `corner?` | `string` | `—` | Character at each corner of the frame. Default '+'. |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `GraphTypewriterProps`
+
+## Reduced motion
+
+Animation is disabled under `prefers-reduced-motion`.

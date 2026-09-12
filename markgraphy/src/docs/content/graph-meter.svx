@@ -1,0 +1,46 @@
+<script lang="ts">
+	import { GraphMeter } from '$lib';
+</script>
+
+# GraphMeter
+
+## Import
+
+```svelte
+import { GraphMeter } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphMeter
+  title="example"
+  value={0}
+  ticks={14}
+/>
+```
+
+<div class="live">
+<GraphMeter
+  title="example"
+  value={0}
+  ticks={14}
+/>
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `value` | `number` | `—` | — |
+| `ticks?` | `number` | `14` | — |
+| `caption?` | `string` | `—` | — |
+| `glyphs?` | `Glyphs` | `—` | — |
+| `palette?` | `GraphPalette` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `GraphMeterProps`

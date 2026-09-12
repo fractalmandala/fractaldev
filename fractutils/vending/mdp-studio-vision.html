@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Three Products, One Spine — MDP Studio · Token Studio · MDsveX Blocks</title>
+<style>
+  :root{
+    --paper:#f5f5f5; --paper2:#ececec; --ink:#2d3142; --muted:#4f5d75; --soft:#7a8399;
+    --rule:rgba(45,49,66,.12); --rule-solid:#bfc0c0; --accent:#eb6c36; --accent-tint:rgba(235,108,54,.08);
+    --link:#2e5aa8; --ok:#3e7a52; --warn:#a4600f; --bad:#b03a2e; --mono:'Geist Mono','SFMono-Regular',Consolas,'Liberation Mono',monospace;
+    --sans:'Geist',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif; --serif:'Instrument Serif',Georgia,'Times New Roman',serif;
+    --motion-fast:160ms; --motion-step:480ms; --motion-hold:720ms; --motion-ease:cubic-bezier(.2,.8,.2,1);
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper); color:var(--ink); font-family:var(--sans); font-size:15px; line-height:1.6}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important} }
+  a{color:var(--link)}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px}
+  h1{font-family:var(--serif); font-weight:400; font-size:clamp(2.1rem,4.5vw,3rem); line-height:1.12; letter-spacing:-.01em}
+  h2{font-family:var(--serif); font-weight:400; font-size:clamp(1.5rem,3vw,2rem); line-height:1.2; margin-bottom:6px}
+  h3{font-size:.82rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:22px 0 10px}
+  p{max-width:74ch}
+  .eyebrow{font-family:var(--mono); font-size:.68rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); font-weight:500}
+  .lede{font-size:1.05rem; color:var(--muted); max-width:64ch}
+  header.hero{padding:56px 0 30px; border-bottom:1px solid var(--rule)}
+  section{padding:44px 0; border-bottom:1px solid var(--rule)}
+  .num{font-family:var(--serif); font-size:1rem; color:var(--accent); margin-right:8px}
+  .card{background:#fff; border:1px solid var(--rule); border-radius:8px; padding:16px 18px}
+  .callout{border-left:3px solid var(--accent); background:var(--accent-tint); border-radius:0 8px 8px 0; padding:12px 16px; margin:14px 0}
+  .callout p{max-width:none}
+  code{font-family:var(--mono); font-size:.85em; background:var(--paper2); border-radius:4px; padding:1px 5px; white-space:nowrap}
+  .mono{font-family:var(--mono)}
+  .grid{display:grid; gap:14px}
+  .g3{grid-template-columns:repeat(3,1fr)} .g2{grid-template-columns:repeat(2,1fr)}
+  @media (max-width:820px){.g3{grid-template-columns:1fr}.g2{grid-template-columns:1fr}}
+  @media (max-width:820px){ table{display:block; overflow-x:auto; -webkit-overflow-scrolling:touch} }
+  table{width:100%; border-collapse:collapse; font-size:.86rem; background:#fff; border:1px solid var(--rule); border-radius:8px; overflow:hidden}
+  th{font-family:var(--mono); font-size:.66rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); text-align:left; padding:8px 12px; border-bottom:1px solid var(--rule-solid); background:var(--paper2)}
+  td{padding:8px 12px; border-bottom:1px solid var(--rule); vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  .pill{display:inline-block; font-family:var(--mono); font-size:.66rem; font-weight:500; padding:1px 8px; border-radius:999px; border:1px solid var(--rule-solid); color:var(--muted); white-space:nowrap}
+  .pill.hot{color:var(--accent); border-color:var(--accent); background:var(--accent-tint)}
+  .pill.ok{color:var(--ok); border-color:var(--ok)}
+  .pill.warn{color:var(--warn); border-color:var(--warn)}
+  .pill.bad{color:var(--bad); border-color:var(--bad)}
+  .toc{display:flex; flex-wrap:wrap; gap:8px; margin-top:18px}
+  .toc a{font-family:var(--mono); font-size:.72rem; text-decoration:none; border:1px solid var(--rule); border-radius:999px; padding:4px 12px; background:#fff}
+  .toc a:hover{border-color:var(--accent); color:var(--accent)}
+  figure{margin:18px 0}
+  figure svg{display:block; width:100%; height:auto; background:#fff; border:1px solid var(--rule); border-radius:8px}
+  figcaption{font-family:var(--mono); font-size:.7rem; color:var(--soft); margin-top:6px; letter-spacing:.04em}
+  svg text{font-family:var(--sans)}
+  svg .mono{font-family:var(--mono)}
+  .legend{display:flex; flex-wrap:wrap; gap:14px; margin-top:8px}
+  .legend span{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:.68rem; color:var(--muted)}
+  .sw{width:12px; height:12px; border-radius:3px; display:inline-block}
+  footer{padding:30px 0 60px; color:var(--soft); font-family:var(--mono); font-size:.72rem}
+  .mtable td:first-child{white-space:nowrap}
+  /* interactive canvas */
+  #studio-stage{touch-action:none; cursor:default; user-select:none}
+  #studio-stage .node-hit{cursor:grab}
+  #studio-stage.dragging .node-hit{cursor:grabbing}
+  .btn{font-family:var(--mono); font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; background:#fff; border:1px solid var(--rule-solid); color:var(--muted); border-radius:6px; padding:7px 12px; cursor:pointer; min-height:32px}
+  .btn:hover{border-color:var(--accent); color:var(--accent)}
+  .btn:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+  .btnrow{display:flex; gap:8px; flex-wrap:wrap; margin:10px 0}
+  pre{background:#1e2230; color:#e8eaf2; border-radius:8px; padding:14px 16px; overflow-x:auto; font-family:var(--mono); font-size:.78rem; line-height:1.55; margin:14px 0}
+  pre .c{color:#8a93ab} pre .k{color:#f08a59} pre .s{color:#9ccf9c} pre .p{color:#6a95d8}
+  .kbd{font-family:var(--mono); font-size:.68rem; border:1px solid var(--rule-solid); border-bottom-width:2px; border-radius:4px; padding:1px 6px; background:#fff}
+  details{border:1px solid var(--rule); border-radius:8px; background:#fff; margin:10px 0}
+  summary{cursor:pointer; padding:10px 14px; font-weight:600; font-size:.9rem; list-style:none}
+  summary::before{content:"+"; font-family:var(--mono); color:var(--accent); margin-right:8px}
+  details[open] summary::before{content:"–"}
+  details .inner{padding:0 14px 12px; font-size:.86rem; color:var(--muted)}
+  .steps li{margin:8px 0}
+  .check{list-style:none}
+  .check li::before{content:"✓"; color:var(--ok); font-weight:700; margin-right:8px}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Vision · Three Products · One Spine</div>
+    <h1>Three Svelte products on one MDP spine</h1>
+    <p class="lede" style="margin-top:10px">Every diagram in this repo — interactive editor output, re-skinned editorial SVG, markdown-embedded figures — is a <strong>Model&nbsp;Diagramming Protocol document</strong> plus a <strong>style-guide skin</strong>. Build the spine once; each product is a different face of the same contract.</p>
+    <nav class="toc" aria-label="Contents">
+      <a href="#thesis">Thesis</a>
+      <a href="#why-svelte">Why Svelte 5</a>
+      <a href="#studio">1 · MDP Studio</a>
+      <a href="#canvas-demo">Live canvas demo</a>
+      <a href="#tokens">2 · Token &amp; Profile Studio</a>
+      <a href="#mdsvex">3 · MDsveX diagram blocks</a>
+      <a href="#spine">Shared spine</a>
+      <a href="#milestones">Milestones</a>
+      <a href="#risks">Risks &amp; gates</a>
+    </nav>
+  </div>
+</header>
+
+<section id="thesis">
+  <div class="wrap">
+    <h2><span class="num">00</span>The thesis in one picture</h2>
+    <p class="lede">The repo already proved the hard parts: <code>@eraserlabs/layout</code> routes orthogonally with zero dependencies, MDP validates documents against JSON Schema per tag, and diagram-design owns the editorial skin. What's missing is a <em>living</em> layer — the same documents, interactive in the browser, branded on demand, and embedded in real documentation sites. Svelte is the thinnest possible layer that adds interactivity without breaking the static-first contracts.</p>
+    <figure>
+      <svg viewBox="0 0 1000 330" role="img" aria-labelledby="thesis-t thesis-d">
+        <title id="thesis-t">One spine: MDP documents + style-guide tokens, three products downstream</title>
+        <desc id="thesis-d">A foundation band holding MDP documents and style-guide tokens feeds three product boxes: MDP Studio canvas editor, Token and Profile Studio, and MDsveX diagram blocks, each producing HTML, SVG or PNG outputs.</desc>
+        <!-- foundation -->
+        <rect x="40" y="40" width="920" height="78" rx="8" fill="#2d3142"/>
+        <text x="64" y="70" fill="#f5f5f5" font-size="14" font-weight="600">The spine (build once)</text>
+        <rect x="64" y="82" width="260" height="24" rx="5" fill="rgba(245,245,245,.12)"/>
+        <text x="76" y="98" fill="#e8eaf2" font-size="12" class="mono">MDP documents · tag registry · schemas</text>
+        <rect x="340" y="82" width="300" height="24" rx="5" fill="rgba(245,245,245,.12)"/>
+        <text x="352" y="98" fill="#e8eaf2" font-size="12" class="mono">@eraserlabs/layout corridor router (TS, no DOM)</text>
+        <rect x="656" y="82" width="280" height="24" rx="5" fill="rgba(235,108,54,.25)" stroke="#f08a59" stroke-width="1"/>
+        <text x="668" y="98" fill="#ffd9c4" font-size="12" class="mono">style-guide tokens · profiles (paper/ink/accent)</text>
+        <!-- arrows down -->
+        <path d="M180 118 L180 152" stroke="#4f5d75" stroke-width="1.4" marker-end="url(#arr)"/>
+        <path d="M500 118 L500 152" stroke="#4f5d75" stroke-width="1.4" marker-end="url(#arr)"/>
+        <path d="M800 118 L800 152" stroke="#4f5d75" stroke-width="1.4" marker-end="url(#arr)"/>
+        <!-- products -->
+        <g>
+          <rect x="60" y="156" width="300" height="120" rx="8" fill="#fff" stroke="#eb6c36" stroke-width="1.4"/>
+          <text x="80" y="184" font-size="15" font-weight="600">1 · MDP Studio</text>
+          <text x="80" y="203" fill="#4f5d75" font-size="11.5">Canvas editor · schema inspector ·</text>
+          <text x="80" y="218" fill="#4f5d75" font-size="11.5">live routing · measured-JSON roundtrip</text>
+          <rect x="80" y="234" width="70" height="20" rx="4" fill="rgba(235,108,54,.08)" stroke="#eb6c36"/><text x="90" y="248" font-size="10" fill="#b4531f" class="mono">HTML edit</text>
+          <rect x="158" y="234" width="70" height="20" rx="4" fill="rgba(235,108,54,.08)" stroke="#eb6c36"/><text x="168" y="248" font-size="10" fill="#b4531f" class="mono">PNG /render</text>
+          <text x="236" y="248" font-size="10" fill="#7a8399" class="mono">docs stay documents</text>
+        </g>
+        <g>
+          <rect x="380" y="156" width="280" height="120" rx="8" fill="#fff" stroke="#eb6c36" stroke-width="1.4"/>
+          <text x="400" y="184" font-size="15" font-weight="600">2 · Token &amp; Profile Studio</text>
+          <text x="400" y="203" fill="#4f5d75" font-size="11.5">URL → palette → WCAG-verified tokens →</text>
+          <text x="400" y="218" fill="#4f5d75" font-size="11.5">live re-skin of all 39 types → export</text>
+          <rect x="400" y="234" width="86" height="20" rx="4" fill="rgba(235,108,54,.08)" stroke="#eb6c36"/><text x="410" y="248" font-size="10" fill="#b4531f" class="mono">style-guide.md</text>
+          <rect x="494" y="234" width="70" height="20" rx="4" fill="rgba(235,108,54,.08)" stroke="#eb6c36"/><text x="504" y="248" font-size="10" fill="#b4531f" class="mono">profile.md</text>
+        </g>
+        <g>
+          <rect x="700" y="156" width="260" height="120" rx="8" fill="#fff" stroke="#eb6c36" stroke-width="1.4"/>
+          <text x="720" y="184" font-size="15" font-weight="600">3 · MDsveX diagram blocks</text>
+          <text x="720" y="203" fill="#4f5d75" font-size="11.5">Fenced diagram blocks in markdown →</text>
+          <text x="720" y="218" fill="#4f5d75" font-size="11.5">static SVG at build time, zero JS</text>
+          <rect x="720" y="234" width="70" height="20" rx="4" fill="rgba(235,108,54,.08)" stroke="#eb6c36"/><text x="730" y="248" font-size="10" fill="#b4531f" class="mono">.svg asset</text>
+          <rect x="798" y="234" width="70" height="20" rx="4" fill="rgba(235,108,54,.08)" stroke="#eb6c36"/><text x="808" y="248" font-size="10" fill="#b4531f" class="mono">typed props</text>
+        </g>
+        <!-- outputs -->
+        <text x="500" y="306" text-anchor="middle" fill="#7a8399" font-size="11" class="mono">One document · one skin · three faces — every artifact round-trips back to valid MDP JSON</text>
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="#4f5d75"/>
+          </marker>
+        </defs>
+      </svg>
+      <figcaption>Fig 0 — The spine is not a shared component; it is a shared <em>contract</em>. Each product consumes documents and tokens, and emits documents and tokens.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="why-svelte">
+  <div class="wrap">
+    <h2><span class="num">01</span>Why Svelte 5, specifically</h2>
+    <div class="grid g2" style="margin-top:12px">
+      <div class="card">
+        <h3 style="margin-top:0">The constraints pull toward Svelte</h3>
+        <ul class="steps" style="margin-left:18px; color:var(--muted)">
+          <li><strong>SSR is script-free HTML.</strong> diagram-design's contract ("static by default, no runtime JS") maps to <code>prerender</code> + SSR output — hydration adds interactivity only where a product is interactive by design (the Studio).</li>
+          <li><strong>Runes model the render pipeline.</strong> The repo's own pipeline is measure → layout → apply. That is literally <code>$state</code> (boxes) → <code>$derived</code> (routes) → <code>$effect</code> (DOM write-back).</li>
+          <li><strong>Actions are the missing "behavior layer."</strong> MDP templates hold markup+CSS and forbid script. Svelte actions (<code>use:drag</code>, <code>use:measure</code>) attach behavior <em>outside</em> the data — the exact seam the protocol wants.</li>
+          <li><strong>Snippets + schema = generic inspector.</strong> The tag registry is JSON Schema. A single <code>&lt;SchemaForm&gt;</code> renders an editor for every tag, current and future.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Rune mapping to the existing pipeline</h3>
+        <table style="border:none; background:transparent">
+          <tr><th>Render pipeline stage</th><th>Svelte 5 construct</th></tr>
+          <tr><td>mount at max-content, measure</td><td><code>use:measure</code> action → writes <code>$state</code> boxes</td></tr>
+          <tr><td>text sizing / grow policies</td><td><code>$derived</code> from measured + authored floors</td></tr>
+          <tr><td>route connections (corridor)</td><td><code>$derived</code> — pure function of boxes + pins</td></tr>
+          <tr><td>apply (position + path <code>d</code>)</td><td><code>$effect</code> writes back; or inline <code>{points}</code> binding</td></tr>
+          <tr><td>measured-JSON roundtrip</td><td>derived store — serialize on demand, valid doc out</td></tr>
+          <tr><td>motion step player</td><td>component with a single <code>setTimeout</code> chain + CSS vars</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="callout"><p><strong>Honest note:</strong> the browser router needs entity boxes, not DOM measurement — the Studio's client pass keeps its own measured-box store and calls <code>@eraserlabs/layout</code> directly. No Chromium in the browser; Chromium (via <code>@eraserlabs/server</code>) remains the authority for PNG.</p></div>
+  </div>
+</section>
+
+<section id="studio">
+  <div class="wrap">
+    <h2><span class="num">02</span>Product 1 — MDP Studio: the flagship canvas editor</h2>
+    <p class="lede">A SvelteKit app where diagrams are <em>documents you edit</em>, never pixels you redraw. Four load-bearing features: 4px-snap drag, schema-driven inspector, live routing, and the measured-JSON roundtrip. Every gesture produces a valid MDP document — the same one the CLI and server already accept.</p>
+    <figure>
+      <svg viewBox="0 0 1000 300" role="img" aria-labelledby="studio-t studio-d">
+        <title id="studio-t">MDP Studio architecture: three panes over a shared document store</title>
+        <desc id="studio-d">Left pane is a tag palette and document tree. Center is the canvas with nodes and routed orthogonal edges, a 4 by 4 pixel grid, and drag handles. Right pane is a schema-driven inspector form. Below, a document strip shows the JSON being written live, with buttons to render PNG via the server and to export JSON.</desc>
+        <rect x="30" y="30" width="180" height="196" rx="8" fill="#fff" stroke="var(--rule-solid, #bfc0c0)"/>
+        <text x="46" y="54" font-size="12" font-weight="600">Palette + tree</text>
+        <rect x="46" y="66" width="148" height="22" rx="4" fill="#ececec"/><text x="56" y="81" font-size="10.5" fill="#4f5d75" class="mono">Shape · Icon · Group</text>
+        <rect x="46" y="94" width="148" height="22" rx="4" fill="#ececec"/><text x="56" y="109" font-size="10.5" fill="#4f5d75" class="mono">Lane · Pool · Table</text>
+        <rect x="46" y="122" width="148" height="22" rx="4" fill="#ececec"/><text x="56" y="137" font-size="10.5" fill="#4f5d75" class="mono">Relationship · DBRel</text>
+        <text x="46" y="166" font-size="10" fill="#7a8399" class="mono">document tree:</text>
+        <text x="46" y="182" font-size="10.5" fill="#2d3142" class="mono">▾ backend (Group)</text>
+        <text x="58" y="196" font-size="10.5" fill="#2d3142" class="mono">· api (Icon)</text>
+        <rect x="226" y="30" width="500" height="196" rx="8" fill="#fbfbfb" stroke="var(--rule-solid, #bfc0c0)"/>
+        <text x="242" y="54" font-size="12" font-weight="600">Canvas — SVG, 4px grid, live-routed edges</text>
+        <g stroke="rgba(45,49,66,.08)"><path d="M226 70 H726"/><path d="M226 110 H726"/><path d="M226 150 H726"/><path d="M226 190 H726"/></g>
+        <rect x="266" y="100" width="120" height="44" rx="6" fill="#fff" stroke="#2d3142"/><text x="286" y="126" font-size="11" fill="#2d3142">web app</text>
+        <g><rect x="436" y="84" width="200" height="120" rx="6" fill="rgba(45,49,66,.03)" stroke="#4f5d75" stroke-dasharray="4 3"/>
+          <rect x="436" y="84" width="88" height="18" rx="4" fill="#4f5d75"/><text x="444" y="97" font-size="10" fill="#f5f5f5" class="mono">backend</text>
+          <rect x="452" y="112" width="110" height="40" rx="6" fill="#fff" stroke="#eb6c36" stroke-width="1.4"/><text x="472" y="136" font-size="11" fill="#2d3142">api</text>
+          <rect x="500" y="164" width="110" height="28" rx="6" fill="#fff" stroke="#2d3142"/><text x="524" y="182" font-size="11" fill="#2d3142">postgres</text>
+        </g>
+        <path d="M386 122 H452" stroke="#4f5d75" stroke-width="1.4" fill="none" marker-end="url(#arr)"/>
+        <path d="M507 152 V164" stroke="#4f5d75" stroke-width="1.4" fill="none" marker-end="url(#arr)"/>
+        <text x="392" y="114" font-size="9.5" fill="#7a8399" class="mono">SQL</text>
+        <g id="selring"><rect x="448" y="108" width="118" height="48" rx="8" fill="none" stroke="#eb6c36" stroke-width="1" stroke-dasharray="3 3"/></g>
+        <rect x="742" y="30" width="228" height="196" rx="8" fill="#fff" stroke="var(--rule-solid, #bfc0c0)"/>
+        <text x="758" y="54" font-size="12" font-weight="600">Inspector — from tagSchema()</text>
+        <text x="758" y="76" font-size="10.5" fill="#7a8399" class="mono">tag: Icon</text>
+        <g font-size="10.5" fill="#4f5d75" class="mono">
+          <text x="758" y="98">icon   [ postgres    ▾ ]</text>
+          <text x="758" y="118">size   ( ) sm (•) md ( ) lg</text>
+          <text x="758" y="138">texts  [ API           ]</text>
+          <text x="758" y="158">color  [ blue         ▾ ]</text>
+          <text x="758" y="178">x,y,w,h  452,112 · min</text>
+        </g>
+        <rect x="30" y="242" width="940" height="40" rx="8" fill="#2d3142"/>
+        <text x="46" y="266" fill="#f5f5f5" font-size="11" class="mono">{ entities: [ { tag:"Icon", id:"api", … } ], connections: […] }  ← written on every gesture; validate() on write; /render for PNG</text>
+      </svg>
+      <figcaption>Fig 1 — Three panes, one store. The JSON strip at the bottom is not a debug view; it is the product: a document that never stops being valid.</figcaption>
+    </figure>
+
+    <h3>The four load-bearing features</h3>
+    <div class="grid g2">
+      <div class="card"><strong>4px-snap drag — <code>use:drag</code></strong><p style="color:var(--muted); font-size:.86rem; margin-top:6px">A Svelte action on each node group: pointerdown → capture, pointermove → draft <code>$state</code>, pointerup → commit to the document. Snap = <code>Math.round(v/4)*4</code>, applied to the node's top-left <em>and</em> its container-relative position so containment stays coherent. Draft position routes live (nice feedback); committed position reroutes with <code>pinUnaffectedRoutes</code> so untouched edges don't wiggle.</p></div>
+      <div class="card"><strong>Schema-driven inspector — <code>registryInfo()</code></strong><p style="color:var(--muted); font-size:.86rem; margin-top:6px">One <code>&lt;SchemaForm schema={tagSchema('Icon')}&gt;</code> walks the JSON Schema: <code>enum</code> → radio/select, <code>x-palette</code> → palette-token dropdown that also accepts raw colors, <code>x-content</code> → textarea with the policy shown, geometry → numeric steppers labeled "minimums". New tags in a library appear in the palette with zero UI code.</p></div>
+      <div class="card"><strong>Live routing</strong><p style="color:var(--muted); font-size:.86rem; margin-top:6px"><code>LayoutManager</code> runs in a worker-adjacent store; boxes come from <code>use:measure</code> (authored size = floor, content can grow). Edge <code>&lt;path d&gt;</code> is a <code>$derived</code> of routed points; labels get the same mask treatment (rect + 2px clearance) as the server renderer so client and PNG agree.</p></div>
+      <div class="card"><strong>Measured-JSON roundtrip</strong><p style="color:var(--muted); font-size:.86rem; margin-top:6px">The store's serialized form is the split envelope <code>{entities, connections}</code> — authored properties verbatim plus final boxes as new floors. Save → file; load → render again. An LLM can read the saved JSON, edit it, and the Studio reopens it — the same loop GETTING_STARTED.md promises, now interactive.</p></div>
+    </div>
+
+    <h3>The server split (authoritative pixels)</h3>
+    <figure>
+      <svg viewBox="0 0 1000 190" role="img" aria-labelledby="split-t split-d">
+        <title id="split-t">Client edits documents; server renders authoritative PNG</title>
+        <desc id="split-d">Browser box: Svelte canvas store, document validate, live HTML render. Arrow to server box: Fastify endpoint slash render with Chromium, returning PNG preview. A dashed arrow back carries the PNG into the right pane. A note says the JSON document is the only thing that crosses the wire.</desc>
+        <rect x="60" y="40" width="360" height="110" rx="8" fill="#fff" stroke="#2e5aa8"/>
+        <text x="80" y="66" font-size="13" font-weight="600" fill="#2e5aa8">Browser (SvelteKit)</text>
+        <text x="80" y="90" font-size="11" fill="#4f5d75" class="mono">document store · validate() · corridor router</text>
+        <text x="80" y="108" font-size="11" fill="#4f5d75" class="mono">editable HTML/SVG · undo/redo</text>
+        <text x="80" y="132" font-size="10" fill="#7a8399" class="mono">no chromium · no icons fetch (local sidecar)</text>
+        <path d="M420 95 H580" stroke="#4f5d75" stroke-width="1.4" marker-end="url(#arr)"/>
+        <text x="430" y="86" font-size="10" fill="#7a8399" class="mono">MDP JSON only</text>
+        <rect x="584" y="40" width="360" height="110" rx="8" fill="#fff" stroke="#eb6c36"/>
+        <text x="604" y="66" font-size="13" font-weight="600" fill="#b4531f">@eraserlabs/server · /render</text>
+        <text x="604" y="90" font-size="11" fill="#4f5d75" class="mono">resolve → chromium measure → route → PNG</text>
+        <text x="604" y="108" font-size="11" fill="#4f5d75" class="mono">warnings with JSON-pointer paths</text>
+        <text x="604" y="132" font-size="10" fill="#7a8399" class="mono">same warnings feed the Studio's lint panel</text>
+        <path d="M580 138 C520 170 470 170 424 140" stroke="#bfc0c0" stroke-width="1.2" stroke-dasharray="4 3" fill="none" marker-end="url(#arr)"/>
+        <text x="440" y="176" font-size="10" fill="#7a8399" class="mono">PNG preview · warnings</text>
+      </svg>
+      <figcaption>Fig 2 — The wire protocol between client and server is exactly the document. The client's HTML is for editing; the server's PNG is for truth.</figcaption>
+    </figure>
+
+    <h3>Walk the interaction</h3>
+    <ol class="steps" style="margin-left:20px; color:var(--muted); max-width:72ch">
+      <li><strong>Drop or start.</strong> Load <code>diagram.json</code>, or start empty from the palette. The tree mirrors containment (<code>containerId</code>), never z-order.</li>
+      <li><strong>Drag "api" inside "backend".</strong> Draft state routes live; on commit the document gets a new authored <code>x,y</code> snapped to 4; contained siblings stay put; the group's minimums grow only if the member escapes them.</li>
+      <li><strong>Select the edge.</strong> The inspector shows <code>Relationship</code> fields: arrowheads, ports, <code>connectorStyle</code>. Flip to <code>straight</code> and watch the corridor router hand off to <code>straightConnectionEndpoints</code>.</li>
+      <li><strong>Hit "Validate".</strong> Errors carry JSON-pointer paths (<code>/entities/2/icon</code>) that deep-link to the tree row and flash the node.</li>
+      <li><strong>Hit "PNG".</strong> POST to <code>/render</code>; warnings stream back into the lint panel; the preview lands in a drawer.</li>
+      <li><strong>Save.</strong> What's written is the measured roundtrip JSON — reopening it reproduces the canvas, byte for byte.</li>
+    </ol>
+  </div>
+</section>
+
+<section id="canvas-demo">
+  <div class="wrap">
+    <h2><span class="num">03</span>Feel it: a working slice of the canvas</h2>
+    <p class="lede">A faithful miniature of the Studio loop — 4px-snap drag, live corridor-style routing, measured-JSON written under the canvas. Drag the orange node (or any node). Watch the edge re-route and the JSON stay valid. Keyboard: <span class="kbd">Tab</span> to a node, arrow keys nudge by 4px (<span class="kbd">Shift</span> for 16px).</p>
+    <div class="btnrow">
+      <button class="btn" id="btn-add">Add node</button>
+      <button class="btn" id="btn-toggle-contain">Toggle containment</button>
+      <button class="btn" id="btn-reset">Reset</button>
+      <span class="pill" id="drag-state" aria-live="polite">idle</span>
+    </div>
+    <figure style="margin-top:6px">
+      <svg id="studio-stage" viewBox="0 0 940 360" role="application" aria-label="Mini canvas editor. Drag nodes to move them on a 4 pixel grid. Edges reroute automatically.">
+        <defs>
+          <pattern id="grid4" width="16" height="16" patternUnits="userSpaceOnUse">
+            <path d="M16 0 H0 V16" fill="none" stroke="rgba(45,49,66,.06)" stroke-width="1"/>
+          </pattern>
+          <marker id="demo-arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="#4f5d75"/>
+          </marker>
+        </defs>
+        <rect x="0" y="0" width="940" height="360" fill="url(#grid4)"/>
+        <g id="g-container"></g>
+        <g id="g-edges"></g>
+        <g id="g-nodes"></g>
+      </svg>
+      <figcaption>Fig 3 — Draft (light) routes while dragging; committed routes pin unaffected edges. The JSON below is the document, not a rendering of it.</figcaption>
+    </figure>
+    <pre id="doc-out" aria-label="Current document as JSON" style="max-height:220px; overflow:auto"></pre>
+    <p style="color:var(--soft); font-size:.8rem">This demo is hand-rolled for the explanation; the real product routes with <code>@eraserlabs/layout</code> itself. The store shape — draft vs committed boxes, snap-on-commit, derived edge geometry — is the part worth stealing verbatim.</p>
+  </div>
+</section>
+
+<section id="tokens">
+  <div class="wrap">
+    <h2><span class="num">04</span>Product 2 — Token &amp; Profile Studio: brand in 60 seconds, verified</h2>
+    <p class="lede">The skill's onboarding flow (<code>references/onboarding.md</code>) — fetch a site, extract palette + fonts, write tokens — becomes a web tool with the two things a CLI can't show: <strong>live WCAG math</strong> and a <strong>side-by-side re-skin of all 39 diagram types</strong> as you move a slider.</p>
+    <figure>
+      <svg viewBox="0 0 1000 250" role="img" aria-labelledby="tok-t tok-d">
+        <title id="tok-t">Token studio pipeline with a contrast gate before tokens are written</title>
+        <desc id="tok-d">Five stages left to right: fetch URL, extract palette and fonts, map to roles, contrast gate with pass or adjust loop, then preview all 39 types and export style guide or profile.</desc>
+        <g font-size="11">
+          <rect x="30" y="70" width="150" height="64" rx="8" fill="#fff" stroke="#bfc0c0"/><text x="44" y="92" font-weight="600">1 · Fetch</text><text x="44" y="110" fill="#4f5d75" class="mono" font-size="10">URL → DOM · fonts ·</text><text x="44" y="124" fill="#4f5d75" class="mono" font-size="10">body bg, h1, CTA</text>
+          <rect x="216" y="70" width="150" height="64" rx="8" fill="#fff" stroke="#bfc0c0"/><text x="230" y="92" font-weight="600">2 · Extract</text><text x="230" y="110" fill="#4f5d75" class="mono" font-size="10">quantize colors ·</text><text x="230" y="124" fill="#4f5d75" class="mono" font-size="10">rank by usage</text>
+          <rect x="402" y="70" width="150" height="64" rx="8" fill="#fff" stroke="#bfc0c0"/><text x="416" y="92" font-weight="600">3 · Map roles</text><text x="416" y="110" fill="#4f5d75" class="mono" font-size="10">paper/ink/muted/</text><text x="416" y="124" fill="#4f5d75" class="mono" font-size="10">accent · font slots</text>
+          <rect x="618" y="62" width="160" height="80" rx="8" fill="rgba(235,108,54,.08)" stroke="#eb6c36"/><text x="632" y="86" font-weight="600" fill="#b4531f">4 · Contrast gate</text><text x="632" y="104" fill="#4f5d75" class="mono" font-size="10">AA ink/paper, AA</text><text x="632" y="118" fill="#4f5d75" class="mono" font-size="10">muted ≥11px · auto</text><text x="632" y="132" fill="#4f5d75" class="mono" font-size="10">adjust + explain</text>
+          <rect x="814" y="70" width="156" height="64" rx="8" fill="#fff" stroke="#bfc0c0"/><text x="828" y="92" font-weight="600">5 · Ship</text><text x="828" y="110" fill="#4f5d75" class="mono" font-size="10">live 39-type gallery ·</text><text x="828" y="124" fill="#4f5d75" class="mono" font-size="10">export md / profile</text>
+          <path d="M180 102 H212" stroke="#4f5d75" stroke-width="1.4" marker-end="url(#arr)"/>
+          <path d="M366 102 H398" stroke="#4f5d75" stroke-width="1.4" marker-end="url(#arr)"/>
+          <path d="M552 102 H614" stroke="#4f5d75" stroke-width="1.4" marker-end="url(#arr)"/>
+          <path d="M778 102 H810" stroke="#4f5d75" stroke-width="1.4" marker-end="url(#arr)"/>
+          <path d="M698 146 C690 180 560 186 482 140" stroke="#a4600f" stroke-width="1.2" stroke-dasharray="4 3" fill="none" marker-end="url(#arr2)"/>
+          <text x="540" y="186" fill="#a4600f" font-size="10" class="mono">fails → adjust L + re-check (shown as a diff, never silent)</text>
+        </g>
+        <defs><marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#a4600f"/></marker></defs>
+      </svg>
+      <figcaption>Fig 4 — Same flow as onboarding.md, but the gate is <em>interactive</em>: you see the adjusted value, the before/after ratio, and why.</figcaption>
+    </figure>
+
+    <h3>Contrast, made honest (try it)</h3>
+    <p style="color:var(--muted); font-size:.86rem">The gate computes WCAG 2.x contrast ratio from relative luminance and checks the two pairs the style guide pins: <code>ink</code> on <code>paper</code>, and <code>muted</code> at ≥11px. Drag to break it and watch the gate propose the fix.</p>
+    <div class="grid g2" style="margin-top:10px">
+      <div class="card">
+        <label for="r-ink" style="font-family:var(--mono); font-size:.7rem; color:var(--muted)">ink lightness L* <span id="ink-lv">32</span></label>
+        <input id="r-ink" type="range" min="5" max="95" value="32" style="width:100%; accent-color:#eb6c36">
+        <label for="r-paper" style="font-family:var(--mono); font-size:.7rem; color:var(--muted)">paper lightness L* <span id="paper-lv">96</span></label>
+        <input id="r-paper" type="range" min="80" max="99" value="96" style="width:100%; accent-color:#eb6c36">
+        <div style="display:flex; gap:10px; margin-top:10px; align-items:stretch">
+          <div id="swatch-demo" style="flex:1; border-radius:6px; border:1px solid var(--rule); padding:10px; font-size:.8rem">Aa 12px — node label<br><span style="font-size:.7rem">muted 11px sublabel</span></div>
+          <div id="gate-out" style="flex:1; font-family:var(--mono); font-size:.72rem; color:var(--muted); display:flex; flex-direction:column; justify-content:center; gap:4px"></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Re-skin gallery (the 60-second payoff)</h3>
+        <div id="gallery" class="grid" style="grid-template-columns:1fr 1fr 1fr; gap:10px"></div>
+        <p style="color:var(--soft); font-size:.76rem; margin-top:8px">Nine of the 39 types shown; the product re-renders all of them from the token table — because each type reference only ever says <code>accent</code>, never a hex.</p>
+      </div>
+    </div>
+    <details><summary>What exactly gets exported</summary><div class="inner">
+      <ul class="steps" style="margin-left:18px">
+        <li><strong>style-guide.md patch</strong> — the semantic-role table rewritten with your hex values, plus the fidelity receipt (sampled URLs, roles, fonts, fallbacks) the skill already promises.</li>
+        <li><strong>profile.md</strong> — the named client profile for <code>~/.diagram-design/profiles/&lt;slug&gt;.md</code>, with the <code>.diagram-design</code> marker snippet for binding a project.</li>
+        <li><strong>tokens.json</strong> — the same roles as an MDP <code>palette</code> object, so Eraser Diagrams library skins and diagram-design skins share one source.</li>
+      </ul>
+    </div></details>
+  </div>
+</section>
+
+<section id="mdsvex">
+  <div class="wrap">
+    <h2><span class="num">05</span>Product 3 — MDsveX diagram blocks: diagrams as docs infrastructure</h2>
+    <p class="lede">Authors write a fenced block; the build compiles it to a static SVG asset. Zero runtime JS, typed data, and a build-time lint that fails CI before a bad diagram ships.</p>
+    <pre><span class="c">---</span>
+<span class="c">title: Billing architecture</span>
+<span class="c">---</span>
+
+<span class="p">```diagram</span>
+<span class="k">type</span>: architecture
+<span class="k">skin</span>: acme            <span class="c"># profile slug → tokens.json</span>
+<span class="k">size</span>: doc-wide        <span class="c"># output-spec ramp: viewBox + type ramp</span>
+<span class="k">data</span>:
+  entities:
+    - { <span class="k">tag</span>: Shape, <span class="k">id</span>: web, <span class="k">x</span>: 40, <span class="k">y</span>: 60, <span class="k">texts</span>: [{ text: <span class="s">"Web App"</span> }] }
+    - { <span class="k">tag</span>: Icon,  <span class="k">id</span>: db,  <span class="k">x</span>: 280, <span class="k">y</span>: 65, <span class="k">icon</span>: postgres }
+  connections:
+    - { <span class="k">from</span>: web, <span class="k">to</span>: db, <span class="k">endArrowhead</span>: triangle, <span class="k">label</span>: <span class="s">"SQL"</span> }
+<span class="p">```</span></pre>
+    <div class="grid g2" style="margin-top:6px">
+      <div class="card">
+        <h3 style="margin-top:0">Build pipeline</h3>
+        <ol class="steps" style="margin-left:18px; color:var(--muted); font-size:.86rem">
+          <li>remark <code>diagram-block</code> plugin parses the fence (YAML or JSON) → AST node.</li>
+          <li>Validate with the tag registry <em>at build time</em> — errors are compiler errors with file/line, the same structured issues the CLI prints.</li>
+          <li>Render via one of two swappable backends: (a) <code>@eraserlabs/diagrams</code> server-side pass → PNG/SVG buffer, or (b) the Svelte SSR renderer → pure SVG string.</li>
+          <li>Emit hashed asset + <code>&lt;img&gt;</code>/<code>&lt;picture&gt;</code> with intrinsic width/height (no CLS), and inline <code>&lt;title&gt;/&lt;desc&gt;</code> for a11y — reusing the diagram-design accessible-name contract.</li>
+          <li>Write <code>.registry.json</code> sidecars for block-decomposition diagrams, same as <code>--registry</code>.</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">What makes it more than an include</h3>
+        <ul class="steps" style="margin-left:18px; color:var(--muted); font-size:.86rem">
+          <li><strong>Typed data:</strong> YAML is validated against <code>tagSchema(tag)</code> — a typo'd <code>endArrowhead</code> fails the build with a did-you-mean, not a silent render.</li>
+          <li><strong>Skin-aware:</strong> <code>skin: acme</code> pulls profile tokens; the same doc builds branded for each client in a multi-brand docs monorepo.</li>
+          <li><strong>Deterministic:</strong> static frame only; the motion contract's <code>?motion=static</code> semantics are the only mode a docs site ever emits.</li>
+          <li><strong>Diffable:</strong> diagram changes show up in PRs as YAML diffs, not binary churn.</li>
+          <li><strong>Cached by hash:</strong> unchanged fence → unchanged asset hash → instant rebuilds.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout"><p><strong>The compounding trick:</strong> the fence's <code>data</code> is a plain MDP document. The same file pastes into MDP Studio for interactive editing, and <code>eraser-diagrams render</code> consumes it in CI unchanged. Three products, one format — that's the thesis made literal.</p></div>
+  </div>
+</section>
+
+<section id="spine">
+  <div class="wrap">
+    <h2><span class="num">06</span>The shared spine, in packages</h2>
+    <table>
+      <tr><th>Package (new, Svelte)</th><th>Owns</th><th>Depends on</th><th>Used by</th></tr>
+      <tr><td><code>@eraserlabs/svelte-tokens</code></td><td>Token context, light/dark/profile switching, palette type</td><td>—</td><td>Studio, Token Studio, blocks preview</td></tr>
+      <tr><td><code>@eraserlabs/svelte-diagram</code></td><td>Node/Edge/Group primitives, <code>use:drag</code>, <code>use:measure</code>, label masks, SSR-safe SVG</td><td><code>@eraserlabs/layout</code>, tokens</td><td>Studio canvas, blocks (SSR backend b)</td></tr>
+      <tr><td><code>@eraserlabs/svelte-inspector</code></td><td><code>&lt;SchemaForm&gt;</code> driven by <code>tagSchema()</code>; palette/content/geometry field types</td><td>registry info</td><td>Studio, Token Studio (token table editor)</td></tr>
+      <tr><td><code>mdsvex-diagram-block</code></td><td>remark plugin + build-time validator + asset emitter</td><td>resolve (validate), diagrams or svelte-diagram</td><td>docs sites</td></tr>
+      <tr><td><code>token-studio-app</code> / <code>mdp-studio-app</code></td><td>The two SvelteKit applications</td><td>all of the above + <code>@eraserlabs/server</code></td><td>humans</td></tr>
+    </table>
+    <p style="margin-top:10px; color:var(--muted); font-size:.86rem">Ordering is deliberate: tokens → primitives → inspector → apps. Each layer is demoable alone; the apps are thin compositions. The only server dependency is <code>@eraserlabs/server</code> for PNG authority — everything else runs in the browser or the build.</p>
+  </div>
+</section>
+
+<section id="milestones">
+  <div class="wrap">
+    <h2><span class="num">07</span>Milestones with exit gates (the anti-half-baked contract)</h2>
+    <p class="lede">Each milestone ends in something shippable and a gate that can fail. If a gate can't fail, it isn't a gate.</p>
+    <table class="mtable">
+      <tr><th>#</th><th>Milestone</th><th>Ships</th><th>Exit gate</th></tr>
+      <tr><td><span class="pill">M0</span></td><td>Spine scaffold</td><td>SvelteKit workspace + <code>svelte-tokens</code> + CI (typecheck, playwright smoke)</td><td>Token flip (light↔dark) renders two different palettes in a static prerendered page with zero client JS.</td></tr>
+      <tr><td><span class="pill">M1</span></td><td>Primitives + measure</td><td><code>Node</code>, <code>Edge</code> (static), <code>use:measure</code>, label mask</td><td>Client-routed edge matches <code>@eraserlabs/layout</code>'s route for the same boxes exactly (property test over random fixtures).</td></tr>
+      <tr><td><span class="pill">M2</span></td><td>Drag + snap + commit</td><td><code>use:drag</code>, draft/commit store, containment-safe snapping</td><td>100 random drags → document validates, all coords divisible by 4, no containment escape, unaffected edges byte-identical.</td></tr>
+      <tr><td><span class="pill">M3</span></td><td>Inspector</td><td><code>&lt;SchemaForm&gt;</code> for the full stock registry</td><td>For every tag: form edits round-trip through validate with zero schema errors; enum/palette/content field types all covered.</td></tr>
+      <tr><td><span class="pill">M4</span></td><td>Roundtrip + server</td><td>Save/load measured JSON; PNG drawer via <code>/render</code>; warnings → lint panel</td><td>Save → load → save is byte-identical; PNG drawer shows server warnings with deep links into the tree.</td></tr>
+      <tr><td><span class="pill">M5</span></td><td>Token Studio core</td><td>URL fetch/extract, role mapping, contrast gate, 39-type live re-skin</td><td>For 5 real sites: emitted <code>style-guide.md</code> passes the skill's own AA constraints; adjustment diffs shown, never silent.</td></tr>
+      <tr><td><span class="pill">M6</span></td><td>Token Studio export</td><td>style-guide patch, profile.md, tokens.json (MDP palette)</td><td>Generated profile drives a real diagram-design onboarding + an Eraser library palette from one source.</td></tr>
+      <tr><td><span class="pill">M7</span></td><td>Blocks MVP</td><td>remark plugin, SSR SVG backend, a11y naming, build-time validation errors</td><td>Fixture docs site builds with 6 blocks; a mutated fixture fails CI with file/line and a did-you-mean.</td></tr>
+      <tr><td><span class="pill">M8</span></td><td>Blocks scale</td><td>PNG backend option, hashed caching, <code>.registry.json</code>, size ramp</td><td>Cold build &lt; 2s per changed block; unchanged docs rebuild touches no assets; registry sidecars validate.</td></tr>
+      <tr><td><span class="pill">M9</span></td><td>Hardening</td><td>a11y audit, reduced-motion/print, keyboard map, docs + cookbook recipes</td><td>Keyboard-only canvas session completes the walkthrough in Fig 1; axe clean; Lighthouse ≥95 on prerendered pages.</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="risks">
+  <div class="wrap">
+    <h2><span class="num">08</span>Where this could go wrong, and the guardrails</h2>
+    <div class="grid g2">
+      <div class="card"><strong>Client routing ≠ server routing</strong><p style="color:var(--muted); font-size:.84rem">Risk: the browser pass and Chromium measure differently (fonts!). <span class="pill warn">Mitigation</span> M1's property test pins the router to identical boxes; M4's save/load byte-identity plus <code>--fonts</code>-style font loading keeps drift visible. The PNG stays authoritative.</p></div>
+      <div class="card"><strong>Fonts shift measurement</strong><p style="color:var(--muted); font-size:.84rem">Risk: Geist/Instrument Serif load late, boxes move after route. <span class="pill warn">Mitigation</span> mirror the render contract: <code>document.fonts.ready</code> before commit-mode re-measure; draft mode may be approximate, commit never is.</p></div>
+      <div class="card"><strong>Schema drift between app and registry</strong><p style="color:var(--muted); font-size:.84rem">Risk: hand-written inspector fields lag new tags. <span class="pill ok">Mitigation</span> the inspector is generated from <code>tagSchema()</code> only — no hand-written per-tag forms allowed (lint forbids them).</p></div>
+      <div class="card"><strong>Blocks hide complexity from authors</strong><p style="color:var(--muted); font-size:.84rem">Risk: YAML diagrams get unwieldy. <span class="pill ok">Mitigation</span> the fence documents <em>are</em> MDP files — round-trip them through MDP Studio when they grow, paste back, keep the diff textual.</p></div>
+      <div class="card"><strong>Two renderers, one truth</strong><p style="color:var(--muted); font-size:.84rem">Risk: Svelte SSR SVG and Chromium PNG disagree visually. <span class="pill bad">Mitigation</span> blocks default to the Chromium backend (backend a) until the Svelte SVG backend passes the same screenshot-diff harness the repo uses for lint-render.</p></div>
+      <div class="card"><strong>Scope gravity toward "full editor"</strong><p style="color:var(--muted); font-size:.84rem">Risk: multi-select, copy-paste, undo forests eat the calendar. <span class="pill ok">Mitigation</span> the milestone gates say no: M2–M4 cover single-select gestures only; anything else is post-M9 by explicit decision.</p></div>
+    </div>
+    <h3>Definition of done for the vision</h3>
+    <ul class="check" style="margin-left:18px; color:var(--muted)">
+      <li>A diagram edited in the Studio, re-skinned by the Token Studio, and embedded via a fence block is <em>the same document</em> at every step.</li>
+      <li>Every artifact each product emits is itself a valid input to every other product and to the CLI.</li>
+      <li>Zero runtime JS on docs pages; full keyboard a11y in the Studio; WCAG AA enforced at token-write time.</li>
+      <li>Each milestone's gate ran green in CI before the next began — no "temporarily skipped" tests.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Buffy · visual explanation for the three-product vision · source: .freebuff/mdp-studio-vision.html · tokens from diagram-design style-guide.md</div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- Mini canvas demo ---------- */
+  var stage = document.getElementById('studio-stage');
+  var gNodes = document.getElementById('g-nodes');
+  var gEdges = document.getElementById('g-edges');
+  var gCont  = document.getElementById('g-container');
+  var docOut = document.getElementById('doc-out');
+  var statePill = document.getElementById('drag-state');
+
+  var SNAP = 4;
+  var doc = {
+    entities: [
+      { tag:'Group', id:'backend', x:320, y:40, width:300, height:220, title:'backend' },
+      { tag:'Shape', id:'web', x:96, y:120, width:128, height:48, text:'web app', color:'plain' },
+      { tag:'Shape', id:'api', x:368, y:88, width:120, height:44, text:'api', color:'focal', containerId:'backend' },
+      { tag:'Shape', id:'db', x:384, y:180, width:120, height:40, text:'postgres', color:'plain', containerId:'backend' }
+    ],
+    connections: [ { id:'c1', from:'web', to:'api', label:'SQL' }, { id:'c2', from:'api', to:'db', label:'rows' } ]
+  };
+  var startDoc = JSON.parse(JSON.stringify(doc));
+
+  function el(tag, attrs, parent, textContent){
+    var n = document.createElementNS('http://www.w3.org/2000/svg', tag);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (textContent != null) n.textContent = textContent;
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+  function byId(id){ for (var i=0;i<doc.entities.length;i++) if (doc.entities[i].id===id) return doc.entities[i]; }
+
+  /* route: simple corridor-style orthogonal path with mid-x channel, container-aware */
+  function route(a, b){
+    var ax = a.x + a.width, ay = a.y + a.height/2;
+    var bx = b.x, by = b.y + b.height/2;
+    if (Math.abs(ay - by) < 8) return [[ax,ay],[bx,by]];
+    var mid = (ax + bx)/2;
+    // avoid crossing source/target rectangles horizontally: leave clearance
+    mid = Math.max(ax + 16, Math.min(bx - 16, mid));
+    return [[ax,ay],[mid,ay],[mid,by],[bx,by]];
+  }
+  function pathD(pts){ var d = 'M' + pts[0][0] + ' ' + pts[0][1]; for (var i=1;i<pts.length;i++) d += ' L' + pts[i][0] + ' ' + pts[i][1]; return d; }
+  function roundedD(pts){
+    var d = 'M' + pts[0][0] + ' ' + pts[0][1];
+    var r = 6;
+    for (var i=1;i<pts.length-1;i++){
+      var p0 = pts[i-1], p1 = pts[i], p2 = pts[i+1];
+      var l1 = Math.hypot(p1[0]-p0[0], p1[1]-p0[1]), l2 = Math.hypot(p2[0]-p1[0], p2[1]-p1[1]);
+      var rr = Math.min(r, l1/2, l2/2);
+      var u1 = [(p1[0]-p0[0])/l1, (p1[1]-p0[1])/l1], u2 = [(p2[0]-p1[0])/l2, (p2[1]-p1[1])/l2];
+      var a = [p1[0]-u1[0]*rr, p1[1]-u1[1]*rr], b = [p1[0]+u2[0]*rr, p1[1]+u2[1]*rr];
+      d += ' L' + a[0] + ' ' + a[1] + ' Q' + p1[0] + ' ' + p1[1] + ' ' + b[0] + ' ' + b[1];
+    }
+    var last = pts[pts.length-1];
+    d += ' L' + last[0] + ' ' + last[1];
+    return d;
+  }
+
+  var draft = null; // {id, x, y} during drag
+  function nodeBox(e){
+    if (draft && draft.id === e.id) return { x:draft.x, y:draft.y, width:e.width, height:e.height };
+    return e;
+  }
+
+  function render(){
+    gCont.innerHTML = ''; gEdges.innerHTML = ''; gNodes.innerHTML = '';
+    // container
+    var grp = byId('backend');
+    var cr = el('rect', { x:grp.x, y:grp.y, width:grp.width, height:grp.height, rx:6, fill:'rgba(45,49,66,.03)', stroke:'#4f5d75', 'stroke-dasharray':'4 3' }, gCont);
+    var chip = el('rect', { x:grp.x, y:grp.y, width:76, height:18, rx:4, fill:'#4f5d75' }, gCont);
+    el('text', { x:grp.x+8, y:grp.y+13, 'font-size':10, fill:'#f5f5f5', 'class':'mono' }, gCont, grp.title);
+
+    // edges
+    doc.connections.forEach(function(c){
+      var a = nodeBox(byId(c.from)), b = nodeBox(byId(c.to));
+      var pts = route(a, b);
+      var path = el('path', { d: roundedD(pts), fill:'none', stroke:'#4f5d75', 'stroke-width':1.4, 'marker-end':'url(#demo-arr)' }, gEdges);
+      var lx = (pts[0][0]+pts[1][0])/2, ly = pts[0][1] - 6;
+      var w = c.label.length * 6.2 + 8;
+      el('rect', { x:lx - w/2, y:ly - 9, width:w, height:13, rx:3, fill:'#f5f5f5' }, gEdges);
+      var t = el('text', { x:lx, y:ly + 1, 'text-anchor':'middle', 'font-size':9, fill:'#4f5d75', 'class':'mono' }, gEdges, c.label);
+    });
+
+    // nodes (skip Group)
+    doc.entities.forEach(function(e){
+      if (e.tag === 'Group') return;
+      var focal = e.color === 'focal';
+      var g = el('g', { 'class':'node-hit', tabindex:0, role:'button', 'aria-label': e.text + ' node. Arrow keys to nudge.' }, gNodes);
+      var rect = el('rect', { x:e.x, y:e.y, width:e.width, height:e.height, rx:6,
+        fill: focal ? 'rgba(235,108,54,.10)' : '#ffffff',
+        stroke: focal ? '#eb6c36' : '#2d3142', 'stroke-width': focal ? 1.4 : 1 }, g);
+      el('text', { x:e.x + e.width/2, y:e.y + e.height/2 + 4, 'text-anchor':'middle', 'font-size':11, fill:'#2d3142' }, g, e.text);
+      if (focal){ el('rect', { x:e.x-4, y:e.y-4, width:e.width+8, height:e.height+8, rx:8, fill:'none', stroke:'#eb6c36', 'stroke-width':1, 'stroke-dasharray':'3 3', 'pointer-events':'none' }, gNodes); }
+      attachDrag(g, e);
+      attachKeys(g, e);
+    });
+    renderDoc();
+  }
+
+  function renderDoc(){
+    var out = { entities: [], connections: [] };
+    doc.entities.forEach(function(e){
+      var o = { tag:e.tag, id:e.id, x:e.x, y:e.y };
+      if (e.width != null) o.width = e.width;
+      if (e.height != null) o.height = e.height;
+      if (e.containerId) o.containerId = e.containerId;
+      if (e.tag !== 'Group') o.texts = [{ text: e.text }];
+      if (e.tag === 'Group') o.title = { text: e.title };
+      out.entities.push(o);
+    });
+    doc.connections.forEach(function(c){ out.connections.push({ from:c.from, to:c.to, label:c.label }); });
+    docOut.textContent = JSON.stringify(out, null, 2);
+  }
+
+  /* drag with 4px snap on commit, live draft routing */
+  function attachDrag(g, e){
+    var svgPoint = function(evt){
+      var pt = stage.createSVGPoint(); pt.x = evt.clientX; pt.y = evt.clientY;
+      var m = stage.getScreenCTM(); return pt.matrixTransform(m.inverse());
+    };
+    var start = null;
+    function down(ev){
+      if (ev.button !== undefined && ev.button !== 0) return;
+      ev.preventDefault();
+      start = { px: svgPoint(ev).x, py: svgPoint(ev).y, ox: e.x, oy: e.y };
+      stage.classList.add('dragging');
+      statePill.textContent = 'dragging ' + e.id + ' (draft — unsnapped)';
+      window.addEventListener('pointermove', move);
+      window.addEventListener('pointerup', up, { once:true });
+    }
+    function move(ev){
+      if (!start) return;
+      var p = svgPoint(ev);
+      var nx = Math.max(0, Math.min(940 - e.width, start.ox + (p.x - start.px)));
+      var ny = Math.max(0, Math.min(360 - e.height, start.oy + (p.y - start.py)));
+      draft = { id: e.id, x: nx, y: ny };
+      render();
+    }
+    function up(){
+      window.removeEventListener('pointermove', move);
+      stage.classList.remove('dragging');
+      if (draft && draft.id === e.id){
+        e.x = Math.round(draft.x / SNAP) * SNAP;
+        e.y = Math.round(draft.y / SNAP) * SNAP;
+        draft = null;
+        statePill.textContent = 'committed ' + e.id + ' — snapped to 4px grid';
+        // keep container honest: grow minimums if member escapes
+        if (e.containerId){
+          var grp = byId(e.containerId);
+          var r = grp.x + grp.width, b = grp.y + grp.height;
+          if (e.x + e.width + 16 > r || e.y + e.height + 16 > b || e.x - 16 < grp.x || e.y - 26 < grp.y){
+            grp.width = Math.max(grp.width, e.x + e.width + 16 - grp.x);
+            grp.height = Math.max(grp.height, e.y + e.height + 16 - grp.y);
+            statePill.textContent += ' · group minimums grew';
+          }
+        }
+        render();
+      }
+      start = null;
+    }
+    g.addEventListener('pointerdown', down);
+  }
+
+  function attachKeys(g, e){
+    g.addEventListener('keydown', function(ev){
+      var step = ev.shiftKey ? 16 : SNAP;
+      var dx = 0, dy = 0;
+      if (ev.key === 'ArrowLeft') dx = -step; else if (ev.key === 'ArrowRight') dx = step;
+      else if (ev.key === 'ArrowUp') dy = -step; else if (ev.key === 'ArrowDown') dy = step;
+      else return;
+      ev.preventDefault();
+      e.x = Math.max(0, Math.min(940 - e.width, e.x + dx));
+      e.y = Math.max(0, Math.min(360 - e.height, e.y + dy));
+      statePill.textContent = 'nudged ' + e.id + ' by ' + step + 'px';
+      render();
+    });
+    g.addEventListener('focus', function(){
+      var focal = e.color === 'focal';
+      statePill.textContent = 'focused ' + e.id;
+    });
+  }
+
+  document.getElementById('btn-add').addEventListener('click', function(){
+    var n = { tag:'Shape', id:'svc' + (doc.entities.length), x: 96, y: 40 + 56*(doc.entities.length % 3), width:120, height:44, text:'service', color:'plain' };
+    doc.entities.push(n);
+    doc.connections.push({ id:'c' + doc.connections.length, from:n.id, to:'api', label:'call' });
+    statePill.textContent = 'added ' + n.id;
+    render();
+  });
+  var contained = true;
+  document.getElementById('btn-toggle-contain').addEventListener('click', function(){
+    var api = byId('api');
+    api.containerId = contained ? null : 'backend';
+    contained = !contained;
+    statePill.textContent = 'api containment: ' + (api.containerId || 'root');
+    render();
+  });
+  document.getElementById('btn-reset').addEventListener('click', function(){
+    doc = JSON.parse(JSON.stringify(startDoc));
+    contained = true;
+    statePill.textContent = 'reset';
+    render();
+  });
+  render();
+
+  /* ---------- Contrast gate ---------- */
+  function hslToHex(h, s, l){
+    s /= 100; l /= 100;
+    var k = function(n){ return (n + h / 30) % 12; };
+    var a = s * Math.min(l, 1 - l);
+    var f = function(n){ return l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1))); };
+    var to255 = function(x){ return Math.round(255 * x).toString(16).padStart(2, '0'); };
+    return '#' + to255(f(0)) + to255(f(8)) + to255(f(4));
+  }
+  function lum(hex){
+    var c = hex.replace('#','');
+    var rgb = [0,1,2].map(function(i){ return parseInt(c.substr(i*2,2),16)/255; })
+      .map(function(v){ return v <= 0.03928 ? v/12.92 : Math.pow((v+0.055)/1.055, 2.4); });
+    return 0.2126*rgb[0] + 0.7152*rgb[1] + 0.0722*rgb[2];
+  }
+  function ratio(a, b){ var l1 = lum(a), l2 = lum(b); var hi = Math.max(l1,l2), lo = Math.min(l1,l2); return (hi + 0.05)/(lo + 0.05); }
+
+  var rInk = document.getElementById('r-ink'), rPaper = document.getElementById('r-paper');
+  var inkLv = document.getElementById('ink-lv'), paperLv = document.getElementById('paper-lv');
+  var demo = document.getElementById('swatch-demo'), gate = document.getElementById('gate-out');
+  function updateGate(){
+    var L1 = +rInk.value, L2 = +rPaper.value;
+    inkLv.textContent = L1; paperLv.textContent = L2;
+    var ink = hslToHex(222, 18, L1), paper = hslToHex(220, 8, L2);
+    var muted = hslToHex(220, 18, Math.min(70, L1 + 8));
+    var rInkPaper = ratio(ink, paper), rMuted = ratio(muted, paper);
+    demo.style.background = paper; demo.style.color = ink;
+    demo.innerHTML = 'Aa 12px — node label<br><span style="font-size:.72rem;color:' + muted + '">muted 11px sublabel</span>';
+    function pill(ok, label, val){ return '<div><span class="pill ' + (ok ? 'ok' : 'bad') + '">' + (ok ? 'PASS' : 'FAIL') + '</span> ' + label + ' ' + val.toFixed(2) + ':1</div>'; }
+    var html = pill(rInkPaper >= 4.5, 'ink/paper AA', rInkPaper) + pill(rMuted >= 4.5, 'muted/paper AA', rMuted);
+    if (rInkPaper < 4.5){
+      var fixed = L1 < 32 ? L1 : Math.max(5, 32 - (L1 - 32));
+      var fixHex = hslToHex(222, 18, fixed);
+      var fixR = ratio(fixHex, paper);
+      html += '<div style="color:var(--warn)">→ ink: adjust L*→' + fixed + ' (' + fixHex + ') → ' + fixR.toFixed(2) + ':1 ' + (fixR >= 4.5 ? '✓' : '✗') + '</div>';
+    }
+    if (rMuted < 4.5){
+      // darkest muted (lowest lightness) that still reads as secondary: search downward from current
+      var cur = Math.min(70, L1 + 8), mL = cur;
+      for (var cand = cur; cand >= 5; cand--){
+        if (ratio(hslToHex(220, 18, cand), paper) >= 4.5){ mL = cand; break; }
+        mL = cand;
+      }
+      var mHex = hslToHex(220, 18, mL);
+      var mR = ratio(mHex, paper);
+      html += '<div style="color:var(--warn)">→ muted: adjust L*→' + mL + ' (' + mHex + ') → ' + mR.toFixed(2) + ':1 ' + (mR >= 4.5 ? '✓' : '✗') + '</div>';
+    }
+    gate.innerHTML = html;
+  }
+  rInk.addEventListener('input', updateGate); rPaper.addEventListener('input', updateGate);
+  updateGate();
+
+  /* ---------- Token gallery ---------- */
+  var galleryData = [
+    { name:'architecture', draw: function(g, T){
+        g.appendChild(mk('rect',{x:6,y:14,width:70,height:30,rx:4,fill:T['accent-tint'],stroke:T.accent,'stroke-width':1}));
+        g.appendChild(mk('text',{x:41,y:32,'text-anchor':'middle','font-size':8,fill:T.ink},'focal'));
+        g.appendChild(mk('rect',{x:96,y:14,width:70,height:30,rx:4,fill:'#ffffff',stroke:T.ink,'stroke-width':1}));
+        g.appendChild(mk('text',{x:131,y:32,'text-anchor':'middle','font-size':8,fill:T.ink},'service'));
+        g.appendChild(mk('path',{d:'M76 29 H92',stroke:T.muted,'stroke-width':1.2,fill:'none','marker-end':'url(#gal-arr)'}));
+      } },
+    { name:'flowchart', draw: function(g, T){
+        g.appendChild(mk('rect',{x:34,y:6,width:52,height:18,rx:4,fill:'#ffffff',stroke:T.ink}));
+        g.appendChild(mk('text',{x:60,y:18,'text-anchor':'middle','font-size':7.5,fill:T.ink},'input'));
+        g.appendChild(mk('path',{d:'M60 24 V38',stroke:T.muted,'stroke-width':1.2,fill:'none','marker-end':'url(#gal-arr)'}));
+        g.appendChild(mk('polygon',{points:'60,38 82,56 60,74 38,56',fill:T['accent-tint'],stroke:T.accent}));
+        g.appendChild(mk('text',{x:60,y:59,'text-anchor':'middle','font-size':7,fill:T.ink},'valid?'));
+      } },
+    { name:'sequence', draw: function(g, T){
+        [24,96].forEach(function(x){ g.appendChild(mk('rect',{x:x-14,y:6,width:28,height:14,rx:3,fill:'#ffffff',stroke:T.ink})); g.appendChild(mk('path',{d:'M'+x+' 20 V70',stroke:T.rule,'stroke-width':1,strokeDasharray:'2 3'})); });
+        g.appendChild(mk('path',{d:'M38 34 H82',stroke:T.muted,fill:'none','marker-end':'url(#gal-arr)','stroke-width':1.2}));
+        g.appendChild(mk('text',{x:60,y:31,'text-anchor':'middle','font-size':6.5,fill:T.soft,'class':'mono'},'req'));
+        g.appendChild(mk('path',{d:'M82 52 L38 52',stroke:T.accent,fill:'none','marker-end':'url(#gal-arr)','stroke-width':1.2}));
+        g.appendChild(mk('text',{x:60,y:49,'text-anchor':'middle','font-size':6.5,fill:T.soft,'class':'mono'},'401'));
+      } },
+    { name:'layers', draw: function(g, T){
+        [0,1,2].forEach(function(i){ g.appendChild(mk('rect',{x:18,y:8+i*20,width:84,height:16,rx:3,fill: i===1 ? T['accent-tint'] : '#ffffff',stroke: i===1 ? T.accent : T.rule})); });
+      } },
+    { name:'timeline', draw: function(g, T){
+        g.appendChild(mk('path',{d:'M10 36 H110',stroke:T.ruleSolid,'stroke-width':1}));
+        [[26,1],[60,2],[94,3]].forEach(function(p){ g.appendChild(mk('circle',{cx:p[0],cy:36,r:4,fill: p[1]===2 ? T.accent : '#ffffff',stroke: p[1]===2 ? T.accent : T.muted})); });
+      } },
+    { name:'pyramid', draw: function(g, T){
+        g.appendChild(mk('polygon',{points:'60,6 92,58 28,58',fill:T['accent-tint'],stroke:T.accent}));
+        g.appendChild(mk('text',{x:60,y:52,'text-anchor':'middle','font-size':7,fill:T.ink},'top'));
+      } },
+    { name:'quadrant', draw: function(g, T){
+        g.appendChild(mk('rect',{x:14,y:6,width:92,height:60,fill:'#ffffff',stroke:T.rule}));
+        g.appendChild(mk('path',{d:'M60 6 V66 M14 36 H106',stroke:T.rule,'stroke-width':1}));
+        g.appendChild(mk('circle',{cx:78,cy:20,r:5,fill:T['accent-tint'],stroke:T.accent}));
+      } },
+    { name:'sankey', draw: function(g, T){
+        g.appendChild(mk('rect',{x:10,y:18,width:8,height:40,fill:T.muted}));
+        g.appendChild(mk('rect',{x:102,y:10,width:8,height:22,fill:T.accent}));
+        g.appendChild(mk('rect',{x:102,y:40,width:8,height:26,fill:T.muted}));
+        g.appendChild(mk('path',{d:'M18 38 C55 38 60 21 102 21',stroke:T.accent,'stroke-opacity':.35,'stroke-width':12,fill:'none'}));
+        g.appendChild(mk('path',{d:'M18 38 C55 38 60 53 102 53',stroke:T.muted,'stroke-opacity':.35,'stroke-width':13,fill:'none'}));
+      } },
+    { name:'state', draw: function(g, T){
+        g.appendChild(mk('circle',{cx:32,cy:36,r:14,fill:'#ffffff',stroke:T.ink})); g.appendChild(mk('text',{x:32,y:39,'text-anchor':'middle','font-size':6.5,fill:T.ink},'idle'));
+        g.appendChild(mk('circle',{cx:88,cy:36,r:14,fill:T['accent-tint'],stroke:T.accent})); g.appendChild(mk('text',{x:88,y:39,'text-anchor':'middle','font-size':6.5,fill:T.ink},'run'));
+        g.appendChild(mk('path',{d:'M46 36 H70',stroke:T.muted,fill:'none','marker-end':'url(#gal-arr)'}));
+      } }
+  ];
+  function mk(tag, attrs, text){
+    var n = document.createElementNS('http://www.w3.org/2000/svg', tag);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (text != null) n.textContent = text;
+    return n;
+  }
+  var T = { paper:'#f5f5f5', ink:'#2d3142', muted:'#4f5d75', soft:'#7a8399', rule:'rgba(45,49,66,.12)', ruleSolid:'#bfc0c0', accent:'#eb6c36', 'accent-tint':'rgba(235,108,54,.08)', link:'#2e5aa8' };
+  var gallery = document.getElementById('gallery');
+  var svgDefs = mk('defs');
+  var mk2 = mk('marker', { id:'gal-arr', viewBox:'0 0 10 10', refX:8, refY:5, markerWidth:6, markerHeight:6, orient:'auto-start-reverse' });
+  mk2.appendChild(mk('path', { d:'M0 0 L10 5 L0 10 z', fill:'#4f5d75' }));
+  svgDefs.appendChild(mk2);
+
+  function drawGallery(){
+    gallery.innerHTML = '';
+    var defsHolder = mk('svg', { width:0, height:0, style:'position:absolute' }); defsHolder.appendChild(svgDefs); gallery.appendChild(defsHolder);
+    galleryData.forEach(function(item){
+      var card = document.createElement('div');
+      card.style.cssText = 'border:1px solid var(--rule); border-radius:8px; background:#fff; padding:8px';
+      var svg = mk('svg', { viewBox:'0 0 120 76', role:'img', 'aria-label': item.name + ' sketched with current tokens' });
+      svg.style.cssText = 'width:100%;height:auto;background:' + T.paper + ';border-radius:4px';
+      var g = mk('g'); svg.appendChild(g); item.draw(g, T);
+      var cap = document.createElement('div');
+      cap.style.cssText = 'font-family:var(--mono);font-size:.62rem;color:var(--soft);margin-top:4px;letter-spacing:.06em;text-transform:uppercase';
+      cap.textContent = item.name;
+      card.appendChild(svg); card.appendChild(cap); gallery.appendChild(card);
+    });
+  }
+  drawGallery();
+  // re-skin tie-in: accent slider drives gallery accent
+  var rAccent = document.createElement('input');
+  rAccent.type = 'range'; rAccent.min = 0; rAccent.max = 360; rAccent.value = 20;
+  rAccent.style.cssText = 'width:100%; accent-color:#eb6c36; margin-top:6px';
+  rAccent.setAttribute('aria-label', 'Accent hue');
+  var accLabel = document.createElement('label');
+  accLabel.style.cssText = 'font-family:var(--mono);font-size:.68rem;color:var(--muted);display:block';
+  accLabel.textContent = 'accent hue (re-skins the gallery live)';
+  var host = document.getElementById('gallery').parentElement;
+  host.appendChild(accLabel); host.appendChild(rAccent);
+  rAccent.addEventListener('input', function(){
+    var h = +rAccent.value;
+    T.accent = hslToHex(h, 76, 57);
+    T['accent-tint'] = 'hsla(' + h + ',76%,57%,.1)';
+    document.documentElement.style.setProperty('--accent', T.accent);
+    drawGallery(); updateGate();
+  });
+})();
+</script>
+</body>
+</html>

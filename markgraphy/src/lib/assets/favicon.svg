@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+	<title>markgraphy</title>
+	<rect width="32" height="32" fill="#101211" />
+	<rect
+		x="4.5"
+		y="4.5"
+		width="23"
+		height="23"
+		fill="none"
+		stroke="#949a96"
+		stroke-width="1"
+		stroke-dasharray="2 5"
+	/>
+	<path
+		d="M16 10.5v11M10.5 16h11"
+		fill="none"
+		stroke="#47d2a7"
+		stroke-width="3"
+		stroke-linecap="square"
+	/>
+</svg>

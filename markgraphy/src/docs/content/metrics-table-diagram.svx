@@ -1,0 +1,41 @@
+<script lang="ts">
+	import { MetricsTableDiagram } from '$lib';
+</script>
+
+# MetricsTableDiagram
+
+## Import
+
+```svelte
+import { MetricsTableDiagram } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<MetricsTableDiagram
+  title="example"
+/>
+```
+
+<div class="live">
+<MetricsTableDiagram
+  title="example"
+/>
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title?` | `string` | `—` | Caption on the top edge, uppercased. Default "COST". |
+| `rows?` | `MetricRow[]` | `—` | — |
+| `totalCalls?` | `number | string` | `—` | — |
+| `totalTime?` | `string` | `—` | — |
+| `showTotal?` | `boolean` | `—` | Show the total row. Default true. |
+| `class?` | `string` | `—` | — |
+
+## Exported types
+
+- `MetricRow`
+- `MetricsTableDiagramProps`

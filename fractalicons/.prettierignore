@@ -1,0 +1,40 @@
+# Package Managers
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+bun.lock
+bun.lockb
+
+# Miscellaneous
+/static/
+
+# Generated icon modules — written by scripts/generate-icons.js, never hand-edited.
+# One single-file module per family; add a line when you add a family to familyPrefixMap.
+/src/lib/anticons.ts
+/src/lib/boxregular.ts
+/src/lib/boxsolid.ts
+/src/lib/circum.ts
+/src/lib/coreui.ts
+/src/lib/cssgg.ts
+/src/lib/famicons.ts
+/src/lib/feathericons.ts
+/src/lib/fontawesome.ts
+/src/lib/fontawesomesolid.ts
+/src/lib/heroicons.ts
+/src/lib/heroiconsfill.ts
+/src/lib/iconoir.ts
+/src/lib/iconoirfill.ts
+/src/lib/lucide.ts
+/src/lib/materialanim.ts
+/src/lib/octicons.ts
+/src/lib/phosphor.ts
+/src/lib/phosphorfill.ts
+/src/lib/remix.ts
+/src/lib/remixfill.ts
+/src/lib/simple.ts
+/src/lib/simpleline.ts
+/src/lib/tabler.ts
+/src/lib/tablerfill.ts
+
+# Local editor/agent state
+/.claude/settings.local.json

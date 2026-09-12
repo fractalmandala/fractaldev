@@ -1,0 +1,34 @@
+{
+  "id": "lamplight-newsprint-indigo",
+  "name": "Lamplight Newsprint Indigo",
+  "version": "2.0.0",
+  "author": "amrit",
+  "description": "The same ink structure with the accent moved to a deep indigo \u2014 reads more technical, less editorial.",
+  "isDark": true,
+  "tags": [
+    "news",
+    "dark"
+  ],
+  "colors": {
+    "bg": "#121316",
+    "bg-secondary": "#0E0F11",
+    "bg-tertiary": "#1B1C1E",
+    "bg-hover": "#1C1D20",
+    "bg-selected": "#292A2E",
+    "bg-active": "#232733",
+    "text": "#E1E2E5",
+    "text-muted": "#A3A4A7",
+    "text-faint": "#6D6E72",
+    "text-disabled": "#4D4E52",
+    "border": "#212225",
+    "border-focus": "#8AA4E8",
+    "primary": "#8AA4E8",
+    "primary-hover": "#9AAFE7",
+    "link": "#8AA4E8",
+    "link-hover": "#9AAFE7",
+    "success": "#86C08A",
+    "warning": "#D2A85A",
+    "error": "#E06A78",
+    "info": "#8AA4E8"
+  }
+}

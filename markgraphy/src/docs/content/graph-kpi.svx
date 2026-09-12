@@ -1,0 +1,39 @@
+<script lang="ts">
+	import { GraphKpi } from '$lib';
+</script>
+
+# GraphKpi
+
+## Import
+
+```svelte
+import { GraphKpi } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphKpi
+  title="example"
+  value="example"
+  label="example"
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `value` | `string` | `—` | — |
+| `label` | `string` | `—` | — |
+| `hint?` | `string` | `—` | — |
+| `data` | `number[]` | `—` | — |
+| `glyphs?` | `Glyphs` | `—` | — |
+| `palette?` | `GraphPalette` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `GraphKpiProps`

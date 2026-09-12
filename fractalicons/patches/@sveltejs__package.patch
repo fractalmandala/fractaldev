@@ -1,0 +1,126 @@
+diff --git a/src/filesystem.js b/src/filesystem.js
+index 0a0b737728acbce94439a21e1fe55cce26c3f45d..2e9d693b8e421a6795629019e74dec5b58f66f6c 100644
+--- a/src/filesystem.js
++++ b/src/filesystem.js
+@@ -13,7 +13,11 @@ export function mkdirp(dir) {
+ 
+ /** @param {string} path */
+ export function rimraf(path) {
+-	fs.rmSync(path, { force: true, recursive: true });
++	try {
++		fs.rmSync(path, { force: true, recursive: true, maxRetries: 10, retryDelay: 100 });
++	} catch {
++		// ignore cleanup race conditions
++	}
+ }
+ 
+ /** @param {string} str */
+@@ -31,78 +35,46 @@ export function walk(cwd, dirs = false) {
+ 	const all_files = [];
+ 
+ 	/** @param {string} dir */
+-	function walk_dir(dir) {
+-		const files = fs.readdirSync(path.join(cwd, dir));
+-
+-		for (const file of files) {
+-			const joined = path.join(dir, file);
+-			const stats = fs.statSync(path.join(cwd, joined));
+-			if (stats.isDirectory()) {
+-				if (dirs) all_files.push(joined);
+-				walk_dir(joined);
++	function pass(dir) {
++		for (const file of fs.readdirSync(path.join(cwd, dir), { withFileTypes: true })) {
++			const sub = path.posix.join(dir, file.name);
++			if (file.isDirectory()) {
++				pass(sub);
++				if (dirs) all_files.push(sub);
+ 			} else {
+-				all_files.push(joined);
++				all_files.push(sub);
+ 			}
+ 		}
+ 	}
+ 
+-	return (walk_dir(''), all_files);
++	pass('');
++	return all_files;
+ }
+ 
+ /**
+- * @param {string} source
+- * @param {string} target
+- * @param {{
+- *   filter?: (basename: string) => boolean;
+- *   replace?: Record<string, string>;
+- * }} opts
++ * @param {string} file
++ * @param {string} contents
+  */
+-export function copy(source, target, opts = {}) {
+-	if (!fs.existsSync(source)) return [];
+-
+-	/** @type {string[]} */
+-	const files = [];
+-
+-	const prefix = posixify(target) + '/';
+-
+-	const regex = opts.replace
+-		? new RegExp(`\\b(${Object.keys(opts.replace).join('|')})\\b`, 'g')
+-		: null;
+-
+-	/**
+-	 * @param {string} from
+-	 * @param {string} to
+-	 */
+-	function go(from, to) {
+-		if (opts.filter && !opts.filter(path.basename(from))) return;
+-
+-		const stats = fs.statSync(from);
+-
+-		if (stats.isDirectory()) {
+-			fs.readdirSync(from).forEach((file) => {
+-				go(path.join(from, file), path.join(to, file));
+-			});
+-		} else {
+-			mkdirp(path.dirname(to));
+-
+-			if (opts.replace) {
+-				const data = fs.readFileSync(from, 'utf-8');
+-				fs.writeFileSync(
+-					to,
+-					data.replace(
+-						/** @type {RegExp} */ (regex),
+-						(_match, key) => /** @type {Record<string, string>} */ (opts.replace)[key]
+-					)
+-				);
+-			} else {
+-				fs.copyFileSync(from, to);
+-			}
++export function write(file, contents) {
++	mkdirp(path.dirname(file));
++	fs.writeFileSync(file, contents);
++}
+ 
+-			files.push(to === target ? posixify(path.basename(to)) : posixify(to).replace(prefix, ''));
++/**
++ * Copy file or directory recursively
++ * @param {string} from
++ * @param {string} to
++ */
++export function copy(from, to) {
++	if (!fs.existsSync(from)) return;
++	const stats = fs.statSync(from);
++	if (stats.isDirectory()) {
++		mkdirp(to);
++		for (const file of fs.readdirSync(from)) {
++			copy(path.join(from, file), path.join(to, file));
+ 		}
++	} else {
++		mkdirp(path.dirname(to));
++		fs.copyFileSync(from, to);
+ 	}
+-
+-	go(source, target);
+-
+-	return files;
+ }

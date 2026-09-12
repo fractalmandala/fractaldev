@@ -1,0 +1,42 @@
+<script lang="ts">
+	import { AmplifierDiagram } from '$lib';
+</script>
+
+# AmplifierDiagram
+
+## Import
+
+```svelte
+import { AmplifierDiagram } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<AmplifierDiagram
+  gain={3.5}
+  interactive={true}
+  animated={true}
+/>
+```
+
+<div class="live">
+<AmplifierDiagram
+  gain={3.5}
+  interactive={true}
+  animated={true}
+/>
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `gain?` | `number` | `3.5` | Starting gain multiplier. Default 3.5. |
+| `interactive?` | `boolean` | `true` | Show the gain slider and dB readout. Default true. |
+| `animated?` | `boolean` | `true` | Animate the waves. Default true. Reduced motion freezes them. |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `AmplifierDiagramProps`

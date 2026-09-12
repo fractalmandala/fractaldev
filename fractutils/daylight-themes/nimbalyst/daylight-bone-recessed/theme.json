@@ -1,0 +1,34 @@
+{
+  "id": "daylight-bone-recessed",
+  "name": "Daylight Bone Recessed",
+  "version": "2.0.0",
+  "author": "amrit",
+  "description": "A stone sidebar drops the chrome below the page so the editor reads as a sheet laid on a desk. Hues deepen a step to hold against it.",
+  "isDark": false,
+  "tags": [
+    "bone",
+    "light"
+  ],
+  "colors": {
+    "bg": "#FCFCFC",
+    "bg-secondary": "#EAEBEC",
+    "bg-tertiary": "#E1E2E4",
+    "bg-hover": "#F4F4F4",
+    "bg-selected": "#E3E5E6",
+    "bg-active": "#F9EADF",
+    "text": "#565B60",
+    "text-muted": "#888B8F",
+    "text-faint": "#A5AAB0",
+    "text-disabled": "#C3C7CB",
+    "border": "#DDDEE0",
+    "border-focus": "#E8792B",
+    "primary": "#E8792B",
+    "primary-hover": "#CE7435",
+    "link": "#E8792B",
+    "link-hover": "#CE7435",
+    "success": "#4CA750",
+    "warning": "#E6A700",
+    "error": "#E65050",
+    "info": "#399EE6"
+  }
+}

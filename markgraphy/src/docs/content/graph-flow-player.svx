@@ -1,0 +1,50 @@
+<script lang="ts">
+	import { GraphFlowPlayer } from '$lib';
+</script>
+
+# GraphFlowPlayer
+
+One entry per step — not per rendered line, so each is its own box.
+
+## Import
+
+```svelte
+import { GraphFlowPlayer } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphFlowPlayer
+  title="example"
+  autoPlay={false}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | Caption drawn on the frame's top edge as `[ TITLE ]`. |
+| `steps` | `FlowStep[]` | `—` | Steps in playback order. |
+| `autoPlay?` | `boolean` | `false` | Start playing on mount. Default false. Never autoplays under reduced motion. |
+| `speedMs?` | `number` | `1600` | Milliseconds per step. Default 1600. |
+| `showControls?` | `boolean` | `true` | Show the playback controls. Default true. |
+| `animated?` | `boolean` | `true` | Animate transitions and the active marker pulse. Default true. |
+| `corner?` | `string` | `—` | Character at each corner of the frame. Default '+'. |
+| `frame?` | `FrameProps` | `—` | Anything the frame itself takes — dash, motion, speed, easing, pad,
+pauseOnHover, cornerBlink, ink, accent. Forwarded straight to `Graph`,
+so the frame's whole vocabulary is reachable without this component
+having to restate every prop.
+/ |
+| `class?` | `string` | `""` | — |
+
+## Exported types
+
+- `FrameProps`
+- `FlowStep`
+- `GraphFlowPlayerProps`
+
+## Reduced motion
+
+Animation is disabled under `prefers-reduced-motion`.

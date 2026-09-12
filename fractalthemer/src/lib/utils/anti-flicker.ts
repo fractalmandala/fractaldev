@@ -1,0 +1,10 @@
+/**
+ * Generates an inline, zero-dependency JavaScript string to be placed in the <head> of app.html
+ * to prevent Flash of Unstyled Content (FOUC) or mode flicker before Svelte hydrates.
+ */
+export function getAntiFlickerScript(
+	defaultTheme = 'theme-light-default',
+	defaultBgStyle: 'plain' | 'aura' | 'gradient' | 'pattern' = 'plain'
+): string {
+	return `(function(){try{var darkThemes=['theme-lagoona-dark','theme-frozen-dark','theme-night-dark','theme-inkworm-dark','theme-monochrono-dark','theme-fouram-dark','theme-wintercame-dark','theme-sun-dark','theme-console-dark','theme-dracula-dark','theme-catppuccin-mocha','theme-nord-dark','theme-gruvbox-dark','theme-onedark-pro','theme-rose-pine-dark','theme-midnight-emerald-dark','theme-obsidian-crimson-dark','theme-synthwave-dark','theme-deep-ocean-dark','theme-amethyst-void-dark'];var savedTheme=localStorage.getItem('theme')||'${defaultTheme}';var savedBgStyle=localStorage.getItem('bgStyle')||'${defaultBgStyle}';var validBgStyles=['plain','aura','gradient','pattern'];if(validBgStyles.indexOf(savedBgStyle)===-1){savedBgStyle='plain';}var isDark=darkThemes.indexOf(savedTheme)!==-1||savedTheme.indexOf('-dark')!==-1||savedTheme.indexOf('-mocha')!==-1;var mode=isDark?'dark':'light';var root=document.documentElement;root.classList.add(savedTheme);root.setAttribute('data-theme',mode);root.setAttribute('data-mode',mode);root.setAttribute('data-theme-id',savedTheme);root.setAttribute('data-theme-family',savedTheme);root.setAttribute('data-bg-style',savedBgStyle);root.style.colorScheme=mode;var customTokens=localStorage.getItem('customTokens');if(customTokens){try{var parsed=JSON.parse(customTokens);for(var k in parsed){root.style.setProperty('--'+k,parsed[k]);}}catch(e){}}var useAccent=localStorage.getItem('useCustomAccent');if(useAccent==='true'){var acc=localStorage.getItem('customAccentColor');var accAlt=localStorage.getItem('customAccentAltColor');if(acc){root.style.setProperty('--theme-color',acc);}if(accAlt){root.style.setProperty('--theme-color-alt',accAlt);}}}catch(e){}})();`;
+}

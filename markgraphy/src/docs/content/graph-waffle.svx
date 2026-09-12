@@ -1,0 +1,46 @@
+<script lang="ts">
+	import { GraphWaffle } from '$lib';
+</script>
+
+# GraphWaffle
+
+## Import
+
+```svelte
+import { GraphWaffle } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphWaffle
+  title="example"
+  value={0}
+  cells={100}
+/>
+```
+
+<div class="live">
+<GraphWaffle
+  title="example"
+  value={0}
+  cells={100}
+/>
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `value` | `number` | `—` | — |
+| `cells?` | `number` | `100` | — |
+| `columns?` | `number` | `10` | — |
+| `caption?` | `string` | `—` | — |
+| `glyphs?` | `Glyphs` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `GraphWaffleProps`

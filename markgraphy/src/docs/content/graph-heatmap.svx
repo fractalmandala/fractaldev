@@ -1,0 +1,39 @@
+<script lang="ts">
+	import { GraphHeatmap } from '$lib';
+</script>
+
+# GraphHeatmap
+
+## Import
+
+```svelte
+import { GraphHeatmap } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphHeatmap
+  title="example"
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `columns` | `string[]` | `—` | — |
+| `rows` | `HeatRow[]` | `—` | — |
+| `max?` | `number` | `—` | — |
+| `legend?` | `boolean` | `true` | — |
+| `caption?` | `string` | `—` | — |
+| `glyphs?` | `Glyphs` | `—` | — |
+| `palette?` | `GraphPalette` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `HeatRow`
+- `GraphHeatmapProps`

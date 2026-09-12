@@ -1,0 +1,36 @@
+<script lang="ts">
+	import { GraphDiff } from '$lib';
+</script>
+
+# GraphDiff
+
+## Import
+
+```svelte
+import { GraphDiff } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphDiff
+  title="example"
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `rows` | `DiffRow[]` | `—` | — |
+| `footer?` | `DiffRow` | `—` | — |
+| `palette?` | `GraphPalette` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `DiffSign`
+- `DiffRow`
+- `GraphDiffProps`

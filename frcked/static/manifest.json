@@ -1,0 +1,31 @@
+{
+	"name": "svelte-gui",
+	"short_name": "sv-gui",
+	"description": "Svelte Component Library & App Shell",
+	"start_url": "/",
+	"display": "standalone",
+	"background_color": "#000000",
+	"theme_color": "#000000",
+	"orientation": "portrait-primary",
+	"scope": "/",
+	"icons": [
+		{
+			"src": "/favicon.svg",
+			"sizes": "48x48",
+			"type": "image/svg+xml",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "/favicon.svg",
+			"sizes": "any",
+			"type": "image/svg+xml",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "/banner.jpeg",
+			"sizes": "1920x1080",
+			"type": "image/jpeg",
+			"purpose": "any"
+		}
+	]
+}

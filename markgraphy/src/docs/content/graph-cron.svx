@@ -1,0 +1,52 @@
+<script lang="ts">
+	import { GraphCron } from '$lib';
+</script>
+
+# GraphCron
+
+## Import
+
+```svelte
+import { GraphCron } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphCron
+  title="example"
+  expr="example"
+  count={8}
+/>
+```
+
+<div class="live">
+<GraphCron
+  title="example"
+  expr="example"
+  count={8}
+/>
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | Caption drawn on the top edge as `[ TITLE ]`. |
+| `expr` | `string` | `—` | Standard 5-field cron expression: `min hour dom mon dow`. |
+| `count?` | `number` | `8` | Number of next runs to render on the tick timeline. Default 8. |
+| `baseTime?` | `number` | `—` | Base time as ms since epoch; next runs are computed from this point. Default now. |
+| `cols?` | `number` | `60` | Scene width in characters. Default 60. |
+| `rows?` | `number` | `12` | Scene height in rows. Default 12. |
+| `animated?` | `boolean` | `true` | Animate the tick highlight. Default true. Reduced motion freezes on first run. |
+| `speedMs?` | `number` | `220` | Milliseconds per tick. Default 220. |
+| `label?` | `string` | `''` | Caption rendered muted under the timeline. |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `GraphCronProps`
+
+## Reduced motion
+
+Animation is disabled under `prefers-reduced-motion`.

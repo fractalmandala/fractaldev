@@ -1,0 +1,34 @@
+{
+  "id": "daylight-monoline-plum",
+  "name": "Daylight Monoline Plum",
+  "version": "2.0.0",
+  "author": "amrit",
+  "description": "Plum sits far enough from every ink strength that literals separate instantly, without the heat of the vermilion.",
+  "isDark": false,
+  "tags": [
+    "mono",
+    "light"
+  ],
+  "colors": {
+    "bg": "#FFFFFF",
+    "bg-secondary": "#F6F6F7",
+    "bg-tertiary": "#EDEDEE",
+    "bg-hover": "#F7F7F7",
+    "bg-selected": "#ECECED",
+    "bg-active": "#EFE2EB",
+    "text": "#5A5E64",
+    "text-muted": "#8C8E92",
+    "text-faint": "#ADB1B5",
+    "text-disabled": "#CACCCF",
+    "border": "#E9E9EA",
+    "border-focus": "#8A3070",
+    "primary": "#8A3070",
+    "primary-hover": "#81386E",
+    "link": "#8A3070",
+    "link-hover": "#81386E",
+    "success": "#3C7048",
+    "warning": "#A5720F",
+    "error": "#C0392B",
+    "info": "#2F5FA8"
+  }
+}

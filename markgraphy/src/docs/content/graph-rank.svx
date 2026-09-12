@@ -1,0 +1,38 @@
+<script lang="ts">
+	import { GraphRank } from '$lib';
+</script>
+
+# GraphRank
+
+## Import
+
+```svelte
+import { GraphRank } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphRank
+  title="example"
+  max={0}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `items` | `RankItem[]` | `—` | — |
+| `max?` | `number` | `—` | — |
+| `ticks?` | `number` | `20` | — |
+| `glyphs?` | `Glyphs` | `—` | — |
+| `palette?` | `GraphPalette` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `RankItem`
+- `GraphRankProps`

@@ -1,0 +1,29 @@
+{
+  "skill_name": "react-to-sveltekit",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Convert this presentational React Button component to a reusable Svelte 5 component in src/lib/components/Button.",
+      "expected_output": "A component manifest with no route data, exact component/type/style destination files, a Svelte 5 public API, and adaptive workspace verification.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Convert this Next.js page that uses getServerSideProps to a SvelteKit route at /dashboard/[id]. The loader reads a private database record.",
+      "expected_output": "A page manifest selecting +page.server.ts, listing +page.svelte and exact route files, documenting serializable data and SSR-safe boundaries.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Convert this React WebGL component that uses window, canvas, ResizeObserver, and GSAP. Keep SSR enabled if possible.",
+      "expected_output": "A component manifest that lists browser-only APIs, uses browser-effect or browser-guard mode, records GSAP dependency status, and includes teardown verification.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Convert this React form with a server mutation and an optimistic refresh into SvelteKit.",
+      "expected_output": "A page manifest selecting +page.server.ts actions, documenting invalidation behavior, serializable action results, and targeted verification.",
+      "files": []
+    }
+  ]
+}

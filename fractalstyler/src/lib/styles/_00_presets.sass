@@ -1,0 +1,134 @@
+[data-layout='zero']
+	--gap-scale: 1
+	--pad-scale: 1
+	--scaleMultiplier: 1
+
+[data-layout='tight']
+	--gap-scale: 0.5
+	--pad-scale: 0.5
+	--scaleMultiplier: 1
+
+[data-layout="comfortable"]
+	--gap-scale: 1.125
+	--pad-scale: 2
+	--scaleMultiplier: 1
+
+[data-layout='sprawling']
+	--gap-scale: 1.25
+	--pad-scale: 4
+	--scaleMultiplier: 1
+
+// --- Shape — data-shape: round / curved / pro / sharp ------------------------
+[data-shape='round']
+	--radius-sm: 16px
+	--radius-md: 24px
+	--radius-lg: 32px
+
+[data-shape='curved']
+	--radius-sm: 8px
+	--radius-md: 16px
+	--radius-lg: 24px
+
+[data-shape='pro']
+	--radius-sm: 4px
+	--radius-md: 8px
+	--radius-lg: 16px
+
+[data-shape='sharp']
+	--radius-sm: 2px
+	--radius-md: 4px
+	--radius-lg: 8px
+
+[data-shape="zero"]
+	--radius-sm: 0
+	--radius-md: 0
+	--radius-lg: 0
+
+// --- Color — data-color: clean / vibrant (general is the default) ------------
+// Layer tint on the surface ladder only: clean flattens separation toward the
+// page bg, vibrant deepens it. Light values are the mode default; dark values
+// override under both dark paths. General ships in the theme mixins.
+[data-color='zero']
+	--bg: #FFFFFF
+	--bg-surface: #fbfbfb
+	--bg-raised: #f5f7f9
+	--bg-panel: #FFFFFF
+
+[data-color='clean']
+	--bg: #FFFFFF
+	--bg-surface: #fbfbfb
+	--bg-raised: #f5f7f9
+	--bg-panel: #F7F8F9
+
+[data-color='vibrant']
+	--bg: #FFFFFF
+	--bg-surface: #f2f5f7
+	--bg-raised: #e8eef3
+	--bg-panel: #E9EEF3
+
+@media (prefers-color-scheme: dark)
+	:root:not([data-mode='light'])[data-color='zero']
+		--bg: #101010
+		--bg-surface: #101010
+		--bg-raised: #101010
+		--bg-panel: #101010
+	:root:not([data-mode='light'])[data-color='clean']
+		--bg: #090909
+		--bg-surface: #090909
+		--bg-raised: #333334
+		--bg-panel: #101010
+	:root:not([data-mode='light'])[data-color='vibrant']
+		--bg: #202021
+		--bg-surface: #202021
+		--bg-raised: #333334
+		--bg-panel: #1f1f20
+
+[data-mode='dark'][data-color='zero']
+	--bg: #101010
+	--bg-surface: #101010
+	--bg-raised: #101010
+	--bg-panel: #101010
+
+[data-mode='dark'][data-color='clean']
+	--bg: #090909
+	--bg-surface: #090909
+	--bg-raised: #333334
+	--bg-panel: #101010
+
+[data-mode='dark'][data-color='vibrant']
+	--bg: #202021
+	--bg-surface: #202021
+	--bg-raised: #333334
+	--bg-panel: #1f1f20
+
+// --- Motion — data-motion: springy / heavy / reduced (active is the default) -
+[data-motion='springy']
+	--motion-fast: 50ms
+	--motion-base: 100ms
+	--motion-slow: 150ms
+	--ease-out: cubic-bezier(0.34, 1.56, 0.64, 1)
+
+[data-motion='active']
+	--motion-fast: 140ms
+	--motion-base: 200ms
+	--motion-slow: 300ms
+	--ease-out: cubic-bezier(0.34, 1.56, 0.64, 1)
+
+[data-motion='heavy']
+	--motion-fast: 200ms
+	--motion-base: 300ms
+	--motion-slow: 450ms
+	--ease-out: cubic-bezier(0.34, 1.56, 0.64, 1)
+
+[data-motion='reduced']
+	--motion-fast: 0ms
+	--motion-base: 0ms
+	--motion-slow: 0ms
+	--ease-out: cubic-bezier(0.34, 1.56, 0.64, 1)
+
+// prefers-reduced-motion is honored globally regardless of preset (registry v1).
+@media (prefers-reduced-motion: reduce)
+	:root
+		--motion-fast: 0ms
+		--motion-base: 0ms
+		--motion-slow: 0ms

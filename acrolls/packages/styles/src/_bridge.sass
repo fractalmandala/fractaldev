@@ -1,0 +1,53 @@
+// Acrolls shadcn-name bridge.
+//
+// Maps the fractalthemer-shaped tokens (--bg, --text-primary, --theme-color, …)
+// onto the shadcn-style names (--background, --card, --muted, --accent, …) that
+// the Acrolls surfaces (foundation/default/docs) consume. Every SEMANTIC token
+// maps through a runtime var() so the active scheme/theme drives it; the second
+// argument is an Open Color static fallback for when neither the scheme baseline
+// nor fractalthemer is present.
+//
+// The chart palette is a deliberate exception: a fixed categorical data-viz
+// palette kept stable across themes so series colors and legends stay consistent.
+
+@use 'palette' as *
+
+:root
+	// Base Surfaces
+	--background: var(--bg, #{$oc-gray-0})
+	--foreground: var(--text-primary, #{$oc-gray-9})
+
+	// Elevation Surfaces / Containers
+	--card: var(--bg-surface, #{$oc-gray-0})
+	--card-foreground: var(--text-primary, #{$oc-gray-9})
+	--popover: var(--bg-raised, #{$oc-gray-0})
+	--popover-foreground: var(--text-primary, #{$oc-gray-9})
+
+	// Main Action / Primary Brand
+	--primary: var(--theme-color, #{$oc-indigo-6})
+	--primary-foreground: var(--text-inverse, #{$oc-gray-0})
+
+	// Secondary Actions
+	--secondary: var(--bg-panel, #{$oc-gray-2})
+	--secondary-foreground: var(--text-secondary, #{$oc-gray-9})
+
+	// Muted Content / Backgrounds
+	--muted: var(--bg-panel, #{$oc-gray-1})
+	--muted-foreground: var(--text-muted, #{$oc-gray-6})
+
+	// Interactive / Selection States
+	--accent: var(--state-hover, #{$oc-gray-2})
+	--accent-foreground: var(--text-primary, #{$oc-gray-9})
+
+	// Destructive / Error States
+	--destructive: var(--feedback-error, #{$oc-red-6})
+	--destructive-foreground: var(--text-inverse, #{$oc-gray-0})
+
+	--input: var(--border, #{$oc-gray-3})
+
+	// Data Visualizations / Charts — fixed categorical palette (theme-independent).
+	--chart-1: #{$oc-blue-6}
+	--chart-2: #{$oc-teal-6}
+	--chart-3: #{$oc-orange-6}
+	--chart-4: #{$oc-grape-6}
+	--chart-5: #{$oc-yellow-6}

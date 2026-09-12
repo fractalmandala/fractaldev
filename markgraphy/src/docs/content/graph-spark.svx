@@ -1,0 +1,36 @@
+<script lang="ts">
+	import { GraphSpark } from '$lib';
+</script>
+
+# GraphSpark
+
+## Import
+
+```svelte
+import { GraphSpark } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphSpark
+  title="example"
+  caption="example"
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `data` | `number[]` | `—` | — |
+| `caption?` | `string` | `—` | — |
+| `glyphs?` | `Glyphs` | `—` | — |
+| `palette?` | `GraphPalette` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `GraphSparkProps`

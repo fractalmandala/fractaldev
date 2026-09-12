@@ -1,0 +1,54 @@
+<script lang="ts">
+	import { GraphStream } from '$lib';
+</script>
+
+# GraphStream
+
+Block-glyph mapping, same approach as GraphSpark.
+
+## Import
+
+```svelte
+import { GraphStream } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphStream
+  title="example"
+  length={40}
+  intervalMs={900}
+/>
+```
+
+<div class="live">
+<GraphStream
+  title="example"
+  length={40}
+  intervalMs={900}
+/>
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | Caption on the frame's top edge. |
+| `length?` | `number` | `40` | Points kept in the rolling history. Default 40. |
+| `intervalMs?` | `number` | `900` | Milliseconds between appends. Default 900. |
+| `values?` | `number[]` | `—` | Initial history. Default a seeded, SSR-safe random walk from 50. |
+| `generate?` | `(tick: number, previous: number) => number` | `—` | Next-value generator. Default a gentle random walk clamped to 0..100. |
+| `unit?` | `string` | `''` | Suffix after the value, e.g. 'ms' or '%'. Default ''. |
+| `kind?` | `StreamKind` | `'ago'` | Caption flavor: 'ago' counts since the last append; 'elapsed' since mount. |
+| `animated?` | `boolean` | `true` | Animate the appends. Default true. Reduced motion freezes the stream. |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `StreamKind`
+- `GraphStreamProps`
+
+## Reduced motion
+
+Animation is disabled under `prefers-reduced-motion`.

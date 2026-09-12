@@ -1,0 +1,1189 @@
+// Visual HTML Editor & Inspector Styling
+// Matches OpenDesign style guidelines using project tokens
+
+.file-viewer
+	display: flex
+	flex-direction: column
+	width: 100%
+	height: calc(100vh - var(--header-height) - var(--footer-height))
+	min-height: 720px
+	background: var(--bg-primary, #0c0c0c)
+	color: var(--text-primary, #f1f1f1)
+	overflow: hidden
+
+.viewer-toolbar
+	display: flex
+	align-items: center
+	justify-content: space-between
+	height: 48px
+	padding: 0 1rem
+	background: var(--surface-primary, #141414)
+	border-bottom: 1px solid var(--border-color, #222)
+	user-select: none
+	z-index: 50
+
+.toolbar-left
+	display: flex
+	align-items: center
+	gap: 0.75rem
+
+.toolbar-right
+	display: flex
+	align-items: center
+	gap: 0.5rem
+
+.viewer-btn
+	display: inline-flex
+	align-items: center
+	justify-content: center
+	height: 30px
+	padding: 0 0.5rem
+	background: transparent
+	border: 1px solid var(--border-color, #333)
+	border-radius: 4px
+	color: var(--text-secondary, #aaa)
+	cursor: pointer
+	font-size: 0.85rem
+	transition: all 0.15s ease
+	&:hover
+		color: var(--text-primary, #fff)
+		border-color: var(--border-hover, #555)
+
+.reload-btn
+	width: 30px
+	padding: 0
+
+.specimen-select-wrapper
+	display: inline-flex
+	align-items: center
+	gap: 0.35rem
+	background: #181818
+	border: 1px solid var(--border-color, #2a2a2a)
+	border-radius: 6px
+	padding: 0 0.5rem
+	height: 30px
+	transition: border-color 0.15s ease
+	&:hover
+		border-color: var(--border-hover, #444)
+
+.specimen-select-icon
+	color: #ff5722
+	font-size: 0.75rem
+
+.specimen-select-dropdown
+	background: transparent
+	border: none
+	color: var(--text-primary, #eee)
+	font-family: ui-monospace, SFMono-Regular, Menlo, monospace
+	font-size: 0.75rem
+	font-weight: 500
+	cursor: pointer
+	outline: none
+	max-width: 200px
+	option, optgroup
+		background: #1a1a1a
+		color: #eee
+
+.toolbar-theme-strip
+	display: inline-flex
+	align-items: center
+	gap: 0.35rem
+
+.theme-chip-btn
+	position: relative
+	display: inline-flex
+	align-items: center
+	gap: 0.35rem
+	height: 28px
+	padding: 0 0.5rem 0 0.35rem
+	background: #181818
+	border: 1px solid var(--border-color, #2a2a2a)
+	border-radius: 6px
+	cursor: pointer
+	user-select: none
+	transition: all 0.15s ease
+	&:hover
+		border-color: var(--border-hover, #444)
+		background: #202020
+
+.theme-chip-dot
+	width: 14px
+	height: 14px
+	border-radius: 50%
+	border: 1.5px solid rgba(255, 255, 255, 0.3)
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4)
+	flex-shrink: 0
+
+.theme-chip-label
+	font-family: ui-monospace, SFMono-Regular, Menlo, monospace
+	font-size: 0.68rem
+	font-weight: 600
+	color: var(--text-secondary, #aaa)
+
+.theme-chip-input
+	position: absolute
+	top: 0
+	left: 0
+	width: 100%
+	height: 100%
+	opacity: 0
+	cursor: pointer
+	border: none
+	padding: 0
+	margin: 0
+
+.viewer-tabs
+	display: inline-flex
+	align-items: center
+	background: #1a1a1a
+	border: 1px solid var(--border-color, #2a2a2a)
+	border-radius: 6px
+	padding: 2px
+
+.viewer-tab
+	display: inline-flex
+	align-items: center
+	gap: 0.35rem
+	height: 26px
+	padding: 0 0.75rem
+	background: transparent
+	border: none
+	border-radius: 4px
+	color: var(--text-secondary, #888)
+	font-size: 0.75rem
+	font-weight: 500
+	cursor: pointer
+	transition: all 0.15s ease
+	&.active
+		background: #2a2a2a
+		color: #ffffff
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2)
+
+.device-toggle-pill
+	display: inline-flex
+	align-items: center
+	background: #181818
+	border: 1px solid var(--border-color, #2a2a2a)
+	border-radius: 6px
+	padding: 2px
+	gap: 2px
+
+.device-btn
+	display: inline-flex
+	align-items: center
+	gap: 0.3rem
+	height: 26px
+	padding: 0 0.65rem
+	background: transparent
+	border: none
+	border-radius: 4px
+	color: var(--text-secondary, #888)
+	font-size: 0.75rem
+	font-weight: 500
+	cursor: pointer
+	transition: all 0.15s ease
+	&:hover
+		color: #fff
+		background: #222
+	&.active
+		background: #2c2c2c
+		color: #ff5722
+		font-weight: 600
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3)
+
+.viewport-dropdown
+	position: relative
+
+.viewport-select
+	height: 30px
+	padding: 0 0.65rem
+	background: #181818
+	border: 1px solid var(--border-color, #333)
+	border-radius: 5px
+	color: var(--text-primary, #ddd)
+	font-size: 0.75rem
+	cursor: pointer
+	outline: none
+
+.viewer-action-btn
+	display: inline-flex
+	align-items: center
+	justify-content: center
+	width: 30px
+	height: 30px
+	background: transparent
+	border: 1px solid transparent
+	border-radius: 5px
+	color: var(--text-secondary, #888)
+	font-size: 0.85rem
+	cursor: pointer
+	transition: all 0.15s ease
+	&:hover
+		background: #222
+		color: #fff
+	&.active
+		background: rgba(255, 87, 34, 0.15)
+		color: #ff5722
+		border-color: rgba(255, 87, 34, 0.4)
+
+.edit-mode-btn
+	&.active
+		background: rgba(255, 87, 34, 0.2)
+		color: #ff5722
+		border-color: #ff5722
+		box-shadow: 0 0 10px rgba(255, 87, 34, 0.35)
+
+.draw-btn
+	&.active
+		background: rgba(255, 193, 7, 0.2)
+		color: #ffc107
+		border-color: #ffc107
+		box-shadow: 0 0 10px rgba(255, 193, 7, 0.35)
+
+.viewer-comment-btn
+	display: inline-flex
+	align-items: center
+	gap: 0.4rem
+	height: 30px
+	padding: 0 0.6rem
+	background: transparent
+	border: 1px solid transparent
+	border-radius: 5px
+	color: var(--text-secondary, #888)
+	font-size: 0.75rem
+	cursor: pointer
+	transition: all 0.15s ease
+	&:hover
+		background: #222
+		color: #fff
+	&.active
+		background: #242424
+		color: #fff
+	.comment-badge
+		display: inline-flex
+		align-items: center
+		justify-content: center
+		min-width: 16px
+		height: 16px
+		padding: 0 4px
+		background: #333
+		border-radius: 8px
+		font-size: 0.65rem
+		font-weight: 600
+
+.toolbar-divider
+	width: 1px
+	height: 18px
+	background: var(--border-color, #2a2a2a)
+	margin: 0 0.2rem
+
+.zoom-indicator-btn
+	display: inline-flex
+	align-items: center
+	justify-content: center
+	height: 26px
+	padding: 0 0.5rem
+	background: #181818
+	border: 1px solid var(--border-color, #2a2a2a)
+	border-radius: 4px
+	color: var(--text-muted, #777)
+	font-family: ui-monospace, SFMono-Regular, monospace
+	font-size: 0.72rem
+	cursor: pointer
+	transition: all 0.15s ease
+	&:hover
+		color: #eee
+		border-color: #444
+
+.viewer-body
+	flex: 1
+	position: relative
+	overflow: hidden
+	display: flex
+
+.preview-stage
+	flex: 1
+	position: relative
+	display: flex
+	align-items: center
+	justify-content: center
+	overflow: auto
+	background: #080808
+	padding: 1rem
+
+.viewport-frame
+	position: relative
+	height: 100%
+	background: #111
+	border: 1px solid var(--border-color, #222)
+	border-radius: 8px
+	overflow: hidden
+	transition: width 0.2s ease
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6)
+	&.viewport-desktop
+		width: 100%
+		max-width: 100%
+	&.viewport-tablet
+		width: 768px
+	&.viewport-mobile
+		width: 390px
+
+.preview-iframe
+	width: 100%
+	height: 100%
+	border: none
+	background: #101010
+
+// Floating Manual Edit Popover ("Vitrine" Card)
+.manual-edit-panel
+	position: absolute
+	width: 350px
+	background: #161616
+	border: 1px solid #303030
+	border-radius: 10px
+	box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.05)
+	z-index: 100
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif
+	font-size: 13px
+	color: #eee
+	overflow: hidden
+
+.panel-head
+	display: flex
+	align-items: center
+	justify-content: space-between
+	padding: 0.75rem 1rem
+	border-bottom: 1px solid #282828
+	background: #1c1c1c
+	cursor: grab
+	user-select: none
+	&:active
+		cursor: grabbing
+
+.panel-title
+	display: flex
+	align-items: center
+	gap: 0.5rem
+	.sparkle
+		color: #ff5722
+		font-size: 0.9rem
+	h4
+		margin: 0
+		font-size: 0.85rem
+		font-weight: 600
+		color: #fff
+		letter-spacing: -0.01em
+
+.head-actions
+	display: flex
+	align-items: center
+	gap: 0.35rem
+
+.icon-action
+	background: transparent
+	border: none
+	color: #888
+	cursor: pointer
+	font-size: 0.8rem
+	padding: 2px 4px
+	border-radius: 4px
+	&:hover
+		color: #fff
+		background: #2a2a2a
+	&.active
+		color: #ff5722
+
+.panel-body
+	padding: 1rem
+	display: flex
+	flex-direction: column
+	gap: 1.1rem
+	max-height: 480px
+	overflow-y: auto
+
+.param-section
+	display: flex
+	flex-direction: column
+	gap: 0.55rem
+
+.section-title
+	font-size: 0.65rem
+	font-weight: 700
+	letter-spacing: 0.08em
+	text-transform: uppercase
+	color: #777
+
+.field-wrap
+	display: flex
+	flex-direction: column
+	gap: 0.35rem
+
+.field-label
+	font-size: 0.75rem
+	color: #aaa
+
+.html-textarea
+	width: 100%
+	background: #0d0d0d
+	border: 1px solid #2c2c2c
+	border-radius: 6px
+	color: #eee
+	font-family: ui-monospace, SFMono-Regular, Menlo, monospace
+	font-size: 0.72rem
+	line-height: 1.45
+	padding: 0.5rem
+	resize: vertical
+	box-sizing: border-box
+	&:focus
+		border-color: #ff5722
+		outline: none
+
+.param-row
+	display: flex
+	align-items: center
+	justify-content: space-between
+	gap: 0.5rem
+
+.row-label
+	font-size: 0.75rem
+	color: #aaa
+
+.color-picker-cell
+	display: flex
+	align-items: center
+	gap: 0.4rem
+	input[type="color"]
+		-webkit-appearance: none
+		border: 1px solid #333
+		border-radius: 4px
+		width: 24px
+		height: 24px
+		padding: 0
+		background: transparent
+		cursor: pointer
+		&::-webkit-color-swatch-wrapper
+			padding: 0
+		&::-webkit-color-swatch
+			border: none
+			border-radius: 3px
+
+.color-text-input
+	width: 110px
+	height: 24px
+	background: #0d0d0d
+	border: 1px solid #2c2c2c
+	border-radius: 4px
+	color: #ddd
+	font-family: ui-monospace, SFMono-Regular, monospace
+	font-size: 0.72rem
+	padding: 0 0.4rem
+	&:focus
+		border-color: #ff5722
+		outline: none
+
+.param-grid-pair
+	display: grid
+	grid-template-columns: 1fr 1fr
+	gap: 0.5rem
+
+.param-subfield
+	display: flex
+	flex-direction: column
+	gap: 0.25rem
+
+.text-input
+	height: 24px
+	background: #0d0d0d
+	border: 1px solid #2c2c2c
+	border-radius: 4px
+	color: #ddd
+	font-family: ui-monospace, SFMono-Regular, monospace
+	font-size: 0.72rem
+	padding: 0 0.4rem
+	&:focus
+		border-color: #ff5722
+		outline: none
+
+.panel-foot
+	display: flex
+	align-items: center
+	justify-content: space-between
+	padding: 0.75rem 1rem
+	border-top: 1px solid #282828
+	background: #181818
+
+.delete-btn
+	background: transparent
+	border: 1px solid #333
+	border-radius: 4px
+	color: #888
+	padding: 4px 8px
+	cursor: pointer
+	transition: all 0.15s ease
+	&:hover
+		color: #ff5252
+		border-color: #ff5252
+		background: rgba(255, 82, 82, 0.1)
+
+.action-buttons
+	display: flex
+	align-items: center
+	gap: 0.5rem
+
+.btn
+	height: 28px
+	padding: 0 0.85rem
+	border-radius: 5px
+	font-size: 0.75rem
+	font-weight: 500
+	cursor: pointer
+	transition: all 0.15s ease
+
+.btn-cancel
+	background: transparent
+	border: 1px solid #383838
+	color: #aaa
+	&:hover
+		color: #fff
+		border-color: #555
+
+.btn-save
+	background: #f1f1f1
+	border: 1px solid #f1f1f1
+	color: #111
+	font-weight: 600
+	&:hover
+		background: #fff
+		box-shadow: 0 2px 8px rgba(255, 255, 255, 0.2)
+
+// Raw Code View (Image 3)
+.code-stage
+	flex: 1
+	height: 100%
+	display: flex
+	flex-direction: column
+	background: #0d0d0d
+	overflow: hidden
+
+.code-editor-wrap
+	flex: 1
+	display: flex
+	flex-direction: column
+	height: 100%
+
+.code-header
+	display: flex
+	align-items: center
+	justify-content: space-between
+	height: 36px
+	padding: 0 1rem
+	background: #141414
+	border-bottom: 1px solid #222
+
+.code-file-name
+	font-size: 0.75rem
+	color: #bbb
+	font-family: ui-monospace, SFMono-Regular, monospace
+
+.code-badge
+	font-size: 0.65rem
+	padding: 2px 6px
+	border-radius: 3px
+	background: #222
+	color: #888
+	text-transform: uppercase
+	letter-spacing: 0.05em
+
+.raw-code-textarea
+	flex: 1
+	width: 100%
+	background: #0a0a0a
+	border: none
+	color: #d4d4d4
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace
+	font-size: 0.82rem
+	line-height: 1.55
+	padding: 1rem
+	resize: none
+	outline: none
+	tab-size: 2
+
+// Comment Pins
+.comment-pin
+	position: absolute
+	width: 24px
+	height: 24px
+	transform: translate(-50%, -50%)
+	background: #ff5722
+	color: #fff
+	border: 2px solid #fff
+	border-radius: 50%
+	display: flex
+	align-items: center
+	justify-content: center
+	font-size: 0.7rem
+	font-weight: 700
+	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(255, 87, 34, 0.4)
+	cursor: pointer
+	z-index: 90
+	transition: transform 0.15s ease
+	&:hover
+		transform: translate(-50%, -50%) scale(1.15)
+
+// Drawing Canvas Overlay (Yellow Pencil)
+.draw-overlay-layer
+	position: absolute
+	inset: 0
+	z-index: 80
+	background: rgba(0, 0, 0, 0.15)
+	cursor: crosshair
+	overflow: hidden
+
+.draw-toolbar-floating
+	position: absolute
+	top: 1rem
+	left: 50%
+	transform: translateX(-50%)
+	display: flex
+	align-items: center
+	gap: 0.6rem
+	padding: 0.4rem 0.9rem
+	background: #1e1e1e
+	border: 1px solid #3a3a3a
+	border-radius: 24px
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75)
+	z-index: 120
+	user-select: none
+	.draw-title
+		font-size: 0.78rem
+		font-weight: 600
+		color: #ffc107
+	.draw-colors
+		display: flex
+		align-items: center
+		gap: 0.35rem
+		margin: 0 0.2rem
+	.draw-color-swatch
+		width: 16px
+		height: 16px
+		border-radius: 50%
+		border: 2px solid transparent
+		cursor: pointer
+		padding: 0
+		transition: transform 0.1s ease
+		&:hover
+			transform: scale(1.15)
+		&.active
+			border-color: #ffffff
+			box-shadow: 0 0 4px rgba(255, 255, 255, 0.8)
+			transform: scale(1.2)
+	.draw-btn-undo, .draw-btn-clear, .draw-btn-done
+		height: 24px
+		padding: 0 0.65rem
+		border-radius: 12px
+		font-size: 0.72rem
+		cursor: pointer
+		border: none
+		font-weight: 500
+	.draw-btn-undo, .draw-btn-clear
+		background: #2a2a2a
+		color: #bbb
+		&:hover
+			background: #333
+			color: #fff
+	.draw-btn-done
+		background: #ff5722
+		color: #fff
+		font-weight: 600
+		&:hover
+			background: #f4511e
+
+.draw-canvas
+	position: absolute
+	inset: 0
+	width: 100%
+	height: 100%
+	pointer-events: auto
+
+// Sliding Comments Drawer
+.comments-drawer
+	position: absolute
+	top: 0
+	right: 0
+	bottom: 0
+	width: 320px
+	background: #141414
+	border-left: 1px solid var(--border-color, #282828)
+	display: flex
+	flex-direction: column
+	z-index: 95
+	box-shadow: -8px 0 30px rgba(0, 0, 0, 0.5)
+
+.comments-drawer-head
+	display: flex
+	align-items: center
+	justify-content: space-between
+	padding: 0.85rem 1rem
+	border-bottom: 1px solid #222
+	.drawer-title-row
+		display: flex
+		align-items: center
+		gap: 0.6rem
+		flex: 1
+	.drawer-head-actions
+		display: flex
+		align-items: center
+		gap: 0.35rem
+	.copy-agent-prompt-btn, .export-critique-btn
+		height: 22px
+		padding: 0 0.5rem
+		font-size: 0.68rem
+		font-weight: 600
+		border-radius: 4px
+		cursor: pointer
+		border: 1px solid #444
+		background: #242424
+		color: #ddd
+		transition: all 0.15s ease
+		&:hover
+			background: #333
+			color: #fff
+	.copy-agent-prompt-btn
+		background: #1e3a24
+		border-color: #2e5c38
+		color: #4ade80
+		&:hover
+			background: #254a2e
+	h3
+		margin: 0
+		font-size: 0.85rem
+		font-weight: 600
+		color: #eee
+
+.close-drawer-btn
+	background: transparent
+	border: none
+	color: #777
+	cursor: pointer
+	font-size: 0.9rem
+	padding: 2px 6px
+	border-radius: 3px
+	&:hover
+		color: #fff
+		background: #222
+
+.comments-list
+	flex: 1
+	overflow-y: auto
+	padding: 1rem
+	display: flex
+	flex-direction: column
+	gap: 0.75rem
+
+.comments-empty
+	text-align: center
+	padding: 2rem 1rem
+	color: #666
+	p
+		margin: 0 0 0.35rem 0
+		font-size: 0.85rem
+	.empty-sub
+		font-size: 0.75rem
+		color: #555
+
+.comment-card
+	background: #1c1c1c
+	border: 1px solid #2a2a2a
+	border-radius: 6px
+	padding: 0.65rem 0.75rem
+	display: flex
+	flex-direction: column
+	gap: 0.35rem
+
+.comment-card-head
+	display: flex
+	align-items: center
+	justify-content: space-between
+	font-size: 0.7rem
+	.pin-id
+		color: #ff5722
+		font-weight: 700
+	.target-name
+		color: #888
+		font-family: ui-monospace, SFMono-Regular, monospace
+
+.comment-card-body
+	margin: 0
+	font-size: 0.78rem
+	color: #ccc
+	line-height: 1.4
+
+.comments-composer
+	padding: 0.75rem 1rem
+	border-top: 1px solid #222
+	background: #181818
+	display: flex
+	flex-direction: column
+	gap: 0.5rem
+	textarea
+		width: 100%
+		background: #0e0e0e
+		border: 1px solid #2a2a2a
+		border-radius: 5px
+		color: #eee
+		font-size: 0.75rem
+		padding: 0.5rem
+		resize: none
+		box-sizing: border-box
+		&:focus
+			border-color: #ff5722
+			outline: none
+	.send-comment-btn
+		align-self: flex-end
+		height: 26px
+		padding: 0 0.75rem
+		background: #ff5722
+		border: none
+		border-radius: 4px
+		color: #fff
+		font-size: 0.75rem
+		font-weight: 600
+		cursor: pointer
+		&:hover
+			background: #f4511e
+
+// Floating Toast Notification
+.editor-toast-notification
+	position: fixed
+	bottom: 2rem
+	left: 50%
+	transform: translateX(-50%)
+	background: #222
+	color: #fff
+	border: 1px solid #444
+	border-radius: 20px
+	padding: 0.5rem 1.25rem
+	font-size: 0.8rem
+	font-weight: 500
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6)
+	z-index: 9999
+	animation: fadeInOutToast 2.5s ease forwards
+
+@keyframes fadeInOutToast
+	0%
+		opacity: 0
+		transform: translate(-50%, 10px)
+	15%
+		opacity: 1
+		transform: translate(-50%, 0)
+	85%
+		opacity: 1
+		transform: translate(-50%, 0)
+	100%
+		opacity: 0
+		transform: translate(-50%, -10px)
+
+// Scope Selector in ManualEditPanel
+.section-head-row
+	display: flex
+	align-items: center
+	justify-content: space-between
+	gap: 0.5rem
+
+.scope-toggle-pills
+	display: inline-flex
+	align-items: center
+	background: #101010
+	border: 1px solid #282828
+	border-radius: 4px
+	padding: 1px
+
+.scope-pill
+	background: transparent
+	border: none
+	border-radius: 3px
+	color: #777
+	font-size: 0.65rem
+	font-weight: 500
+	padding: 2px 6px
+	cursor: pointer
+	transition: all 0.15s ease
+	&:hover
+		color: #ccc
+	&.active
+		background: #252525
+		color: #ff5722
+		font-weight: 600
+
+// Steppers and Presets
+.param-row-vertical
+	flex-direction: column
+	align-items: stretch
+	gap: 0.4rem
+
+.row-label-with-stepper
+	display: flex
+	align-items: center
+	justify-content: space-between
+
+.stepper-wrap
+	display: flex
+	align-items: center
+	gap: 2px
+
+.stepper-btn
+	width: 22px
+	height: 24px
+	background: #181818
+	border: 1px solid #2c2c2c
+	border-radius: 3px
+	color: #aaa
+	font-size: 0.8rem
+	display: flex
+	align-items: center
+	justify-content: center
+	cursor: pointer
+	user-select: none
+	&:hover
+		background: #252525
+		color: #fff
+	&:active
+		background: #333
+
+.font-input
+	width: 70px
+	text-align: center
+
+.presets-row
+	display: flex
+	align-items: center
+	gap: 4px
+	margin-top: 2px
+
+.preset-pill
+	flex: 1
+	height: 20px
+	background: #141414
+	border: 1px solid #242424
+	border-radius: 3px
+	color: #777
+	font-size: 0.65rem
+	cursor: pointer
+	display: flex
+	align-items: center
+	justify-content: center
+	transition: all 0.12s ease
+	&:hover
+		background: #222
+		color: #ccc
+		border-color: #383838
+	&.active
+		background: rgba(255, 87, 34, 0.15)
+		color: #ff5722
+		border-color: rgba(255, 87, 34, 0.4)
+		font-weight: 600
+
+// Persistent Drawing Canvas
+.persistent-draw-canvas
+	position: absolute
+	inset: 0
+	width: 100%
+	height: 100%
+	pointer-events: none
+	z-index: 85
+	&.drawing-active
+		pointer-events: auto
+		cursor: crosshair
+		background: rgba(0, 0, 0, 0.15)
+
+// Responsive Layout Audit Banner
+.responsive-audit-banner
+	display: flex
+	align-items: center
+	justify-content: space-between
+	padding: 0.45rem 1.25rem
+	background: #241a05
+	border-bottom: 1px solid #5a3e0b
+	color: #ffd54f
+	font-size: 0.78rem
+	z-index: 45
+	&.audit-pass
+		background: #0d2818
+		border-bottom: 1px solid #1b4d2e
+		color: #4ade80
+	.audit-left
+		display: flex
+		align-items: center
+		gap: 0.5rem
+	.audit-actions
+		display: flex
+		align-items: center
+		gap: 0.5rem
+	.audit-action-btn
+		height: 24px
+		padding: 0 0.75rem
+		border: none
+		border-radius: 4px
+		font-weight: 600
+		font-size: 0.72rem
+		cursor: pointer
+		transition: background 0.15s ease
+		background: #f57c00
+		color: #000
+		&:hover
+			background: #ffa726
+		&.primary-fix-btn
+			background: #22c55e
+			color: #000
+			&:hover
+				background: #4ade80
+		&.secondary-btn
+			background: #333
+			color: #eee
+			border: 1px solid #555
+			&:hover
+				background: #444
+
+// Rich Screenshot Toast Card
+.screenshot-capture-card
+	position: fixed
+	bottom: 2rem
+	right: 2rem
+	width: 320px
+	background: #181818
+	border: 1px solid #333
+	border-radius: 8px
+	box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8)
+	display: flex
+	overflow: hidden
+	z-index: 9999
+	animation: slideUpToast 0.25s ease-out
+
+.screenshot-thumb
+	width: 100px
+	height: 100px
+	object-fit: cover
+	background: #000
+	border-right: 1px solid #282828
+
+.screenshot-info
+	flex: 1
+	padding: 0.65rem 0.85rem
+	display: flex
+	flex-direction: column
+	justify-content: space-between
+
+.screenshot-title-row
+	display: flex
+	align-items: center
+	justify-content: space-between
+	h4
+		margin: 0
+		font-size: 0.8rem
+		font-weight: 600
+		color: #4caf50
+
+.btn-shot-close
+	background: transparent
+	border: none
+	color: #777
+	cursor: pointer
+	font-size: 0.8rem
+	&:hover
+		color: #fff
+
+.screenshot-sub
+	margin: 0.2rem 0 0.4rem 0
+	font-size: 0.7rem
+	color: #999
+
+.screenshot-actions
+	display: flex
+	gap: 0.4rem
+
+.btn-shot-download
+	height: 24px
+	padding: 0 0.65rem
+	background: #2a2a2a
+	border: 1px solid #383838
+	border-radius: 4px
+	color: #eee
+	font-size: 0.7rem
+	font-weight: 500
+	cursor: pointer
+	&:hover
+		background: #333
+		color: #fff
+
+@keyframes slideUpToast
+	from
+		opacity: 0
+		transform: translateY(16px)
+	to
+		opacity: 1
+		transform: translateY(0)
+
+// Enhanced Comment Pins & Drawer
+.comment-pin
+	&.selected
+		transform: translate(-50%, -50%) scale(1.25)
+		box-shadow: 0 0 0 4px rgba(255, 87, 34, 0.6)
+
+.drawer-title-row
+	display: flex
+	align-items: center
+	gap: 0.65rem
+
+.copy-agent-prompt-btn
+	height: 22px
+	padding: 0 0.5rem
+	background: #ff5722
+	border: none
+	border-radius: 3px
+	color: #fff
+	font-size: 0.68rem
+	font-weight: 600
+	cursor: pointer
+	&:hover
+		background: #f4511e
+
+.comment-delete-btn
+	background: transparent
+	border: none
+	color: #666
+	cursor: pointer
+	font-size: 0.75rem
+	margin-left: auto
+	&:hover
+		color: #ff5252
+
+.comment-code-snippet
+	background: #111
+	border: 1px solid #222
+	border-radius: 3px
+	padding: 4px 6px
+	code
+		font-family: ui-monospace, SFMono-Regular, monospace
+		font-size: 0.68rem
+		color: #aaa
+		word-break: break-all
+
+.comment-edit-textarea
+	width: 100%
+	background: #141414
+	border: 1px solid #2a2a2a
+	border-radius: 4px
+	color: #eee
+	font-size: 0.75rem
+	padding: 0.4rem
+	resize: none
+	box-sizing: border-box
+	&:focus
+		border-color: #ff5722
+		outline: none
+
+.comment-time
+	font-size: 0.65rem
+	color: #555
+	align-self: flex-end
+

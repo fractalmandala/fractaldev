@@ -1,0 +1,44 @@
+<script lang="ts">
+	import { GraphTimer } from '$lib';
+</script>
+
+# GraphTimer
+
+## Import
+
+```svelte
+import { GraphTimer } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphTimer
+  title="example"
+  kind={'elapsed'}
+/>
+```
+
+<div class="live">
+<GraphTimer
+  title="example"
+  kind={'elapsed'}
+/>
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `kind?` | `TimerKind` | `'elapsed'` | — |
+| `at?` | `Date | number | string` | `—` | — |
+| `caption?` | `string` | `—` | — |
+| `palette?` | `GraphPalette` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `TimerKind`
+- `GraphTimerProps`

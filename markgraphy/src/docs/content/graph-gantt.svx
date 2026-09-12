@@ -1,0 +1,39 @@
+<script lang="ts">
+	import { GraphGantt } from '$lib';
+</script>
+
+# GraphGantt
+
+## Import
+
+```svelte
+import { GraphGantt } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphGantt
+  title="example"
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `items` | `GanttItem[]` | `—` | — |
+| `ticks?` | `string[]` | `—` | — |
+| `columns?` | `number` | `24` | — |
+| `stage?` | `string` | `—` | — |
+| `progress?` | `number` | `—` | — |
+| `glyphs?` | `Glyphs` | `—` | — |
+| `palette?` | `GraphPalette` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `GanttItem`
+- `GraphGanttProps`

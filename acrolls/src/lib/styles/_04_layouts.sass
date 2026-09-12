@@ -1,0 +1,100 @@
+// ============================================================================
+// layouts — L3. Grids (gridding golden rules), card-grid, prose, frame
+// presets, reel. Grids are pure stepping: no default gap — compose .gap-*
+// (self-sufficiency; a default gap is an opinion the system doesn't hold).
+// ============================================================================
+
+@use 'sass:string'
+@use 'sass:list'
+@use 'sass:map'
+@use '01_config' as *
+
+$sm: map.get($breakpoints, sm)
+$md: map.get($breakpoints, md)
+$lg: map.get($breakpoints, lg)
+
+// Gridding golden rules: exactly 3 items → 3→1, never 2+1; count 4 or a
+// multiple of 4 → 4→2→1, never 3+1; 6 → 6→3→2→1 (both rules hold throughout).
+.grid-1
+	display: grid
+	grid-template-columns: repeat(1, minmax(0, 1fr))
+
+.grid-2
+	display: grid
+	grid-template-columns: repeat(1, minmax(0, 1fr))
+	@media #{string.unquote('(min-width: #{$md})')}
+		grid-template-columns: repeat(2, minmax(0, 1fr))
+
+.grid-3
+	display: grid
+	grid-template-columns: repeat(1, minmax(0, 1fr))
+	@media #{string.unquote('(min-width: #{$lg})')}
+		grid-template-columns: repeat(3, minmax(0, 1fr))
+
+.grid-4
+	display: grid
+	grid-template-columns: repeat(1, minmax(0, 1fr))
+	@media #{string.unquote('(min-width: #{$sm})')}
+		grid-template-columns: repeat(2, minmax(0, 1fr))
+	@media #{string.unquote('(min-width: #{$lg})')}
+		grid-template-columns: repeat(4, minmax(0, 1fr))
+
+.grid-6
+	display: grid
+	grid-template-columns: repeat(1, minmax(0, 1fr))
+	@media #{string.unquote('(min-width: #{$sm})')}
+		grid-template-columns: repeat(2, minmax(0, 1fr))
+	@media #{string.unquote('(min-width: #{$md})')}
+		grid-template-columns: repeat(3, minmax(0, 1fr))
+	@media #{string.unquote('(min-width: #{$lg})')}
+		grid-template-columns: repeat(6, minmax(0, 1fr))
+
+// Auto-fit repeatable cards — column count negotiable, min track from config.
+.card-grid
+	display: grid
+	grid-template-columns: repeat(auto-fit, minmax(min(var(--card-min), 100%), 1fr))
+
+// Prose — the reading measure (≤ 760px) + typographic rhythm (rhythm authored).
+.prose
+	max-width: min(100%, 760px)
+	margin-inline: auto
+	line-height: 1.65
+	// Rhythm comes from gap, not from adjacent-sibling margins: one rule
+	// instead of a combinator, and it cannot leak into nested content.
+	display: flex
+	flex-direction: column
+	gap: calc(var(--space-sm) * var(--gap-scale, 1))
+	h1, h2, h3, h4
+		line-height: 1.25
+		font-weight: 600
+		// Extra breathing above a heading, on top of the gap.
+		margin-top: calc(var(--space-2xs) * var(--gap-scale, 1))
+		&:first-child
+			margin-top: 0
+
+// Frame presets — aspect-ratio media boxes (replaces any frame abstraction).
+$frame-ratios: ('16-9': '16 / 9', '9-16': '9 / 16', '4-3': '4 / 3', '3-4': '3 / 4', '3-2': '3 / 2', '2-3': '2 / 3', '1-1': '1 / 1')
+@each $name, $ratio in $frame-ratios
+	.frame-#{$name}
+		aspect-ratio: #{$ratio}
+		overflow: hidden
+		position: relative
+		img, video, iframe
+			width: 100%
+			height: 100%
+			object-fit: cover
+
+// Reel — the human-driven scroll-snap rail (filmstrip). Open for carousel duty.
+.reel
+	display: flex
+	flex-direction: row
+	overflow-x: auto
+	overscroll-behavior-inline: contain
+	scroll-snap-type: inline mandatory
+	// The system's one permitted `>`. Snap targets must be the rail's own
+	// children: a descendant selector would make nested elements snap too and
+	// the rail would catch in the wrong places. Kept deliberately — see the
+	// combinator guard in scripts/validate-deck.js.
+	> *
+		flex: 0 0 auto
+		scroll-snap-align: start

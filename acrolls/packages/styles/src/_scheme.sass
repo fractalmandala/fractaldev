@@ -1,0 +1,141 @@
+// Acrolls self-contained color scheme — light + dark, NO fractalthemer.
+//
+// This is the lean tier: the fractalthemer-shaped tokens (--bg, --text-primary,
+// --theme-color, --border, --md-*, …) given sensible light defaults on :root and
+// a dark override, so a docs site gets working light/dark with zero extra deps.
+// When the fractalthemer theme builder IS installed, its `.theme-*` classes are
+// emitted after this baseline and override it per named theme.
+//
+// Only colors/backgrounds/borders live here — type, space, radius, and layout
+// scales are the consumer's own concern.
+//
+// NOTE: the dark values below are neutral SEED values — refine to taste. The
+// light values mirror fractalthemer's default light theme so lean and full match.
+
+:root
+	color-scheme: light
+
+	// Surfaces
+	--bg: #FFFFFF
+	--bg-surface: #F8F9FA
+	--bg-raised: #FFFFFF
+	--bg-panel: #F1F3F5
+	--bg-footer: #E9ECEF
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-input: #FFFFFF
+	--bg-canvas: #F8F9FA
+
+	// Borders
+	--border: #E2E8F0
+	--border-subtle: #EDF2F7
+	--border-md-table: #E2E8F0
+
+	// Text
+	--text-primary: #0F172A
+	--text-secondary: #475569
+	--text-muted: #7F91AA
+	--text-inverse: #FFFFFF
+
+	// Interactive states
+	--state-hover: #E2E8F0
+	--state-hover-subtle: #F1F5F9
+	--state-selected: #CBD5E1
+
+	// Accent / brand
+	--theme-color: #04825B
+	--theme-color-alt: #047857
+	--theme: var(--theme-color)
+
+	// Feedback
+	--feedback-error: #DC2626
+
+	// Markdown prose
+	--md-h1: #0F172A
+	--md-h2: #04825B
+	--md-h3: #7C3AED
+	--md-bold: #047857
+	--md-code: #DC2626
+	--md-code-back: #F1F5F9
+	--md-bullet: #04825B
+	--md-blockquote: #475569
+
+	// Misc
+	--scrollbar-thumb: #CBD5E1
+	--bg-badge: rgba(5, 150, 105, 0.12)
+
+// --------------------------------------------------
+// DARK MODE (seed values — refine to taste)
+// --------------------------------------------------
+// Guard: the :not() prevents this from fighting an explicit light choice at
+// equal specificity on a dark-preferring OS.
+@media (prefers-color-scheme: dark)
+	:root:not(:where([data-mode='light'], [data-theme='light'], .light))
+		color-scheme: dark
+		--bg: #0B1220
+		--bg-surface: #111A2E
+		--bg-raised: #16203A
+		--bg-panel: #16203A
+		--bg-footer: #0E1626
+		--bg-popover: #16203A
+		--bg-dialog: #16203A
+		--bg-input: #111A2E
+		--bg-canvas: #0B1220
+		--border: #24314D
+		--border-subtle: #1B2740
+		--border-md-table: #24314D
+		--text-primary: #E6EDF5
+		--text-secondary: #AEBBD0
+		--text-muted: #8493AB
+		--text-inverse: #0B1220
+		--state-hover: #24314D
+		--state-hover-subtle: #1B2740
+		--state-selected: #33415C
+		--theme-color: #34D399
+		--theme-color-alt: #10B981
+		--feedback-error: #F87171
+		--md-h1: #E6EDF5
+		--md-h2: #34D399
+		--md-h3: #B794F6
+		--md-bold: #6EE7B7
+		--md-code: #F87171
+		--md-code-back: #16203A
+		--md-bullet: #34D399
+		--md-blockquote: #AEBBD0
+		--scrollbar-thumb: #33415C
+		--bg-badge: rgba(52, 211, 153, 0.14)
+
+[data-mode='dark'], [data-theme='dark'], .dark
+	color-scheme: dark
+	--bg: #0B1220
+	--bg-surface: #111A2E
+	--bg-raised: #16203A
+	--bg-panel: #16203A
+	--bg-footer: #0E1626
+	--bg-popover: #16203A
+	--bg-dialog: #16203A
+	--bg-input: #111A2E
+	--bg-canvas: #0B1220
+	--border: #24314D
+	--border-subtle: #1B2740
+	--border-md-table: #24314D
+	--text-primary: #E6EDF5
+	--text-secondary: #AEBBD0
+	--text-muted: #8493AB
+	--text-inverse: #0B1220
+	--state-hover: #24314D
+	--state-hover-subtle: #1B2740
+	--state-selected: #33415C
+	--theme-color: #34D399
+	--theme-color-alt: #10B981
+	--feedback-error: #F87171
+	--md-h1: #E6EDF5
+	--md-h2: #34D399
+	--md-h3: #B794F6
+	--md-bold: #6EE7B7
+	--md-code: #F87171
+	--md-code-back: #16203A
+	--md-bullet: #34D399
+	--md-blockquote: #AEBBD0
+	--scrollbar-thumb: #33415C
+	--bg-badge: rgba(52, 211, 153, 0.14)

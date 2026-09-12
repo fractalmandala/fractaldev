@@ -1,0 +1,228 @@
+// =============================================================================
+// 00_TOKENS — the single source of truth for runtime CSS custom properties.
+// -----------------------------------------------------------------------------
+// Light is the marker-free default so tokens stay defined during SSR and with
+// JS disabled; dark comes from prefers-color-scheme and explicit [data-mode='dark'].
+// =============================================================================
+
+=light-theme-tokens
+	color-scheme: light
+	--bg: #ffffff
+	--bg-surface: #eae9e8
+	--bg-raised: #d0d0d2
+	--bg-panel: #eae9e8
+	--bg-footer: #E9ECEF
+	--bg-popover: #e6e8e9
+	--bg-dialog: #e6e6e6
+	--bg-terminal: #0F172A
+	--bg-input: #FFFFFF
+	--bg-button: #9a9a9a
+	--text-primary: #0f172a
+	--text-secondary: #717171
+	--text-muted: #a3a4a7
+	--text-inverse: #ffffff
+	--text-richtext: #3d3d3d
+	--state-hover: #dcdee0
+	--state-hover-subtle: #edebeb
+	--state-selected: #d1d2d4
+	--border: #d1d0d0
+	--border-subtle: #d4d4d4
+	--border-strong: #a09e9e
+	--theme-color: #2F9E44
+	--theme-color-alt: #2d9206
+	--success: #10B981
+	--success-hover: #059669
+	--warning: #F59E0B
+	--warning-hover: #D97706
+	--danger: #EF4444
+	--danger-hover: #DC2626
+	--info: #3B82F6
+	--info-hover: #2563EB
+	--feedback-error: #DC2626
+	--ring: rgba(0, 127, 78, 0.35)
+	// Per-mode shadows (registry v1)
+	--shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06)
+	--shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08)
+	--shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.12)
+
+=dark-theme-tokens
+	color-scheme: dark
+	--bg: #101010
+	--bg-surface: #202021
+	--bg-raised: #3a3a3a
+	--bg-panel: #1f1f20
+	--bg-footer: #111111
+	--bg-popover: #363637
+	--bg-dialog: #39393a
+	--bg-terminal: #121213
+	--bg-input: #1c1c1d
+	--bg-canvas: #171818
+	--border: #2f2f2f
+	--border-subtle: #1e1e1f
+	--text-primary: #EDF2F7
+	--text-secondary: #c7c7c7
+	--text-muted: #7c7c7c
+	--state-hover: #4a4a4b
+	--state-hover-subtle: #2b2b2b
+	--state-selected: #666668
+	--theme-color: #2F9E44
+	--theme-color-alt: #36731d
+	--text-inverse: #0E1118
+	--text-richtext: #797878
+	--success: #34D399
+	--success-hover: #6EE7B7
+	--warning: #FBBF24
+	--warning-hover: #FCD34D
+	--danger: #F87171
+	--danger-hover: #FCA5A5
+	--info: #60A5FA
+	--info-hover: #93C5FD
+	--feedback-error: #F87171
+	--ring: rgba(16, 185, 129, 0.4)
+	// Per-mode shadows (registry v1)
+	--shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4)
+	--shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35)
+	--shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.45)
+
+:root
+	color-scheme: light
+	--font-sans: Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif
+	--font-mono: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace
+
+	// Fluid type scale (Utopia 360→1240)
+	--text-xs: 0.75rem
+	--text-sm: 0.875rem
+	--text-bs: clamp(1rem, 1rem + 0vw, 1rem)
+	--text-lg: 1.125rem
+	--text-xl: 1.25rem
+	--text-2xl: 1.5rem
+	--text-3xl: 1.875rem
+	--text-4xl: 2.25rem
+	--text-5xl: clamp(1.802rem, 1.2908rem + 2.2722vw, 3.0518rem)
+	--text-6xl: 3.75rem
+	--text-7xl: 5rem
+
+	--textmultiplier: 1.2
+	--prtext-bs: calc(var(--text-bs) * var(--textmultiplier))
+
+	--coreSpace-2xs: 0
+	--coreSpace-xs: clamp(0.125rem, 0.0739rem + 0.2273vw, 0.25rem)
+	--coreSpace-sm: clamp(0.25rem, 0.1477rem + 0.4545vw, 0.5rem)
+	--coreSpace-md: clamp(0.5rem, 0.3977rem + 0.4545vw, 0.75rem)
+	--coreSpace-bs: clamp(0.75rem, 0.6477rem + 0.4545vw, 1rem)
+	--coreSpace-lg: clamp(1rem, 0.7955rem + 0.9091vw, 1.5rem)
+	--coreSpace-xl: clamp(1.5rem, 1.2955rem + 0.9091vw, 2rem)
+	--coreSpace-2xl: clamp(2rem, 1.5909rem + 1.8182vw, 3rem)
+	--coreSpace-3xl: clamp(3rem, 2.5909rem + 1.8182vw, 4rem)
+
+	// Fluid space scale — the comfortable values. data-layout scales at USE
+	// sites: gaps/margins × var(--gap-scale), paddings × var(--pad-scale).
+	--space-2xs: 0
+	--space-xs: clamp(0.125rem, 0.0739rem + 0.2273vw, 0.25rem)
+	--space-sm: clamp(0.25rem, 0.1477rem + 0.4545vw, 0.5rem)
+	--space-md: clamp(0.5rem, 0.3977rem + 0.4545vw, 0.75rem)
+	--space-bs: clamp(0.75rem, 0.6477rem + 0.4545vw, 1rem)
+	--space-lg: clamp(1rem, 0.7955rem + 0.9091vw, 1.5rem)
+	--space-xl: clamp(1.5rem, 1.2955rem + 0.9091vw, 2rem)
+	--space-2xl: clamp(2rem, 1.5909rem + 1.8182vw, 3rem)
+	--space-3xl: clamp(3rem, 2.5909rem + 1.8182vw, 4rem)
+
+	// Radius (Concentric hierarchy)
+	--radius-0: 0
+	--radius-2: 2px
+	--radius-3: 3px
+	--radius-4: 4px
+	--radius-6: 6px
+	--radius-8: 8px
+	--radius-12: 12px
+	--radius-16: 16px
+	--radius-24: 24px
+	--radius-full: 9999px
+
+	// Radius channels — compositions read these; shape presets remap them.
+	// Defaults = curved (registry v1); unset data-shape IS curved.
+	--radius-sm: 8px
+	--radius-md: 16px
+	--radius-lg: 24px
+
+	// Motion language (registry v1) — durations and easings all compositions read.
+	--motion-fast: 120ms
+	--motion-base: 160ms
+	--motion-slow: 240ms
+	--ease-out: cubic-bezier(0.16, 1, 0.3, 1)
+	--ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1)
+
+	// Control Heights
+	--control-h-sm: 26px
+	--control-h-md: 32px
+	--control-h-lg: 38px
+
+	// Shadow values live in the theme mixins (per-mode since registry v1).
+
+	// Layering
+	--z-base: 0
+	--z-raised: 10
+	--z-sticky: 100
+	--z-modal: 200
+	--z-toast: 300
+
+	// Layout
+	--header-height: 64px
+	// The shell default (lrf) HAS a footer, and a default preset value removes its
+	// attribute entirely — so the no-attribute case must carry the live height, not
+	// zero. Without this every calc() below is invalid at computed-value time and
+	// silently collapses the element. [data-shell] overrides it either way.
+	--footer-height: 32px
+	--measure: 65ch
+	--page-gutter: clamp(1rem, 4vw, 2rem)
+	--sidebar-width: 300px
+	--toc-width: 300px
+	--card-min: 16rem
+	--breakpoint: 768px
+	--avatar-size: 32px
+	--switch-w: 40px
+	--switch-h: 22px
+	--switch-thumb: 16px
+	--select-arrow-gap: 28px
+	--popover-offset: 6px
+	--blur-sm: 12px
+
+	// New Transitions
+	--transin-2: cubic-bezier(0.550, 0.055, 0.675, 0.190)
+	--transin-3: cubic-bezier(0.755, 0.050, 0.855, 0.060)
+	--transin-1: cubic-bezier(0.470, 0.000, 0.745, 0.715)
+	--transout-1: cubic-bezier(0.390, 0.575, 0.565, 1.000)
+	--transout-2: cubic-bezier(0.215, 0.610, 0.355, 1.000)
+	--transout-3: cubic-bezier(0.230, 1.000, 0.320, 1.000)
+	--speed-1: 90ms
+	--speed-2: 140ms
+	--speed-3: 220ms
+	--speed-0: 40ms
+	--button-std: var(--speed-2) var(--transout-2)
+
+	// Default Light Palette
+	+light-theme-tokens
+
+// Footer height follows the shell composition: 0 when the footer is not part of
+// the declared shell (value has no `f`), 32px when it is. The attribute is absent
+// on the default shell (lrf), which HAS a footer — that case is covered by the
+// :root declaration above, not here. Letters in the shell vocabulary are disjoint,
+// so the *= substring match is safe. See [data-shell] in _05_shells.sass.
+[data-shell]:not([data-shell*="f"])
+	--footer-height: 0px
+[data-shell*="f"]
+	--footer-height: 32px
+// Plain :root, NOT :root:not([data-mode='light']). The :not() was redundant —
+// [data-mode='light'] is emitted below and wins on source order at equal
+// specificity — and it was harmful: :not() pushed this to (0,2,0), which
+// outranks a .theme-* class at (0,1,0). Under OS dark mode every theme's
+// surface tokens were silently overridden by these generic defaults.
+@media (prefers-color-scheme: dark)
+	:root
+		+dark-theme-tokens
+
+[data-mode='dark']
+	+dark-theme-tokens
+
+[data-mode='light']
+	+light-theme-tokens

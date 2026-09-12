@@ -1,0 +1,54 @@
+<script lang="ts">
+	import { GraphHash } from '$lib';
+</script>
+
+# GraphHash
+
+64-bit FNV-1a-ish digest. Pure function of the input string — same input
+always yields the same 64-bit digest, no PRNG state. This is the
+"any string → deterministic fingerprint" property.
+
+## Import
+
+```svelte
+import { GraphHash } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphHash
+  title="example"
+  input={'markgraphy'}
+  cols={16}
+/>
+```
+
+<div class="live">
+<GraphHash
+  title="example"
+  input={'markgraphy'}
+  cols={16}
+/>
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | Caption on the frame's top edge as `[ TITLE ]`. Uppercase, 1–2 words. |
+| `input?` | `string` | `'markgraphy'` | Any string — its digest is the seed. Default 'markgraphy'. |
+| `cols?` | `number` | `16` | Grid width in cells. Default 16. |
+| `rows?` | `number` | `6` | Grid height in rows. Default 6. |
+| `speedMs?` | `number` | `60` | Milliseconds per tick of the scan-line sweep. Default 60. |
+| `animated?` | `boolean` | `true` | Animate the scan line. Default true. Reduced motion freezes mid-sweep. |
+| `label?` | `string` | `'any string → a glyph fingerprint'` | Short caption under the art. |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `GraphHashProps`
+
+## Reduced motion
+
+Animation is disabled under `prefers-reduced-motion`.

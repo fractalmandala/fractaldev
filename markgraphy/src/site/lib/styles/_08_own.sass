@@ -1,0 +1,64 @@
+// =============================================================================
+// 11_OWN — bespoke project-specific styles and micro-components.
+// =============================================================================
+
+.site-wrapper
+	position: relative
+	width: 100%
+	max-width: 1600px
+	margin-inline: auto
+	padding: 0 var(--pad) 1.4rem
+
+.cabinet
+	display: flex
+	flex-direction: column
+	min-width: 0
+
+@media (min-width: 1024px)
+	.cabinet
+		display: grid
+		grid-template-columns: 17rem minmax(0, 1fr)
+		align-items: start
+	.cabinet.solo
+		grid-template-columns: minmax(0, 1fr)
+
+.content
+	min-width: 0
+	padding: 1.6rem 1.3rem 4rem
+
+@media (min-width: 1024px)
+	.content
+		padding: 1.6rem 1.6rem 5rem
+
+select
+	appearance: none
+	border: none
+	@supports (appearance: base-select)
+		&,
+		&::picker(select)
+			appearance: base-select
+
+::view-transition-group(root)
+	animation: none
+
+::view-transition-old(root), ::view-transition-new(root)
+	animation: none
+	mix-blend-mode: normal
+	width: 100vw
+	height: 100vh
+	object-fit: cover
+	object-position: top left
+
+::view-transition-old(root)
+	z-index: 0
+
+::view-transition-new(root)
+	z-index: 1
+
+.weight-300
+	font-weight: 300
+
+.fitted-1024
+	max-width: 1024px
+	width: 100%
+	margin-inline: auto

@@ -1,0 +1,50 @@
+<script lang="ts">
+	import { GraphSlo } from '$lib';
+</script>
+
+# GraphSlo
+
+## Import
+
+```svelte
+import { GraphSlo } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphSlo
+  title="example"
+  budget={0}
+  window={30}
+/>
+```
+
+<div class="live">
+<GraphSlo
+  title="example"
+  budget={0}
+  window={30}
+/>
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `budget` | `number` | `—` | Fraction of the error budget consumed, 0–1. |
+| `window?` | `number` | `30` | Window length in the chosen unit. Default 30. |
+| `unit?` | `'h' | 'd' | 'w' | 'mo'` | `'d'` | Window unit. Default 'd'. |
+| `target?` | `number` | `—` | Allowed error rate as a fraction, e.g. 0.001 for 99.9%. |
+| `actual?` | `number` | `—` | Actual error rate as a fraction. |
+| `burnRate?` | `number` | `—` | Burn rate multiplier (1 = on pace). If set, takes precedence over elapsed. |
+| `elapsed?` | `number` | `—` | Days (or hours, weeks) elapsed so far. Used to compute time-to-empty. |
+| `daily?` | `number[]` | `—` | Optional sparkline of daily burn samples, 0..1 each. |
+| `caption?` | `string` | `—` | Optional caption below the panel. |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `GraphSloProps`

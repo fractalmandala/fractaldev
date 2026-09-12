@@ -1,0 +1,124 @@
+---
+title: Button (ported)
+description: shadcn-svelte Button re-implemented on fractal tokens — six variants, eight sizes, zero tailwind.
+---
+
+<script>
+	import { PortedButtonDemos } from '#lib/ported/index.ts';
+</script>
+
+<svelte:head>
+	<title>Button (ported) — Fractalsvelte UI</title>
+	<meta
+		name="description"
+		content="shadcn-svelte Button re-implemented on fractal tokens: six variants, eight sizes, zero tailwind."
+	/>
+</svelte:head>
+
+<header class="component-doc__header stack gap-2xs">
+	<span class="eyebrow">Ported · shadcn-svelte</span>
+	<h1>Button (ported)</h1>
+	<p class="muted">
+		The shadcn-svelte Button API — <code>default / outline / secondary / ghost / destructive / link</code>
+		variants and <code>xs / sm / default / lg / icon*</code> sizes — rendered with the fractal button
+		geometry. No tailwind, no <code>&lt;style&gt;</code>. All previews below are live components.
+	</p>
+</header>
+
+<PortedButtonDemos />
+
+## Tailwind → fractal mapping
+
+Each shadcn tailwind class was resolved to its real CSS definition, snapped to the
+nearest fractal token, then composed from registry classes to the same effect.
+
+<div class="table-wrap">
+	<table>
+		<thead>
+			<tr>
+				<th scope="col">shadcn (tailwind)</th>
+				<th scope="col">Real CSS</th>
+				<th scope="col">Fractal equivalent</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><code>inline-flex items-center justify-center</code></td>
+				<td><code>display:inline-flex; align/justify center</code></td>
+				<td><code>.button</code> base</td>
+			</tr>
+			<tr>
+				<td><code>text-sm font-medium</code></td>
+				<td><code>~15px / 500</code></td>
+				<td><code>.button</code> (<code>--text-sm</code>, weight 500)</td>
+			</tr>
+			<tr>
+				<td><code>disabled:opacity-50 + pointer-events-none</code></td>
+				<td><code>opacity .5, no pointer</code></td>
+				<td><code>.button:disabled</code></td>
+			</tr>
+			<tr>
+				<td><code>focus-visible:ring-[3px]</code></td>
+				<td><code>3px focus ring</code></td>
+				<td><code>.button:focus-visible</code> (<code>--ring</code>)</td>
+			</tr>
+			<tr>
+				<td><code>bg-primary / secondary / destructive …</code></td>
+				<td><code>intent backgrounds</code></td>
+				<td><code>.primary / .secondary / .outline / .ghost / .destructive / .link</code></td>
+			</tr>
+			<tr>
+				<td><code>h-6 / h-8 / h-9 / h-10 + size-*</code></td>
+				<td><code>24 / 32 / 36 / 40px</code></td>
+				<td><code>.sm / .md / .lg + icon densities</code></td>
+			</tr>
+			<tr>
+				<td><code>rounded-4xl</code></td>
+				<td><code>fully rounded pill</code></td>
+				<td><code>default radius</code> (pill opt-in via fractal <code>shape="pill"</code>)</td>
+			</tr>
+			<tr>
+				<td><code>active:translate-y-px</code></td>
+				<td><code>1px press nudge</code></td>
+				<td><em>Dropped</em> — motion-system decision</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+## Props
+
+<div class="table-wrap">
+	<table>
+		<thead>
+			<tr>
+				<th scope="col">Prop</th>
+				<th scope="col">Type</th>
+				<th scope="col">Default</th>
+				<th scope="col">Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr><td><code>variant</code></td><td><code>'default' | 'outline' | 'secondary' | 'ghost' | 'destructive' | 'link'</code></td><td><code>'default'</code></td><td>shadcn intent; maps to the fractal intent of the same meaning.</td></tr>
+			<tr><td><code>size</code></td><td><code>'default' | 'xs' | 'sm' | 'lg' | 'icon' | 'icon-xs' | 'icon-sm' | 'icon-lg'</code></td><td><code>'default'</code></td><td>shadcn density; snaps to the nearest fractal control height.</td></tr>
+			<tr><td><code>href</code></td><td><code>string</code></td><td><code>—</code></td><td>When set, renders an anchor instead of a button.</td></tr>
+			<tr><td><code>type</code></td><td><code>'button' | 'submit' | 'reset'</code></td><td><code>'button'</code></td><td>Native button type (ignored for anchors).</td></tr>
+			<tr><td><code>disabled</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Prevents interaction.</td></tr>
+			<tr><td><code>ref</code></td><td><code>HTMLElement | null</code></td><td><code>—</code></td><td>Bindable element reference (button mode).</td></tr>
+			<tr><td><code>children</code></td><td><code>Snippet</code></td><td><code>required</code></td><td>Content; compose icons via the fractalicons Icon component.</td></tr>
+			<tr><td><code>onclick</code></td><td><code>(event: MouseEvent) =&gt; void</code></td><td><code>—</code></td><td>Click handler.</td></tr>
+			<tr><td><code>class</code></td><td><code>string</code></td><td><code>''</code></td><td>Extra classes merged onto the root element.</td></tr>
+		</tbody>
+	</table>
+</div>
+
+<section class="card pad-m stack gap-xs" aria-labelledby="styling-heading">
+	<strong id="styling-heading" class="text-md weight-600">Styling contract</strong>
+	<p class="muted text-sm">
+		All styling resolves through the fractal button geometry and theme tokens
+		(<code>--theme-color</code>, <code>--danger</code>, <code>--border</code>,
+		<code>--ring</code>). The port carries <code>data-slot="button"</code> so existing shadcn
+		selectors keep matching, plus <code>data-shadcn-variant</code> /
+		<code>data-shadcn-size</code> preserving the original API values. No tailwind, no scoped styles.
+	</p>
+</section>

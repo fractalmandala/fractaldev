@@ -1,0 +1,524 @@
+// Theme Switcher & Palette Picker Styles
+// Adheres strictly to single-tab indented SASS and semantic token consumption
+
+.theme-controls
+	display: inline-flex
+	align-items: center
+	gap: 8px
+	position: relative
+
+.bdr
+	border: 1px solid red
+
+.theme-trigger-btn
+	display: inline-flex
+	align-items: center
+	gap: 8px
+	padding: 6px 12px
+	height: 34px
+	border-radius: 6px
+	border: 1px solid var(--border)
+	background: var(--bg-surface)
+	color: var(--text-primary)
+	font-size: 13px
+	font-weight: 500
+	cursor: pointer
+	transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease
+	user-select: none
+	&:hover
+		background: var(--bg-raised)
+		border-color: var(--theme-color)
+	&:active
+		transform: scale(0.98)
+	&:focus-visible
+		outline: 2px solid var(--theme-color)
+		outline-offset: 2px
+
+.theme-icon-btn
+	display: inline-flex
+	align-items: center
+	justify-content: center
+	width: 34px
+	height: 34px
+	padding: 0
+	border-radius: 6px
+	border: 1px solid var(--border)
+	background: var(--bg-surface)
+	color: var(--text-secondary)
+	cursor: pointer
+	transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.1s ease
+	&:hover
+		background: var(--bg-raised)
+		color: var(--text-primary)
+		border-color: var(--theme-color)
+	&:active
+		transform: scale(0.96)
+	&:focus-visible
+		outline: 2px solid var(--theme-color)
+		outline-offset: 2px
+	svg
+		width: 16px
+		height: 16px
+
+.theme-swatch-duo
+	display: inline-flex
+	align-items: center
+	position: relative
+	width: 18px
+	height: 18px
+
+.theme-swatch-bg
+	width: 16px
+	height: 16px
+	border-radius: 9999px
+	border: 1px solid var(--border)
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1)
+
+.theme-swatch-accent
+	position: absolute
+	right: -2px
+	bottom: -2px
+	width: 9px
+	height: 9px
+	border-radius: 9999px
+	border: 1.5px solid var(--bg-surface)
+
+@keyframes themeDrawerSlideIn
+	from
+		transform: translateX(100%)
+		opacity: 0.8
+	to
+		transform: translateX(0)
+		opacity: 1
+
+.theme-drawer-backdrop
+	position: fixed
+	top: var(--header-height, 0px)
+	right: 0
+	height: calc(100vh - var(--header-height, 0px))
+	z-index: 9998
+	background: rgba(0, 0, 0, 0.25)
+	backdrop-filter: blur(2px)
+	-webkit-backdrop-filter: blur(2px)
+	animation: themeDrawerFadeIn 0.2s ease-out
+
+@keyframes themeDrawerFadeIn
+	from
+		opacity: 0
+	to
+		opacity: 1
+
+.theme-popover
+	position: fixed
+	right: 0
+	// Hang below the site header — consumers define --header-height; the 0px
+	// fallback keeps full-height behavior when they don't.
+	top: var(--header-height, 0px)
+	height: calc(100vh - var(--header-height, 0px))
+	z-index: 9999
+	display: flex
+	flex-direction: column
+	background: var(--bg-popover, var(--bg-surface))
+	color: var(--text-primary)
+	border-left: 1px solid var(--border)
+	overflow-y: auto
+	-webkit-overflow-scrolling: touch
+	scrollbar-width: thin
+	animation: themeDrawerSlideIn 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards
+	width: min(94vw, 480px)
+
+// Mobile: cover half the viewport width so the page behind stays visible and
+// the live effect of picking presets can be watched.
+@media (max-width: 768px)
+	.theme-popover
+		width: 50vw
+		min-width: 200px
+
+.theme-style-switcher
+	position: sticky
+	top: 0
+	z-index: 3
+	display: flex
+	align-items: center
+	justify-content: space-between
+	padding: 10px 14px
+	background: var(--bg-surface)
+	border-bottom: 1px solid var(--border-subtle)
+	gap: 8px
+	flex-wrap: wrap
+
+.theme-style-toggle-group
+	display: flex
+	gap: 4px
+	flex-wrap: wrap
+
+.theme-style-toggle-btn
+	display: inline-flex
+	align-items: center
+	gap: 5px
+	padding: 4px 10px
+	font-size: 11px
+	font-weight: 500
+	color: var(--text-secondary)
+	background: transparent
+	border: none
+	border-radius: 4px
+	cursor: pointer
+	transition: all 0.15s ease
+	&:hover
+		color: var(--text-primary)
+	&.active
+		background: var(--bg-panel)
+		color: var(--theme-color)
+		font-weight: 600
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08)
+
+.theme-tabs
+	position: sticky
+	top: 49px
+	z-index: 2
+	display: flex
+	padding: 4px 12px
+	gap: 6px
+	background: var(--bg-surface)
+	border-bottom: 1px solid var(--border)
+
+.theme-tab-btn
+	padding: 4px 8px
+	font-size: 11px
+	text-transform: uppercase
+	border: 1px solid transparent
+	background: transparent
+	color: var(--text-secondary)
+	cursor: pointer
+	transition: all 0.15s ease
+	&:hover
+		color: var(--theme-color)
+	&.active
+		color: var(--theme-color-alt)
+		font-weight: 600
+
+.theme-grid-container
+	padding: 12px 14px
+	flex: 1
+	display: grid
+	grid-template-columns: repeat(auto-fill, minmax(130px, 1fr))
+	gap: 8px
+	align-items: start
+	align-content: start
+
+.theme-card
+	display: flex
+	flex-direction: column
+	gap: 6px
+	padding: 8px
+	border-radius: 6px
+	border: 1px solid var(--border)
+	background: var(--bg-panel)
+	color: var(--text-primary)
+	cursor: pointer
+	text-align: left
+	transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.12s ease
+	position: relative
+	&:hover
+		border-color: var(--theme-color-alt)
+		background: var(--state-hover)
+	&.active
+		border-color: var(--theme-color)
+		background: var(--state-selected)
+
+.theme-card-header
+	display: flex
+	align-items: center
+	justify-content: space-between
+	gap: 4px
+
+.theme-card-name
+	font-size: 13px
+	color: var(--text-primary)
+	font-weight: 500
+	white-space: nowrap
+	overflow: hidden
+	text-overflow: ellipsis
+
+.theme-card-badge
+	font-size: 9px
+	text-transform: uppercase
+	padding: 1px 5px
+	border-radius: 3px
+	background: var(--bg-surface)
+	color: var(--text-muted)
+
+.theme-card-preview
+	display: flex
+	align-items: center
+	gap: 4px
+	padding: 4px 8px
+	border-radius: 4px
+	border: 1px solid transparent
+	position: relative
+	overflow: hidden
+
+.theme-aura-tag
+	font-size: 10px
+	color: var(--text-muted)
+	white-space: nowrap
+	overflow: hidden
+	text-overflow: ellipsis
+	padding-inline: 2px
+
+.theme-preview-dot
+	width: 14px
+	height: 14px
+	border-radius: 9999px
+	flex-shrink: 0
+
+.theme-card-delete-btn
+	position: absolute
+	top: 4px
+	right: 4px
+	width: 18px
+	height: 18px
+	border-radius: 9999px
+	border: none
+	background: rgba(0, 0, 0, 0.4)
+	color: #FFFFFF
+	font-size: 9px
+	display: inline-flex
+	align-items: center
+	justify-content: center
+	cursor: pointer
+	opacity: 0
+	transition: opacity 0.15s ease, background 0.15s ease
+	z-index: 5
+	&:hover
+		background: #E63946
+
+.theme-card:hover .theme-card-delete-btn
+	opacity: 1
+
+.theme-popover-footer
+	position: sticky
+	bottom: 0
+	z-index: 3
+	display: flex
+	align-items: center
+	justify-content: space-between
+	padding: 10px 14px
+	background: var(--bg-raised)
+	border-top: 1px solid var(--border-subtle)
+	gap: 8px
+	margin-top: auto
+
+.theme-footer-btn
+	display: inline-flex
+	align-items: center
+	gap: 6px
+	padding: 5px 10px
+	font-size: 12px
+	font-weight: 500
+	color: var(--text-secondary)
+	background: transparent
+	border: 1px solid var(--border-subtle)
+	border-radius: 6px
+	cursor: pointer
+	transition: all 0.15s ease
+
+.is-sticky
+	position: sticky
+	top: 0
+	z-index: 2
+
+.theme-search-bar
+	padding: 6px 12px
+	background: var(--bg-surface)
+	border-bottom: 1px solid var(--border-subtle)
+
+.theme-search-input
+	width: 100%
+	height: 32px
+	padding: 4px 8px
+	font-size: 11px
+	border-radius: 4px
+	border: 1px solid var(--border)
+	background: var(--bg-input, var(--bg-panel))
+	color: var(--text-primary)
+	outline: none
+	transition: border-color 0.15s ease
+	&::placeholder
+		color: var(--text-muted)
+	&:focus
+		border-color: var(--theme-color)
+
+.theme-gradient-card
+	display: flex
+	flex-direction: column
+	gap: 6px
+	padding: 8px
+	border-radius: 6px
+	border: 1px solid var(--border)
+	background: var(--bg-panel)
+	color: var(--text-primary)
+	cursor: pointer
+	text-align: left
+	transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.12s ease
+	position: relative
+	&:hover
+		border-color: var(--theme-color-alt)
+		background: var(--state-hover)
+		transform: translateY(-1px)
+	&.active
+		border-color: var(--theme-color)
+		background: var(--state-selected)
+		box-shadow: 0 0 0 1px var(--theme-color)
+
+.gradient-card-bar
+	height: 32px
+	border-radius: 4px
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15), 0 2px 6px rgba(0, 0, 0, 0.12)
+	position: relative
+	display: flex
+	align-items: flex-end
+	justify-content: flex-end
+	padding: 3px 5px
+
+.gradient-card-colors
+	display: flex
+	align-items: center
+	gap: 3px
+
+.gradient-dot
+	width: 8px
+	height: 8px
+	border-radius: 9999px
+	border: 1px solid rgba(255, 255, 255, 0.6)
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3)
+
+.category-chips
+	display: flex
+	align-items: center
+	gap: 4px
+	overflow-x: auto
+	padding: 4px 12px
+	background: var(--bg-surface)
+	border-bottom: 1px solid var(--border-subtle)
+	scrollbar-width: none
+	&::-webkit-scrollbar
+		display: none
+
+.category-chip
+	padding: 2px 8px
+	border-radius: 9999px
+	font-size: 10px
+	font-weight: 500
+	border: 1px solid var(--border)
+	background: var(--bg-panel)
+	color: var(--text-secondary)
+	cursor: pointer
+	white-space: nowrap
+	transition: background-color 0.12s ease, color 0.12s ease, border-color 0.12s ease
+	&:hover
+		background: var(--bg-raised)
+		color: var(--text-primary)
+	&.active
+		background: var(--theme-color)
+		color: var(--text-inverse)
+		border-color: var(--theme-color)
+
+.theme-aura-card
+	display: flex
+	flex-direction: column
+	gap: 6px
+	padding: 8px
+	border-radius: 6px
+	border: 1px solid var(--border)
+	background: var(--bg-panel)
+	color: var(--text-primary)
+	cursor: pointer
+	text-align: left
+	transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.12s ease
+	position: relative
+	overflow: hidden
+	&:hover
+		border-color: var(--theme-color-alt)
+		background: var(--state-hover)
+		transform: translateY(-1px)
+	&.active
+		border-color: var(--theme-color)
+		background: var(--state-selected)
+		box-shadow: 0 0 0 1px var(--theme-color)
+
+.aura-card-preview
+	height: 38px
+	border-radius: 4px
+	position: relative
+	overflow: hidden
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15), 0 2px 6px rgba(0, 0, 0, 0.12)
+	background-color: #0d0d0d
+
+.aura-card-layer
+	position: absolute
+	inset: 0
+	pointer-events: none
+
+.theme-card-sub
+	font-size: 9px
+	color: var(--text-muted)
+	white-space: nowrap
+	overflow: hidden
+	text-overflow: ellipsis
+
+// Responsive adaptations when drawer is 180px wide
+@media (max-width: 1024px)
+	.theme-style-switcher
+		flex-direction: column
+		align-items: stretch
+		padding: 8px 8px
+		gap: 6px
+
+	.theme-style-toggle-group
+		width: 100%
+		display: flex
+		.theme-style-toggle-btn
+			flex: 1
+			justify-content: center
+			padding: 4px 4px
+			font-size: 10px
+
+	.theme-tabs
+		top: 72px
+		padding: 4px 6px
+		flex-wrap: wrap
+		gap: 2px
+		.theme-tab-btn
+			padding: 2px 4px
+			font-size: 10px
+
+	.theme-grid-container
+		grid-template-columns: 1fr
+		padding: 8px 8px
+		gap: 6px
+
+	.theme-card
+		padding: 6px
+		gap: 4px
+
+	.theme-card-name
+		font-size: 11px
+
+	.theme-card-badge
+		font-size: 8px
+		padding: 0 3px
+
+	.theme-aura-tag
+		font-size: 9px
+
+	.theme-popover-footer
+		flex-direction: column
+		padding: 8px 8px
+		gap: 6px
+		.theme-footer-btn
+			width: 100%
+			justify-content: center
+			font-size: 11px
+			padding: 4px 6px

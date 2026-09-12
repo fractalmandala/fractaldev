@@ -1,0 +1,38 @@
+<script lang="ts">
+	import { GraphPlot } from '$lib';
+</script>
+
+# GraphPlot
+
+## Import
+
+```svelte
+import { GraphPlot } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphPlot
+  title="example"
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `data` | `number[]` | `—` | — |
+| `labels?` | `string[]` | `—` | — |
+| `height?` | `number` | `7` | — |
+| `variant?` | `'line' | 'area'` | `'area'` | — |
+| `progress?` | `number` | `1` | — |
+| `glyphs?` | `Glyphs` | `—` | — |
+| `palette?` | `GraphPalette` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `GraphPlotProps`

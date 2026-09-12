@@ -1,0 +1,34 @@
+{
+  "id": "lamplight-bone-contour",
+  "name": "Lamplight Bone Contour",
+  "version": "2.0.0",
+  "author": "amrit",
+  "description": "Sidebar and tabs painted the same white as the editor; a single hairline is the only separation. Strings and numbers cool off to teal and periwinkle.",
+  "isDark": true,
+  "tags": [
+    "bone",
+    "dark"
+  ],
+  "colors": {
+    "bg": "#16181A",
+    "bg-secondary": "#16181A",
+    "bg-tertiary": "#202224",
+    "bg-hover": "#1F2123",
+    "bg-selected": "#2B3035",
+    "bg-active": "#372B21",
+    "text": "#C2C6C9",
+    "text-muted": "#8E9294",
+    "text-faint": "#6E7478",
+    "text-disabled": "#4F5457",
+    "border": "#232629",
+    "border-focus": "#FF9E4D",
+    "primary": "#FF9E4D",
+    "primary-hover": "#F4A563",
+    "link": "#FF9E4D",
+    "link-hover": "#F4A563",
+    "success": "#7FD962",
+    "warning": "#FFC44D",
+    "error": "#F26D6D",
+    "info": "#59C2FF"
+  }
+}

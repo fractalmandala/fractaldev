@@ -1,0 +1,27 @@
+/*
+ * fractalgraphy motion.
+ * Transform + opacity only, 220ms, ease-out cubic. No loops.
+ * prefers-reduced-motion: reduce disables everything.
+ */
+
+.fg-motion {
+	opacity: 0;
+	transform: translateY(var(--fg-y, 8px));
+	transition:
+		opacity 220ms cubic-bezier(0.215, 0.61, 0.355, 1),
+		transform 220ms cubic-bezier(0.215, 0.61, 0.355, 1);
+	transition-delay: var(--fg-delay, 0ms);
+}
+
+.fg-motion.is-revealed {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.fg-motion {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+}

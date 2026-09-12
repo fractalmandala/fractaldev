@@ -1,0 +1,56 @@
+{
+  "name": "@acrolls/cli",
+  "private": true,
+  "version": "0.1.1",
+  "description": "Acrolls CLI: onboard, init, integrate, validate, studio.",
+  "license": "Apache-2.0",
+  "repository": { "type": "git", "url": "git+https://github.com/fractalmandala/Acrolls.git", "directory": "packages/cli" },
+  "bugs": "https://github.com/fractalmandala/Acrolls/issues",
+  "homepage": "https://github.com/fractalmandala/Acrolls#readme",
+  "type": "module",
+  "bin": {
+    "acrolls": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "studio-app",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --clean && node ./scripts/binify.mjs",
+    "check": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@acrolls/mdsvex": "workspace:*",
+    "mdsvex": "^0.12.6",
+    "svelte": "^5.38.1"
+  },
+  "peerDependencies": {
+    "pagefind": ">=1.0.0",
+    "yaml": ">=2.0.0",
+    "graphql": ">=16.0.0"
+  },
+  "peerDependenciesMeta": {
+    "pagefind": { "optional": true },
+    "yaml": { "optional": true },
+    "graphql": { "optional": true }
+  },
+  "devDependencies": {
+    "@types/node": "^22.17.2",
+    "pagefind": "^1.5.2",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "keywords": [
+    "acrolls",
+    "cli",
+    "mdsvex",
+    "sveltekit"
+  ]
+}

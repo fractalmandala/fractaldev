@@ -1,0 +1,53 @@
+<script lang="ts">
+	import { GraphSpinners } from '$lib';
+</script>
+
+# GraphSpinners
+
+Active frames, padded with trailing spaces so nothing shifts between steps.
+
+## Import
+
+```svelte
+import { GraphSpinners } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphSpinners
+  title="example"
+  kind={'dots'}
+  label={'loading'}
+/>
+```
+
+<div class="live">
+<GraphSpinners
+  title="example"
+  kind={'dots'}
+  label={'loading'}
+/>
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | Caption drawn on the frame's top edge as `[ TITLE ]`. |
+| `kind?` | `SpinnerKind` | `'dots'` | Which glyph spinner to show. Default 'dots'. |
+| `label?` | `string` | `'loading'` | Text shown after the spinner. Default 'loading'. |
+| `speedMs?` | `number` | `120` | Milliseconds per frame. Default 120. |
+| `frames?` | `string[]` | `—` | Custom frame set. Overrides `kind` when non-empty. Padded to equal width. |
+| `animated?` | `boolean` | `true` | Animate the frames. Default true. Reduced motion holds frame 0. |
+| `corner?` | `string` | `—` | Character at each corner of the frame. Default '+'. |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `SpinnerKind`
+- `GraphSpinnersProps`
+
+## Reduced motion
+
+Animation is disabled under `prefers-reduced-motion`.

@@ -1,0 +1,1061 @@
+// ============================================================================
+// themes — the L0 contract's values. 41 curated palettes (21 light, 19 dark),
+// each remapping the same token set defined in _00_tokens.sass.
+//
+// These are plain classes, applied to <html>. setTheme() in presets.core.ts
+// does classList.add('theme-night-dark') and the cascade does the rest.
+// Nothing here needs JavaScript — a static `class="theme-night-dark"` works.
+//
+// Position matters: after _00_tokens so a theme beats the mode defaults,
+// before _08_own so your own overrides beat a theme.
+//
+// Always pair a theme class with its mode:
+//   <html class="theme-night-dark" data-mode="dark">
+// The colour preset's dark variants key off prefers-color-scheme, so a theme
+// applied without data-mode can end up tuned against the OS preference rather
+// than against itself. setTheme() sets both together.
+//
+// Each theme sets exactly 22 tokens, all of them in the contract. The 12 it
+// does not — the status colours, the shadows and --ring — deliberately fall
+// through to the per-mode defaults in _00_tokens.sass, since a palette should
+// not have opinions about what "danger" looks like.
+//
+// Nothing here is outside the contract. An earlier revision carried 26 extra
+// tokens per theme (--syntax-*, --md-*, --shadow-pdf-viewer and friends) —
+// 1,066 declarations that no stylesheet in this system ever read. If syntax or
+// prose theming is wanted, define it in _00_tokens.sass and have .terminal and
+// .prose consume it, rather than letting palettes carry orphan values.
+// ============================================================================
+
+// ============================================================================
+// LIGHT THEMES (21)
+// ============================================================================
+
+// 1. Default Light (Emerald Minimal)
+.theme-light-default
+	--bg: #FFFFFF
+	--bg-surface: #F8F9FA
+	--bg-raised: #FFFFFF
+	--bg-panel: #F1F3F5
+	--bg-footer: #E9ECEF
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #0F172A
+	--bg-input: #FFFFFF
+	--bg-canvas: #F8F9FA
+	--border: #E2E8F0
+	--border-subtle: #EDF2F7
+	--text-primary: #0F172A
+	--text-secondary: #7a7c7d
+	--text-muted: #a2a7a4
+	--state-hover: #E2E8F0
+	--state-hover-subtle: #F1F5F9
+	--state-selected: #CBD5E1
+	--theme-color: #0C7C59
+	--theme-color-alt: #60992D
+	--text-inverse: #FFFFFF
+	--feedback-error: #DC2626
+
+// 2. Himalaya Light (Alpine Slate & Azure)
+.theme-himalaya-light
+	--bg: #F8FAFC
+	--bg-surface: #FFFFFF
+	--bg-raised: #F1F5F9
+	--bg-panel: #EAEFF5
+	--bg-footer: #E2E8F0
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #0B1120
+	--bg-input: #FFFFFF
+	--bg-canvas: #F8FAFC
+	--border: #CBD5E1
+	--border-subtle: #E2E8F0
+	--text-primary: #0F172A
+	--text-secondary: #334155
+	--text-muted: #64748B
+	--state-hover: #E2E8F0
+	--state-hover-subtle: #F1F5F9
+	--state-selected: #CBD5E1
+	--theme-color: #2563EB
+	--theme-color-alt: #1D4ED8
+	--text-inverse: #FFFFFF
+	--feedback-error: #D92D20
+
+// 3. Editorial Light (Warm Book Paper & Olive)
+.theme-editorial-light
+	--bg: #FAF8F5
+	--bg-surface: #F2EFE9
+	--bg-raised: #FFFFFF
+	--bg-panel: #EAE5DC
+	--bg-footer: #E0D9CE
+	--bg-popover: #FFFEFA
+	--bg-dialog: #FFFEFA
+	--bg-terminal: #1F2421
+	--bg-input: #FFFFFF
+	--bg-canvas: #FAF8F5
+	--border: #DCD5C9
+	--border-subtle: #E8E2D7
+	--text-primary: #232220
+	--text-secondary: #58554E
+	--text-muted: #8E8A80
+	--state-hover: #E5DFC0
+	--state-hover-subtle: #F4F0E8
+	--state-selected: #D8CEBC
+	--theme-color: #2E5A36
+	--theme-color-alt: #43734C
+	--text-inverse: #FFFFFF
+	--feedback-error: #BA1A1A
+
+// 4. Space Light (Pine Mint & Clean Frost)
+.theme-space-light
+	--bg: #F4F8F6
+	--bg-surface: #E8F1EC
+	--bg-raised: #FFFFFF
+	--bg-panel: #DCE8E2
+	--bg-footer: #CFDFD7
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #0A1C14
+	--bg-input: #FFFFFF
+	--bg-canvas: #F4F8F6
+	--border: #BED4C8
+	--border-subtle: #D6E5DC
+	--text-primary: #0D261C
+	--text-secondary: #335C4A
+	--text-muted: #688E7D
+	--state-hover: #CFE2D7
+	--state-hover-subtle: #E2EEE7
+	--state-selected: #B8D3C4
+	--theme-color: #0D7A4D
+	--theme-color-alt: #065F38
+	--text-inverse: #FFFFFF
+	--feedback-error: #DC2626
+
+// 5. Sun Light (Terracotta Amber & Clay)
+.theme-sun-light
+	--bg: #FAF6F0
+	--bg-surface: #F3ECE0
+	--bg-raised: #FFFFFF
+	--bg-panel: #EAE0D0
+	--bg-footer: #E0D4C0
+	--bg-popover: #FFFCF7
+	--bg-dialog: #FFFCF7
+	--bg-terminal: #241814
+	--bg-input: #FFFFFF
+	--bg-canvas: #FAF6F0
+	--border: #D8C8B4
+	--border-subtle: #E8DDCC
+	--text-primary: #2E1E14
+	--text-secondary: #684E3E
+	--text-muted: #9E806E
+	--state-hover: #E5D2BF
+	--state-hover-subtle: #F4EAE0
+	--state-selected: #D5BDA6
+	--theme-color: #B64F2A
+	--theme-color-alt: #9E3C1B
+	--text-inverse: #FFFFFF
+	--feedback-error: #B91C1C
+
+// 6. Monochrono Light (High Contrast Obsidian & Indigo)
+.theme-monochrono-light
+	--bg: #FFFFFF
+	--bg-surface: #F4F4F6
+	--bg-raised: #FFFFFF
+	--bg-panel: #E9E9EE
+	--bg-footer: #DDDEE5
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #09090B
+	--bg-input: #FFFFFF
+	--bg-canvas: #FFFFFF
+	--border: #D1D1DB
+	--border-subtle: #E4E4EB
+	--text-primary: #09090B
+	--text-secondary: #49495A
+	--text-muted: #84849A
+	--state-hover: #E2E2EB
+	--state-hover-subtle: #F0F0F5
+	--state-selected: #D0D0DD
+	--theme-color: #312E81
+	--theme-color-alt: #4338CA
+	--text-inverse: #FFFFFF
+	--feedback-error: #EF4444
+
+// 7. Molly Light (Sky Azure & Periwinkle)
+.theme-molly-light
+	--bg: #F0F7FF
+	--bg-surface: #E0EFFF
+	--bg-raised: #FFFFFF
+	--bg-panel: #D0E4FA
+	--bg-footer: #BED8F5
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #0A192F
+	--bg-input: #FFFFFF
+	--bg-canvas: #F0F7FF
+	--border: #B6D4F2
+	--border-subtle: #D2E4F8
+	--text-primary: #0B2545
+	--text-secondary: #2A4B7C
+	--text-muted: #5C7CA8
+	--state-hover: #CBE2F8
+	--state-hover-subtle: #E2EFFC
+	--state-selected: #B3D4F5
+	--theme-color: #0273AE
+	--theme-color-alt: #0369A1
+	--text-inverse: #FFFFFF
+	--feedback-error: #EF4444
+
+// 8. Malana Light (Cream Stone & Warm Cinnamon)
+.theme-malana-light
+	--bg: #FCF9F2
+	--bg-surface: #F4EDE0
+	--bg-raised: #FFFFFF
+	--bg-panel: #EADECB
+	--bg-footer: #DFCEB5
+	--bg-popover: #FFFDF9
+	--bg-dialog: #FFFDF9
+	--bg-terminal: #1C1814
+	--bg-input: #FFFFFF
+	--bg-canvas: #FCF9F2
+	--border: #D7C7AE
+	--border-subtle: #E9DECD
+	--text-primary: #211812
+	--text-secondary: #5E4B3E
+	--text-muted: #937F70
+	--state-hover: #E5D3BD
+	--state-hover-subtle: #F3E8DA
+	--state-selected: #D4BD9E
+	--theme-color: #BA501F
+	--theme-color-alt: #B44614
+	--text-inverse: #FFFFFF
+	--feedback-error: #DC2626
+
+// 9. Coresync Light (Industrial Titanium & Blaze)
+.theme-coresync-light
+	--bg: #E6E8EC
+	--bg-surface: #F0F2F5
+	--bg-raised: #FFFFFF
+	--bg-panel: #DCE0E6
+	--bg-footer: #CFD4DC
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #111318
+	--bg-input: #FFFFFF
+	--bg-canvas: #E6E8EC
+	--border: #C4CAD4
+	--border-subtle: #D8DDE5
+	--text-primary: #111622
+	--text-secondary: #424B5D
+	--text-muted: #728096
+	--state-hover: #D2D8E2
+	--state-hover-subtle: #E5EAF0
+	--state-selected: #BFC7D5
+	--theme-color: #BD3300
+	--theme-color-alt: #BD3300
+	--text-inverse: #FFFFFF
+	--feedback-error: #DC2626
+
+// 10. Studio Light (Architectural Bone & Ochre)
+.theme-studio-light
+	--bg: #F4F0E8
+	--bg-surface: #EAE4D6
+	--bg-raised: #FAF8F3
+	--bg-panel: #DDD5C3
+	--bg-footer: #D0C5AF
+	--bg-popover: #FCFAF6
+	--bg-dialog: #FCFAF6
+	--bg-terminal: #1B1A17
+	--bg-input: #FAF8F3
+	--bg-canvas: #F4F0E8
+	--border: #C8BDA8
+	--border-subtle: #DBD2C0
+	--text-primary: #1C1A17
+	--text-secondary: #544E44
+	--text-muted: #8E8678
+	--state-hover: #D8CEB8
+	--state-hover-subtle: #EAE3D2
+	--state-selected: #C8BBA0
+	--theme-color: #24201B
+	--theme-color-alt: #896525
+	--text-inverse: #F4F0E8
+	--feedback-error: #C84B31
+
+// 11. Matcha Light (Zen Bamboo & Sweet Matcha)
+.theme-matcha-light
+	--bg: #F5F7F2
+	--bg-surface: #EBF0E4
+	--bg-raised: #FFFFFF
+	--bg-panel: #DFE7D6
+	--bg-footer: #D2DDC7
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #162016
+	--bg-input: #FFFFFF
+	--bg-canvas: #F5F7F2
+	--border: #C3D3B5
+	--border-subtle: #DAE6CF
+	--text-primary: #1C2719
+	--text-secondary: #4A5B44
+	--text-muted: #7E9377
+	--state-hover: #D5E2C9
+	--state-hover-subtle: #E8F0DF
+	--state-selected: #C0D2B2
+	--theme-color: #4D7C0F
+	--theme-color-alt: #3F6212
+	--text-inverse: #FFFFFF
+	--feedback-error: #DC2626
+
+// 12. Sakura Light (Japanese Cherry Blossom & Rose Quartz)
+.theme-sakura-light
+	--bg: #FDF7F8
+	--bg-surface: #F9ECF0
+	--bg-raised: #FFFFFF
+	--bg-panel: #F3DEE4
+	--bg-footer: #EBCFD7
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #22151B
+	--bg-input: #FFFFFF
+	--bg-canvas: #FDF7F8
+	--border: #E4BCC8
+	--border-subtle: #F0D5DD
+	--text-primary: #331622
+	--text-secondary: #6B4354
+	--text-muted: #A3798C
+	--state-hover: #EED0DA
+	--state-hover-subtle: #F7E4EB
+	--state-selected: #E2BCC9
+	--theme-color: #D02370
+	--theme-color-alt: #BE185D
+	--text-inverse: #FFFFFF
+	--feedback-error: #E11D48
+
+// 13. Nordic Frost Light (Arctic Ice & Glacier Blue)
+.theme-nordic-frost-light
+	--bg: #F4FAFC
+	--bg-surface: #E5F3F7
+	--bg-raised: #FFFFFF
+	--bg-panel: #D5EAF0
+	--bg-footer: #C4DEE7
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #0B1922
+	--bg-input: #FFFFFF
+	--bg-canvas: #F4FAFC
+	--border: #B2D3DF
+	--border-subtle: #CCE3EC
+	--text-primary: #0C232F
+	--text-secondary: #2C5366
+	--text-muted: #5F869A
+	--state-hover: #C5E1EC
+	--state-hover-subtle: #DCEDF4
+	--state-selected: #AED2E0
+	--theme-color: #0273AE
+	--theme-color-alt: #0369A1
+	--text-inverse: #FFFFFF
+	--feedback-error: #E11D48
+
+// 14. Desert Dune Light (Sahara Gold, Dune Sand & Ochre)
+.theme-desert-dune-light
+	--bg: #FDF9F0
+	--bg-surface: #F6EEDC
+	--bg-raised: #FFFFFF
+	--bg-panel: #EDE0C7
+	--bg-footer: #E2D1B2
+	--bg-popover: #FFFDF8
+	--bg-dialog: #FFFDF8
+	--bg-terminal: #251D14
+	--bg-input: #FFFFFF
+	--bg-canvas: #FDF9F0
+	--border: #D8C4A0
+	--border-subtle: #E8DAC2
+	--text-primary: #291F14
+	--text-secondary: #634F38
+	--text-muted: #968065
+	--state-hover: #E4D2B2
+	--state-hover-subtle: #F3E6CE
+	--state-selected: #D5BD96
+	--theme-color: #A75C05
+	--theme-color-alt: #B45309
+	--text-inverse: #FFFFFF
+	--feedback-error: #DC2626
+
+// 15. Lavender Mist Light (Gentle Lilac & Royal Amethyst)
+.theme-lavender-mist-light
+	--bg: #FAF8FD
+	--bg-surface: #F0EAF8
+	--bg-raised: #FFFFFF
+	--bg-panel: #E5DBF2
+	--bg-footer: #D9CBEC
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #1B1226
+	--bg-input: #FFFFFF
+	--bg-canvas: #FAF8FD
+	--border: #CDB9E4
+	--border-subtle: #E0D3F0
+	--text-primary: #221633
+	--text-secondary: #574173
+	--text-muted: #8E76AC
+	--state-hover: #DAC9EE
+	--state-hover-subtle: #EDE3F6
+	--state-selected: #CAB3E5
+	--theme-color: #7C3AED
+	--theme-color-alt: #6D28D9
+	--text-inverse: #FFFFFF
+	--feedback-error: #E11D48
+
+// 16. Botanical Light (Lush Fern, Botanical Herb & Earth Umber)
+.theme-botanical-light
+	--bg: #F7FAF6
+	--bg-surface: #EBF2E8
+	--bg-raised: #FFFFFF
+	--bg-panel: #DEE9D9
+	--bg-footer: #D0DEC9
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #152216
+	--bg-input: #FFFFFF
+	--bg-canvas: #F7FAF6
+	--border: #BED1B7
+	--border-subtle: #D8E5D3
+	--text-primary: #182819
+	--text-secondary: #425B44
+	--text-muted: #738E75
+	--state-hover: #D1E2CA
+	--state-hover-subtle: #E6EFE2
+	--state-selected: #BACFB1
+	--theme-color: #117F3A
+	--theme-color-alt: #15803D
+	--text-inverse: #FFFFFF
+	--feedback-error: #DC2626
+
+// 17. Clay Studio Light (Terracotta Ceramic, Warm Bisque & Sienna)
+.theme-clay-studio-light
+	--bg: #FAF5F0
+	--bg-surface: #F2E7DC
+	--bg-raised: #FFFFFF
+	--bg-panel: #E8D7C8
+	--bg-footer: #DEC5B2
+	--bg-popover: #FFFBF8
+	--bg-dialog: #FFFBF8
+	--bg-terminal: #281A14
+	--bg-input: #FFFFFF
+	--bg-canvas: #FAF5F0
+	--border: #D3B9A4
+	--border-subtle: #E5D3C3
+	--text-primary: #2C1A12
+	--text-secondary: #6B4B3D
+	--text-muted: #9E7D6F
+	--state-hover: #DFC8B6
+	--state-hover-subtle: #EFE0D4
+	--state-selected: #D0B29C
+	--theme-color: #B45309
+	--theme-color-alt: #92400E
+	--text-inverse: #FFFFFF
+	--feedback-error: #B91C1C
+
+// 18. Solaris Light (Golden Sunbeam, Warm Amber & Marigold)
+.theme-solaris-light
+	--bg: #FFFCF2
+	--bg-surface: #FFF5D6
+	--bg-raised: #FFFFFF
+	--bg-panel: #FFEBB8
+	--bg-footer: #FEDF94
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #241C0A
+	--bg-input: #FFFFFF
+	--bg-canvas: #FFFCF2
+	--border: #F3CF76
+	--border-subtle: #FBE5A5
+	--text-primary: #291E04
+	--text-secondary: #6B5216
+	--text-muted: #A3853E
+	--state-hover: #F8DC8E
+	--state-hover-subtle: #FDF0C3
+	--state-selected: #ECC768
+	--theme-color: #AC5F05
+	--theme-color-alt: #B45309
+	--text-inverse: #FFFFFF
+	--feedback-error: #DC2626
+
+// 19. Cyberpunk Day Light (Neo-Shinjuku Pastel Cream & Fuchsia)
+.theme-cyberpunk-day-light
+	--bg: #FDFEFA
+	--bg-surface: #F6F8E8
+	--bg-raised: #FFFFFF
+	--bg-panel: #EBF0CD
+	--bg-footer: #DFE7AC
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #12101F
+	--bg-input: #FFFFFF
+	--bg-canvas: #FDFEFA
+	--border: #CCD88D
+	--border-subtle: #E2ECAD
+	--text-primary: #15102A
+	--text-secondary: #483C6E
+	--text-muted: #8275A8
+	--state-hover: #DEEB9F
+	--state-hover-subtle: #F1F6D2
+	--state-selected: #C9D97E
+	--theme-color: #E11D48
+	--theme-color-alt: #077D9A
+	--text-inverse: #FFFFFF
+	--feedback-error: #E11D48
+
+// 20. Copper Patina Light (Oxidized Verdigris & Aegean Teal)
+.theme-copper-patina-light
+	--bg: #F3FAF8
+	--bg-surface: #E3F2EE
+	--bg-raised: #FFFFFF
+	--bg-panel: #D1E8E2
+	--bg-footer: #BFDCD5
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #112220
+	--bg-input: #FFFFFF
+	--bg-canvas: #F3FAF8
+	--border: #A9CEC5
+	--border-subtle: #C6E3DC
+	--text-primary: #0F2824
+	--text-secondary: #305B54
+	--text-muted: #608C85
+	--state-hover: #BFDFD7
+	--state-hover-subtle: #DBEFEA
+	--state-selected: #A3CCC2
+	--theme-color: #0B7D72
+	--theme-color-alt: #0F766E
+	--text-inverse: #FFFFFF
+	--feedback-error: #DC2626
+
+// 21. Dracula Light (Alucard Gothic Cream & Crimson Coral)
+.theme-dracula-light
+	--bg: #F8F7FA
+	--bg-surface: #EDEAF3
+	--bg-raised: #FFFFFF
+	--bg-panel: #E0DAEA
+	--bg-footer: #D2C8DF
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #282A36
+	--bg-input: #FFFFFF
+	--bg-canvas: #F8F7FA
+	--border: #C4B5D7
+	--border-subtle: #DCD2EB
+	--text-primary: #282A36
+	--text-secondary: #585474
+	--text-muted: #8E89AC
+	--state-hover: #D7CBEC
+	--state-hover-subtle: #ECE4F6
+	--state-selected: #C6B4E3
+	--theme-color: #7C3AED
+	--theme-color-alt: #D02370
+	--text-inverse: #FFFFFF
+	--feedback-error: #E11D48
+
+// ============================================================================
+// DARK THEMES (20)
+// ============================================================================
+
+// 22. Lagoona Dark (Deep Abyss Electric Aqua)
+.theme-lagoona-dark
+	--bg: #0E1118
+	--bg-surface: #141824
+	--bg-raised: #1C2232
+	--bg-panel: #101420
+	--bg-footer: #0B0D14
+	--bg-popover: #20273A
+	--bg-dialog: #20273A
+	--bg-terminal: #080A0F
+	--bg-input: #121622
+	--bg-canvas: #0E1118
+	--border: #28324A
+	--border-subtle: #1E2538
+	--text-primary: #EDF2F7
+	--text-secondary: #9BB0C7
+	--text-muted: #5D7087
+	--state-hover: #263047
+	--state-hover-subtle: #1B2233
+	--state-selected: #32405E
+	--theme-color: #38BDF8
+	--theme-color-alt: #0EA5E9
+	--text-inverse: #0E1118
+	--feedback-error: #F87171
+
+// 23. Frozen Dark (Nordic Polar Sage & Frost)
+.theme-frozen-dark
+	--bg: #15171C
+	--bg-surface: #1D2128
+	--bg-raised: #262C36
+	--bg-panel: #191C22
+	--bg-footer: #111317
+	--bg-popover: #2A313D
+	--bg-dialog: #2A313D
+	--bg-terminal: #0E1013
+	--bg-input: #181B22
+	--bg-canvas: #15171C
+	--border: #343D4C
+	--border-subtle: #262C37
+	--text-primary: #ECEFF4
+	--text-secondary: #B4BECE
+	--text-muted: #68768A
+	--state-hover: #313947
+	--state-hover-subtle: #232933
+	--state-selected: #414C5E
+	--theme-color: #A3BE8C
+	--theme-color-alt: #8FBCBB
+	--text-inverse: #15171C
+	--feedback-error: #BF616A
+
+// 24. Night Dark (Tokyo Night Indigo & Cyber Lime)
+.theme-night-dark
+	--bg: #13141F
+	--bg-surface: #1A1B2A
+	--bg-raised: #222438
+	--bg-panel: #161724
+	--bg-footer: #0F1018
+	--bg-popover: #282A42
+	--bg-dialog: #282A42
+	--bg-terminal: #0D0E15
+	--bg-input: #171826
+	--bg-canvas: #13141F
+	--border: #303352
+	--border-subtle: #22243A
+	--text-primary: #C0CAF5
+	--text-secondary: #9099C4
+	--text-muted: #5B6284
+	--state-hover: #2F3250
+	--state-hover-subtle: #202237
+	--state-selected: #3E426B
+	--theme-color: #9ECE6A
+	--theme-color-alt: #7AA2F7
+	--text-inverse: #13141F
+	--feedback-error: #F7768E
+
+// 25. Inkworm Dark (Vintage Espresso & Warm Amber)
+.theme-inkworm-dark
+	--bg: #171513
+	--bg-surface: #211E1B
+	--bg-raised: #2C2824
+	--bg-panel: #1A1815
+	--bg-footer: #12100E
+	--bg-popover: #35302B
+	--bg-dialog: #35302B
+	--bg-terminal: #0F0E0C
+	--bg-input: #1E1B18
+	--bg-canvas: #171513
+	--border: #423C36
+	--border-subtle: #2F2B26
+	--text-primary: #E8E2D8
+	--text-secondary: #ADA394
+	--text-muted: #6E6659
+	--state-hover: #3A342E
+	--state-hover-subtle: #282420
+	--state-selected: #4E463E
+	--theme-color: #E58A1F
+	--theme-color-alt: #F97316
+	--text-inverse: #171513
+	--feedback-error: #EF4444
+
+// 26. Monochrono Dark (True Pitch Black & Titanium)
+.theme-monochrono-dark
+	--bg: #050505
+	--bg-surface: #101012
+	--bg-raised: #1A1A1E
+	--bg-panel: #0A0A0C
+	--bg-footer: #020202
+	--bg-popover: #222228
+	--bg-dialog: #222228
+	--bg-terminal: #000000
+	--bg-input: #0E0E10
+	--bg-canvas: #050505
+	--border: #2E2E36
+	--border-subtle: #1E1E24
+	--text-primary: #FFFFFF
+	--text-secondary: #B0B0BC
+	--text-muted: #666675
+	--state-hover: #2A2A33
+	--state-hover-subtle: #17171C
+	--state-selected: #383845
+	--theme-color: #FFFFFF
+	--theme-color-alt: #D4D4DE
+	--text-inverse: #050505
+	--feedback-error: #DC2626
+
+// 27. Four AM Dark (Midnight Neon Magenta & Electric Mint)
+.theme-fouram-dark
+	--bg: #080B14
+	--bg-surface: #0F1424
+	--bg-raised: #182038
+	--bg-panel: #0B0E1B
+	--bg-footer: #05070E
+	--bg-popover: #1E2847
+	--bg-dialog: #1E2847
+	--bg-terminal: #04060A
+	--bg-input: #0E1220
+	--bg-canvas: #080B14
+	--border: #27345C
+	--border-subtle: #19223D
+	--text-primary: #F3F6FC
+	--text-secondary: #A2B2D8
+	--text-muted: #5C6B94
+	--state-hover: #243054
+	--state-hover-subtle: #151D34
+	--state-selected: #314273
+	--theme-color: #F43F8E
+	--theme-color-alt: #10B981
+	--text-inverse: #080B14
+	--feedback-error: #EF4444
+
+// 28. Winter Came Dark (Obsidian Charcoal & Molten Ember)
+.theme-wintercame-dark
+	--bg: #0D0D0E
+	--bg-surface: #161619
+	--bg-raised: #212126
+	--bg-panel: #111114
+	--bg-footer: #080809
+	--bg-popover: #2B2B33
+	--bg-dialog: #2B2B33
+	--bg-terminal: #060607
+	--bg-input: #141417
+	--bg-canvas: #0D0D0E
+	--border: #383842
+	--border-subtle: #24242B
+	--text-primary: #F8F8FA
+	--text-secondary: #ABABBC
+	--text-muted: #686877
+	--state-hover: #2F2F3B
+	--state-hover-subtle: #1D1D24
+	--state-selected: #404050
+	--theme-color: #FF6600
+	--theme-color-alt: #FFAB00
+	--text-inverse: #0D0D0E
+	--feedback-error: #FF3333
+
+// 29. Sun Dark (Graphite Carbon & Cyber Aqua)
+.theme-sun-dark
+	--bg: #0B0D11
+	--bg-surface: #12161E
+	--bg-raised: #1A202B
+	--bg-panel: #0E1218
+	--bg-footer: #07080B
+	--bg-popover: #222A38
+	--bg-dialog: #222A38
+	--bg-terminal: #050608
+	--bg-input: #11141C
+	--bg-canvas: #0B0D11
+	--border: #293447
+	--border-subtle: #1C2432
+	--text-primary: #EEF4FC
+	--text-secondary: #9EB2CF
+	--text-muted: #5C6D87
+	--state-hover: #243042
+	--state-hover-subtle: #161D29
+	--state-selected: #32425C
+	--theme-color: #00E5FF
+	--theme-color-alt: #00B8D9
+	--text-inverse: #0B0D11
+	--feedback-error: #FF4A5A
+
+// 30. Console Dark (CRT Matrix Phosphor Green & Soot)
+.theme-console-dark
+	--bg: #0D110E
+	--bg-surface: #141A15
+	--bg-raised: #1B241D
+	--bg-panel: #101511
+	--bg-footer: #080B09
+	--bg-popover: #232E26
+	--bg-dialog: #232E26
+	--bg-terminal: #060806
+	--bg-input: #121713
+	--bg-canvas: #0D110E
+	--border: #2A3A2F
+	--border-subtle: #1C271F
+	--text-primary: #DCF5E3
+	--text-secondary: #8DBA96
+	--text-muted: #4E7355
+	--state-hover: #26362A
+	--state-hover-subtle: #17211A
+	--state-selected: #344A3A
+	--theme-color: #10B981
+	--theme-color-alt: #34D399
+	--text-inverse: #0D110E
+	--feedback-error: #EF4444
+
+// 31. Dracula Dark (Classic Gothic Vampire & Orchid)
+.theme-dracula-dark
+	--bg: #282A36
+	--bg-surface: #343746
+	--bg-raised: #44475A
+	--bg-panel: #21222C
+	--bg-footer: #191A21
+	--bg-popover: #44475A
+	--bg-dialog: #44475A
+	--bg-terminal: #191A21
+	--bg-input: #21222C
+	--bg-canvas: #282A36
+	--border: #6272A4
+	--border-subtle: #44475A
+	--text-primary: #F8F8F2
+	--text-secondary: #BD93F9
+	--text-muted: #6272A4
+	--state-hover: #44475A
+	--state-hover-subtle: #343746
+	--state-selected: #555870
+	--theme-color: #BD93F9
+	--theme-color-alt: #FF79C6
+	--text-inverse: #282A36
+	--feedback-error: #FF5555
+
+// 32. Catppuccin Mocha (Cozy Pastel Velvet & Mauve)
+.theme-catppuccin-mocha
+	--bg: #1E1E2E
+	--bg-surface: #252538
+	--bg-raised: #313244
+	--bg-panel: #181825
+	--bg-footer: #11111B
+	--bg-popover: #313244
+	--bg-dialog: #313244
+	--bg-terminal: #11111B
+	--bg-input: #181825
+	--bg-canvas: #1E1E2E
+	--border: #45475A
+	--border-subtle: #313244
+	--text-primary: #CDD6F4
+	--text-secondary: #A6ADC8
+	--text-muted: #6C7086
+	--state-hover: #3b3d54
+	--state-hover-subtle: #2a2b3d
+	--state-selected: #4E516B
+	--theme-color: #CBA6F7
+	--theme-color-alt: #89B4FA
+	--text-inverse: #1E1E2E
+	--feedback-error: #F38BA8
+
+// 33. Nord Dark (Arctic Polar Night & Aurora)
+.theme-nord-dark
+	--bg: #2E3440
+	--bg-surface: #3B4252
+	--bg-raised: #434C5E
+	--bg-panel: #272C37
+	--bg-footer: #1E222A
+	--bg-popover: #434C5E
+	--bg-dialog: #434C5E
+	--bg-terminal: #1E222A
+	--bg-input: #272C37
+	--bg-canvas: #2E3440
+	--border: #4C566A
+	--border-subtle: #3B4252
+	--text-primary: #ECEFF4
+	--text-secondary: #D8DEE9
+	--text-muted: #7E8EAA
+	--state-hover: #4C566A
+	--state-hover-subtle: #3B4252
+	--state-selected: #5A667E
+	--theme-color: #88C0D0
+	--theme-color-alt: #81A1C1
+	--text-inverse: #2E3440
+	--feedback-error: #BF616A
+
+// 34. Gruvbox Dark (Retro Warm Groove & Saffron)
+.theme-gruvbox-dark
+	--bg: #282828
+	--bg-surface: #32302F
+	--bg-raised: #3C3836
+	--bg-panel: #1D2021
+	--bg-footer: #141617
+	--bg-popover: #3C3836
+	--bg-dialog: #3C3836
+	--bg-terminal: #1D2021
+	--bg-input: #1D2021
+	--bg-canvas: #282828
+	--border: #504945
+	--border-subtle: #3C3836
+	--text-primary: #EBDBB2
+	--text-secondary: #D5C4A1
+	--text-muted: #928374
+	--state-hover: #4A4440
+	--state-hover-subtle: #32302F
+	--state-selected: #5A524C
+	--theme-color: #FE8019
+	--theme-color-alt: #FABD2F
+	--text-inverse: #282828
+	--feedback-error: #FB4934
+
+// 35. One Dark Pro (Atom Slate Blue & Coral Mint)
+.theme-onedark-pro
+	--bg: #21252B
+	--bg-surface: #282C34
+	--bg-raised: #2F3440
+	--bg-panel: #1B1D23
+	--bg-footer: #15171C
+	--bg-popover: #2F3440
+	--bg-dialog: #2F3440
+	--bg-terminal: #1B1D23
+	--bg-input: #1B1D23
+	--bg-canvas: #21252B
+	--border: #3E4451
+	--border-subtle: #2C313C
+	--text-primary: #ABB2BF
+	--text-secondary: #888E9C
+	--text-muted: #6A7281
+	--state-hover: #383E4C
+	--state-hover-subtle: #282C34
+	--state-selected: #464E5F
+	--theme-color: #61AFEF
+	--theme-color-alt: #98C379
+	--text-inverse: #21252B
+	--feedback-error: #E06C75
+
+// 36. Rose Pine Dark (SoHo Midnight Rose & Pine)
+.theme-rose-pine-dark
+	--bg: #191724
+	--bg-surface: #1F1D2E
+	--bg-raised: #26233A
+	--bg-panel: #151320
+	--bg-footer: #0D0B14
+	--bg-popover: #26233A
+	--bg-dialog: #26233A
+	--bg-terminal: #151320
+	--bg-input: #151320
+	--bg-canvas: #191724
+	--border: #403D52
+	--border-subtle: #26233A
+	--text-primary: #E0DEF4
+	--text-secondary: #908CAA
+	--text-muted: #6E6A86
+	--state-hover: #312E46
+	--state-hover-subtle: #1F1D2E
+	--state-selected: #3E3B56
+	--theme-color: #EB6F92
+	--theme-color-alt: #3B8DAD
+	--text-inverse: #191724
+	--feedback-error: #EB6F92
+
+// 37. Midnight Emerald Dark (Deep Malachite Forest & Jade)
+.theme-midnight-emerald-dark
+	--bg: #0A140F
+	--bg-surface: #102018
+	--bg-raised: #182E23
+	--bg-panel: #0D1B14
+	--bg-footer: #060D0A
+	--bg-popover: #182E23
+	--bg-dialog: #182E23
+	--bg-terminal: #060D0A
+	--bg-input: #0D1B14
+	--bg-canvas: #0A140F
+	--border: #234534
+	--border-subtle: #14281E
+	--text-primary: #E2F8EE
+	--text-secondary: #8BC4AA
+	--text-muted: #4F8069
+	--state-hover: #1E3A2C
+	--state-hover-subtle: #102018
+	--state-selected: #294D3B
+	--theme-color: #10B981
+	--theme-color-alt: #34D399
+	--text-inverse: #0A140F
+	--feedback-error: #F87171
+
+// 38. Obsidian Crimson Dark (Gothic Bloodstone & Velvet Ruby)
+.theme-obsidian-crimson-dark
+	--bg: #120B0D
+	--bg-surface: #1C1215
+	--bg-raised: #281A1F
+	--bg-panel: #160D10
+	--bg-footer: #0A0507
+	--bg-popover: #281A1F
+	--bg-dialog: #281A1F
+	--bg-terminal: #0A0507
+	--bg-input: #160D10
+	--bg-canvas: #120B0D
+	--border: #42252F
+	--border-subtle: #2A171D
+	--text-primary: #FDE8ED
+	--text-secondary: #D490A2
+	--text-muted: #8F5464
+	--state-hover: #331F27
+	--state-hover-subtle: #1C1215
+	--state-selected: #472B36
+	--theme-color: #E5375D
+	--theme-color-alt: #FB7185
+	--text-inverse: #120B0D
+	--feedback-error: #FF4D6D
+
+// 39. Synthwave Dark (Retro 80s Sunset Neon Violet & Laser Cyan)
+.theme-synthwave-dark
+	--bg: #160D26
+	--bg-surface: #201338
+	--bg-raised: #2C1A4C
+	--bg-panel: #1A0F2E
+	--bg-footer: #0E071A
+	--bg-popover: #2C1A4C
+	--bg-dialog: #2C1A4C
+	--bg-terminal: #0E071A
+	--bg-input: #1A0F2E
+	--bg-canvas: #160D26
+	--border: #482878
+	--border-subtle: #2C1A4C
+	--text-primary: #FDF4FF
+	--text-secondary: #D4A9F7
+	--text-muted: #8762B3
+	--state-hover: #382161
+	--state-hover-subtle: #201338
+	--state-selected: #4D2D85
+	--theme-color: #FF2A85
+	--theme-color-alt: #00F0FF
+	--text-inverse: #160D26
+	--feedback-error: #FF2A85
+
+// 40. Deep Ocean Dark (Bioluminescent Abyss & Aquamarine)
+.theme-deep-ocean-dark
+	--bg: #07111A
+	--bg-surface: #0C1A27
+	--bg-raised: #13273B
+	--bg-panel: #0A1622
+	--bg-footer: #04090E
+	--bg-popover: #13273B
+	--bg-dialog: #13273B
+	--bg-terminal: #04090E
+	--bg-input: #0A1622
+	--bg-canvas: #07111A
+	--border: #1E3E5C
+	--border-subtle: #11263A
+	--text-primary: #E0F5FE
+	--text-secondary: #8BC9E8
+	--text-muted: #4B7D99
+	--state-hover: #19344E
+	--state-hover-subtle: #0C1A27
+	--state-selected: #22476B
+	--theme-color: #00E5FF
+	--theme-color-alt: #38BDF8
+	--text-inverse: #07111A
+	--feedback-error: #F87171
+
+// 41. Amethyst Void Dark (Cosmic Deep Violet & Starlight)
+.theme-amethyst-void-dark
+	--bg: #0F091A
+	--bg-surface: #180F29
+	--bg-raised: #24173D
+	--bg-panel: #130B21
+	--bg-footer: #08040E
+	--bg-popover: #24173D
+	--bg-dialog: #24173D
+	--bg-terminal: #08040E
+	--bg-input: #130B21
+	--bg-canvas: #0F091A
+	--border: #3B2463
+	--border-subtle: #24173D
+	--text-primary: #F7EEFE
+	--text-secondary: #CEACF3
+	--text-muted: #8062A3
+	--state-hover: #2F1D50
+	--state-hover-subtle: #180F29
+	--state-selected: #432A70
+	--theme-color: #A855F7
+	--theme-color-alt: #EC4899
+	--text-inverse: #0F091A
+	--feedback-error: #F43F5E

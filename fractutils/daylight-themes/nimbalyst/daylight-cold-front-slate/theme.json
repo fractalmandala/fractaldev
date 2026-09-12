@@ -1,0 +1,34 @@
+{
+  "id": "daylight-cold-front-slate",
+  "name": "Daylight Cold Front Slate",
+  "version": "2.0.0",
+  "author": "amrit",
+  "description": "Same idea with the chrome a further step down and the syntax deepened to match. Holds up under overhead light.",
+  "isDark": false,
+  "tags": [
+    "cold",
+    "light"
+  ],
+  "colors": {
+    "bg": "#F6F7F8",
+    "bg-secondary": "#E8EAEC",
+    "bg-tertiary": "#DEE1E3",
+    "bg-hover": "#EDEFF0",
+    "bg-selected": "#DDE0E4",
+    "bg-active": "#F0E4DC",
+    "text": "#454F59",
+    "text-muted": "#7A8189",
+    "text-faint": "#959DA5",
+    "text-disabled": "#B7BCC2",
+    "border": "#D8DBDE",
+    "border-focus": "#CE7130",
+    "primary": "#CE7130",
+    "primary-hover": "#B56B37",
+    "link": "#CE7130",
+    "link-hover": "#B56B37",
+    "success": "#3F8F6F",
+    "warning": "#C08A1E",
+    "error": "#D24B4B",
+    "info": "#2E86C8"
+  }
+}

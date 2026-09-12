@@ -1,0 +1,34 @@
+{
+  "id": "daylight-bone-signal",
+  "name": "Daylight Bone Signal",
+  "version": "2.0.0",
+  "author": "amrit",
+  "description": "Bone taken toward Newsprint: keywords keep the orange, every literal collapses to one blue, and structure returns to ink. Bridges the two families.",
+  "isDark": false,
+  "tags": [
+    "bone",
+    "light"
+  ],
+  "colors": {
+    "bg": "#FCFCFC",
+    "bg-secondary": "#F0F1F2",
+    "bg-tertiary": "#E7E8E9",
+    "bg-hover": "#F4F4F4",
+    "bg-selected": "#E6E7E9",
+    "bg-active": "#FAECE1",
+    "text": "#54595E",
+    "text-muted": "#868A8D",
+    "text-faint": "#ABB0B6",
+    "text-disabled": "#C7CBCE",
+    "border": "#E2E4E6",
+    "border-focus": "#F0873A",
+    "primary": "#F0873A",
+    "primary-hover": "#D47F40",
+    "link": "#F0873A",
+    "link-hover": "#D47F40",
+    "success": "#4CA750",
+    "warning": "#E6A700",
+    "error": "#E65050",
+    "info": "#399EE6"
+  }
+}

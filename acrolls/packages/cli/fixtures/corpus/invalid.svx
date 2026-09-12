@@ -1,0 +1,3 @@
+<script>const = 1;</script>
+
+# Invalid executable document

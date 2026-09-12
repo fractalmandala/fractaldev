@@ -1,0 +1,38 @@
+body, html
+	box-sizing: border-box
+	padding: 0
+	margin: 0
+	background: var(--bg)
+	color: var(--text-primary)
+
+:root
+	box-sizing: border-box
+*, *::before, *::after
+	box-sizing: border-box
+
+.bdr
+	border: 1px solid red
+
+p, h6, h5, h4, h3, h2, h1, ul, ol, figure, blockquote
+	margin: 0
+
+button.blank
+	background: none
+	border: none
+	cursor: pointer
+	&.pad0
+		padding: 0
+
+a.blank
+	text-decoration: none
+	color: inherit
+
+a.link
+	color: var(--theme)
+	text-decoration: none
+	&:hover
+		text-decoration: underline
+
+img, video, svg
+	max-width: 100%
+	height: auto

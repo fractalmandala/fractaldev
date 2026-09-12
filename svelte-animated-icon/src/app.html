@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="%sveltekit.assets%/favicon.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="text-scale" content="scale" />
+		<script>
+			(function () {
+				try {
+					var darkThemes = [
+						'theme-lagoona-dark',
+						'theme-frozen-dark',
+						'theme-night-dark',
+						'theme-inkworm-dark',
+						'theme-monochrono-dark',
+						'theme-fouram-dark',
+						'theme-wintercame-dark',
+						'theme-sun-dark',
+						'theme-console-dark'
+					];
+					var validThemes = [
+						'theme-light-default',
+						'theme-himalaya-light',
+						'theme-editorial-light',
+						'theme-space-light',
+						'theme-sun-light',
+						'theme-monochrono-light',
+						'theme-molly-light',
+						'theme-malana-light',
+						'theme-coresync-light',
+						'theme-studio-light'
+					].concat(darkThemes);
+
+					var saved = localStorage.getItem('theme');
+					var theme = saved && validThemes.indexOf(saved) !== -1 ? saved : 'theme-light-default';
+					var mode = darkThemes.indexOf(theme) !== -1 ? 'dark' : 'light';
+
+					var root = document.documentElement;
+					root.className = theme;
+					root.setAttribute('data-theme', theme);
+					root.setAttribute('data-mode', mode);
+					root.style.colorScheme = mode;
+				} catch (e) {}
+			})();
+		</script>
+		%sveltekit.head%
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">%sveltekit.body%</div>
+	</body>
+</html>

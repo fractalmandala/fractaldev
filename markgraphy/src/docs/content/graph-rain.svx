@@ -1,0 +1,53 @@
+<script lang="ts">
+	import { GraphRain } from '$lib';
+</script>
+
+# GraphRain
+
+Advance every column; heads step on their own cadence and respawn once clear.
+
+## Import
+
+```svelte
+import { GraphRain } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphRain
+  title="example"
+  animated={true}
+  cols={56}
+/>
+```
+
+<div class="live">
+<GraphRain
+  title="example"
+  animated={true}
+  cols={56}
+/>
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words. |
+| `animated?` | `boolean` | `true` | Animate the rain. Default true. Reduced motion freezes a single frame. |
+| `cols?` | `number` | `56` | Width in character columns. Default 56. |
+| `rows?` | `number` | `16` | Height in rows. Default 16. |
+| `speedMs?` | `number` | `110` | Milliseconds per tick. Default 110. |
+| `trail?` | `number` | `8` | Trail length behind each head. Default 8. |
+| `seedNum?` | `number` | `5` | Seed for the reproducible rain. Default 5. |
+| `label?` | `string` | `'glyph rain'` | Short caption under the art; the art itself is decorative. |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `GraphRainProps`
+
+## Reduced motion
+
+Animation is disabled under `prefers-reduced-motion`.

@@ -1,0 +1,52 @@
+<script lang="ts">
+	import { GraphMandala } from '$lib';
+</script>
+
+# GraphMandala
+
+## Import
+
+```svelte
+import { GraphMandala } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphMandala
+  title="example"
+  animated={true}
+  cols={48}
+/>
+```
+
+<div class="live">
+<GraphMandala
+  title="example"
+  animated={true}
+  cols={48}
+/>
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words. |
+| `animated?` | `boolean` | `true` | Animate the bloom. Default true. Reduced motion freezes a fully bloomed frame. |
+| `cols?` | `number` | `48` | Width of the scene in characters; at least 38 so the outermost ring fits. Default 48. |
+| `rows?` | `number` | `24` | Height of the scene in rows; at least 20 so the circle fits the cell aspect. Default 24. |
+| `folds?` | `number` | `8` | Rotational folds (K). One cell of the canonical petal is rotated K times. Default 8. |
+| `rings?` | `number` | `5` | Number of concentric lotus-petal rings. Default 5. |
+| `speedMs?` | `number` | `130` | Milliseconds per tick. Default 130. |
+| `seedNum?` | `number` | `11` | Seed for the per-ring radius and phase perturbation. Default 11. |
+| `label?` | `string` | `'the circle that holds'` | Short caption under the art; the art itself is decorative. |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `GraphMandalaProps`
+
+## Reduced motion
+
+Animation is disabled under `prefers-reduced-motion`.

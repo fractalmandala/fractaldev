@@ -1,0 +1,99 @@
+{
+	"name": "@fractaldev/fractalsvelte-ui",
+	"version": "0.5.0",
+	"description": "A Sass-first, token-driven Svelte component library.",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/fractalmandala/fractaldev.git"
+	},
+	"homepage": "https://github.com/fractalmandala/fractaldev#readme",
+	"keywords": [
+		"svelte",
+		"sveltekit",
+		"components",
+		"design-system",
+		"sass",
+		"theming",
+		"motion"
+	],
+	"engines": {
+		"node": ">=22.17.0",
+		"pnpm": ">=11"
+	},
+	"imports": {
+		"#lib": "./src/lib/index.ts",
+		"#lib/*": "./src/lib/*"
+	},
+	"svelte": "./src/lib/index.ts",
+	"types": "./src/lib/index.ts",
+	"private": false,
+	"type": "module",
+	"packageManager": "pnpm@11.20.0",
+	"files": [
+		"src/lib",
+		"styles",
+		"scripts",
+		"README.md",
+		"docs/DESIGN-SYSTEM.md"
+	],
+	"exports": {
+		".": {
+			"types": "./src/lib/index.ts",
+			"svelte": "./src/lib/index.ts",
+			"import": "./src/lib/index.ts"
+		},
+		"./components": {
+			"types": "./src/lib/components/index.ts",
+			"svelte": "./src/lib/components/index.ts",
+			"import": "./src/lib/components/index.ts"
+		},
+		"./styles": {
+			"types": "./src/lib/styles/index.ts",
+			"import": "./src/lib/styles/index.ts"
+		},
+		"./styles/system.sass": "./styles/system.sass",
+		"./styles/global.sass": "./styles/global.sass",
+		"./tokens": {
+			"types": "./src/lib/styles/tokens.schema.ts",
+			"import": "./src/lib/styles/tokens.schema.ts"
+		},
+		"./package.json": "./package.json"
+	},
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"tokens:generate": "node scripts/generate-tokens.mjs",
+		"style:check": "node scripts/check-style-contract.mjs",
+		"verify:style": "node scripts/generate-tokens.mjs --check && pnpm style:check",
+		"package:check": "node scripts/check-package.mjs",
+		"a11y:check": "node scripts/check-accessibility-contract.mjs",
+		"docs:check": "node scripts/check-docs.mjs",
+		"shiki:check": "node scripts/check-shiki-contract.mjs",
+		"kit3:check": "node scripts/check-sveltekit3-contract.mjs",
+		"verify": "pnpm check && pnpm kit3:check && pnpm shiki:check && pnpm verify:style && pnpm a11y:check && pnpm docs:check && pnpm package:check"
+	},
+	"peerDependencies": {
+		"svelte": "^5.56.4"
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-auto": "8.0.0-next.3",
+		"@sveltejs/kit": "3.0.0-next.25",
+		"@sveltejs/vite-plugin-svelte": "7.3.0",
+		"mdsvex": "^0.12.8",
+		"sass": "^1.77.0",
+		"shiki": "4.4.3",
+		"svelte": "^5.56.4",
+		"svelte-check": "^4.0.0",
+		"typescript": "6.0.3",
+		"vite": "8.2.2"
+	},
+	"dependencies": {
+		"@humanspeak/svelte-motion": "^0.9.4",
+		"@mediapipe/tasks-vision": "^0.10.35",
+		"fractalicons": "^0.0.2",
+		"fractalstyler2": "^0.8.0",
+		"ogl": "^1.0.11"
+	}
+}

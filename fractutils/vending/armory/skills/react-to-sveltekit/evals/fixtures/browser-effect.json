@@ -1,0 +1,36 @@
+{
+  "contractVersion": "1.0",
+  "status": "planned",
+  "source": {
+    "framework": "react",
+    "kind": "component",
+    "files": ["src/components/Canvas.tsx"],
+    "route": null,
+    "animationTier": "canvas-webgl"
+  },
+  "target": {
+    "kind": "component",
+    "files": ["src/lib/components/Canvas/Canvas.svelte", "src/lib/components/Canvas/Canvas.sass"],
+    "route": null,
+    "publicApi": { "props": ["scene"], "bindings": [], "callbacks": [], "snippets": [] }
+  },
+  "dependencies": { "present": ["three"], "required": [], "missing": [], "fallbacks": [] },
+  "dataFlow": {
+    "loadFile": "none",
+    "reason": "Canvas is a reusable component and does not load route data.",
+    "serverData": [],
+    "actions": [],
+    "invalidations": [],
+    "serialization": "not-applicable"
+  },
+  "ssr": {
+    "mode": "browser-effect",
+    "browserOnlyApis": ["canvas", "ResizeObserver"],
+    "guards": ["$effect initializes and tears down the renderer after canvas binding."],
+    "disabledReason": null
+  },
+  "verification": [
+    { "command": "pnpm check", "cwd": ".", "purpose": "Validate component types.", "status": "planned", "evidence": "" }
+  ],
+  "gaps": []
+}

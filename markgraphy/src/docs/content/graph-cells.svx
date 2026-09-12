@@ -1,0 +1,35 @@
+<script lang="ts">
+	import { GraphCells } from '$lib';
+</script>
+
+# GraphCells
+
+## Import
+
+```svelte
+import { GraphCells } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphCells
+  title="example"
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `items` | `CellGrid[]` | `—` | — |
+| `glyphs?` | `Glyphs` | `—` | — |
+| `palette?` | `GraphPalette` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `CellGrid`
+- `GraphCellsProps`

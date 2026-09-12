@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# One run per ref; a newer push cancels the in-flight run for the same branch/PR.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: ${{ matrix.os }} · node ${{ matrix.node }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      # Keep every combination independent so one failure does not mask the others.
+      fail-fast: false
+      matrix:
+        # Linux + macOS on the supported Node floor (engines: >=20.19.0) …
+        os: [ubuntu-latest, macos-latest]
+        node: [20]
+        # … plus the current LTS on Linux.
+        include:
+          - os: ubuntu-latest
+            node: 22
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # pnpm/action-setup reads the `packageManager` field (pnpm@10.28.2) from package.json.
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Build before check/test: workspace package exports point at generated dist files.
+      - name: Build packages
+        run: pnpm build
+
+      - name: Type-check packages
+        run: pnpm check
+
+      - name: Unit tests
+        run: pnpm test
+
+      - name: Example — type-check
+        run: pnpm --filter @acrolls/example-kit check
+
+      # Production build of the example host; its build runs `vite build && acrolls
+      # search-index`, so this also exercises the Pagefind packaging step.
+      - name: Example — production build (+ Pagefind index)
+        run: pnpm build:example
+
+      # Prove the built artifacts run: the umbrella bin (version injected from the package
+      # manifest), the direct CLI, the help surface, and the new `create` command (dry-run
+      # writes nothing).
+      - name: Root CLI smoke
+        run: |
+          node ./packages/acrolls/bin/acrolls.mjs --version
+          node ./packages/cli/dist/index.js --version
+          node ./packages/cli/dist/index.js --help
+          node ./packages/cli/dist/index.js create ci-smoke --dry-run
+
+      # Pack the public tarball and build a throwaway consumer against it (the release gate).
+      - name: Packed-consumer gate
+        run: pnpm verify:packed-consumer

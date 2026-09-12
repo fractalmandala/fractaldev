@@ -1,0 +1,90 @@
+---
+title: SVX components
+description: mdsvex file importing Acrolls primitives
+---
+
+<script>
+  import {
+    Callout,
+    Figure,
+    Tabs,
+    Tab,
+    CodeGroup,
+    Steps,
+    Step,
+    Cards,
+    Card
+  } from 'acrolls/svelte';
+</script>
+
+You can use Svelte components directly in `.svx` content.
+
+<Callout variant="warning" title="Trusted content only">
+  `.svx` is executable Svelte — only open local files you trust in Studio.
+</Callout>
+
+<Figure caption="Wide figure example" wide={true}>
+  <img src="https://placehold.co/1200x400/eee/333?text=wide+figure" alt="Wide placeholder" />
+</Figure>
+
+## Tabs
+
+<Tabs items={['Overview', 'Usage']} label="Example tabs">
+  <Tab>
+
+  The **Overview** panel. Only the active panel is exposed to assistive tech.
+
+  </Tab>
+  <Tab>
+
+  The **Usage** panel, hidden until its tab is selected.
+
+  </Tab>
+</Tabs>
+
+## Code group
+
+<CodeGroup labels={['npm', 'pnpm', 'bun']}>
+  <Tab>
+
+  Install with `npm install acrolls`.
+
+  </Tab>
+  <Tab>
+
+  Install with `pnpm add acrolls`.
+
+  </Tab>
+  <Tab>
+
+  Install with `bun add acrolls`.
+
+  </Tab>
+</CodeGroup>
+
+## Steps
+
+<Steps>
+  <Step title="Install">
+
+  Add the `acrolls` package to your SvelteKit host.
+
+  </Step>
+  <Step title="Author">
+
+  Write content in Markdown or `.svx` files.
+
+  </Step>
+  <Step title="Ship">
+
+  Build and deploy your documentation site.
+
+  </Step>
+</Steps>
+
+## Cards
+
+<Cards columns={2}>
+  <Card href="/docs/guides/install" title="Installation" description="Get started with Acrolls in a SvelteKit host." />
+  <Card title="Plain card" description="A card without an href renders as a container, not a link." />
+</Cards>

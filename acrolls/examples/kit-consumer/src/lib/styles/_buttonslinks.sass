@@ -1,0 +1,46 @@
+.button
+	display: inline-flex
+	align-items: center
+	justify-content: center
+	gap: 8px
+	padding: 8px 16px
+	font-size: var(--text-md)
+	font-weight: 500
+	line-height: 1
+	border-radius: var(--radius-6)
+	border: 1px solid var(--border)
+	background: var(--bg-raised)
+	color: var(--text-primary)
+	cursor: pointer
+	transition: background-color 0.15s ease, border-color 0.15s ease
+	&:hover
+		background: var(--bg-surface)
+	&:focus-visible
+		outline: 2px solid var(--ring)
+		outline-offset: 2px
+
+.button[data-variant='primary']
+	background: var(--theme)
+	color: #ffffff
+	border-color: var(--theme)
+	&:hover
+		filter: brightness(0.95)
+	&[data-state='open']
+		background: color-mix(in srgb, var(--theme) 85%, black)
+		border-color: color-mix(in srgb, var(--theme) 85%, black)
+
+.button[data-variant='quiet']
+	background: transparent
+	border-color: transparent
+	color: var(--text-primary)
+	&:hover
+		background: var(--bg-surface)
+	&[data-state='open']
+		background: var(--bg-surface)
+
+.button[data-variant='icon']
+	width: 36px
+	height: 36px
+	padding: 0
+	border: 1px solid transparent
+	background: transparent

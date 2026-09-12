@@ -1,0 +1,44 @@
+<script lang="ts">
+	import { GraphScope } from '$lib';
+</script>
+
+# GraphScope
+
+The values currently inside the window, left to right.
+
+## Import
+
+```svelte
+import { GraphScope } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphScope
+  title="example"
+  window={44}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | Caption on the frame's top edge. |
+| `data` | `number[]` | `—` | Series to scroll through. The window loops over it. |
+| `window?` | `number` | `44` | Visible columns. Default 44. |
+| `rows?` | `number` | `6` | Grid height in rows. Default 6. |
+| `speedMs?` | `number` | `160` | Milliseconds between ticks. Default 160. |
+| `mode?` | `ScopeMode` | `'line'` | 'line' draws one block per column; 'area' fills down to the baseline. |
+| `animated?` | `boolean` | `true` | Animate the scroll. Default true. Reduced motion freezes the window. |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `ScopeMode`
+- `GraphScopeProps`
+
+## Reduced motion
+
+Animation is disabled under `prefers-reduced-motion`.

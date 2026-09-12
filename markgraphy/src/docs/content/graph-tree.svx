@@ -1,0 +1,34 @@
+<script lang="ts">
+	import { GraphTree } from '$lib';
+</script>
+
+# GraphTree
+
+## Import
+
+```svelte
+import { GraphTree } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphTree
+  title="example"
+  corner="example"
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `nodes` | `TreeNode[]` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `TreeNode`
+- `GraphTreeProps`

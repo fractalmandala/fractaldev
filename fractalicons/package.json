@@ -1,0 +1,306 @@
+{
+	"name": "@fractaldev/fractalicons",
+	"version": "0.3.1",
+	"description": "A comprehensive, tree-shakeable icon library for Svelte 5 — 27,000+ icons across 25 families with ergonomic short-prefix imports.",
+	"license": "MIT",
+	"scripts": {
+		"dev": "vite dev",
+		"clean": "node scripts/clean.js",
+		"generate": "node scripts/generate-icons.js",
+		"build": "npm run generate && vite build && npm run prepack",
+		"preview": "vite preview",
+		"prepare": "svelte-kit sync || echo ''",
+		"prepack": "npm run clean && svelte-kit sync && svelte-package && node scripts/clean.js --prune && publint",
+		"check": "npm run generate && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"lint": "prettier --check . && eslint .",
+		"format": "prettier --write .",
+		"test": "node --test scripts/generate-icons.test.js"
+	},
+	"files": [
+		"dist",
+		"!dist/**/*.test.*",
+		"!dist/**/*.spec.*"
+	],
+	"sideEffects": false,
+	"svelte": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"svelte": "./dist/index.js",
+			"default": "./dist/index.js"
+		},
+		"./Icon.svelte": {
+			"types": "./dist/Icon.svelte.d.ts",
+			"svelte": "./dist/Icon.svelte",
+			"default": "./dist/Icon.svelte"
+		},
+		"./anticons": {
+			"types": "./dist/anticons.d.ts",
+			"svelte": "./dist/anticons.js",
+			"default": "./dist/anticons.js"
+		},
+		"./boxregular": {
+			"types": "./dist/boxregular.d.ts",
+			"svelte": "./dist/boxregular.js",
+			"default": "./dist/boxregular.js"
+		},
+		"./boxsolid": {
+			"types": "./dist/boxsolid.d.ts",
+			"svelte": "./dist/boxsolid.js",
+			"default": "./dist/boxsolid.js"
+		},
+		"./circum": {
+			"types": "./dist/circum.d.ts",
+			"svelte": "./dist/circum.js",
+			"default": "./dist/circum.js"
+		},
+		"./coreui": {
+			"types": "./dist/coreui.d.ts",
+			"svelte": "./dist/coreui.js",
+			"default": "./dist/coreui.js"
+		},
+		"./cssgg": {
+			"types": "./dist/cssgg.d.ts",
+			"svelte": "./dist/cssgg.js",
+			"default": "./dist/cssgg.js"
+		},
+		"./famicons": {
+			"types": "./dist/famicons.d.ts",
+			"svelte": "./dist/famicons.js",
+			"default": "./dist/famicons.js"
+		},
+		"./feathericons": {
+			"types": "./dist/feathericons.d.ts",
+			"svelte": "./dist/feathericons.js",
+			"default": "./dist/feathericons.js"
+		},
+		"./fontawesome": {
+			"types": "./dist/fontawesome.d.ts",
+			"svelte": "./dist/fontawesome.js",
+			"default": "./dist/fontawesome.js"
+		},
+		"./fontawesomesolid": {
+			"types": "./dist/fontawesomesolid.d.ts",
+			"svelte": "./dist/fontawesomesolid.js",
+			"default": "./dist/fontawesomesolid.js"
+		},
+		"./heroicons": {
+			"types": "./dist/heroicons.d.ts",
+			"svelte": "./dist/heroicons.js",
+			"default": "./dist/heroicons.js"
+		},
+		"./heroiconsfill": {
+			"types": "./dist/heroiconsfill.d.ts",
+			"svelte": "./dist/heroiconsfill.js",
+			"default": "./dist/heroiconsfill.js"
+		},
+		"./iconoir": {
+			"types": "./dist/iconoir.d.ts",
+			"svelte": "./dist/iconoir.js",
+			"default": "./dist/iconoir.js"
+		},
+		"./iconoirfill": {
+			"types": "./dist/iconoirfill.d.ts",
+			"svelte": "./dist/iconoirfill.js",
+			"default": "./dist/iconoirfill.js"
+		},
+		"./lucide": {
+			"types": "./dist/lucide.d.ts",
+			"svelte": "./dist/lucide.js",
+			"default": "./dist/lucide.js"
+		},
+		"./materialanim": {
+			"types": "./dist/materialanim.d.ts",
+			"svelte": "./dist/materialanim.js",
+			"default": "./dist/materialanim.js"
+		},
+		"./octicons": {
+			"types": "./dist/octicons.d.ts",
+			"svelte": "./dist/octicons.js",
+			"default": "./dist/octicons.js"
+		},
+		"./phosphor": {
+			"types": "./dist/phosphor.d.ts",
+			"svelte": "./dist/phosphor.js",
+			"default": "./dist/phosphor.js"
+		},
+		"./phosphorfill": {
+			"types": "./dist/phosphorfill.d.ts",
+			"svelte": "./dist/phosphorfill.js",
+			"default": "./dist/phosphorfill.js"
+		},
+		"./remix": {
+			"types": "./dist/remix.d.ts",
+			"svelte": "./dist/remix.js",
+			"default": "./dist/remix.js"
+		},
+		"./remixfill": {
+			"types": "./dist/remixfill.d.ts",
+			"svelte": "./dist/remixfill.js",
+			"default": "./dist/remixfill.js"
+		},
+		"./simple": {
+			"types": "./dist/simple.d.ts",
+			"svelte": "./dist/simple.js",
+			"default": "./dist/simple.js"
+		},
+		"./simpleline": {
+			"types": "./dist/simpleline.d.ts",
+			"svelte": "./dist/simpleline.js",
+			"default": "./dist/simpleline.js"
+		},
+		"./tabler": {
+			"types": "./dist/tabler.d.ts",
+			"svelte": "./dist/tabler.js",
+			"default": "./dist/tabler.js"
+		},
+		"./tablerfill": {
+			"types": "./dist/tablerfill.d.ts",
+			"svelte": "./dist/tablerfill.js",
+			"default": "./dist/tablerfill.js"
+		}
+	},
+	"typesVersions": {
+		">4.0": {
+			"index.d.ts": [
+				"./dist/index.d.ts"
+			],
+			"Icon.svelte": [
+				"./dist/Icon.svelte.d.ts"
+			],
+			"anticons": [
+				"./dist/anticons.d.ts"
+			],
+			"boxregular": [
+				"./dist/boxregular.d.ts"
+			],
+			"boxsolid": [
+				"./dist/boxsolid.d.ts"
+			],
+			"circum": [
+				"./dist/circum.d.ts"
+			],
+			"coreui": [
+				"./dist/coreui.d.ts"
+			],
+			"cssgg": [
+				"./dist/cssgg.d.ts"
+			],
+			"famicons": [
+				"./dist/famicons.d.ts"
+			],
+			"feathericons": [
+				"./dist/feathericons.d.ts"
+			],
+			"fontawesome": [
+				"./dist/fontawesome.d.ts"
+			],
+			"fontawesomesolid": [
+				"./dist/fontawesomesolid.d.ts"
+			],
+			"heroicons": [
+				"./dist/heroicons.d.ts"
+			],
+			"heroiconsfill": [
+				"./dist/heroiconsfill.d.ts"
+			],
+			"iconoir": [
+				"./dist/iconoir.d.ts"
+			],
+			"iconoirfill": [
+				"./dist/iconoirfill.d.ts"
+			],
+			"lucide": [
+				"./dist/lucide.d.ts"
+			],
+			"materialanim": [
+				"./dist/materialanim.d.ts"
+			],
+			"octicons": [
+				"./dist/octicons.d.ts"
+			],
+			"phosphor": [
+				"./dist/phosphor.d.ts"
+			],
+			"phosphorfill": [
+				"./dist/phosphorfill.d.ts"
+			],
+			"remix": [
+				"./dist/remix.d.ts"
+			],
+			"remixfill": [
+				"./dist/remixfill.d.ts"
+			],
+			"simple": [
+				"./dist/simple.d.ts"
+			],
+			"simpleline": [
+				"./dist/simpleline.d.ts"
+			],
+			"tabler": [
+				"./dist/tabler.d.ts"
+			],
+			"tablerfill": [
+				"./dist/tablerfill.d.ts"
+			]
+		}
+	},
+	"peerDependencies": {
+		"svelte": "^5.0.0"
+	},
+	"engines": {
+		"node": ">=18"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/fractalmandala/fractaldev.git"
+	},
+	"homepage": "https://github.com/fractalmandala/fractaldev#readme",
+	"bugs": {
+		"url": "https://github.com/fractalmandala/fractaldev/issues"
+	},
+	"devDependencies": {
+		"@eslint/js": "^10.0.1",
+		"@sveltejs/adapter-vercel": "^6.3.3",
+		"@sveltejs/kit": "^2.63.0",
+		"@sveltejs/package": "^2.5.8",
+		"@sveltejs/vite-plugin-svelte": "^7.1.2",
+		"@types/node": "^22",
+		"eslint": "^10.4.1",
+		"eslint-config-prettier": "^10.1.8",
+		"eslint-plugin-svelte": "^3.19.0",
+		"globals": "^17.6.0",
+		"prettier": "^3.8.3",
+		"prettier-plugin-svelte": "^4.1.0",
+		"publint": "^0.3.21",
+		"sv-agentation": "^0.4.0",
+		"svelte": "^5.56.1",
+		"svelte-check": "^4.6.0",
+		"typescript": "^6.0.3",
+		"typescript-eslint": "^8.60.1",
+		"vite": "^8.0.16"
+	},
+	"keywords": [
+		"svelte",
+		"icons",
+		"lucide",
+		"phosphor",
+		"remix",
+		"iconoir",
+		"anticons",
+		"coreui",
+		"famicons",
+		"circum",
+		"boxicons",
+		"css-gg",
+		"feather",
+		"fontawesome",
+		"heroicons",
+		"octicons",
+		"simple-icons",
+		"tabler"
+	]
+}

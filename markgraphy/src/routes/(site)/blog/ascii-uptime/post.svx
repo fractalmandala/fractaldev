@@ -1,0 +1,77 @@
+<script lang="ts">
+	import { GraphStat, GraphTimer, GraphUptime, type UptimeStatus } from '$lib';
+
+	const days: UptimeStatus[] = [
+		'ok', 'ok', 'ok', 'ok', 'ok', 'ok', 'ok', 'degraded', 'ok', 'ok',
+		'ok', 'ok', 'ok', 'ok', 'ok', 'ok', 'ok', 'ok', 'ok', 'ok',
+		'ok', 'ok', 'ok', 'ok', 'ok', 'degraded', 'ok', 'ok', 'ok', 'ok',
+		'ok', 'ok', 'ok', 'ok', 'down', 'ok', 'ok', 'ok', 'ok', 'ok',
+		'ok', 'ok', 'ok', 'ok', 'ok', 'ok', 'ok', 'ok', 'ok', 'ok',
+		'ok', 'ok', 'degraded', 'ok', 'ok', 'ok', 'ok', 'ok', 'ok', 'ok'
+	];
+</script>
+
+# Uptime pages are just text
+
+Every status page is eventually the same artifact: a row of colored
+squares, a percentage, a couple of timestamps. Somewhere along the way we
+decided that implied a charting library, a canvas, and a client-side
+renderer fed by a JSON endpoint. It never did. A status page is at its best
+when it is text — legible in a terminal, diffable in a pull request,
+readable with images turned off on a train.
+
+Here is one: sixty days of a single service, drawn entirely from glyphs.
+
+<GraphUptime title="API" days={days} from="JUL 01" to="AUG 29" />
+
+Fifty-six green blocks. The single dot is August 4 — thirty-one minutes of
+502s while a connection pool quietly exhausted itself. The three hatched
+cells are mornings where p99 drifted past half a second and nobody got
+paged over it.
+
+Ninety-three percent reads worse than it lived. As a number it floats in a
+void; as a grid you can see the shape of the two months, and the shape says
+one bad afternoon.
+
+<GraphTimer kind="ago" at="2026-08-04T14:09:00Z" caption="since the page-one incident" />
+
+That timer is live. It counts away from a fixed timestamp and re-renders on
+an interval, which is exactly right for the one number on a status page
+people actually watch: how long since it last broke.
+
+<GraphStat title="LAST 60 DAYS" items={[{ value: '93%', label: 'days green', accent: true }, { value: '3', label: 'slow mornings' }, { value: '31min', label: 'total downtime' }]} />
+
+The headline figures, because an incident review asks for numbers before it
+asks for a diagram. Three components, three imports, no chart library — the
+whole surface is a file that looks like this:
+
+```svelte
+<GraphUptime
+	title="API"
+	days={[
+		'ok', 'ok', 'ok', 'ok', 'ok', 'ok', 'ok', 'degraded', 'ok', 'ok',
+		// ...forty-three more days
+		'ok', 'ok', 'degraded', 'ok', 'ok', 'ok', 'ok', 'ok'
+	]}
+	from="JUL 01"
+	to="AUG 29"
+/>
+```
+
+The data model is an array of four words. If your monitor can emit
+`'ok' | 'degraded' | 'down'`, it can publish a status page — no aggregation
+pipeline, no screenshot of a dashboard bolted into a wiki.
+
+There is a practical reason to prefer text here, beyond taste. Outages are
+read under the worst conditions: a cramped phone screen, a spotty
+connection, an impatient engineer scrolling one-handed. Text is the only
+format that gets *lighter* under those conditions. It reflows, it copies
+cleanly into an incident channel, and it survives being pasted into a
+terminal without turning into a screenshot of itself.
+
+This post is itself an .svx file. The three figures above are imports from
+markgraphy, rendered in place — nothing is an image, and nothing needed
+a client-side chart runtime to draw.
+
+So if your status page is a canvas, you are shipping a renderer to draw
+eleven characters.

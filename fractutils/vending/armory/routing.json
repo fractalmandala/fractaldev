@@ -1,0 +1,225 @@
+{
+	"contractVersion": "2.0",
+	"agent": "fractal-svelte",
+	"description": "Single routing contract for the Fractal Svelte agent. This file is the only routing source of truth; the CLI (bin/fa.mjs) reads it, and every doc that describes routing must be generated from or agree with it.",
+
+	"precedence": [
+		"project-agents-md",
+		"explicit-user-request",
+		"routing-contract",
+		"entry-skill",
+		"required-skills",
+		"conditional-skills"
+	],
+
+	"policies": {
+		"externalSass": true,
+		"allowComponentStyleBlocks": false,
+		"allowInlineStyles": false,
+		"allowClassDirectives": false,
+		"allowFallbackHexColors": false,
+		"allowImplicitDependencyInstallation": false,
+		"allowLegacyReactivity": false,
+		"allowSlots": false,
+		"requireSsrGuards": true
+	},
+
+	"skillPrecedence": [
+		{
+			"canonical": "svelte-5-runes",
+			"supersedes": ["svelte-runes"],
+			"reason": "svelte-5-runes is the canonical runes authority. Load svelte-runes only for its progressive reference pack (migration-gotchas, common-mistakes) after svelte-5-runes is already loaded."
+		},
+		{
+			"canonical": "svelte-styling-patterns",
+			"supersedes": ["svelte-styling"],
+			"reason": "svelte-styling-patterns encodes this project's external-indented-SASS contract. svelte-styling documents generic Svelte scoped styles and <style> blocks, which this agent forbids."
+		},
+		{
+			"canonical": "svelte-components-patterns",
+			"supersedes": ["svelte-components"],
+			"reason": "svelte-components-patterns covers snippets, event props, and prop interfaces. Load svelte-components only for third-party library or web-component work."
+		},
+		{
+			"canonical": "sveltekit-architecture",
+			"supersedes": ["sveltekit-structure"],
+			"reason": "sveltekit-architecture covers routing, layouts, and load functions. Load sveltekit-structure only for error boundaries, svelte:boundary, or hydration-specific work."
+		},
+		{
+			"canonical": "motion-foundations",
+			"supersedes": [],
+			"reason": "Foundation layer. motion-patterns and motion-advanced both require it; never load them alone."
+		}
+	],
+
+	"routes": [
+		{
+			"id": "component-build",
+			"priority": 0,
+			"match": [
+				"add a component", "build a component", "create a component",
+				"add a button", "add an accordion", "add a card", "add a dialog",
+				"put * here", "native html", "zero js", "full css"
+			],
+			"entrySkill": "agentic-svelte-builder",
+			"required": ["svelte-5-runes", "svelte-components-patterns", "svelte-styling-patterns"],
+			"conditional": [
+				{ "when": "component is interactive (keyboard, focus, or ARIA state)", "skills": ["frontend-a11y"] },
+				{ "when": "third-party library, web component, or advanced form", "skills": ["svelte-components"] },
+				{ "when": "component animates", "skills": ["motion-foundations", "motion-patterns"] }
+			],
+			"next_actions": [
+				"fa component <name> --dense",
+				"fa tokens --dense",
+				"fa contract",
+				"fa verify --all"
+			],
+			"verification": ["static", "build", "runtime"]
+		},
+		{
+			"id": "route-build",
+			"priority": 0,
+			"match": [
+				"add a route", "add a page", "build a page", "new page",
+				"add a loader", "add a load function", "add a form action", "add an endpoint"
+			],
+			"entrySkill": "sveltekit-architecture",
+			"required": ["sveltekit-architecture", "sveltekit-data-flow"],
+			"conditional": [
+				{ "when": "layout, error boundary, or hydration work", "skills": ["sveltekit-structure"] },
+				{ "when": "remote functions explicitly enabled and requested", "skills": ["sveltekit-remote-functions"] },
+				{ "when": "the page renders custom components", "skills": ["svelte-components-patterns", "svelte-styling-patterns"] }
+			],
+			"next_actions": [
+				"fa docs choose-route-data-and-ssr --dense",
+				"fa contract",
+				"fa verify --all"
+			],
+			"verification": ["static", "build", "runtime"]
+		},
+		{
+			"id": "react-conversion",
+			"priority": 10,
+			"match": [
+				"convert react", "convert next", "port react", "port component",
+				"react to svelte", "next to svelte", "from react",
+				"translate react", "jsx to svelte", "tsx to svelte"
+			],
+			"entrySkill": "react-to-sveltekit",
+			"required": ["svelte-5-runes", "svelte-components-patterns", "svelte-styling-patterns"],
+			"conditional": [
+				{ "when": "component is interactive", "skills": ["frontend-a11y"] },
+				{ "when": "DOM integration, refs, or raw HTML", "skills": ["svelte-template-directives"] },
+				{ "when": "source ships CSS or SCSS", "skills": ["css-to-sass"] },
+				{ "when": "source uses an animation engine", "skills": ["motion-foundations", "motion-ui"] }
+			],
+			"next_actions": [
+				"fa contract",
+				"fa tokens --dense",
+				"fa verify --all"
+			],
+			"verification": ["static", "build", "runtime"]
+		},
+		{
+			"id": "style-work",
+			"priority": 5,
+			"match": [
+				"convert css to sass", "convert scss", "restyle", "change the styling",
+				"add dark mode", "theme this", "add a token", "styling"
+			],
+			"entrySkill": "svelte-styling-patterns",
+			"required": ["svelte-styling-patterns"],
+			"conditional": [
+				{ "when": "source is CSS or SCSS", "skills": ["css-to-sass"] },
+				{ "when": "reviewing resolved visual output", "skills": ["svelte-style-canvas"] }
+			],
+			"next_actions": ["fa tokens --dense", "fa contract", "fa verify --static"],
+			"verification": ["static", "runtime"]
+		},
+		{
+			"id": "motion",
+			"priority": 10,
+			"match": ["add animation", "add motion", "make it animate", "add a transition", "animate"],
+			"entrySkill": "motion-foundations",
+			"required": ["motion-foundations", "motion-ui"],
+			"conditional": [
+				{ "when": "common UI motion (buttons, tabs, presence, stagger)", "skills": ["motion-patterns"] },
+				{ "when": "drag, SVG path, or imperative sequence", "skills": ["motion-advanced"] }
+			],
+			"next_actions": ["fa contract", "fa verify --all"],
+			"verification": ["static", "build", "runtime"]
+		},
+		{
+			"id": "visual-review",
+			"priority": 10,
+			"match": ["preview the styling", "style canvas", "visual style review", "what does this look like"],
+			"entrySkill": "svelte-style-canvas",
+			"required": ["svelte-style-canvas"],
+			"conditional": [
+				{ "when": "reviewing interactive states", "skills": ["frontend-a11y"] }
+			],
+			"next_actions": ["fa tokens --dense"],
+			"verification": ["runtime"]
+		},
+		{
+			"id": "deployment",
+			"priority": 5,
+			"match": ["deploy", "configure adapter", "publish package", "build for production", "vite config"],
+			"entrySkill": "svelte-deployment",
+			"required": ["svelte-deployment"],
+			"conditional": [
+				{ "when": "Vite config, plugins, or bundling", "skills": ["vite-patterns"] }
+			],
+			"next_actions": ["fa verify --build"],
+			"verification": ["static", "build"]
+		},
+		{
+			"id": "accessibility",
+			"priority": 10,
+			"match": ["accessibility", "a11y", "screen reader", "keyboard navigation", "aria", "wcag"],
+			"entrySkill": "frontend-a11y",
+			"required": ["frontend-a11y"],
+			"conditional": [
+				{ "when": "the fix changes component structure", "skills": ["svelte-components-patterns"] }
+			],
+			"next_actions": ["fa contract", "fa verify --all"],
+			"verification": ["static", "runtime"]
+		}
+	],
+
+	"fallback": {
+		"id": "unrouted",
+		"entrySkill": "agentic-svelte-builder",
+		"required": ["svelte-5-runes", "svelte-styling-patterns"],
+		"conditional": [],
+		"next_actions": [
+			"fa contract",
+			"fa skill --list",
+			"State the bounded change surface before editing, then re-run `fa route` with a more specific task description."
+		],
+		"verification": ["static"]
+	},
+
+	"verification": {
+		"static": {
+			"command": "pnpm check",
+			"proves": "TypeScript and Svelte template validity",
+			"insufficientAlone": true
+		},
+		"build": {
+			"command": "pnpm build",
+			"proves": "production compilation, adapter, and SSR bundling"
+		},
+		"runtime": {
+			"command": "pnpm dev",
+			"proves": "route responds, page renders, browser console is clean",
+			"note": "Exercise every affected route. If browser automation is unavailable, report `runtime: not-run` — never convert an unverified route into a pass."
+		}
+	},
+
+	"verdicts": {
+		"ship": "every required verification layer passed",
+		"fix-first": "a bounded, actionable failure remains",
+		"rethink": "the target, architecture, or project boundary was misunderstood"
+	}
+}

@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "agentic-svelte-builder-manifest",
+  "version": "1.1.0",
+  "description": "Machine-readable routing index for native HTML/CSS and Svelte 5 component recipes.",
+  "roots": {
+    "native": ".",
+    "svelte5": "svelte"
+  },
+  "counts": {
+    "native": 44,
+    "svelte5": 24,
+    "overlapping_names": 14
+  },
+  "components": {
+    "accordion": {
+      "zero_js": "accordion.md",
+      "svelte5": "svelte/accordion.md",
+      "cube_classes": "[ accordion ] [ box w100 ] [ radius8 bdr ]"
+    },
+    "alert": { "zero_js": "alert.md" },
+    "alert-dialog": { "svelte5": "svelte/alert-dialog.md" },
+    "aspect-ratio": { "zero_js": "aspect-ratio.md" },
+    "avatar": { "zero_js": "avatar.md" },
+    "badge": { "zero_js": "badge.md" },
+    "breadcrumb": { "zero_js": "breadcrumb.md" },
+    "button": {
+      "zero_js": "button.md",
+      "cube_classes": "[ button ] [ row ycenter xcenter gap8 ] [ radius6 bold ]"
+    },
+    "button-group": { "zero_js": "button-group.md" },
+    "calendar": { "svelte5": "svelte/calendar.md" },
+    "carousel": {
+      "zero_js": "carousel.md",
+      "svelte5": "svelte/carousel.md",
+      "cube_classes": "[ carousel-track ] [ row gap16 padbot8 ]"
+    },
+    "card": { "zero_js": "card.md" },
+    "checkbox": { "zero_js": "checkbox.md" },
+    "collapsible": { "zero_js": "collapsible.md" },
+    "combobox": { "svelte5": "svelte/combobox.md" },
+    "context-menu": { "svelte5": "svelte/context-menu.md" },
+    "data-table": { "svelte5": "svelte/data-table.md" },
+    "date-picker": { "svelte5": "svelte/date-picker.md" },
+    "dialog": {
+      "zero_js": "dialog.md",
+      "svelte5": "svelte/dialog.md",
+      "cube_classes": "[ modal-container ] [ box maxw500 ] [ pad24 radius12 bdr ]"
+    },
+    "drawer": {
+      "zero_js": "drawer.md",
+      "svelte5": "svelte/drawer.md",
+      "cube_classes": "[ drawer ] [ width360 maxw100 h100 ]"
+    },
+    "dropdown-menu": {
+      "zero_js": "dropdown-menu.md",
+      "svelte5": "svelte/dropdown-menu.md",
+      "cube_classes": "[ dropdown-menu ] [ pad6 radius8 bdr minw180 ]"
+    },
+    "empty": { "zero_js": "empty.md" },
+    "field": { "zero_js": "field.md" },
+    "hover-card": {
+      "zero_js": "hover-card.md",
+      "svelte5": "svelte/hover-card.md",
+      "cube_classes": "[ hover-card-popover ] [ pad16 radius8 bdr width280 ]"
+    },
+    "input": { "zero_js": "input.md" },
+    "input-group": { "zero_js": "input-group.md" },
+    "input-otp": { "svelte5": "svelte/input-otp.md" },
+    "item": { "zero_js": "item.md" },
+    "kbd": { "zero_js": "kbd.md" },
+    "label": { "zero_js": "label.md" },
+    "menubar": { "svelte5": "svelte/menubar.md" },
+    "native-select": { "zero_js": "native-select.md" },
+    "navigation-menu": {
+      "zero_js": "navigation-menu.md",
+      "svelte5": "svelte/navigation-menu.md",
+      "cube_classes": "[ nav-menu__list ] [ row ycenter gap16 ]"
+    },
+    "pagination": {
+      "zero_js": "pagination.md",
+      "svelte5": "svelte/pagination.md",
+      "cube_classes": "[ pagination__list ] [ row ycenter gap4 ]"
+    },
+    "popover": {
+      "zero_js": "popover.md",
+      "svelte5": "svelte/popover.md",
+      "cube_classes": "[ popover ] [ pad16 radius8 bdr maxw320 ]"
+    },
+    "progress": { "zero_js": "progress.md" },
+    "radio-group": { "zero_js": "radio-group.md" },
+    "resizable": { "svelte5": "svelte/resizable.md" },
+    "scroll-area": { "zero_js": "scroll-area.md" },
+    "select": {
+      "zero_js": "select.md",
+      "svelte5": "svelte/select.md"
+    },
+    "separator": { "zero_js": "separator.md" },
+    "sidebar": {
+      "zero_js": "sidebar.md",
+      "svelte5": "svelte/sidebar.md",
+      "cube_classes": "[ sidebar ] [ box width260 h100 ]"
+    },
+    "skeleton": { "zero_js": "skeleton.md" },
+    "slider": { "zero_js": "slider.md" },
+    "spinner": { "zero_js": "spinner.md" },
+    "switch": { "zero_js": "switch.md" },
+    "table": { "zero_js": "table.md" },
+    "tabs": {
+      "zero_js": "tabs.md",
+      "svelte5": "svelte/tabs.md",
+      "cube_classes": "[ tabs ] [ box ]"
+    },
+    "textarea": { "zero_js": "textarea.md" },
+    "toast": { "svelte5": "svelte/toast.md" },
+    "toggle": {
+      "zero_js": "toggle.md",
+      "cube_classes": "[ toggle ] [ row ycenter ]"
+    },
+    "toggle-group": {
+      "zero_js": "toggle-group.md",
+      "svelte5": "svelte/toggle-group.md",
+      "cube_classes": "[ toggle-group ] [ row ycenter pad4 radius8 ]"
+    },
+    "tooltip": {
+      "zero_js": "tooltip.md",
+      "svelte5": "svelte/tooltip.md",
+      "cube_classes": "[ tooltip-wrapper ] [ position-relative ]"
+    },
+    "typography": { "zero_js": "typography.md" }
+  }
+}

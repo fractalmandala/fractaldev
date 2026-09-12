@@ -1,0 +1,48 @@
+@use 'sass:string'
+@use 'sass:list'
+@use 'sass:map'
+@use '01_config' as *
+
+*,
+*::before,
+*::after
+	box-sizing: border-box
+
+*
+	margin: 0
+
+body, html
+	font-family: var(--font-sans)
+	font-size: var(--text-bs)
+	color: var(--text-primary)
+	background: var(--bg)
+	box-sizing: border-box
+	text-rendering: optimizeLegibility
+	-webkit-font-smoothing: antialiased
+	font-optical-sizing: auto
+	-webkit-text-size-adjust: 100%
+
+img,
+video,
+svg
+	display: block
+	max-width: 100%
+
+input,
+select,
+textarea,
+blockquote
+	font-family: inherit
+	color: inherit
+
+a
+	color: inherit
+	text-decoration: none
+
+p, small, ul, ol, li, blockquote, h6, h5, h4, h3, h2, h1
+	margin: 0
+
+.font-mono
+	font-family: var(--font-mono)
+	font-variant-numeric: tabular-nums
+	font-weight: 500

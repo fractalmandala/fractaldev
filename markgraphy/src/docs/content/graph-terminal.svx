@@ -1,0 +1,43 @@
+<script lang="ts">
+	import { GraphTerminal } from '$lib';
+</script>
+
+# GraphTerminal
+
+## Import
+
+```svelte
+import { GraphTerminal } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphTerminal
+  title="example"
+  typeMs={28}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | Caption on the frame's top edge as `[ TITLE ]`. Uppercase, 1–2 words. |
+| `lines` | `TerminalLine[]` | `—` | Scripted session: prompt lines get typed character-by-character; output lines stream. |
+| `typeMs?` | `number` | `28` | Milliseconds per character (typing). Default 28. |
+| `streamMs?` | `number` | `14` | Milliseconds per character (streaming output). Default 14. |
+| `holdMs?` | `number` | `1600` | Milliseconds to hold the fully-revealed script before restarting. Default 1600. |
+| `loop?` | `boolean` | `true` | Loop the session. Default true. |
+| `animated?` | `boolean` | `true` | Animate the typing and streaming. Default true. Reduced motion shows full script. |
+| `label?` | `string` | `'a session` | Short caption under the art. |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `TerminalLine`
+- `GraphTerminalProps`
+
+## Reduced motion
+
+Animation is disabled under `prefers-reduced-motion`.

@@ -1,0 +1,34 @@
+<script lang="ts">
+	import { GraphStat } from '$lib';
+</script>
+
+# GraphStat
+
+## Import
+
+```svelte
+import { GraphStat } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphStat
+  title="example"
+  corner="example"
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `items` | `StatItem[]` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `StatItem`
+- `GraphStatProps`

@@ -1,0 +1,34 @@
+{
+  "id": "daylight-newsprint-indigo",
+  "name": "Daylight Newsprint Indigo",
+  "version": "2.0.0",
+  "author": "amrit",
+  "description": "The same ink structure with the accent moved to a deep indigo \u2014 reads more technical, less editorial.",
+  "isDark": false,
+  "tags": [
+    "news",
+    "light"
+  ],
+  "colors": {
+    "bg": "#FBFBFC",
+    "bg-secondary": "#EDEEF0",
+    "bg-tertiary": "#E1E2E4",
+    "bg-hover": "#F0F0F1",
+    "bg-selected": "#E4E6EA",
+    "bg-active": "#DEE2EE",
+    "text": "#1E1F22",
+    "text-muted": "#606163",
+    "text-faint": "#98999E",
+    "text-disabled": "#BBBBBF",
+    "border": "#E0E1E4",
+    "border-focus": "#2F4B99",
+    "primary": "#2F4B99",
+    "primary-hover": "#2C4384",
+    "link": "#2F4B99",
+    "link-hover": "#2C4384",
+    "success": "#3F6B3F",
+    "warning": "#8A6A12",
+    "error": "#B3202F",
+    "info": "#3A5A8C"
+  }
+}

@@ -1,0 +1,75 @@
+// Compile explicitly; never imported by index.sass. Default configuration only.
+// Assertions are Sass, just like the implementation. Failures use @error.
+@use 'sass:list'
+@use 'compositions'
+@use 'style-vocabulary' as vocabulary
+@use '02_dimensions' as dimensions
+
+@mixin contains($selectors, $expected)
+	@if not list.index($selectors, $expected)
+		@error 'Missing selector: #{$expected}.'
+
+@mixin excludes($selectors, $unexpected)
+	@if list.index($selectors, $unexpected)
+		@error 'Unexpected selector: #{$unexpected}.'
+
+@mixin count($selectors, $expected)
+	@if list.length($selectors) != $expected
+		@error 'Expected #{$expected} selectors, got #{list.length($selectors)}.'
+
+// Original Sass vocabulary exports remain available to existing consumers.
+@if dimensions.$steps != vocabulary.$steps or dimensions.$pad-families != vocabulary.$pad-families or dimensions.$gap-families != vocabulary.$gap-families
+	@error 'Dimensions vocabulary exports have changed.'
+
+$border: compositions.selectors(border)
+$pad: compositions.selectors(pad, sm)
+$gap: compositions.selectors(gap, lg)
++contains($border, '.border')
++contains($border, '.b-ps-gl')
++contains($pad, '.pad-sm')
++contains($pad, '.b-ps-gl')
++contains($gap, '.gap-lg')
++contains($gap, '.b-ps-gl')
++count($border, 1792)
++count($pad, 168)
++count($gap, 384)
+
+// All optional-operation pairs. Omission never adds a declaration.
++contains($border, '.b-ps')
++contains($border, '.b-gl')
++contains($pad, '.ps-gl')
++contains($gap, '.ps-gl')
++excludes($border, '.ps-gl')
++excludes($pad, '.b-gl')
++excludes($gap, '.b-ps')
+
+// Directional steps are full names; unscoped xs is not inline-small.
++contains(compositions.selectors(pad-x, xs), '.b-px\\:xs-gr\\:lg')
++contains(compositions.selectors(rgap, lg), '.b-px\\:xs-gr\\:lg')
++contains(compositions.selectors(border-left), '.bl-pl\\:sm-gr\\:lg')
++contains(compositions.selectors(pad-left, sm), '.bl-pl\\:sm-gr\\:lg')
++contains(compositions.selectors(pad, xs), '.pxs-gl')
++excludes(compositions.selectors(pad-x, sm), '.pxs-gl')
++contains(compositions.selectors(pad-bottom, bs), '.bb-pb\\:bs-gc\\:sm')
++contains(compositions.selectors(cgap, sm), '.bb-pb\\:bs-gc\\:sm')
+
+// Every named step, including zero-valued 2xs, has an unscoped compound.
+@each $step, $short in ('2xs': '2xs', 'xs': 'xs', 'sm': 's', 'md': 'md', 'bs': 'b', 'lg': 'l', 'xl': 'xl', '2xl': '2xl', '3xl': '3xl')
+	+contains(compositions.selectors(pad, $step), '.b-p#{$short}-g#{$short}')
+	+contains(compositions.selectors(gap, $step), '.b-p#{$short}-g#{$short}')
+
+// The whole compound shares one responsive suffix, including the border.
+@each $mode in (mob, desk)
+	+contains(compositions.selectors(border, $mode: $mode), '.b-ps-gl-#{$mode}')
+	+contains(compositions.selectors(pad, sm, $mode), '.b-ps-gl-#{$mode}')
+	+contains(compositions.selectors(gap, lg, $mode), '.b-ps-gl-#{$mode}')
+	+contains(compositions.selectors(pad-x, xs, $mode), '.b-px\\:xs-gr\\:lg-#{$mode}')
+	+excludes(compositions.selectors(pad, sm, $mode), '.b-ps-gl')
+
+// No single-operation abbreviation, reordered grammar, or multi-scope term.
++excludes($border, '.b')
++excludes($pad, '.ps')
++excludes($pad, '.gl-ps-b')
++excludes($pad, '.b-ps-pt\\:lg-gl')
+
+@debug 'Composition assertions passed.'

@@ -1,0 +1,53 @@
+<script lang="ts">
+	import { GraphSequence } from '$lib';
+</script>
+
+# GraphSequence
+
+Build the three cells that draw a single arrow: a run of dashes, a
+centered label, and the head. The label is opaque so it sits on top of
+the dashes without us having to split the run.
+
+## Import
+
+```svelte
+import { GraphSequence } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphSequence
+  title="example"
+  animated={true}
+  cols={68}
+/>
+```
+
+<div class="live">
+<GraphSequence
+  title="example"
+  animated={true}
+  cols={68}
+/>
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words. |
+| `animated?` | `boolean` | `true` | Animate the message flow. Default true. Reduced motion freezes the first message as current. |
+| `cols?` | `number` | `68` | Width of the scene in characters; at least 40 so four participants fit. Default 68. |
+| `rows?` | `number` | `12` | Height of the scene in rows; at least 10 so header + 6 messages fit. Default 12. |
+| `speedMs?` | `number` | `600` | Milliseconds per message. Default 600. |
+| `label?` | `string` | `'who calls who` | Short caption under the art; the diagram itself is the message. |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `GraphSequenceProps`
+
+## Reduced motion
+
+Animation is disabled under `prefers-reduced-motion`.

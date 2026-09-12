@@ -1,0 +1,34 @@
+{
+  "id": "daylight-monoline-moss",
+  "name": "Daylight Monoline Moss",
+  "version": "2.0.0",
+  "author": "amrit",
+  "description": "A dark moss on white. The lowest-chroma accent of the five, for people who find vermilion loud after an hour.",
+  "isDark": false,
+  "tags": [
+    "mono",
+    "light"
+  ],
+  "colors": {
+    "bg": "#FCFCFC",
+    "bg-secondary": "#F4F4F4",
+    "bg-tertiary": "#EBEBEB",
+    "bg-hover": "#F4F4F4",
+    "bg-selected": "#EAEAEA",
+    "bg-active": "#E3E8DD",
+    "text": "#585C61",
+    "text-muted": "#898C90",
+    "text-faint": "#ACB0B3",
+    "text-disabled": "#C8CBCD",
+    "border": "#E7E7E7",
+    "border-focus": "#4C6B21",
+    "primary": "#4C6B21",
+    "primary-hover": "#4E682D",
+    "link": "#4C6B21",
+    "link-hover": "#4E682D",
+    "success": "#3C7048",
+    "warning": "#A5720F",
+    "error": "#C0392B",
+    "info": "#2F5FA8"
+  }
+}

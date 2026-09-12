@@ -1,0 +1,34 @@
+{
+  "id": "lamplight-newsprint-duotone",
+  "name": "Lamplight Newsprint Duotone",
+  "version": "2.0.0",
+  "author": "amrit",
+  "description": "Keywords in ink red, every literal in slate blue, everything else ink. The most information the family can carry without becoming a colour theme.",
+  "isDark": true,
+  "tags": [
+    "news",
+    "dark"
+  ],
+  "colors": {
+    "bg": "#121314",
+    "bg-secondary": "#0E0F10",
+    "bg-tertiary": "#1B1C1D",
+    "bg-hover": "#1C1D1E",
+    "bg-selected": "#2A2B2C",
+    "bg-active": "#2E1C20",
+    "text": "#E2E3E4",
+    "text-muted": "#A4A5A6",
+    "text-faint": "#6E6F70",
+    "text-disabled": "#4E4F50",
+    "border": "#212223",
+    "border-focus": "#D9556A",
+    "primary": "#D9556A",
+    "primary-hover": "#DB6F80",
+    "link": "#D9556A",
+    "link-hover": "#DB6F80",
+    "success": "#86C08A",
+    "warning": "#D2A85A",
+    "error": "#E06A78",
+    "info": "#8AA4E8"
+  }
+}

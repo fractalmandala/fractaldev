@@ -1,0 +1,42 @@
+<script lang="ts">
+	import { NestedRadiiDiagram } from '$lib';
+</script>
+
+# NestedRadiiDiagram
+
+## Import
+
+```svelte
+import { NestedRadiiDiagram } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<NestedRadiiDiagram
+  initialOuter={16}
+  initialInset={4}
+  interactive={true}
+/>
+```
+
+<div class="live">
+<NestedRadiiDiagram
+  initialOuter={16}
+  initialInset={4}
+  interactive={true}
+/>
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `initialOuter?` | `number` | `16` | Starting outer radius in px. Default 16. |
+| `initialInset?` | `number` | `4` | Starting inset (padding) in px. Default 4. |
+| `interactive?` | `boolean` | `true` | Show the sliders and the live CSS preview. Default true. |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `NestedRadiiDiagramProps`

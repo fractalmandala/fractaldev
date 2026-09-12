@@ -1,0 +1,49 @@
+<script lang="ts">
+	import { GraphState } from '$lib';
+</script>
+
+# GraphState
+
+Build the three cells that draw one state box at (col, row).
+
+## Import
+
+```svelte
+import { GraphState } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphState
+  title="example"
+  animated={true}
+  speedMs={700}
+/>
+```
+
+<div class="live">
+<GraphState
+  title="example"
+  animated={true}
+  speedMs={700}
+/>
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words. |
+| `animated?` | `boolean` | `true` | Animate the state cycle. Default true. Reduced motion freezes on the start state. |
+| `speedMs?` | `number` | `700` | Milliseconds per state step. Default 700. |
+| `label?` | `string` | `'state machine` | Short caption under the art; the chart itself is the message. |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `GraphStateProps`
+
+## Reduced motion
+
+Animation is disabled under `prefers-reduced-motion`.

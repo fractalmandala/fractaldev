@@ -1,0 +1,42 @@
+<script lang="ts">
+	import { GraphBoot } from '$lib';
+</script>
+
+# GraphBoot
+
+## Import
+
+```svelte
+import { GraphBoot } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphBoot
+  title="example"
+  speedMs={90}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | Caption on the frame's top edge as `[ TITLE ]`. Uppercase, 1–2 words. |
+| `steps` | `GraphBootStep[]` | `—` | Ordered list of deploy/boot steps to show. |
+| `speedMs?` | `number` | `90` | Milliseconds per tick of the boot animation. Default 90. |
+| `stepTicks?` | `number` | `14` | Total ticks each step is "in progress" before flipping to ✓/✗. Default 14. |
+| `seedNum?` | `number` | `5` | Seed for any stochastic timing jitter per step. Default 5. |
+| `animated?` | `boolean` | `true` | Animate the boot. Default true. Reduced motion freezes a mid-run frame. |
+| `label?` | `string` | `'from cold to live'` | Short caption under the art. |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `GraphBootStep`
+- `GraphBootProps`
+
+## Reduced motion
+
+Animation is disabled under `prefers-reduced-motion`.

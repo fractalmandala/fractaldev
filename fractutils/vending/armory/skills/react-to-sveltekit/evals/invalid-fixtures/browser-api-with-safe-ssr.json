@@ -1,0 +1,11 @@
+{
+  "contractVersion": "1.0",
+  "status": "planned",
+  "source": { "framework": "react", "kind": "component", "files": ["Canvas.tsx"], "route": null, "animationTier": "canvas-webgl" },
+  "target": { "kind": "component", "files": ["Canvas.svelte"], "route": null, "publicApi": { "props": [], "bindings": [], "callbacks": [], "snippets": [] } },
+  "dependencies": { "present": [], "required": [], "missing": [], "fallbacks": [] },
+  "dataFlow": { "loadFile": "none", "reason": "Component has no route data.", "serverData": [], "actions": [], "invalidations": [], "serialization": "not-applicable" },
+  "ssr": { "mode": "safe", "browserOnlyApis": ["window"], "guards": [], "disabledReason": null },
+  "verification": [],
+  "gaps": []
+}

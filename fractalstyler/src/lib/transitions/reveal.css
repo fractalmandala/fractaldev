@@ -1,0 +1,162 @@
+/*
+ * Reveal primitives, extracted from the philosophy deck
+ * (`PhilosophyDeck.svelte` + `_09_deck.sass`).
+ *
+ * Four pieces, each traceable to the deck:
+ *   1. stagger  — `.rv-reveal` children rise in sequence     (deck: .pd-slide)
+ *   2. grow     — scaleX grow-in, per-item delay via a var  (deck: pd-grow)
+ *   3. collapse — glyphs fold to zero width, keepers ignite (deck: .pd-collapse)
+ *   4. morph    — transition shorthand for flex-basis/height (deck: .pd-rail)
+ *
+ * The contract, in all cases: a state class flips the motion, and vanilla CSS
+ * owns the animation. Two ways to flip it —
+ *   state-driven:  <div class="rv-reveal rv-arm" class:active={open}>
+ *   scroll-driven: <div class="rv-reveal" use:inview>
+ * (`inview`, from `./reveal.js`, arms the container on mount and adds
+ * `.active` at first intersection.)
+ *
+ * Hiding is gated on `.rv-arm`, which only JavaScript adds — without JS the
+ * content renders fully visible. Nothing here hides meaning on its own.
+ *
+ * Tuning (all optional; deck values are the defaults):
+ *   --rv-speed  stagger duration (.7s)      --rv-rise   travel distance (14px)
+ *   --rv-step   delay between children      --rv-base   delay before the first
+ *   --rv-delay  grow-in delay per item      --rv-accent keeper highlight color
+ *   --rv-morph  rail morph duration (.42s)  --rv-glyph  collapsing glyph width
+ *
+ * Pruning note: every class below must appear literally in consumer markup
+ * (or in `safelist`) — the used-only pipeline drops the rest.
+ */
+
+.rv-reveal > * {
+	opacity: 0;
+	transform: translateY(var(--rv-rise, 14px));
+	transition:
+		opacity var(--rv-speed, 0.7s) ease,
+		transform var(--rv-speed, 0.7s) ease;
+}
+
+.rv-reveal.rv-arm.active > * {
+	opacity: 1;
+	transform: none;
+}
+
+.rv-reveal.rv-arm.active > *:nth-child(1) {
+	transition-delay: var(--rv-base, 0.1s);
+}
+
+.rv-reveal.rv-arm.active > *:nth-child(2) {
+	transition-delay: calc(var(--rv-base, 0.1s) + var(--rv-step, 0.12s));
+}
+
+.rv-reveal.rv-arm.active > *:nth-child(3) {
+	transition-delay: calc(var(--rv-base, 0.1s) + var(--rv-step, 0.12s) * 2);
+}
+
+.rv-reveal.rv-arm.active > *:nth-child(4) {
+	transition-delay: calc(var(--rv-base, 0.1s) + var(--rv-step, 0.12s) * 3);
+}
+
+.rv-reveal.rv-arm.active > *:nth-child(5) {
+	transition-delay: calc(var(--rv-base, 0.1s) + var(--rv-step, 0.12s) * 4);
+}
+
+.rv-reveal.rv-arm.active > *:nth-child(6) {
+	transition-delay: calc(var(--rv-base, 0.1s) + var(--rv-step, 0.12s) * 5);
+}
+
+@keyframes rv-grow {
+	from {
+		transform: scaleX(0.12);
+		opacity: 0;
+	}
+
+	to {
+		transform: scaleX(1);
+		opacity: 1;
+	}
+}
+
+/* Plays inside an active reveal only, so entering the container replays it —
+ * exactly how the deck's ladder replays per slide. Delay per item with
+ * style="--rv-delay: 0.25s" (replaces the deck's inline animation-delay). */
+.rv-reveal.rv-arm.active .rv-grow {
+	transform-origin: left center;
+	animation: rv-grow 0.65s cubic-bezier(0.2, 0.85, 0.3, 1) backwards;
+	animation-delay: var(--rv-delay, 0s);
+}
+
+.rv-collapse {
+	display: flex;
+	justify-content: center;
+	white-space: nowrap;
+}
+
+.rv-collapse .rv-drop {
+	display: inline-block;
+	max-width: var(--rv-glyph, 2ch);
+	overflow: hidden;
+	transition:
+		max-width 0.5s cubic-bezier(0.7, 0, 0.2, 1),
+		opacity 0.32s ease,
+		transform 0.5s ease;
+}
+
+.rv-collapse.is-done .rv-drop {
+	max-width: 0;
+	opacity: 0;
+	transform: translateY(-6px);
+}
+
+.rv-collapse.is-done .rv-keep {
+	color: var(--rv-accent, currentColor);
+}
+
+/*
+ * Rail morph: the deck's wireframe lesson is that regions appear by animating
+ * flex-basis (horizontal) or height (vertical) — never display. These classes
+ * declare the transition; the host owns the open geometry and the off state:
+ *
+ *   .sidebar { flex: 0 0 22%; }
+ *   .sidebar.is-off { flex-basis: 0; opacity: 0; }
+ */
+.rv-morph-x {
+	overflow: hidden;
+	transition:
+		flex-basis var(--rv-morph, 0.42s) cubic-bezier(0.6, 0, 0.2, 1),
+		opacity 0.3s ease;
+}
+
+.rv-morph-y {
+	overflow: hidden;
+	transition:
+		height var(--rv-morph, 0.42s) cubic-bezier(0.6, 0, 0.2, 1),
+		opacity 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.rv-reveal > *,
+	.rv-reveal.rv-arm.active > * {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+
+	.rv-reveal.rv-arm.active .rv-grow {
+		animation: none;
+	}
+
+	/* Collapsing hides meaning — under reduced motion everything stays set. */
+	.rv-collapse .rv-drop,
+	.rv-collapse.is-done .rv-drop {
+		max-width: var(--rv-glyph, 2ch);
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+
+	.rv-morph-x,
+	.rv-morph-y {
+		transition: none;
+	}
+}

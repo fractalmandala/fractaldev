@@ -1,0 +1,964 @@
+// Acrolls docs chrome — layout shell, sticky header, sidebar navigation drawer,
+// table-of-contents rail, breadcrumbs, pagination, search dialog, theme toggle,
+// page-actions rail, and page feedback.
+//
+// Derived from the Blume docs UI (MIT License — see packages/docs/NOTICE.md):
+// re-namespaced to Acrolls (--acrolls-docs-*, data-acrolls-*, #acrolls-content),
+// de-branded, stripped of utility-class dependencies, and bridged to the Acrolls
+// theme system. Every colour token resolves through a shadcn-name var(), so the
+// active scheme / fractalthemer palette drives the chrome and dark mode is
+// automatic — there is no separate dark token block.
+//
+// Article PROSE (article.acrolls, code frames, callouts, tables, mermaid,
+// heading anchors) is styled by foundation/default, NOT here. This surface is
+// the docs chrome only.
+
+// ============================================================
+// Token bridge — kit vocabulary mapped onto the theme system
+// ============================================================
+.acrolls-docs-root
+	--acrolls-docs-background: var(--background, Canvas)
+	--acrolls-docs-foreground: var(--foreground, CanvasText)
+	--acrolls-docs-muted: var(--muted, color-mix(in oklab, currentColor 8%, transparent))
+	--acrolls-docs-muted-foreground: var(--muted-foreground, color-mix(in oklab, currentColor 55%, transparent))
+	--acrolls-docs-border: var(--border, color-mix(in oklab, currentColor 14%, transparent))
+	--acrolls-docs-accent: var(--primary, var(--theme-color, currentColor))
+	--acrolls-docs-accent-foreground: var(--primary-foreground, var(--text-inverse, Canvas))
+	--acrolls-docs-radius: var(--radius, 0.5rem)
+	--acrolls-docs-content-width: 42rem
+	--acrolls-docs-header-height: 4rem
+	--acrolls-docs-drawer-top: 4rem
+	--acrolls-docs-sidebar-width: 17.5rem
+	--acrolls-docs-toc-width: 17.5rem
+	--acrolls-docs-font-body: var(--font-body, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif)
+	--acrolls-docs-font-mono: var(--font-mono, ui-monospace, "SF Mono", "Cascadia Code", "Source Code Pro", Menlo, Consolas, monospace)
+	background: var(--acrolls-docs-background)
+	color: var(--acrolls-docs-foreground)
+	font-family: var(--acrolls-docs-font-body)
+	min-height: 100dvh
+	-webkit-font-smoothing: antialiased
+
+// Standalone sidebar (hosts that own the outer shell) also needs the tokens.
+.acrolls-docs-sidebar:not(.acrolls-docs-root *)
+	--acrolls-docs-background: var(--background, Canvas)
+	--acrolls-docs-foreground: var(--foreground, CanvasText)
+	--acrolls-docs-muted: var(--muted, color-mix(in oklab, currentColor 8%, transparent))
+	--acrolls-docs-muted-foreground: var(--muted-foreground, color-mix(in oklab, currentColor 55%, transparent))
+	--acrolls-docs-border: var(--border, color-mix(in oklab, currentColor 14%, transparent))
+	--acrolls-docs-accent: var(--primary, var(--theme-color, currentColor))
+	--acrolls-docs-radius: var(--radius, 0.5rem)
+
+// ============================================================
+// Skip link (accessibility — first focusable in the shell)
+// ============================================================
+.acrolls-docs-skip
+	position: absolute
+	inset-inline-start: -999px
+	top: 0
+	z-index: 100
+	background: var(--acrolls-docs-accent)
+	color: var(--acrolls-docs-accent-foreground)
+	padding: 0.5rem 1rem
+	border-radius: 0 0 var(--acrolls-docs-radius) 0
+	text-decoration: none
+	&:focus
+		inset-inline-start: 0
+
+// ============================================================
+// Header — [data-acrolls-header]
+// ============================================================
+[data-acrolls-header]
+	position: sticky
+	top: 0
+	z-index: 40
+	display: flex
+	align-items: center
+	gap: 0.75rem
+	height: var(--acrolls-docs-header-height)
+	padding-inline: 1rem
+	background: color-mix(in oklab, var(--acrolls-docs-background) 88%, transparent)
+	backdrop-filter: blur(12px)
+	-webkit-backdrop-filter: blur(12px)
+	border-bottom: 1px solid var(--acrolls-docs-border)
+@media (min-width: 48rem)
+	[data-acrolls-header]
+		padding-inline: 1.5rem
+
+.acrolls-docs-header-brand
+	display: inline-flex
+	align-items: center
+	gap: 0.5rem
+	min-width: 0
+	font-weight: 600
+	font-size: 1rem
+	color: var(--acrolls-docs-foreground)
+	text-decoration: none
+	.acrolls-docs-logo
+		display: inline-flex
+		height: 1.25rem
+		align-items: center
+		flex-shrink: 0
+		svg
+			height: 1.25rem
+			width: auto
+	.acrolls-docs-name
+		overflow: hidden
+		text-overflow: ellipsis
+		white-space: nowrap
+
+.acrolls-docs-header-sections
+	display: none
+	gap: 0.25rem
+	a
+		border-radius: 999px
+		padding: 0.375rem 0.75rem
+		font-size: 0.875rem
+		font-weight: 500
+		color: var(--acrolls-docs-muted-foreground)
+		text-decoration: none
+		transition: background 0.15s, color 0.15s
+		&:hover
+			background: var(--acrolls-docs-muted)
+			color: var(--acrolls-docs-foreground)
+		&[aria-current='page']
+			color: var(--acrolls-docs-foreground)
+			background: var(--acrolls-docs-muted)
+@media (min-width: 48rem)
+	.acrolls-docs-header-sections
+		display: flex
+
+.acrolls-docs-header-spacer
+	flex: 1
+
+.acrolls-docs-header-actions
+	display: flex
+	align-items: center
+	gap: 0.5rem
+
+.acrolls-docs-icon-btn
+	display: inline-flex
+	align-items: center
+	justify-content: center
+	width: 2.25rem
+	height: 2.25rem
+	border-radius: 999px
+	border: 0
+	cursor: pointer
+	background: transparent
+	color: var(--acrolls-docs-muted-foreground)
+	transition: background 0.15s, color 0.15s
+	&:hover
+		background: var(--acrolls-docs-muted)
+		color: var(--acrolls-docs-foreground)
+	&:focus-visible
+		outline: 2px solid color-mix(in oklab, var(--acrolls-docs-accent) 60%, transparent)
+		outline-offset: 2px
+	&.acrolls-docs-icon-btn--bordered
+		width: auto
+		padding-inline: 0.75rem
+		gap: 0.375rem
+		border: 1px solid var(--acrolls-docs-border)
+		background: var(--acrolls-docs-background)
+		font-size: 0.875rem
+		&:hover
+			border-color: var(--acrolls-docs-foreground)
+	// The nav toggle only matters below the sticky-sidebar breakpoint.
+	&.acrolls-docs-nav-toggle
+		display: inline-flex
+@media (min-width: 64rem)
+	.acrolls-docs-icon-btn.acrolls-docs-nav-toggle
+		display: none
+
+// ============================================================
+// Doc grid — [data-acrolls-doc-grid]
+// 1 col -> 64rem sidebar+main -> 80rem sidebar+main+toc
+// ============================================================
+[data-acrolls-doc-grid]
+	margin-inline: auto
+	display: grid
+	grid-template-columns: 1fr
+	align-items: start
+@media (min-width: 64rem)
+	[data-acrolls-doc-grid]
+		grid-template-columns: var(--acrolls-docs-sidebar-width) minmax(0, 1fr)
+@media (min-width: 80rem)
+	[data-acrolls-doc-grid]
+		grid-template-columns: var(--acrolls-docs-sidebar-width) minmax(0, 1fr) var(--acrolls-docs-toc-width)
+
+// ============================================================
+// Sidebar drawer — [data-acrolls-nav-drawer]
+// Fixed off-canvas drawer below 64rem; sticky rail at/above.
+// ============================================================
+[data-acrolls-nav-drawer]
+	position: fixed
+	inset-inline-start: 0
+	top: var(--acrolls-docs-drawer-top, 4rem)
+	z-index: 35
+	height: calc(100dvh - var(--acrolls-docs-drawer-top, 4rem))
+	width: 16rem
+	max-width: 80vw
+	overflow-y: auto
+	background: var(--acrolls-docs-background)
+	border-inline-end: 1px solid var(--acrolls-docs-border)
+	padding: 1rem 1.25rem 1.5rem
+	transform: translateX(-105%)
+	visibility: hidden
+	transition: transform 0.2s ease, visibility 0.2s
+	scrollbar-width: thin
+[dir='rtl'] [data-acrolls-nav-drawer]
+	transform: translateX(105%)
+:where([data-acrolls-nav-open]) [data-acrolls-nav-drawer]
+	transform: translateX(0) !important
+	visibility: visible
+@media (min-width: 64rem)
+	[data-acrolls-nav-drawer]
+		position: sticky
+		top: var(--acrolls-docs-header-height)
+		z-index: auto
+		height: calc(100dvh - var(--acrolls-docs-header-height))
+		width: auto
+		max-width: none
+		transform: none !important
+		visibility: visible
+		background: transparent
+		border-inline-end: 0
+		padding-inline: 1rem
+
+// Mobile nav overlay (click / Escape closes the drawer)
+.acrolls-docs-nav-overlay
+	position: fixed
+	inset: 0
+	z-index: 30
+	display: none
+	cursor: pointer
+	border: 0
+	padding: 0
+	background: color-mix(in oklab, #000 45%, transparent)
+:where([data-acrolls-nav-open]) .acrolls-docs-nav-overlay
+	display: block
+@media (min-width: 64rem)
+	.acrolls-docs-nav-overlay
+		display: none !important
+
+// ============================================================
+// Sidebar nav tree (recursive, data-driven, persisted open state)
+// ============================================================
+.acrolls-docs-sidebar
+	min-width: 0
+	color: var(--acrolls-docs-foreground)
+
+.acrolls-docs-sidebar-brand
+	margin-bottom: 1rem
+	padding-right: 0.5rem
+.acrolls-docs-sidebar-title
+	font-weight: 650
+	font-size: 0.95rem
+	text-decoration: none
+	color: inherit
+	letter-spacing: -0.01em
+	&:hover
+		color: var(--acrolls-docs-accent)
+.acrolls-docs-sidebar-subtitle
+	margin: 0.25rem 0 0
+	font-size: 0.8rem
+	color: var(--acrolls-docs-muted-foreground)
+	line-height: 1.35
+
+.acrolls-docs-sidebar-filter
+	display: block
+	margin-bottom: 0.85rem
+	input
+		width: 100%
+		box-sizing: border-box
+		border: 1px solid var(--acrolls-docs-border)
+		border-radius: var(--acrolls-docs-radius)
+		background: var(--acrolls-docs-background)
+		color: inherit
+		font: inherit
+		font-size: 0.85rem
+		padding: 0.45rem 0.65rem
+		&:focus-visible
+			outline: 2px solid color-mix(in oklab, var(--acrolls-docs-accent) 55%, transparent)
+			outline-offset: 1px
+.acrolls-docs-sidebar-empty
+	font-size: 0.85rem
+	color: var(--acrolls-docs-muted-foreground)
+	margin: 0.5rem 0
+.acrolls-docs-sidebar-nav
+	display: flex
+	flex-direction: column
+	gap: 0.5rem
+
+// Mobile-only copy of the top section tabs, shown inside the drawer.
+.acrolls-docs-nav-sections-mobile
+	margin-bottom: 1rem
+	border-bottom: 1px solid var(--acrolls-docs-border)
+	padding-bottom: 1rem
+@media (min-width: 48rem)
+	.acrolls-docs-nav-sections-mobile
+		display: none
+
+.acrolls-docs-nav-list
+	margin: 0
+	padding: 0
+	list-style: none
+	display: flex
+	flex-direction: column
+	gap: 1px
+	&.is-nested
+		margin-inline-start: 0.5rem
+		padding-inline-start: 0.6rem
+		border-inline-start: 1px solid color-mix(in oklab, var(--acrolls-docs-border) 80%, transparent)
+
+.acrolls-docs-nav-item
+	min-width: 0
+
+// A group is a <details>; its <summary> is the collapsible title row.
+.acrolls-docs-nav-group
+	margin: 0
+	&.is-active-branch > .acrolls-docs-nav-summary
+		color: var(--acrolls-docs-foreground)
+.acrolls-docs-nav-summary
+	list-style: none
+	cursor: pointer
+	display: flex
+	align-items: center
+	gap: 0.375rem
+	margin: 0
+	padding: 0.375rem 0.625rem
+	border-radius: 0.65rem
+	font-size: 0.875rem
+	font-weight: 500
+	color: var(--acrolls-docs-foreground)
+	user-select: none
+	&::-webkit-details-marker
+		display: none
+	&:hover
+		background: var(--acrolls-docs-muted)
+.acrolls-docs-nav-group-title
+	flex: 1
+	min-width: 0
+	overflow: hidden
+	text-overflow: ellipsis
+	white-space: nowrap
+	text-decoration: none
+	color: inherit
+	&:hover
+		color: var(--acrolls-docs-accent)
+	&.is-active
+		color: var(--acrolls-docs-accent)
+		font-weight: 600
+.acrolls-docs-nav-chevron
+	width: 0.45rem
+	height: 0.45rem
+	flex-shrink: 0
+	border-right: 1.5px solid currentColor
+	border-bottom: 1.5px solid currentColor
+	transform: rotate(-45deg)
+	transition: transform 0.15s ease
+	opacity: 0.6
+	color: var(--acrolls-docs-muted-foreground)
+.acrolls-docs-nav-group[open] > .acrolls-docs-nav-summary .acrolls-docs-nav-chevron
+	transform: rotate(45deg)
+.acrolls-docs-nav-body
+	padding-block: 0.15rem
+
+.acrolls-docs-nav-link
+	display: flex
+	align-items: center
+	gap: 0.5rem
+	border-radius: 0.65rem
+	padding: 0.375rem 0.625rem
+	font-size: 0.875rem
+	color: var(--acrolls-docs-muted-foreground)
+	text-decoration: none
+	transition: background 0.15s, color 0.15s
+	&:hover
+		background: var(--acrolls-docs-muted)
+		color: var(--acrolls-docs-foreground)
+	&[aria-current='page']
+		background: var(--acrolls-docs-muted)
+		color: var(--acrolls-docs-foreground)
+		font-weight: 500
+	.acrolls-docs-nav-link-text
+		flex: 1
+		min-width: 0
+		overflow: hidden
+		text-overflow: ellipsis
+		white-space: nowrap
+.acrolls-docs-nav-label
+	display: block
+	padding: 0.375rem 0.625rem
+	font-size: 0.875rem
+	color: var(--acrolls-docs-muted-foreground)
+.acrolls-docs-nav-badge
+	flex-shrink: 0
+	font-size: 0.68rem
+	line-height: 1.4
+	padding: 0 0.35rem
+	border-radius: 999px
+	color: var(--acrolls-docs-muted-foreground)
+	background: var(--acrolls-docs-muted)
+	text-transform: uppercase
+	letter-spacing: 0.03em
+
+// ============================================================
+// Main column — #acrolls-content
+// ============================================================
+#acrolls-content
+	padding: 1.5rem 1.5rem 2.5rem
+	min-width: 0
+@media (min-width: 64rem)
+	#acrolls-content
+		padding-inline: 2rem
+@media (min-width: 80rem)
+	#acrolls-content
+		padding-inline: 2.5rem
+
+// Article wrapper — constrains prose to the same measure as the surrounding
+// chrome (breadcrumb, pager, feedback) so everything aligns and centers.
+.acrolls-docs-article
+	max-width: var(--acrolls-docs-content-width)
+	margin-inline: auto
+
+// Page header (title + lede) rendered above the article body.
+.acrolls-docs-page-header
+	margin: 0 auto 1.5rem
+	max-width: var(--acrolls-docs-content-width)
+	h1
+		margin: 0
+		color: var(--acrolls-docs-foreground)
+		font-size: clamp(2rem, 5vw, 2.75rem)
+		font-weight: 700
+		letter-spacing: -0.03em
+		line-height: 1.1
+	p
+		max-width: 44rem
+		margin: 0.75rem 0 0
+		color: var(--acrolls-docs-muted-foreground)
+		font-size: 1.05rem
+		line-height: 1.55
+
+// ============================================================
+// Right rail TOC — [data-acrolls-toc]
+// ============================================================
+[data-acrolls-toc]
+	display: none
+@media (min-width: 80rem)
+	[data-acrolls-toc]
+		display: block
+		position: sticky
+		top: var(--acrolls-docs-header-height)
+		height: calc(100dvh - var(--acrolls-docs-header-height))
+		overflow-y: auto
+		padding: 1.5rem 1rem 2.5rem
+		font-size: 0.875rem
+		scrollbar-width: thin
+
+.acrolls-docs-toc-title
+	margin: 0 0 0.75rem
+	font-size: 0.875rem
+	font-weight: 600
+	color: var(--acrolls-docs-foreground)
+.acrolls-docs-toc-list
+	margin: 0
+	padding: 0
+	list-style: none
+	border-inline-start: 1px solid var(--acrolls-docs-border)
+.acrolls-docs-toc-item
+	margin: 0
+	&[data-level='3'] .acrolls-docs-toc-link
+		padding-inline-start: 1.25rem
+		font-size: 0.8rem
+	&[data-level='4'] .acrolls-docs-toc-link
+		padding-inline-start: 1.75rem
+		font-size: 0.8rem
+.acrolls-docs-toc-link
+	display: block
+	padding-block: 0.375rem
+	padding-inline-start: 0.75rem
+	margin-inline-start: -1px
+	border-inline-start: 2px solid transparent
+	color: var(--acrolls-docs-muted-foreground)
+	text-decoration: none
+	transition: color 0.15s, border-color 0.15s
+	&:hover
+		color: var(--acrolls-docs-foreground)
+	&[aria-current='location']
+		color: var(--acrolls-docs-foreground)
+		border-inline-start-color: var(--acrolls-docs-accent)
+		font-weight: 500
+
+// Mobile TOC (inside main, below the right-rail breakpoint)
+.acrolls-docs-mobile-toc
+	margin: 0 auto 1.5rem
+	max-width: var(--acrolls-docs-content-width)
+	border: 1px solid var(--acrolls-docs-border)
+	border-radius: var(--acrolls-docs-radius)
+	&[open] .acrolls-docs-mobile-toc-icon
+		transform: rotate(180deg)
+	summary
+		display: flex
+		align-items: center
+		justify-content: space-between
+		gap: 0.5rem
+		padding: 0.75rem 1rem
+		font-size: 0.875rem
+		font-weight: 500
+		color: var(--acrolls-docs-foreground)
+		cursor: pointer
+		list-style: none
+		&::-webkit-details-marker
+			display: none
+	.acrolls-docs-toc-list
+		border-inline-start: 0
+		border-top: 1px solid var(--acrolls-docs-border)
+		padding: 0.5rem
+	.acrolls-docs-toc-link
+		border-radius: 0.375rem
+		padding: 0.375rem 0.5rem
+		margin: 0
+		border-inline-start: 0
+		&[aria-current='location']
+			background: var(--acrolls-docs-muted)
+@media (min-width: 80rem)
+	.acrolls-docs-mobile-toc
+		display: none
+.acrolls-docs-mobile-toc-icon
+	transition: transform 0.15s
+	color: var(--acrolls-docs-muted-foreground)
+
+// ============================================================
+// Breadcrumb
+// ============================================================
+.acrolls-docs-breadcrumb
+	margin: 0 auto 0.5rem
+	max-width: var(--acrolls-docs-content-width)
+	font-size: 0.875rem
+	color: var(--acrolls-docs-muted-foreground)
+.acrolls-docs-breadcrumb-list
+	list-style: none
+	margin: 0
+	padding: 0
+	display: flex
+	flex-wrap: wrap
+	align-items: center
+	gap: 0.25rem
+.acrolls-docs-breadcrumb-item
+	display: inline-flex
+	align-items: center
+	gap: 0.35rem
+	min-width: 0
+.acrolls-docs-breadcrumb-sep
+	opacity: 0.6
+.acrolls-docs-breadcrumb-link
+	color: var(--acrolls-docs-muted-foreground)
+	text-decoration: none
+	overflow: hidden
+	text-overflow: ellipsis
+	white-space: nowrap
+	&:hover
+		color: var(--acrolls-docs-foreground)
+		text-decoration: underline
+.acrolls-docs-breadcrumb-current
+	color: var(--acrolls-docs-foreground)
+	overflow: hidden
+	text-overflow: ellipsis
+	white-space: nowrap
+
+// ============================================================
+// Dropdown menus (page actions export / share)
+// ============================================================
+details[data-acrolls-dropdown]
+	position: relative
+	> summary
+		display: flex
+		align-items: center
+		gap: 0.625rem
+		cursor: pointer
+		list-style: none
+		border-radius: 999px
+		&::-webkit-details-marker
+			display: none
+	.acrolls-docs-chevron
+		transition: transform 0.15s
+		margin-inline-start: auto
+	&[open] .acrolls-docs-chevron
+		transform: rotate(180deg)
+
+[data-acrolls-menu]
+	position: absolute
+	top: 100%
+	inset-inline-end: 0
+	z-index: 50
+	margin-top: 0.25rem
+	width: max-content
+	min-width: 13rem
+	max-width: 22rem
+	border: 1px solid var(--acrolls-docs-border)
+	border-radius: var(--acrolls-docs-radius)
+	background: var(--acrolls-docs-background)
+	padding: 0.25rem
+	box-shadow: 0 20px 25px -5px color-mix(in oklab, #000 12%, transparent), 0 8px 10px -6px color-mix(in oklab, #000 10%, transparent)
+.acrolls-docs-menu-item
+	display: flex
+	width: 100%
+	align-items: center
+	gap: 0.625rem
+	border: 0
+	border-radius: 0.375rem
+	background: transparent
+	padding: 0.375rem 0.5rem
+	font-size: 0.875rem
+	font: inherit
+	text-align: start
+	color: var(--acrolls-docs-muted-foreground)
+	text-decoration: none
+	cursor: pointer
+	transition: background 0.15s, color 0.15s
+	&:hover
+		background: var(--acrolls-docs-muted)
+		color: var(--acrolls-docs-foreground)
+	.acrolls-docs-grow
+		flex: 1
+.acrolls-docs-menu-sep
+	margin-block: 0.25rem
+	border: 0
+	border-top: 1px solid var(--acrolls-docs-border)
+
+// ============================================================
+// Pagination
+// ============================================================
+.acrolls-docs-pagination
+	display: flex
+	justify-content: space-between
+	gap: 1rem
+	margin: 3rem auto 0
+	max-width: var(--acrolls-docs-content-width)
+	border-top: 1px solid var(--acrolls-docs-border)
+	padding-top: 1.5rem
+@media (max-width: 47.99rem)
+	.acrolls-docs-pagination
+		flex-direction: column
+.acrolls-docs-page-link
+	display: flex
+	flex: 1
+	align-items: center
+	gap: 0.5rem
+	max-width: 48%
+	border: 1px solid var(--acrolls-docs-border)
+	border-radius: var(--acrolls-docs-radius)
+	padding: 0.75rem 1rem
+	color: var(--acrolls-docs-foreground)
+	text-decoration: none
+	transition: border-color 0.15s
+	&:hover
+		border-color: var(--acrolls-docs-foreground)
+	&.acrolls-docs-page-link--next
+		margin-inline-start: auto
+		justify-content: flex-end
+		text-align: end
+@media (max-width: 47.99rem)
+	.acrolls-docs-page-link
+		max-width: 100%
+.acrolls-docs-page-eyebrow
+	display: block
+	font-size: 0.75rem
+	color: var(--acrolls-docs-muted-foreground)
+.acrolls-docs-page-title
+	display: block
+	overflow: hidden
+	text-overflow: ellipsis
+	white-space: nowrap
+	font-weight: 500
+.acrolls-docs-page-text
+	min-width: 0
+.acrolls-docs-page-arrow
+	flex-shrink: 0
+[dir='rtl'] .acrolls-docs-page-arrow
+	transform: scaleX(-1)
+@media (max-width: 47.99rem)
+	.acrolls-docs-page-eyebrow
+		display: none
+
+// ============================================================
+// Page feedback
+// ============================================================
+.acrolls-docs-feedback
+	display: flex
+	align-items: center
+	justify-content: space-between
+	gap: 1rem
+	margin: 3rem auto 0
+	max-width: var(--acrolls-docs-content-width)
+	border-top: 1px solid var(--acrolls-docs-border)
+	padding-top: 1.5rem
+	p
+		font-size: 0.875rem
+		color: var(--acrolls-docs-muted-foreground)
+		margin: 0
+.acrolls-docs-feedback-actions
+	display: flex
+	align-items: center
+	gap: 0.5rem
+.acrolls-docs-feedback-btn
+	display: inline-flex
+	align-items: center
+	gap: 0.5rem
+	border: 1px solid var(--acrolls-docs-border)
+	border-radius: var(--acrolls-docs-radius)
+	background: transparent
+	padding: 0.5rem 1rem
+	font-size: 0.875rem
+	color: var(--acrolls-docs-foreground)
+	cursor: pointer
+	transition: border-color 0.15s
+	&:hover
+		border-color: var(--acrolls-docs-foreground)
+
+// ============================================================
+// Page actions rail (edit / copy / scroll-top / print)
+// ============================================================
+.acrolls-docs-page-actions
+	margin-top: 2rem
+	border-top: 1px solid var(--acrolls-docs-border)
+	padding-top: 1rem
+	> * + *
+		margin-top: 0.125rem
+.acrolls-docs-row-action
+	display: flex
+	width: 100%
+	align-items: center
+	gap: 0.625rem
+	padding-block: 0.375rem
+	padding-inline: 0.25rem
+	border: 0
+	border-radius: 0.375rem
+	background: transparent
+	font-size: 0.875rem
+	font: inherit
+	text-align: start
+	color: var(--acrolls-docs-muted-foreground)
+	text-decoration: none
+	cursor: pointer
+	transition: color 0.15s, background 0.15s
+	&:hover
+		color: var(--acrolls-docs-foreground)
+		background: var(--acrolls-docs-muted)
+	details
+		width: 100%
+
+// ============================================================
+// Search — trigger + dialog (Pagefind-backed)
+// ============================================================
+.acrolls-docs-search-trigger
+	display: inline-flex
+	align-items: center
+	gap: 0.5rem
+	height: 2.25rem
+	padding-inline: 0.75rem
+	border: 1px solid var(--acrolls-docs-border)
+	border-radius: 999px
+	background: var(--acrolls-docs-background)
+	color: var(--acrolls-docs-muted-foreground)
+	font-size: 0.875rem
+	font: inherit
+	cursor: pointer
+	transition: border-color 0.15s, color 0.15s
+	min-width: 0
+	&:hover
+		border-color: var(--acrolls-docs-foreground)
+		color: var(--acrolls-docs-foreground)
+	.acrolls-docs-grow
+		flex: 1
+		text-align: start
+	kbd
+		font-family: var(--acrolls-docs-font-mono)
+		font-size: 0.7rem
+@media (min-width: 64rem)
+	.acrolls-docs-search-trigger
+		min-width: 10rem
+@media (max-width: 63.99rem)
+	.acrolls-docs-search-trigger .acrolls-docs-grow, .acrolls-docs-search-trigger kbd
+		display: none
+
+[data-acrolls-search-dialog]
+	margin: 8vh auto auto
+	height: min(30rem, 90dvh)
+	width: min(62.5rem, 94vw)
+	flex-direction: column
+	overflow: hidden
+	border: 1px solid var(--acrolls-docs-border)
+	border-radius: var(--acrolls-docs-radius)
+	background: color-mix(in oklab, var(--acrolls-docs-background) 82%, transparent)
+	color: var(--acrolls-docs-foreground)
+	padding: 0
+	box-shadow: 0 25px 50px -12px color-mix(in oklab, #000 25%, transparent)
+	outline: none
+	backdrop-filter: blur(24px)
+	-webkit-backdrop-filter: blur(24px)
+	&::backdrop
+		background: color-mix(in oklab, #000 35%, transparent)
+		backdrop-filter: blur(4px)
+	&[open]
+		display: flex
+
+.acrolls-docs-search-bar
+	display: flex
+	align-items: center
+	gap: 0.625rem
+	padding: 0.75rem 1rem
+	border-bottom: 1px solid var(--acrolls-docs-border)
+	color: var(--acrolls-docs-muted-foreground)
+	input
+		flex: 1
+		border: 0
+		background: transparent
+		color: var(--acrolls-docs-foreground)
+		font-size: 0.875rem
+		font: inherit
+		&:focus
+			outline: none
+@media (pointer: coarse)
+	.acrolls-docs-search-bar input
+		font-size: 1rem
+
+.acrolls-docs-search-grid
+	display: grid
+	grid-template-columns: minmax(0, 1fr)
+	min-height: 0
+	flex: 1
+.acrolls-docs-search-left
+	display: flex
+	min-height: 0
+	flex-direction: column
+
+[data-acrolls-search-results]
+	min-height: 0
+	flex: 1
+	overflow-y: auto
+	padding: 0.5rem
+	scrollbar-width: thin
+	margin: 0
+	list-style: none
+[data-acrolls-search-message]
+	margin: 0
+	padding: 1.5rem 1rem
+	text-align: center
+	font-size: 0.875rem
+	color: var(--acrolls-docs-muted-foreground)
+
+.acrolls-docs-search-result
+	a
+		display: flex
+		flex-direction: column
+		gap: 0.2rem
+		padding: 0.5rem 0.6rem
+		border-radius: calc(var(--acrolls-docs-radius) * 0.7)
+		color: inherit
+		text-decoration: none
+		&:hover, &[data-selected='true']
+			background: color-mix(in oklab, var(--acrolls-docs-accent) 14%, transparent)
+.acrolls-docs-search-result-title
+	font-weight: 600
+	font-size: 0.9rem
+.acrolls-docs-search-result-excerpt
+	color: var(--acrolls-docs-muted-foreground)
+	font-size: 0.85em
+	line-height: 1.4
+	mark
+		background: color-mix(in oklab, var(--acrolls-docs-accent) 28%, transparent)
+		color: inherit
+		border-radius: 0.2em
+		padding: 0 0.1em
+
+.acrolls-docs-search-footer
+	display: flex
+	align-items: center
+	justify-content: space-between
+	gap: 0.75rem
+	border-top: 1px solid var(--acrolls-docs-border)
+	padding: 0.5rem 0.75rem
+	font-size: 0.75rem
+	color: var(--acrolls-docs-muted-foreground)
+	.acrolls-docs-hints
+		display: flex
+		align-items: center
+		gap: 0.75rem
+	.acrolls-docs-hint
+		display: flex
+		align-items: center
+		gap: 0.25rem
+@media (max-width: 47.99rem)
+	.acrolls-docs-search-footer .acrolls-docs-hint--preview
+		display: none
+
+.acrolls-docs-kbd
+	border: 1px solid var(--acrolls-docs-border)
+	background: var(--acrolls-docs-muted)
+	border-radius: 0.25rem
+	padding: 0.0625rem 0.25rem
+	font-family: var(--acrolls-docs-font-mono)
+	font-size: 0.7rem
+	&.acrolls-docs-kbd--sm
+		font-size: 0.65rem
+.acrolls-docs-check
+	display: flex
+	align-items: center
+	gap: 0.375rem
+	cursor: pointer
+	user-select: none
+	input
+		width: 0.875rem
+		height: 0.875rem
+		accent-color: var(--acrolls-docs-accent)
+
+// Inline (non-dialog) search variant for hosts that mount DocsSearch directly.
+.acrolls-docs-search
+	position: relative
+.acrolls-docs-search-input
+	width: 100%
+	padding: 0.5rem 0.75rem
+	border: 1px solid var(--acrolls-docs-border)
+	border-radius: var(--acrolls-docs-radius)
+	background: var(--acrolls-docs-background)
+	color: var(--acrolls-docs-foreground)
+	font: inherit
+.acrolls-docs-search-note
+	margin: 0.5rem 0 0
+	color: var(--acrolls-docs-muted-foreground)
+	font-size: 0.9em
+.acrolls-docs-search-results
+	list-style: none
+	margin: 0.5rem 0 0
+	padding: 0.35rem
+	display: flex
+	flex-direction: column
+	gap: 0.15rem
+	border: 1px solid var(--acrolls-docs-border)
+	border-radius: var(--acrolls-docs-radius)
+	background: var(--acrolls-docs-background)
+	max-height: 22rem
+	overflow: auto
+
+// ============================================================
+// Utility
+// ============================================================
+.acrolls-docs-grow
+	flex: 1
+
+.visually-hidden
+	position: absolute
+	width: 1px
+	height: 1px
+	padding: 0
+	margin: -1px
+	overflow: hidden
+	clip: rect(0, 0, 0, 0)
+	white-space: nowrap
+	border: 0
+
+@media (prefers-reduced-motion: reduce)
+	.acrolls-docs-root *
+		transition: none !important
+		animation: none !important

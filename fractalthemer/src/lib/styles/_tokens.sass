@@ -1,0 +1,42 @@
+// Mode marker contract — Fractal Themer
+//   [data-mode='light'|'dark']  the OS-backed binary axis (set on <html>)
+//   [data-theme='<name>']       named palettes, orthogonal to mode
+//   [data-bg-style='plain'|'aura'|'gradient'] background rendering style
+
+:root
+	color-scheme: light
+
+	// Base Surfaces
+	--bg: #FFFFFF
+	--bg-surface: #F8F9FA
+	--bg-raised: #FFFFFF
+	--bg-panel: #F1F3F5
+	--bg-footer: #E9ECEF
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #0F172A
+	--bg-input: #FFFFFF
+	--bg-canvas: #F8F9FA
+
+	// Text & Typography Contrast
+	--text-primary: #0F172A
+	--text-secondary: #475569
+	--text-muted: #7F91AA
+	--text-inverse: #FFFFFF
+
+	// Borders & Dividers
+	--border: #E2E8F0
+	--border-subtle: #EDF2F7
+
+	// Brand Accent & Theme
+	--theme-color: #04825B
+	--theme-color-alt: #047857
+	--theme: var(--theme-color)
+
+	// Interactive State Tints
+	--state-hover: #E2E8F0
+	--state-hover-subtle: #F1F5F9
+	--state-selected: #CBD5E1
+
+	// Feedback
+	--feedback-error: #DC2626

@@ -1,0 +1,9 @@
+// Optional indented SASS token map for hosts that compile SASS.
+// Import and map onto your design tokens / :root as needed.
+
+$acrolls-tokens: ("font-body": (var(--font-body, inherit)), "font-heading": (var(--font-heading, inherit)), "font-code": (var(--font-mono, ui-monospace, monospace)), "background": (var(--background, transparent)), "foreground": (var(--foreground, currentColor)), "muted": (var(--muted-foreground, color-mix(in oklab, currentColor 62%, transparent))), "border": (var(--border, color-mix(in oklab, currentColor 16%, transparent))), "accent": (var(--accent, currentColor)), "surface": (var(--card, color-mix(in oklab, currentColor 4%, transparent))), "surface-strong": (var(--muted, color-mix(in oklab, currentColor 8%, transparent))), "content-width": 70ch, "wide-width": min(92rem, calc(100vw - 2rem)), "radius": 0.75rem, "gutter": clamp(1rem, 4vw, 2.5rem), "leading": 1.78)
+
+@mixin acrolls-tokens($map: $acrolls-tokens)
+	.acrolls
+		@each $key, $value in $map
+			--acrolls-#{$key}: #{$value}

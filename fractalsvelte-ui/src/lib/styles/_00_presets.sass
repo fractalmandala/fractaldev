@@ -1,0 +1,111 @@
+// ============================================================================
+// presets — the four preset languages, as pure token remaps.
+//
+// Emitted AFTER _00_themes.sass on purpose. data-color remaps the same three
+// surface tokens every theme sets, so if themes came last a chosen theme would
+// silently cancel the colour axis. The intended layering is:
+//
+//   :root defaults  ->  [data-mode]  ->  theme class  ->  preset attributes
+//
+// i.e. a theme beats the mode default, and a preset tunes whatever theme is
+// active. Do not reorder these three in index.sass.
+// ============================================================================
+
+// Applied by setting one attribute per language on <html>; fs2 owns
+// application, persistence, and anti-flicker (Amendment A2). Absent attributes
+// = the defaults above (comfortable layout, curved radius channels, general
+// color, active motion).
+// =============================================================================
+
+// --- Layout — data-layout: tight / sprawling (comfortable is the default) ---
+// Density = two factors: gaps/margins × --gap-scale, paddings × --pad-scale.
+// Pads and gaps scale at DIFFERENT rates — uniform scaling is a perceptual
+// no-op; breathing opens when padding outgrows gap (sprawling) and closes
+// when it shrinks faster (tight). Element sizes, heights, and widths never
+// move: control heights stay authored at their comfortable values.
+[data-layout='tight']
+	--gap-scale: 0.85
+	--pad-scale: 0.7
+
+[data-layout='sprawling']
+	--gap-scale: 1.2
+	--pad-scale: 1.5
+
+// --- Shape — data-shape: round / curved / pro / sharp ------------------------
+[data-shape='round']
+	--radius-sm: 16px
+	--radius-md: 24px
+	--radius-lg: 32px
+
+[data-shape='curved']
+	--radius-sm: 8px
+	--radius-md: 16px
+	--radius-lg: 24px
+
+[data-shape='pro']
+	--radius-sm: 4px
+	--radius-md: 8px
+	--radius-lg: 16px
+
+[data-shape='sharp']
+	--radius-sm: 0
+	--radius-md: 0
+	--radius-lg: 0
+
+// --- Color — data-color: clean / vibrant (general is the default) ------------
+// Layer tint on the surface ladder only: clean flattens separation toward the
+// page bg, vibrant deepens it. Light values are the mode default; dark values
+// override under both dark paths. General ships in the theme mixins.
+[data-color='clean']
+	--bg-surface: #fbfbfb
+	--bg-raised: #f5f7f9
+	--bg-panel: #F7F8F9
+
+[data-color='vibrant']
+	--bg-surface: #f2f5f7
+	--bg-raised: #e8eef3
+	--bg-panel: #E9EEF3
+
+@media (prefers-color-scheme: dark)
+	:root:not([data-mode='light'])[data-color='clean']
+		--bg-surface: #121626
+		--bg-raised: #171C2C
+		--bg-panel: #10131D
+	:root:not([data-mode='light'])[data-color='vibrant']
+		--bg-surface: #171E33
+		--bg-raised: #26314E
+		--bg-panel: #141B2E
+
+[data-mode='dark'][data-color='clean']
+	--bg-surface: #121626
+	--bg-raised: #171C2C
+	--bg-panel: #10131D
+
+[data-mode='dark'][data-color='vibrant']
+	--bg-surface: #171E33
+	--bg-raised: #26314E
+	--bg-panel: #141B2E
+
+// --- Motion — data-motion: springy / heavy / reduced (active is the default) -
+[data-motion='springy']
+	--motion-fast: 140ms
+	--motion-base: 200ms
+	--motion-slow: 300ms
+	--ease-out: cubic-bezier(0.34, 1.56, 0.64, 1)
+
+[data-motion='heavy']
+	--motion-fast: 200ms
+	--motion-base: 300ms
+	--motion-slow: 450ms
+
+[data-motion='reduced']
+	--motion-fast: 0ms
+	--motion-base: 0ms
+	--motion-slow: 0ms
+
+// prefers-reduced-motion is honored globally regardless of preset (registry v1).
+@media (prefers-reduced-motion: reduce)
+	:root
+		--motion-fast: 0ms
+		--motion-base: 0ms
+		--motion-slow: 0ms

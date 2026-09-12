@@ -1,0 +1,975 @@
+// fractalpop demo — Aura Design System
+// A technical-manual aesthetic: numbered architecture index, mono metadata
+// labels, hairline geometry at a single 8px radius, deliberate 8px-base rhythm,
+// and one deep surface carrying the focal object. Orange (#fa3701) replaces
+// Aura's teal primary; the page ground stays pure white.
+
+// ── tokens ────────────────────────────────────────────────────────────────────
+:root
+	// colour roles
+	--bg: #ffffff
+	--surface: #042f2e
+	--surface-2: #f9fafb
+	--ink: #111827
+	--body: #4b5563
+	--muted: #9ca3af
+	--line: #e5e7eb
+	--line-strong: #d1d5db
+	--accent: #fa3701
+	--theme-color: #fa3701
+	--accent-wash: rgba(250, 55, 1, 0.08)
+	--on-surface: #d8e3e1
+	--on-surface-dim: #6e8b88
+
+	// rhythm — base 8
+	--s1: 8px
+	--s2: 16px
+	--s3: 24px
+	--s4: 40px
+	--s5: 80px
+	--card-pad: 24px
+	--gutter: 24px
+	--col: 1120px
+	--col-text: 680px
+
+	// geometry
+	--r-card: 8px
+	--r-control: 8px
+	--r-pill: 9999px
+
+	// type
+	--font-sans: Inter, 'Intet', -apple-system, 'Helvetica Neue', Arial, sans-serif
+	--font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', Menlo, Consolas, monospace
+
+	--ease: cubic-bezier(0.22, 0.61, 0.36, 1)
+	color-scheme: light
+
+*,
+*::before,
+*::after
+	box-sizing: border-box
+
+html, body
+	margin: 0
+
+body
+	background: var(--bg)
+	color: var(--text-primrary)
+	font-family: var(--font-sans)
+	font-size: 16px
+	line-height: 1.6
+	-webkit-font-smoothing: antialiased
+	text-rendering: optimizeLegibility
+
+h1, h2, h3, h4, p, ul, ol, figure
+	margin: 0
+
+button, input, select, textarea
+	font: inherit
+	color: inherit
+
+img, svg
+	display: block
+	max-width: 100%
+
+a
+	color: inherit
+	text-decoration: none
+
+:focus-visible
+	outline: 2px solid var(--accent)
+	outline-offset: 3px
+
+// ── mono metadata label ───────────────────────────────────────────────────────
+.label
+	font-family: var(--font-mono)
+	font-size: 12px
+	font-weight: 600
+	line-height: 1.2
+	letter-spacing: 0.08em
+	text-transform: uppercase
+	color: var(--muted)
+
+.label--accent
+	color: var(--accent)
+
+// ── shell ─────────────────────────────────────────────────────────────────────
+.shell
+	min-height: 100vh
+	display: flex
+	flex-direction: column
+
+.col
+	width: 100%
+	max-width: var(--col)
+	margin-inline: auto
+	padding-inline: var(--gutter)
+
+.measure
+	max-width: var(--col-text)
+
+.main
+	flex: 1
+
+// ── nav ───────────────────────────────────────────────────────────────────────
+.nav
+	position: sticky
+	top: 0
+	z-index: 50
+	display: flex
+	align-items: center
+	justify-content: space-between
+	gap: var(--s2)
+	height: 56px
+	padding-inline: var(--gutter)
+	background: rgba(255, 255, 255, 0.86)
+	backdrop-filter: blur(10px)
+	border-bottom: 1px solid var(--line)
+
+.nav-logo
+	display: inline-flex
+	align-items: center
+	gap: 10px
+	font-size: 18px
+	font-weight: 700
+	letter-spacing: 0
+	color: var(--text-primrary)
+
+.nav-logo img
+	width: 28px
+	height: 28px
+
+.nav__links
+	display: flex
+	align-items: center
+	gap: 2px
+
+.nav__link
+	position: relative
+	padding: 6px 10px
+	border-radius: var(--r-control)
+	font-family: var(--font-mono)
+	font-size: 12px
+	font-weight: 600
+	letter-spacing: 0.06em
+	text-transform: uppercase
+	color: var(--muted)
+	transition: color 0.18s var(--ease), background 0.18s var(--ease)
+
+.nav__link:hover
+	color: var(--text-primrary)
+	background: var(--surface-2)
+
+.nav__link[aria-current='page']
+	color: var(--text-primrary)
+
+.nav__link[aria-current='page']::after
+	content: ''
+	position: absolute
+	left: 10px
+	right: 10px
+	bottom: 1px
+	height: 2px
+	background: var(--accent)
+
+.nav__gh
+	display: inline-flex
+	margin-left: var(--s1)
+	padding: 6px
+	color: var(--muted)
+	transition: color 0.18s var(--ease)
+
+.nav__gh:hover
+	color: var(--text-primrary)
+
+.nav__gh svg
+	width: 18px
+	height: 18px
+
+.nav__menu
+	display: none
+	background: none
+	border: none
+	padding: 4px
+	color: var(--text-primrary)
+	cursor: pointer
+
+.nav__menu svg
+	width: 22px
+	height: 22px
+
+@media (max-width: 900px)
+	.nav__links
+		display: none
+	.nav__menu
+		display: inline-flex
+	.nav-open .nav__links
+		position: absolute
+		top: 56px
+		right: var(--gutter)
+		display: flex
+		flex-direction: column
+		align-items: flex-end
+		gap: 2px
+		padding: var(--s2)
+		background: var(--bg)
+		border: 1px solid var(--line)
+		border-radius: var(--r-card)
+
+// ── hero ──────────────────────────────────────────────────────────────────────
+.hero
+	padding-top: var(--s5)
+	padding-bottom: var(--s4)
+
+.hero-meta
+	display: flex
+	flex-wrap: wrap
+	gap: var(--s2)
+	margin-bottom: var(--s3)
+
+.hero-meta span::before
+	content: '[- '
+	color: var(--theme-color)
+
+// The product name is the loudest thing on the page; the positioning line sits
+// under it at display scale but a step quieter.
+.hero__wordmark
+	font-size: clamp(56px, 11vw, 104px)
+	font-weight: 600
+	line-height: 0.94
+	letter-spacing: -0.035em
+	color: var(--text-primrary)
+
+.hero__tagline
+	margin-top: var(--s2)
+	font-size: clamp(26px, 4.2vw, 38px)
+	font-weight: 500
+	line-height: 1.14
+	letter-spacing: -0.015em
+	color: var(--text-primrary)
+
+.hero__tagline em
+	font-style: normal
+	color: var(--accent)
+
+.hero__title
+	font-size: clamp(40px, 7vw, 64px)
+	font-weight: 500
+	line-height: 1.04
+	letter-spacing: 0
+	color: var(--text-primrary)
+
+.hero__title em
+	font-style: normal
+	color: var(--accent)
+
+.hero__sub
+	margin-top: var(--s3)
+	max-width: 52ch
+	color: var(--body)
+
+// ── controls ──────────────────────────────────────────────────────────────────
+.btn
+	display: inline-flex
+	align-items: center
+	gap: var(--s1)
+	padding: 10px 16px
+	background: var(--bg)
+	border: 1px solid var(--line-strong)
+	border-radius: var(--r-control)
+	font-family: var(--font-mono)
+	font-size: 13px
+	color: var(--text-primrary)
+	cursor: pointer
+	transition: border-color 0.18s var(--ease), transform 0.18s var(--ease), box-shadow 0.18s var(--ease)
+
+.btn:hover
+	border-color: var(--accent)
+	transform: translateY(-1px)
+	box-shadow: 0 6px 16px -10px rgba(17, 24, 39, 0.5)
+
+.btn__hint
+	font-size: 11px
+	letter-spacing: 0.06em
+	text-transform: uppercase
+	color: var(--muted)
+
+.btn.is-copied
+	border-color: var(--accent)
+
+.btn.is-copied .btn__hint
+	color: var(--accent)
+
+.install
+	margin-top: var(--s3)
+
+// ── architecture index ────────────────────────────────────────────────────────
+// Fixed column counts keep the index a complete rectangle at every width —
+// an auto-fit grid leaves a ragged final row, which reads as a layout bug.
+.index
+	display: grid
+	grid-template-columns: repeat(4, 1fr)
+	gap: 0
+	margin-top: var(--s5)
+	border-top: 1px solid var(--line)
+	border-left: 1px solid var(--line)
+
+@media (max-width: 900px)
+	.index
+		grid-template-columns: repeat(2, 1fr)
+
+@media (max-width: 480px)
+	.index
+		grid-template-columns: 1fr
+
+.index__item
+	display: flex
+	align-items: baseline
+	gap: 10px
+	padding: var(--s3)
+	border-right: 1px solid var(--line)
+	border-bottom: 1px solid var(--line)
+	transition: background 0.18s var(--ease), color 0.18s var(--ease)
+
+.index__item:hover
+	background: var(--surface-2)
+
+.index__item:hover .index__n
+	color: var(--accent)
+
+.index__n
+	font-family: var(--font-mono)
+	font-size: 12px
+	font-weight: 600
+	color: var(--muted)
+	transition: color 0.18s var(--ease)
+
+.index__label
+	font-size: 15px
+	color: var(--text-primrary)
+
+// ── sections ──────────────────────────────────────────────────────────────────
+.section
+	padding-block: var(--s5)
+	border-top: 1px solid var(--line)
+
+.section:first-of-type
+	border-top: none
+
+.section__head
+	display: flex
+	align-items: baseline
+	gap: var(--s2)
+	margin-bottom: var(--s4)
+
+.section__title
+	font-size: 28px
+	font-weight: 500
+	letter-spacing: -0.01em
+	color: var(--text-primrary)
+
+.block + .block
+	margin-top: var(--s4)
+
+.block__title
+	font-size: 18px
+	font-weight: 500
+	color: var(--text-primrary)
+	margin-bottom: var(--s1)
+
+.block__title .dim
+	color: var(--muted)
+
+.lede
+	max-width: var(--col-text)
+	color: var(--body)
+	margin-bottom: var(--s2)
+
+.lede b
+	color: var(--text-primrary)
+	font-weight: 500
+
+.lede a
+	color: var(--accent)
+	border-bottom: 1px solid var(--accent-wash)
+
+.lede a:hover
+	border-bottom-color: var(--accent)
+
+.lede code,
+.prose :not(pre) > code
+	font-family: var(--font-mono)
+	font-size: 0.85em
+	color: var(--text-primrary)
+	background: var(--surface-2)
+	border: 1px solid var(--line)
+	border-radius: 4px
+	padding: 1px 5px
+
+// ── code panels ───────────────────────────────────────────────────────────────
+// Hairline geometry, one radius, no ambient glow. The filename sits left in the
+// mono label voice — the panel reads as a spec sheet, not a floating card.
+.panel
+	position: relative
+	border: 1px solid var(--line)
+	border-radius: var(--r-card)
+	overflow: hidden
+	--fp-font-family: var(--font-mono)
+
+.panel + .panel
+	margin-top: var(--s2)
+
+// The package's header is scoped-styled; these ride on top of it. The extra
+// `.panel` ancestor wins the specificity tie against the component's own rule.
+.panel .fp-code__header
+	border-bottom: 1px solid rgba(128, 128, 128, 0.16)
+
+.panel .fp-code__header .fp-code__title
+	text-align: left
+	font-family: var(--font-mono)
+	font-size: 11px
+	font-weight: 600
+	letter-spacing: 0.08em
+	text-transform: uppercase
+	opacity: 0.7
+
+.panel__copy
+	position: absolute
+	top: 8px
+	right: 8px
+	z-index: 2
+	display: inline-flex
+	padding: 4px
+	background: none
+	border: none
+	border-radius: 4px
+	color: currentColor
+	opacity: 0.4
+	cursor: pointer
+	transition: opacity 0.18s var(--ease)
+
+.panel__copy:hover
+	opacity: 1
+
+.panel__copy svg
+	width: 15px
+	height: 15px
+
+.pair
+	display: grid
+	grid-template-columns: 1fr 1fr
+	border: 1px solid var(--line)
+	border-radius: var(--r-card)
+	overflow: hidden
+
+.pair .panel
+	border: none
+	border-radius: 0
+
+.pair .panel + .panel
+	margin-top: 0
+	border-left: 1px solid var(--line)
+
+@media (max-width: 720px)
+	.pair
+		grid-template-columns: 1fr
+	.pair .panel + .panel
+		border-left: none
+		border-top: 1px solid var(--line)
+
+// ── the focal object: playground on the deep surface ──────────────────────────
+.stage
+	margin-top: var(--s4)
+	padding: var(--s4) var(--s3)
+	background: var(--surface)
+	border-radius: var(--r-card)
+
+.stage__bar
+	display: flex
+	align-items: center
+	justify-content: space-between
+	flex-wrap: wrap
+	gap: var(--s2)
+	margin-bottom: var(--s3)
+
+.stage .label
+	color: var(--on-surface-dim)
+
+.frame
+	border-radius: var(--r-card)
+	overflow: hidden
+	--fp-font-family: var(--font-mono)
+
+.themebar
+	display: flex
+	align-items: center
+	flex-wrap: wrap
+	gap: 6px
+
+.swatch
+	display: inline-flex
+	align-items: center
+	justify-content: center
+	width: 18px
+	height: 18px
+	padding: 0
+	border: 1px solid rgba(255, 255, 255, 0.22)
+	border-radius: var(--r-pill)
+	cursor: pointer
+	transition: transform 0.18s var(--ease), border-color 0.18s var(--ease)
+
+.swatch__dot
+	width: 7px
+	height: 7px
+	border-radius: var(--r-pill)
+
+.swatch:hover
+	transform: translateY(-2px)
+
+.swatch[aria-pressed='true']
+	border-color: var(--accent)
+	box-shadow: 0 0 0 2px rgba(250, 55, 1, 0.3)
+
+.swatch--mode
+	background: linear-gradient(90deg, #ffffff 50%, #042f2e 50%)
+	margin-left: var(--s1)
+
+// light context (themes / sveltekit pages put the bar on white)
+.themebar--light .swatch
+	border-color: var(--line-strong)
+
+.themebar-row
+	display: flex
+	align-items: center
+	flex-wrap: wrap
+	gap: var(--s2)
+	margin-bottom: var(--s2)
+
+.controls
+	display: flex
+	align-items: center
+	flex-wrap: wrap
+	gap: var(--s1)
+	margin-top: var(--s3)
+
+.control
+	display: inline-flex
+	align-items: center
+	gap: 6px
+	padding: 7px 12px
+	background: transparent
+	border: 1px solid rgba(255, 255, 255, 0.16)
+	border-radius: var(--r-control)
+	font-family: var(--font-mono)
+	font-size: 12px
+	color: var(--on-surface)
+	cursor: pointer
+	transition: border-color 0.18s var(--ease), color 0.18s var(--ease)
+
+.control:hover
+	border-color: var(--accent)
+	color: #fff
+
+.control:disabled
+	opacity: 0.45
+	cursor: default
+
+.control--ok
+	border-color: var(--accent)
+	color: var(--accent)
+
+.control svg
+	width: 14px
+	height: 14px
+
+.control select
+	background: transparent
+	border: none
+	font: inherit
+	color: inherit
+	cursor: pointer
+	outline: none
+
+.control select option
+	color: #111827
+
+// light-context controls
+.controls--light .control
+	border-color: var(--line-strong)
+	color: var(--body)
+
+.controls--light .control:hover
+	border-color: var(--accent)
+	color: var(--text-primrary)
+
+// language tabs
+.tabs
+	display: flex
+	flex-wrap: wrap
+	gap: 4px
+	margin-bottom: var(--s2)
+
+.tab
+	padding: 6px 12px
+	background: none
+	border: 1px solid var(--line)
+	border-radius: var(--r-control)
+	font-family: var(--font-mono)
+	font-size: 12px
+	color: var(--muted)
+	cursor: pointer
+	transition: border-color 0.18s var(--ease), color 0.18s var(--ease)
+
+.tab:hover
+	color: var(--text-primrary)
+
+.tab.is-active
+	border-color: var(--accent)
+	color: var(--accent)
+
+// ── tables ────────────────────────────────────────────────────────────────────
+.details
+	margin-top: var(--s3)
+	border-top: 1px solid var(--line)
+
+.details > summary
+	list-style: none
+	cursor: pointer
+	display: flex
+	align-items: center
+	gap: var(--s1)
+	padding: 14px 0
+	font-family: var(--font-mono)
+	font-size: 12px
+	font-weight: 600
+	letter-spacing: 0.08em
+	text-transform: uppercase
+	color: var(--text-primrary)
+
+.details > summary::-webkit-details-marker
+	display: none
+
+.details > summary::before
+	content: '+'
+	color: var(--accent)
+	font-size: 14px
+
+.details[open] > summary::before
+	content: '−'
+
+.details > summary small
+	font-weight: 400
+	color: var(--muted)
+
+.table
+	width: 100%
+	padding-bottom: var(--s2)
+
+.table__head,
+.table__row
+	display: grid
+	grid-template-columns: 12rem 1fr
+	align-items: center
+	gap: var(--s2)
+	width: 100%
+	padding: 10px 0
+	text-align: left
+	background: none
+	border: none
+	border-top: 1px solid var(--line)
+	font: inherit
+	font-size: 14px
+
+.table__head
+	font-family: var(--font-mono)
+	font-size: 11px
+	font-weight: 600
+	letter-spacing: 0.08em
+	text-transform: uppercase
+	color: var(--muted)
+
+.table__row
+	color: var(--body)
+	transition: background 0.15s var(--ease), padding-left 0.15s var(--ease)
+
+button.table__row
+	cursor: pointer
+
+button.table__row:hover
+	background: var(--surface-2)
+	padding-left: var(--s1)
+
+.table__row code
+	font-family: var(--font-mono)
+	font-size: 13px
+	color: var(--text-primrary)
+
+.table__row code.dim
+	color: var(--muted)
+
+.table--props .table__head,
+.table--props .table__row
+	grid-template-columns: 10rem 10rem 1fr
+
+@media (max-width: 720px)
+	.table__head,
+	.table__row
+		grid-template-columns: 1fr !important
+		gap: 2px
+
+// token map
+.map
+	display: grid
+	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr))
+	gap: 0
+	margin-top: var(--s3)
+	border-top: 1px solid var(--line)
+	border-left: 1px solid var(--line)
+
+.map__row
+	display: flex
+	align-items: center
+	gap: var(--s1)
+	padding: 12px var(--s2)
+	border-right: 1px solid var(--line)
+	border-bottom: 1px solid var(--line)
+	font-family: var(--font-mono)
+	font-size: 12px
+
+.map__k
+	flex: 1
+	color: var(--body)
+
+.map__arrow
+	color: var(--line-strong)
+
+.map__v
+	font-weight: 600
+
+// file tree
+.tree
+	display: grid
+	grid-template-columns: 240px 1fr
+	align-items: stretch
+	border: 1px solid var(--line)
+	border-radius: var(--r-card)
+	overflow: hidden
+
+// The code cell must fill the row, or its themed background stops short of the
+// tree's full height and leaves a bare strip under the last line.
+.tree > :last-child
+	display: flex
+	border-left: 1px solid var(--line)
+	overflow: auto
+	min-width: 0
+
+.tree > :last-child > *
+	flex: 1
+	min-width: 0
+
+@media (max-width: 720px)
+	.tree
+		grid-template-columns: 1fr
+	.tree > :last-child
+		border-left: none
+		border-top: 1px solid var(--line)
+
+// ── prose pages ───────────────────────────────────────────────────────────────
+.prose
+	padding-block: var(--s5)
+	max-width: calc(var(--col-text) + var(--gutter) * 2)
+
+.prose h1
+	font-size: clamp(36px, 6vw, 56px)
+	font-weight: 500
+	line-height: 1.04
+	color: var(--text-primrary)
+	margin-bottom: var(--s4)
+
+.prose h2
+	font-size: 22px
+	font-weight: 500
+	color: var(--text-primrary)
+	margin: var(--s5) 0 var(--s2)
+	padding-top: var(--s3)
+	border-top: 1px solid var(--line)
+
+.prose h3
+	font-size: 17px
+	font-weight: 500
+	color: var(--text-primrary)
+	margin: var(--s4) 0 var(--s1)
+
+.prose p
+	color: var(--body)
+	margin-bottom: var(--s2)
+
+.prose p b
+	color: var(--text-primrary)
+	font-weight: 500
+
+.prose a
+	color: var(--accent)
+	border-bottom: 1px solid var(--accent-wash)
+
+.prose pre
+	background: var(--surface-2)
+	border: 1px solid var(--line)
+	border-radius: var(--r-card)
+	padding: var(--card-pad)
+	margin: var(--s3) 0
+	overflow-x: auto
+
+.prose pre code
+	display: block
+	font-family: var(--font-mono)
+	font-size: 13px
+	line-height: 1.7
+	color: var(--fp-identifier, var(--text-primrary))
+	white-space: pre
+
+// Highlighted fences emit one `.fp__line` block per line, each still carrying the
+// source newline. Neutralising white-space on the container stops that newline
+// doubling the leading; the line itself keeps `pre` so indentation survives.
+// Gated on `:has()` because some blocks hold raw text with no line spans — those
+// still need `white-space: pre` or their newlines collapse away entirely.
+.prose pre.fp:has(.fp__line),
+.prose pre.fp:has(.fp__line) code
+	white-space: normal
+
+// Token colours for prose code — the light reference palette.
+.prose
+	--fp-identifier: #111827
+	--fp-keyword: #fa3701
+	--fp-string: #0f766e
+	--fp-class: #6d28d9
+	--fp-property: #1d4ed8
+	--fp-entity: #7c3aed
+	--fp-jsxliterals: #a21caf
+	--fp-sign: #6b7280
+	--fp-comment: #9ca3af
+
+.prose .fp__line
+	display: block
+	min-height: 1lh
+	white-space: pre
+
+.prose .fp__line--highlighted,
+.prose .fp__line[data-highlight]
+	background: var(--accent-wash)
+	box-shadow: inset 2px 0 0 var(--accent)
+	margin-inline: calc(var(--card-pad) * -1)
+	padding-inline: var(--card-pad)
+
+.prose .live-btn
+	margin-top: var(--s1)
+	padding: 9px 14px
+	background: var(--bg)
+	border: 1px solid var(--line-strong)
+	border-radius: var(--r-control)
+	font-family: var(--font-mono)
+	font-size: 12px
+	color: var(--text-primrary)
+	cursor: pointer
+	transition: border-color 0.18s var(--ease), transform 0.18s var(--ease)
+
+.prose .live-btn:hover:not(:disabled)
+	border-color: var(--accent)
+	color: var(--accent)
+	transform: translateY(-1px)
+
+.prose .live-btn:disabled
+	color: var(--muted)
+	cursor: default
+
+.prose .source
+	margin-top: var(--s4)
+
+.prose .source summary
+	cursor: pointer
+	font-family: var(--font-mono)
+	font-size: 12px
+	letter-spacing: 0.06em
+	text-transform: uppercase
+	color: var(--muted)
+
+// ── footer ────────────────────────────────────────────────────────────────────
+.footer
+	padding-block: var(--s4)
+	border-top: 1px solid var(--line)
+	font-family: var(--font-mono)
+	font-size: 12px
+	line-height: 1.7
+	color: var(--muted)
+
+.footer b
+	color: var(--text-primrary)
+	font-weight: 600
+
+.footer__credit
+	margin-top: var(--s2)
+
+.footer__credit a
+	color: var(--accent)
+	border-bottom: 1px solid var(--accent-wash)
+
+.footer__credit a:hover
+	border-bottom-color: var(--accent)
+
+// prose helper for the remark output block
+.remark-out
+	padding: var(--s3)
+	border: 1px dashed var(--line-strong)
+	border-radius: var(--r-card)
+	margin: var(--s3) 0
+
+.remark-out > :first-child
+	margin-top: 0
+
+.remark-out p:last-child,
+.remark-out pre:last-child
+	margin-bottom: 0
+
+// ── motion: staggered masked reveal ───────────────────────────────────────────
+.reveal
+	opacity: 0
+	transform: translateY(14px)
+	transition: opacity 0.6s var(--ease), transform 0.6s var(--ease)
+	transition-delay: var(--reveal-delay, 0ms)
+
+.reveal.is-in
+	opacity: 1
+	transform: none
+
+// ── screenshot flourish ───────────────────────────────────────────────────────
+.screenshot-preview
+	position: fixed
+	z-index: 999
+	border-radius: var(--r-card)
+	box-shadow: 0 24px 48px -24px rgba(4, 47, 46, 0.5)
+	pointer-events: none
+	object-fit: cover
+	opacity: 1
+	transition: all 0.55s var(--ease)
+
+.screenshot-preview--minimized
+	left: var(--gutter) !important
+	top: auto !important
+	bottom: var(--gutter)
+	width: 120px !important
+	height: auto !important
+	opacity: 0
+	transform: translateY(20px) scale(0.6)
+
+@media (prefers-reduced-motion: reduce)
+	*
+		transition: none !important
+		animation: none !important
+	.reveal
+		opacity: 1
+		transform: none
+
+.text-theme
+	color: var(--theme-color)
+.weight-600
+	font-weight: 600

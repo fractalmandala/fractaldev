@@ -1,0 +1,70 @@
+<script lang="ts">
+	import { ShuffleText } from '$lib';
+</script>
+
+# ShuffleText
+
+Parse a CSS color string to [r, g, b] via a temporary canvas.
+
+## Import
+
+```svelte
+import { ShuffleText } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<ShuffleText
+  text="example"
+  style={''}
+  shuffleDirection={'right'}
+/>
+```
+
+<div class="live">
+<ShuffleText
+  text="example"
+  style={''}
+  shuffleDirection={'right'}
+/>
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `text` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+| `style?` | `string` | `''` | — |
+| `shuffleDirection?` | `ShuffleDirection` | `'right'` | — |
+| `duration?` | `number` | `0.35` | — |
+| `maxDelay?` | `number` | `0` | — |
+| `ease?` | `string | EasingFunction` | `'power3.out'` | — |
+| `threshold?` | `number` | `0.1` | — |
+| `rootMargin?` | `string` | `'-100px'` | — |
+| `tag?` | `TagName` | `'p'` | — |
+| `textAlign?` | `string` | `'center'` | — |
+| `onShuffleComplete?` | `() => void` | `—` | — |
+| `shuffleTimes?` | `number` | `1` | — |
+| `animationMode?` | `AnimationMode` | `'evenodd'` | — |
+| `loop?` | `boolean` | `false` | — |
+| `loopDelay?` | `number` | `0` | — |
+| `stagger?` | `number` | `0.03` | — |
+| `scrambleCharset?` | `string` | `''` | — |
+| `colorFrom?` | `string` | `—` | — |
+| `colorTo?` | `string` | `—` | — |
+| `triggerOnce?` | `boolean` | `true` | — |
+| `respectReducedMotion?` | `boolean` | `true` | — |
+| `triggerOnHover?` | `boolean` | `true` | — |
+
+## Exported types
+
+- `ShuffleDirection`
+- `AnimationMode`
+- `TagName`
+- `ShuffleTextProps`
+
+## Reduced motion
+
+Animation is disabled under `prefers-reduced-motion`.

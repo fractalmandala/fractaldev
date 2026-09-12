@@ -1,0 +1,34 @@
+{
+  "id": "daylight-monoline-cobalt",
+  "name": "Daylight Monoline Cobalt",
+  "version": "2.0.0",
+  "author": "amrit",
+  "description": "The same ink structure on a faint stone page, with the literals in cobalt. Reads more like documentation than code.",
+  "isDark": false,
+  "tags": [
+    "mono",
+    "light"
+  ],
+  "colors": {
+    "bg": "#F7F8F8",
+    "bg-secondary": "#EFF0F0",
+    "bg-tertiary": "#E6E7E7",
+    "bg-hover": "#EFF0F0",
+    "bg-selected": "#E4E6E6",
+    "bg-active": "#D9E3F2",
+    "text": "#565B61",
+    "text-muted": "#868A8E",
+    "text-faint": "#A9ADB1",
+    "text-disabled": "#C4C7CA",
+    "border": "#E2E3E3",
+    "border-focus": "#1E5FCC",
+    "primary": "#1E5FCC",
+    "primary-hover": "#285EB9",
+    "link": "#1E5FCC",
+    "link-hover": "#285EB9",
+    "success": "#3C7048",
+    "warning": "#A5720F",
+    "error": "#C0392B",
+    "info": "#2F5FA8"
+  }
+}

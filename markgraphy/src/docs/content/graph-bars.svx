@@ -1,0 +1,37 @@
+<script lang="ts">
+	import { GraphBars } from '$lib';
+</script>
+
+# GraphBars
+
+## Import
+
+```svelte
+import { GraphBars } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphBars
+  title="example"
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `from` | `BarSeries` | `—` | — |
+| `to` | `BarSeries` | `—` | — |
+| `processor?` | `string` | `—` | — |
+| `glyphs?` | `Glyphs` | `—` | — |
+| `palette?` | `GraphPalette` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `BarSeries`
+- `GraphBarsProps`

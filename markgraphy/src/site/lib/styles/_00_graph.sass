@@ -1,0 +1,290 @@
+// =============================================================================
+// 00_GRAPH — tokens and classes created specifically for the markgraphy
+// component library.  Everything here is markgraphy's own vocabulary; the
+// base design-system tokens (colours, type scale, spacing, radius, motion,
+// z-index, layout) live in _00_tokens.sass and come from fractalstyler2.
+// =============================================================================
+
+// ── Graph vocabulary tokens ──────────────────────────────────────────────────
+:root
+	// Brand & site
+	--col-svelte: #FF3E00
+	--site-max: 92rem
+	--pad: clamp(1rem, 2.4vw, 2rem)
+	// Graph drawing
+	--graph-framer: var(--border) 0 4px, transparent 4px 8px
+	--graph-framer-gapped: var(--border) 0 4px, transparent 4px 16px
+	--graph-framer-long: var(--border) 0 12px, transparent 12px 24px
+	--graph-framer-short: var(--border) 0 2px, transparent 2px 4px
+	--graph-framer-dot: var(--border) 0 1px, transparent 1px 4px
+	--graph-framer-alt: var(--border) 0 2px, transparent 2px 5px, var(--border) 5px 13px, transparent 13px 16px
+	// Frame component defaults (Graph.svelte)
+	--fg-on: 4px
+	--fg-period: 8px
+	--fg-speed: 0.7s
+	--fg-dash: var(--fg-ink, var(--text-primary)) 0 var(--fg-on), transparent var(--fg-on) var(--fg-period)
+	// Knob defaults (GraphAgni.svelte)
+	--agni-line: calc(0.85rem * 1.15)
+	--knob-track: 0.375rem
+	--knob-thumb: 0.85rem
+
+// ── Dash variants (site pages pass these through `class` on a Graph) ────────
+.graph.gfgap
+	--graph-framer: var(--graph-framer-gapped)
+.graph.gflong
+	--graph-framer: var(--graph-framer-long)
+.graph.gfshort
+	--graph-framer: var(--graph-framer-short)
+.graph.gfdot
+	--graph-framer: var(--graph-framer-dot)
+.graph.gfalt
+	--graph-framer: var(--graph-framer-alt)
+
+// ── Accent colours ───────────────────────────────────────────────────────────
+html[data-accent='#ff3e00']
+	--graph-accent: #ff3e00
+	--graph-accent-2: color-mix(in oklch, #ff3e00 65%, black)
+	--graph-accent-3: color-mix(in oklch, #ff3e00 50%, white)
+html[data-accent='#e67700']
+	--graph-accent: #e67700
+	--graph-accent-2: color-mix(in oklch, #e67700 65%, black)
+	--graph-accent-3: color-mix(in oklch, #e67700 50%, white)
+html[data-accent='#5c940d']
+	--graph-accent: #5c940d
+	--graph-accent-2: color-mix(in oklch, #5c940d 65%, black)
+	--graph-accent-3: color-mix(in oklch, #5c940d 50%, white)
+html[data-accent='#2f9e44']
+	--graph-accent: #2f9e44
+	--graph-accent-2: color-mix(in oklch, #2f9e44 65%, black)
+	--graph-accent-3: color-mix(in oklch, #2f9e44 50%, white)
+html[data-accent='#087f5b']
+	--graph-accent: #087f5b
+	--graph-accent-2: color-mix(in oklch, #087f5b 65%, black)
+	--graph-accent-3: color-mix(in oklch, #087f5b 50%, white)
+html[data-accent='#1098ad']
+	--graph-accent: #1098ad
+	--graph-accent-2: color-mix(in oklch, #1098ad 65%, black)
+	--graph-accent-3: color-mix(in oklch, #1098ad 50%, white)
+html[data-accent='#1971c2']
+	--graph-accent: #1971c2
+	--graph-accent-2: color-mix(in oklch, #1971c2 65%, black)
+	--graph-accent-3: color-mix(in oklch, #1971c2 50%, white)
+html[data-accent='#862e9c']
+	--graph-accent: #862e9c
+	--graph-accent-2: color-mix(in oklch, #862e9c 65%, black)
+	--graph-accent-3: color-mix(in oklch, #862e9c 50%, white)
+html[data-accent='#c2255c']
+	--graph-accent: #c2255c
+	--graph-accent-2: color-mix(in oklch, #c2255c 65%, black)
+	--graph-accent-3: color-mix(in oklch, #c2255c 50%, white)
+html[data-accent='#c92a2a']
+	--graph-accent: #c92a2a
+	--graph-accent-2: color-mix(in oklch, #c92a2a 65%, black)
+	--graph-accent-3: color-mix(in oklch, #c92a2a 50%, white)
+
+// ── Accent animations ────────────────────────────────────────────────────────
+html.accent-wiping::view-transition-group(root)
+	animation: none
+html.accent-wiping::view-transition-old(root)
+	animation: none
+	z-index: 1
+html.accent-wiping::view-transition-new(root)
+	z-index: 2
+	-webkit-mask-image: linear-gradient(90deg, #000 0%, #000 72%, transparent 100%)
+	mask-image: linear-gradient(90deg, #000 0%, #000 72%, transparent 100%)
+	-webkit-mask-size: 260% 100%
+	mask-size: 260% 100%
+	-webkit-mask-repeat: no-repeat
+	mask-repeat: no-repeat
+	animation: accent-wipe 0.42s cubic-bezier(0.215, 0.61, 0.355, 1) both
+html.accent-shimmer
+	overflow: hidden
+html.accent-shimmer::after
+	content: ''
+	pointer-events: none
+	position: fixed
+	inset: 0
+	z-index: 9999
+	background: linear-gradient(
+	105deg,
+	transparent 32%,
+	color-mix(in oklch, var(--graph-accent, oklch(0.78 0.17 155)) 40%, transparent) 46%,
+	color-mix(in oklch, var(--graph-accent-2, oklch(0.78 0.12 70)) 45%, transparent) 54%,
+	transparent 68%
+	)
+	animation: accent-shimmer 0.42s cubic-bezier(0.215, 0.61, 0.355, 1) both
+@keyframes accent-wipe
+	from
+		-webkit-mask-position: 100% 0
+		mask-position: 100% 0
+	to
+		-webkit-mask-position: 0 0
+		mask-position: 0 0
+@keyframes accent-shimmer
+	from
+		transform: translateX(-25%)
+		opacity: 0
+	25%
+		opacity: 1
+	to
+		transform: translateX(25%)
+		opacity: 0
+@media (prefers-reduced-motion: reduce)
+	html.accent-wiping::view-transition-old(root),
+	html.accent-wiping::view-transition-new(root)
+		animation: none
+	html.accent-shimmer::after
+		animation: none
+		display: none
+
+// ── Layout utilities ─────────────────────────────────────────────────────────
+.box, .row
+	display: flex
+
+.box
+	flex-direction: column
+
+// ── Type utilities ───────────────────────────────────────────────────────────
+.kicker
+	color: var(--graph-accent)
+
+.kicker-hover
+	&:hover
+		color: var(--graph-accent) !important
+
+a
+	&:hover
+		.kicker-hover
+			color: var(--graph-accent) !important
+
+.display
+	font-family: var(--font-sans)
+	font-weight: 600
+	letter-spacing: -0.045em
+	line-height: 0.92
+	text-wrap: balance
+
+// ── Buttons ──────────────────────────────────────────────────────────────────
+.primo, .ghost
+	display: inline-flex
+	align-items: center
+	justify-content: center
+	height: 36px
+	min-width: 96px
+	padding: 0 1rem
+	text-transform: uppercase
+	letter-spacing: 0.08em
+	font-size: 0.72rem
+	font-family: var(--font-sans)
+	font-weight: 600
+	text-decoration: none
+	transition: background 90ms, border-color 90ms
+
+.primo
+	background: var(--text-muted)
+	color: var(--bg)
+	border: 1px solid var(--text-muted)
+	&:hover
+		background: var(--text-secondary)
+		border-color: var(--text-secondary)
+
+.ghost
+	background: transparent
+	color: var(--text-primary)
+	border: 1px solid var(--border)
+	&:hover
+		border-color: var(--text-primary)
+
+// ── Prose ────────────────────────────────────────────────────────────────────
+.fg-prose h1,
+.fg-prose h2,
+.fg-prose h3
+	margin: 2.5rem 0 1rem
+	font-weight: 600
+	letter-spacing: -0.025em
+.fg-prose h1
+	font-size: 2.25rem
+.fg-prose h2
+	margin-top: 3rem
+	font-size: 1.5rem
+.fg-prose h3
+	margin-top: 2rem
+	font-size: 1.25rem
+@media (max-width: 1024px)
+	.fg-prose h1,
+	.fg-prose h2,
+	.fg-prose h3
+		margin: 2rem 0 0.85rem
+	.fg-prose h1
+		font-size: 1.8rem
+	.fg-prose h2
+		margin-top: 2.25rem
+		font-size: 1.3rem
+	.fg-prose h3
+		margin-top: 1.6rem
+		font-size: 1.15rem
+	.fg-prose pre
+		padding: 0.85rem 1rem
+.fg-prose h1:first-child,
+.fg-prose h2:first-child,
+.fg-prose h3:first-child,
+.fg-prose > p:first-child
+	margin-top: 0
+.fg-prose p
+	margin: 1rem 0
+	line-height: 1.7
+	color: var(--text-primary)
+.fg-prose ul,
+.fg-prose ol
+	margin: 1rem 0
+	padding-left: 1.25rem
+	line-height: 1.7
+	color: var(--text-secondary)
+.fg-prose li
+	margin: 0.25rem 0
+.fg-prose code,
+.fg-prose pre
+	font-size: 0.875rem
+.fg-prose pre
+	margin: 1rem 0
+	padding: 1rem 1.25rem
+	background: var(--text-muted)
+	overflow-x: auto
+	line-height: 1.6
+.fg-prose :not(pre) > code
+	padding: 0.125rem 0.375rem
+	background: var(--text-muted)
+.fg-prose blockquote
+	margin: 1rem 0
+	padding-left: 1rem
+	border-left: 2px dashed var(--border)
+	color: var(--text-secondary)
+.fg-prose a
+	color: var(--text-primary)
+	text-decoration: underline
+	text-decoration-color: var(--border)
+	text-underline-offset: 3px
+.fg-prose a:hover
+	text-decoration-color: var(--text-primary)
+.fg-prose hr
+	height: 1px
+	margin: 2.5rem 0
+	border: 0
+	background-image: repeating-linear-gradient(
+	to right,
+	var(--border) 0 2px,
+	transparent 2px 7px
+	)
+
+// ── Lede variants ────────────────────────────────────────────────────────────
+.lede
+	margin: 0
+	color: var(--text-secondary)
+	line-height: 1.5
+	font-size: 1.2rem
+	@media (max-width: 1024px)
+		font-size: 1.05rem
+
+// ── Misc utilities ───────────────────────────────────────────────────────────
+code
+	font-family: var(--font-mono)

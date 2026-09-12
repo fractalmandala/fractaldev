@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "moduleResolution": "Bundler",
+    "verbatimModuleSyntax": true,
+    "types": ["svelte"]
+  },
+  "include": ["src/**/*"]
+}

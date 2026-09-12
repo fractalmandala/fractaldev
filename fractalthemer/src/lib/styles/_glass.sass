@@ -1,0 +1,13 @@
+// Glass regime — active whenever a vivid background (aura, gradient, pattern)
+// owns the canvas. ThemeState turns the -bg-* token VALUES translucent inline;
+// this file supplies the backdrop blur that completes the frosted effect.
+// App chrome is frosted automatically — no markup changes required. Any other
+// surface opts in with the [data-glass] attribute. --glass-blur tunes depth.
+// :where() keeps specificity at zero, so consumer styles always win.
+
+:root[data-bg-style='aura'], :root[data-bg-style='gradient'], :root[data-bg-style='pattern']
+	--glass-blur: 14px
+
+	:where(header, nav, aside, footer, dialog, [role='banner'], [role='navigation'], [role='complementary'], [role='contentinfo'], [role='dialog'], [popover], [data-glass])
+		backdrop-filter: blur(var(--glass-blur, 14px)) saturate(140%)
+		-webkit-backdrop-filter: blur(var(--glass-blur, 14px)) saturate(140%)

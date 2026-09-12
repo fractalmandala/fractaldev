@@ -1,0 +1,89 @@
+{
+	"contractVersion": "1.0",
+	"entrySkills": [
+		"agentic-svelte-builder",
+		"react-to-sveltekit"
+	],
+	"precedence": [
+		"workspace-agents",
+		"svelte-boss",
+		"entry-skill",
+		"required-skills",
+		"conditional-skills"
+	],
+	"policies": {
+		"externalSass": true,
+		"allowComponentStyleBlocks": false,
+		"allowInlineStyles": false,
+		"allowClassDirectives": false,
+		"allowFallbackHexColors": false,
+		"allowImplicitDependencyInstallation": false
+	},
+	"routes": [
+		{
+			"id": "component-build",
+			"match": ["add a component", "build a component", "add a button", "add an accordion"],
+			"entrySkill": "agentic-svelte-builder",
+			"required": ["svelte-runes", "svelte-components-patterns", "svelte-styling-patterns"],
+			"conditional": [
+				{"when": "interactive", "skills": ["frontend-a11y"]},
+				{"when": "library, web component, or advanced form", "skills": ["svelte-components"]}
+			]
+		},
+		{
+			"id": "react-conversion",
+			"match": ["convert React", "convert Next", "port React component"],
+			"entrySkill": "react-to-sveltekit",
+			"required": ["svelte-runes", "svelte-components-patterns", "svelte-styling-patterns"],
+			"conditional": [
+				{"when": "interactive", "skills": ["frontend-a11y"]},
+				{"when": "DOM integration or raw HTML", "skills": ["svelte-template-directives"]},
+				{"when": "CSS or SCSS source", "skills": ["css-to-sass"]},
+				{"when": "animation engine present", "skills": ["motion-ui", "motion-foundations"]}
+			]
+		},
+		{
+			"id": "route-build",
+			"match": ["add a route", "build a page", "add a loader", "add a form action"],
+			"entrySkill": "agentic-svelte-builder",
+			"required": ["sveltekit-data-flow", "sveltekit-architecture"],
+			"conditional": [
+				{"when": "layout, error, or hydration work", "skills": ["sveltekit-structure"]},
+				{"when": "remote function explicitly enabled and requested", "skills": ["sveltekit-remote-functions"]}
+			]
+		},
+		{
+			"id": "style-conversion",
+			"match": ["convert CSS to SASS", "convert SCSS to SASS"],
+			"entrySkill": "agentic-svelte-builder",
+			"required": ["css-to-sass", "svelte-styling-patterns"],
+			"conditional": []
+		},
+		{
+			"id": "motion",
+			"match": ["add animation", "add motion", "make it animate"],
+			"entrySkill": "agentic-svelte-builder",
+			"required": ["motion-ui", "motion-foundations"],
+			"conditional": [
+				{"when": "common UI motion", "skills": ["motion-patterns"]},
+				{"when": "drag, SVG, or imperative sequence", "skills": ["motion-advanced"]}
+			]
+		},
+		{
+			"id": "visual-review",
+			"match": ["preview the styling", "style canvas", "visual style review"],
+			"entrySkill": "agentic-svelte-builder",
+			"required": ["svelte-style-canvas"],
+			"conditional": [
+				{"when": "interactive review", "skills": ["frontend-a11y"]}
+			]
+		},
+		{
+			"id": "deployment",
+			"match": ["deploy SvelteKit", "configure adapter", "publish Svelte package"],
+			"entrySkill": "agentic-svelte-builder",
+			"required": ["svelte-deployment", "vite-patterns"],
+			"conditional": []
+		}
+	]
+}

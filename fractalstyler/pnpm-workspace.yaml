@@ -1,0 +1,5 @@
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+minimumReleaseAgeExclude:
+  - fractalicons@0.3.0

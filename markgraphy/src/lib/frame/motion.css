@@ -1,0 +1,139 @@
+/*
+ * Markgraphy motion.
+ *
+ * Transform and opacity only, never layout. Every duration, delay and easing
+ * is a custom property, so an action can set one inline and a host can retune
+ * the whole language from one place:
+ *
+ *   .docs { --graph-ease: cubic-bezier(0.16, 1, 0.3, 1); }
+ *
+ * prefers-reduced-motion: reduce disables all of it.
+ */
+
+.mg-motion,
+.mg-draw,
+.mg-sweep,
+.mg-type {
+	--mg-duration: 220ms;
+	--mg-delay: 0ms;
+	--mg-ease: var(--graph-ease, cubic-bezier(0.215, 0.61, 0.355, 1));
+}
+
+/* Fade in from an offset, an optional scale, or a straight dissolve. */
+.mg-motion {
+	--mg-x: 0px;
+	--mg-y: 8px;
+	--mg-scale: 1;
+	opacity: 0;
+	transform: translate3d(var(--mg-x), var(--mg-y), 0) scale(var(--mg-scale));
+	transition:
+		opacity var(--mg-duration) var(--mg-ease) var(--mg-delay),
+		transform var(--mg-duration) var(--mg-ease) var(--mg-delay);
+}
+
+.mg-motion.is-revealed {
+	opacity: 1;
+	transform: none;
+}
+
+/*
+ * `slide` arrives opaque, clipped to its own edge, so it reads as emerging from
+ * under the layout rather than floating in. Clipping is the whole effect here,
+ * so it joins the transition and opacity stays out of it.
+ */
+.mg-motion.mg-slide {
+	opacity: 1;
+	clip-path: var(--mg-clip, inset(0 0 0 0));
+	transition:
+		transform var(--mg-duration) var(--mg-ease) var(--mg-delay),
+		clip-path var(--mg-duration) var(--mg-ease) var(--mg-delay);
+}
+
+.mg-motion.mg-slide.is-revealed {
+	clip-path: inset(0 0 0 0);
+}
+
+/* Scale a rule, bar or track in from one edge. */
+.mg-draw {
+	--mg-sx: 0;
+	--mg-sy: 1;
+	transform: scale(var(--mg-sx), var(--mg-sy));
+	transform-origin: var(--mg-origin, left center);
+	transition: transform var(--mg-duration) var(--mg-ease) var(--mg-delay);
+}
+
+.mg-draw.is-revealed {
+	transform: none;
+}
+
+/*
+ * A band of light crossing the element. It is drawn on ::after and clipped to
+ * the box, so the host element must be able to hide its overflow.
+ */
+.mg-sweep {
+	position: relative;
+	overflow: hidden;
+}
+
+.mg-sweep::after {
+	content: '';
+	position: absolute;
+	z-index: 1;
+	inset: 0;
+	pointer-events: none;
+	opacity: 0;
+	background-image: linear-gradient(
+		to right,
+		transparent,
+		var(--mg-sweep-ink, var(--graph-accent, oklch(0.78 0.17 155))),
+		transparent
+	);
+}
+
+.mg-sweep.is-sweeping::after {
+	animation: mg-sweep var(--mg-duration) var(--mg-ease) var(--mg-delay) var(--mg-repeat, 1);
+}
+
+@keyframes mg-sweep {
+	from {
+		opacity: var(--mg-sweep-opacity, 0.2);
+		transform: translateX(-100%);
+	}
+	to {
+		opacity: var(--mg-sweep-opacity, 0.2);
+		transform: translateX(100%);
+	}
+}
+
+/* Block caret for `typewriter`, dropped once the line finishes. */
+.mg-type[data-caret]::after {
+	content: '▌';
+	color: var(--graph-accent, oklch(0.78 0.17 155));
+	animation: mg-caret 1s steps(1, end) infinite;
+}
+
+@keyframes mg-caret {
+	0%,
+	50% {
+		opacity: 1;
+	}
+	50.01%,
+	100% {
+		opacity: 0;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.mg-motion,
+	.mg-draw {
+		opacity: 1;
+		transform: none;
+		clip-path: none;
+		transition: none;
+	}
+
+	.mg-sweep.is-sweeping::after,
+	.mg-type[data-caret]::after {
+		animation: none;
+	}
+}

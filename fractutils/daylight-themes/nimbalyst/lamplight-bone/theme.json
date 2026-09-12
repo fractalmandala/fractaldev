@@ -1,0 +1,34 @@
+{
+  "id": "lamplight-bone",
+  "name": "Lamplight Bone",
+  "version": "2.0.0",
+  "author": "amrit",
+  "description": "The baseline. Chrome barely separates from the page, and the full Ayu hue set runs at its original strength.",
+  "isDark": true,
+  "tags": [
+    "bone",
+    "dark"
+  ],
+  "colors": {
+    "bg": "#16181A",
+    "bg-secondary": "#131517",
+    "bg-tertiary": "#1E2022",
+    "bg-hover": "#1F2123",
+    "bg-selected": "#2A2F34",
+    "bg-active": "#372C23",
+    "text": "#C2C6C9",
+    "text-muted": "#8E9294",
+    "text-faint": "#6C7276",
+    "text-disabled": "#4E5256",
+    "border": "#24272A",
+    "border-focus": "#FFA657",
+    "primary": "#FFA657",
+    "primary-hover": "#F4AC6C",
+    "link": "#FFA657",
+    "link-hover": "#F4AC6C",
+    "success": "#7FD962",
+    "warning": "#FFC44D",
+    "error": "#F26D6D",
+    "info": "#59C2FF"
+  }
+}

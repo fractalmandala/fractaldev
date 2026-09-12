@@ -1,0 +1,53 @@
+<script lang="ts">
+	import { GraphMandel } from '$lib';
+</script>
+
+# GraphMandel
+
+## Import
+
+```svelte
+import { GraphMandel } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphMandel
+  title="example"
+  cols={66}
+  rows={20}
+/>
+```
+
+<div class="live">
+<GraphMandel
+  title="example"
+  cols={66}
+  rows={20}
+/>
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | Caption drawn on the top edge as `[ TITLE ]`. |
+| `cols?` | `number` | `66` | Columns of the grid. Default 66. |
+| `rows?` | `number` | `20` | Rows of the grid. Default 20. |
+| `charset?` | `string` | `' .:-=+*#%@'` | Escape count -> glyph, low to high. Keep it ASCII for grid alignment. |
+| `speedMs?` | `number` | `140` | Milliseconds per zoom tick. Default 140. |
+| `zoomPerTick?` | `number` | `1.06` | Window shrink factor per tick. Default 1.06. |
+| `maxIter?` | `number` | `90` | Starting iteration budget; grows +2 per tick, capped at 300. Default 90. |
+| `animated?` | `boolean` | `true` | Start playing on mount. Default true. Reduced motion starts paused. |
+| `showControls?` | `boolean` | `true` | Show the playback controls. Default true. |
+| `corner?` | `string` | `—` | Character at each corner of the frame. Default "+". |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `GraphMandelProps`
+
+## Reduced motion
+
+Animation is disabled under `prefers-reduced-motion`.

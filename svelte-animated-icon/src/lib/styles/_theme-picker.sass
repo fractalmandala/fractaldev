@@ -1,0 +1,273 @@
+// Theme Switcher & Palette Picker Styles
+// Adheres strictly to single-tab indented SASS and semantic token consumption
+
+.theme-controls
+	display: inline-flex
+	align-items: center
+	gap: 16px
+	position: relative
+
+.theme-trigger-btn
+	display: inline-flex
+	align-items: center
+	gap: 8px
+	padding: 6px 12px
+	height: 34px
+	border-radius: var(--radius-6)
+	border: 1px solid var(--border)
+	background: var(--bg-surface)
+	color: var(--text-primary)
+	font-size: var(--text-sm)
+	font-weight: 500
+	cursor: pointer
+	transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease
+	user-select: none
+	&:hover
+		background: var(--bg-raised)
+		border-color: var(--theme-color)
+	&:active
+		transform: scale(0.98)
+	&:focus-visible
+		outline: 2px solid var(--theme-color)
+		outline-offset: 2px
+
+.theme-icon-btn
+	display: inline-flex
+	align-items: center
+	justify-content: center
+	width: 34px
+	height: 34px
+	padding: 0
+	border-radius: var(--radius-6)
+	border: 1px solid var(--border)
+	background: var(--bg-surface)
+	color: var(--text-secondary)
+	cursor: pointer
+	transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.1s ease
+	&:hover
+		background: var(--bg-raised)
+		color: var(--text-primary)
+		border-color: var(--theme-color)
+	&:active
+		transform: scale(0.96)
+	&:focus-visible
+		outline: 2px solid var(--theme-color)
+		outline-offset: 2px
+	svg
+		width: 16px
+		height: 16px
+
+.theme-swatch-duo
+	display: inline-flex
+	align-items: center
+	position: relative
+	width: 18px
+	height: 18px
+
+.theme-swatch-bg
+	width: 16px
+	height: 16px
+	border-radius: var(--radius-full)
+	border: 1px solid var(--border)
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1)
+
+.theme-swatch-accent
+	position: absolute
+	right: -2px
+	bottom: -2px
+	width: 9px
+	height: 9px
+	border-radius: var(--radius-full)
+	border: 1.5px solid var(--bg-surface)
+
+@keyframes themePopoverFadeIn
+	from
+		opacity: 0
+		transform: translateY(-6px) scale(0.98)
+	to
+		opacity: 1
+		transform: translateY(0) scale(1)
+
+.theme-popover
+	right: 0
+	z-index: var(--z-modal)
+	display: flex
+	flex-direction: column
+	background: var(--bg-popover, var(--bg-surface))
+	color: var(--text-primary)
+	overflow: hidden
+	animation: themePopoverFadeIn 0.18s cubic-bezier(0.16, 1, 0.3, 1)
+	@media (min-width: 1025px)
+		position: absolute
+		box-shadow: var(--shadow-lg, 0 16px 36px rgba(0, 0, 0, 0.18))
+		border-radius: var(--radius-12)
+		border: 1px solid var(--border)
+		height: 75vh
+		width: min(460px, 92vw)
+		top: calc(100% + 8px)
+	@media (max-width: 1024px)
+		position: fixed
+		top: var(--header-height)
+		height: calc(100vh - var(--header-height))
+		width: 250px
+
+.theme-style-switcher
+	display: flex
+	align-items: center
+	justify-content: space-between
+	padding: 8px 16px
+	background: var(--bg-surface)
+	border-bottom: 1px solid var(--border-subtle)
+	gap: 8px
+
+.theme-style-toggle-group
+	display: inline-flex
+	background: var(--bg-raised)
+	padding: 2px
+	border-radius: var(--radius-6)
+	border: 1px solid var(--border-subtle)
+	gap: 2px
+
+.theme-style-toggle-btn
+	display: inline-flex
+	align-items: center
+	gap: 5px
+	padding: 4px 10px
+	font-size: 11px
+	font-weight: 500
+	color: var(--text-secondary)
+	background: transparent
+	border: none
+	border-radius: 4px
+	cursor: pointer
+	transition: all 0.15s ease
+	&:hover
+		color: var(--text-primary)
+	&.active
+		background: var(--bg-panel)
+		color: var(--theme-color)
+		font-weight: 600
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08)
+
+.theme-tabs
+	display: flex
+	padding: 0px 16px
+	gap: 6px
+	background: var(--bg-surface)
+	border-bottom: 1px solid var(--border)
+
+.theme-tab-btn
+	padding: 4px 8px
+	font-size: var(--text-xs)
+	text-transform: uppercase
+	border: 1px solid transparent
+	background: transparent
+	color: var(--text-secondary)
+	cursor: pointer
+	transition: all 0.15s ease
+	&:hover
+		color: var(--theme-color)
+	&.active
+		color: var(--theme-color-alt)
+
+.theme-grid-container
+	padding: 12px 16px
+	overflow-y: auto
+	scrollbar-width: thin
+	display: grid
+	grid-template-columns: repeat(auto-fill, minmax(130px, 1fr))
+	gap: 8px
+
+.theme-card
+	display: flex
+	flex-direction: column
+	gap: 6px
+	padding: 8px
+	border-radius: 6px
+	border: 1px solid var(--border)
+	background: var(--bg-panel)
+	color: var(--text-primary)
+	cursor: pointer
+	text-align: left
+	transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.12s ease
+	position: relative
+	&:hover
+		border-color: var(--theme-color-alt)
+		background: var(--state-hover)
+	&.active
+		border-color: var(--theme-color)
+		background: var(--state-selected)
+
+.theme-card-header
+	display: flex
+	align-items: center
+	justify-content: space-between
+	gap: 4px
+
+.theme-card-name
+	font-size: var(--text-sm)
+	color: var(--text-primary)
+	font-weight: 500
+	white-space: nowrap
+	overflow: hidden
+	text-overflow: ellipsis
+
+.theme-card-badge
+	font-size: 9px
+	text-transform: uppercase
+	padding: 1px 5px
+	border-radius: 3px
+	background: var(--bg-surface)
+	color: var(--text-muted)
+
+.theme-card-preview
+	display: flex
+	align-items: center
+	gap: 4px
+	padding: 4px 8px
+	border-radius: 4px
+	border: 1px solid transparent
+	position: relative
+	overflow: hidden
+
+.theme-aura-tag
+	font-size: 10px
+	color: var(--text-muted)
+	white-space: nowrap
+	overflow: hidden
+	text-overflow: ellipsis
+	padding-inline: 2px
+
+.theme-preview-dot
+	width: 14px
+	height: 14px
+	border-radius: var(--radius-full)
+	flex-shrink: 0
+
+.theme-popover-footer
+	display: flex
+	align-items: center
+	justify-content: space-between
+	padding: 8px 16px
+	background: var(--bg-raised)
+	border-top: 1px solid var(--border-subtle)
+	gap: 8px
+	margin-top: auto
+
+.theme-footer-btn
+	display: inline-flex
+	align-items: center
+	gap: 6px
+	padding: 5px 10px
+	font-size: 12px
+	font-weight: 500
+	color: var(--text-secondary)
+	background: transparent
+	border: 1px solid var(--border-subtle)
+	border-radius: var(--radius-6)
+	cursor: pointer
+	transition: all 0.15s ease
+	&:hover
+		color: var(--text-primary)
+		background: var(--bg-surface)
+		border-color: var(--border)

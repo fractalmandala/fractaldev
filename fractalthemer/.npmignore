@@ -1,0 +1,8 @@
+# Exclude development, preview, and build scratch folders from npm package tarball
+dev/
+preview/
+testing-results/
+.github/
+.vscode/
+.DS_Store
+*.log

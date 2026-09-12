@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Svelte Style Canvas</title>
+  <style>
+    /* —— Preview chrome (not the target UI) —— */
+    :root {
+      --ssc-chrome-bg: #0c0d10;
+      --ssc-chrome-panel: #14161c;
+      --ssc-chrome-border: #2a2f3a;
+      --ssc-chrome-text: #e8ecf4;
+      --ssc-chrome-muted: #8b95a8;
+      --ssc-chrome-accent: #7c9cff;
+      --ssc-chrome-danger: #f07178;
+      --ssc-chrome-ok: #7fd99a;
+      --ssc-font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      --ssc-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; height: 100%;
+      background: var(--ssc-chrome-bg);
+      color: var(--ssc-chrome-text);
+      font-family: var(--ssc-font);
+      font-size: 13px;
+    }
+    .ssc-app {
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+      height: 100%; min-height: 100vh;
+    }
+    .ssc-header {
+      display: flex; flex-wrap: wrap; gap: 12px;
+      align-items: center; justify-content: space-between;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--ssc-chrome-border);
+      background: var(--ssc-chrome-panel);
+    }
+    .ssc-header h1 { margin: 0; font-size: 14px; font-weight: 600; }
+    .ssc-meta { color: var(--ssc-chrome-muted); font-size: 12px; }
+    .ssc-badge {
+      display: inline-block; padding: 2px 8px; border-radius: 999px;
+      border: 1px solid var(--ssc-chrome-border);
+      color: var(--ssc-chrome-muted); font-size: 11px; font-family: var(--ssc-mono);
+    }
+    .ssc-toolbar {
+      display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+      padding: 8px 14px;
+      border-bottom: 1px solid var(--ssc-chrome-border);
+      background: #10131a;
+    }
+    .ssc-toolbar label {
+      color: var(--ssc-chrome-muted); font-size: 11px;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .ssc-states { display: flex; flex-wrap: wrap; gap: 6px; flex: 1; }
+    .ssc-btn {
+      appearance: none;
+      border: 1px solid var(--ssc-chrome-border);
+      background: var(--ssc-chrome-panel);
+      color: var(--ssc-chrome-text);
+      border-radius: 6px; padding: 5px 10px;
+      font: inherit; cursor: pointer;
+    }
+    .ssc-btn:hover { border-color: var(--ssc-chrome-accent); }
+    .ssc-btn:focus-visible { outline: 2px solid var(--ssc-chrome-accent); outline-offset: 2px; }
+    .ssc-btn[aria-pressed="true"] {
+      background: color-mix(in srgb, var(--ssc-chrome-accent) 22%, var(--ssc-chrome-panel));
+      border-color: var(--ssc-chrome-accent);
+    }
+    .ssc-main {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
+      min-height: 0;
+    }
+    @media (max-width: 900px) {
+      .ssc-main { grid-template-columns: 1fr; grid-template-rows: 1fr auto; }
+    }
+    .ssc-stage-wrap {
+      position: relative; overflow: auto; min-height: 0;
+      background: #090a0d;
+    }
+    /* Stage hosts the REAL visual mock — no region-tree chrome inside by default */
+    .ssc-stage {
+      min-width: 100%; min-height: 100%;
+      padding: 0;
+    }
+    .ssc-stage.ssc-padded { padding: 20px; }
+    /* Selection outline on inspectable nodes */
+    .ssc-stage [data-ssc-id] { cursor: pointer; }
+    .ssc-stage [data-ssc-id].ssc-selected {
+      outline: 2px solid var(--ssc-chrome-accent) !important;
+      outline-offset: 2px;
+      position: relative;
+      z-index: 2;
+    }
+    .ssc-inspector {
+      border-left: 1px solid var(--ssc-chrome-border);
+      background: var(--ssc-chrome-panel);
+      overflow: auto; padding: 12px 14px 24px; min-height: 180px;
+    }
+    .ssc-inspector h2 {
+      margin: 0 0 8px; font-size: 12px; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--ssc-chrome-muted); font-weight: 600;
+    }
+    .ssc-inspector dl {
+      margin: 0 0 14px; display: grid;
+      grid-template-columns: 88px 1fr; gap: 6px 8px;
+    }
+    .ssc-inspector dt { color: var(--ssc-chrome-muted); }
+    .ssc-inspector dd { margin: 0; word-break: break-word; font-family: var(--ssc-mono); font-size: 12px; }
+    .ssc-list { margin: 0; padding-left: 16px; }
+    .ssc-list li { margin: 4px 0; }
+    .ssc-empty { color: var(--ssc-chrome-muted); font-style: italic; }
+    .ssc-warn { color: var(--ssc-chrome-danger); }
+    .ssc-ok { color: var(--ssc-chrome-ok); }
+    .ssc-error {
+      margin: 16px; padding: 12px 14px;
+      border: 1px solid var(--ssc-chrome-danger); border-radius: 8px;
+      background: rgba(240, 113, 120, 0.08);
+      font-family: var(--ssc-mono); white-space: pre-wrap;
+    }
+    .ssc-mode-hint {
+      font-size: 11px; color: var(--ssc-chrome-muted); margin-left: 8px;
+    }
+
+    /* Injected target CSS */
+    /*__SSC_INJECTED_CSS__*/
+  </style>
+</head>
+<body>
+  <div class="ssc-app" id="ssc-app">
+    <header class="ssc-header">
+      <div>
+        <h1 id="ssc-title">Svelte Style Canvas</h1>
+        <div class="ssc-meta" id="ssc-subtitle">Loading…</div>
+      </div>
+      <div>
+        <span class="ssc-badge" id="ssc-fidelity">fidelity</span>
+        <span class="ssc-badge" id="ssc-mode">mode</span>
+      </div>
+    </header>
+
+    <div class="ssc-toolbar" role="toolbar" aria-label="Preview controls">
+      <label id="ssc-states-label">States</label>
+      <div class="ssc-states" id="ssc-states" aria-labelledby="ssc-states-label"></div>
+      <button type="button" class="ssc-btn" id="ssc-reset">Reset</button>
+      <span class="ssc-mode-hint" id="ssc-hint">Click UI regions to inspect</span>
+    </div>
+
+    <div class="ssc-main">
+      <div class="ssc-stage-wrap" id="ssc-stage-wrap">
+        <div class="ssc-stage" id="ssc-stage" tabindex="0" aria-label="Style preview stage"></div>
+      </div>
+      <aside class="ssc-inspector" id="ssc-inspector" aria-live="polite">
+        <h2>Inspector</h2>
+        <p class="ssc-empty">Select a region on the stage.</p>
+      </aside>
+    </div>
+  </div>
+
+  <!--
+    style-pack fields:
+      visualHtml  — REQUIRED for workable previews: markup-faithful HTML (with data-ssc-id)
+      cssSubset   — CSS for that markup
+      regions     — evidence for inspector (id matches data-ssc-id)
+      states      — toggles that add/remove className on appliesTo ids
+  -->
+  <script type="application/json" id="ssc-style-pack">
+{
+  "version": 1,
+  "meta": {
+    "title": "Template placeholder",
+    "targetPath": "(unset)",
+    "targetSlug": "template",
+    "generatedAt": "1970-01-01T00:00:00Z",
+    "fidelity": "L1",
+    "notes": "Replace pack + visualHtml when generating."
+  },
+  "tokens": [],
+  "classes": [],
+  "regions": [],
+  "states": [],
+  "cssSubset": "",
+  "visualHtml": "",
+  "orphans": [],
+  "unresolved": []
+}
+  </script>
+
+  <script>
+    (function () {
+      const packEl = document.getElementById("ssc-style-pack");
+      let pack;
+      try {
+        pack = JSON.parse(packEl.textContent);
+      } catch (err) {
+        document.getElementById("ssc-app").innerHTML =
+          '<div class="ssc-error">Failed to parse #ssc-style-pack JSON:\n' + String(err) + "</div>";
+        return;
+      }
+
+      const byId = new Map((pack.regions || []).map((r) => [r.id, r]));
+      const classIndex = new Map(
+        (pack.classes || []).map((c) => [String(c.name).replace(/^\./, ""), c])
+      );
+      const activeStates = new Set(
+        (pack.states || []).filter((s) => s.defaultOn).map((s) => s.id)
+      );
+      let selectedId = null;
+
+      const stage = document.getElementById("ssc-stage");
+      const statesEl = document.getElementById("ssc-states");
+      const inspector = document.getElementById("ssc-inspector");
+      const meta = pack.meta || {};
+      document.getElementById("ssc-title").textContent = meta.title || "Svelte Style Canvas";
+      document.title = (meta.title || "Style Canvas") + " — Style Canvas";
+      document.getElementById("ssc-subtitle").textContent =
+        [meta.targetPath, meta.notes].filter(Boolean).join(" · ");
+      document.getElementById("ssc-fidelity").textContent = "fidelity: " + (meta.fidelity || "L1");
+
+      const hasVisual = !!(pack.visualHtml && String(pack.visualHtml).trim());
+      document.getElementById("ssc-mode").textContent = hasVisual ? "mode: visual" : "mode: tree-fallback";
+
+      function escapeHtml(s) {
+        return String(s)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function applyStateClasses() {
+        // Clear previous state classes from data-ssc-id nodes
+        for (const s of pack.states || []) {
+          if (!s.className) continue;
+          for (const id of s.appliesTo || []) {
+            const el = stage.querySelector('[data-ssc-id="' + CSS.escape(id) + '"]');
+            if (el) el.classList.remove(s.className);
+          }
+        }
+        for (const s of pack.states || []) {
+          if (!s.className || !activeStates.has(s.id)) continue;
+          for (const id of s.appliesTo || []) {
+            const el = stage.querySelector('[data-ssc-id="' + CSS.escape(id) + '"]');
+            if (el) el.classList.add(s.className);
+          }
+        }
+        // Theme root: if a state className is light/dark, also toggle on [data-ssc-root]
+        const root = stage.querySelector("[data-ssc-root]") || stage.firstElementChild;
+        if (root) {
+          for (const s of pack.states || []) {
+            if (s.className === "light" || s.className === "dark") {
+              root.classList.toggle(s.className, activeStates.has(s.id));
+              if (s.className === "light" && activeStates.has(s.id)) root.classList.remove("dark");
+              if (s.className === "dark" && activeStates.has(s.id)) root.classList.remove("light");
+            }
+          }
+        }
+      }
+
+      function wireStageClicks() {
+        stage.querySelectorAll("[data-ssc-id]").forEach((el) => {
+          el.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            selectRegion(el.getAttribute("data-ssc-id"));
+          });
+        });
+      }
+
+      function renderVisual() {
+        stage.classList.remove("ssc-padded");
+        stage.innerHTML = pack.visualHtml;
+        applyStateClasses();
+        wireStageClicks();
+      }
+
+      /* Fallback tree only if no visualHtml — clearly labeled as degraded */
+      function renderTreeFallback() {
+        stage.classList.add("ssc-padded");
+        const childrenOf = new Map();
+        for (const r of pack.regions || []) {
+          const key = r.parentId == null ? "__root__" : r.parentId;
+          if (!childrenOf.has(key)) childrenOf.set(key, []);
+          childrenOf.get(key).push(r);
+        }
+        function build(region) {
+          const el = document.createElement("div");
+          el.dataset.sscId = region.id;
+          el.className = (region.classes || []).join(" ");
+          el.style.cssText =
+            "border:1px dashed #555;margin:4px;padding:8px;min-height:24px;background:rgba(255,255,255,0.03)";
+          const lab = document.createElement("div");
+          lab.style.cssText = "font:11px monospace;color:#8b95a8;margin-bottom:4px";
+          lab.textContent = (region.label || region.id) + " — tree fallback (no visualHtml)";
+          el.appendChild(lab);
+          const kids = childrenOf.get(region.id) || [];
+          if (!kids.length && region.textHint) {
+            const t = document.createElement("div");
+            t.textContent = region.textHint;
+            el.appendChild(t);
+          }
+          kids.forEach((k) => el.appendChild(build(k)));
+          return el;
+        }
+        stage.innerHTML = "";
+        const warn = document.createElement("div");
+        warn.className = "ssc-error";
+        warn.style.margin = "0 0 12px";
+        warn.textContent =
+          "No visualHtml in style pack — showing degraded region tree. Re-run svelte-style-canvas with markup-faithful visualHtml.";
+        stage.appendChild(warn);
+        (childrenOf.get("__root__") || []).forEach((r) => stage.appendChild(build(r)));
+        applyStateClasses();
+        wireStageClicks();
+      }
+
+      function renderStage() {
+        if (hasVisual) renderVisual();
+        else renderTreeFallback();
+        if (selectedId) {
+          const node = stage.querySelector('[data-ssc-id="' + CSS.escape(selectedId) + '"]');
+          if (node) node.classList.add("ssc-selected");
+        }
+      }
+
+      function renderStates() {
+        statesEl.innerHTML = "";
+        const states = pack.states || [];
+        if (!states.length) {
+          const span = document.createElement("span");
+          span.className = "ssc-empty";
+          span.textContent = "No state variants";
+          statesEl.appendChild(span);
+          return;
+        }
+        for (const s of states) {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "ssc-btn";
+          btn.textContent = s.label || s.id;
+          btn.setAttribute("aria-pressed", activeStates.has(s.id) ? "true" : "false");
+          btn.addEventListener("click", () => {
+            // exclusive theme toggles
+            if (s.className === "light" || s.className === "dark") {
+              for (const o of pack.states || []) {
+                if (o.className === "light" || o.className === "dark") activeStates.delete(o.id);
+              }
+            }
+            if (activeStates.has(s.id)) activeStates.delete(s.id);
+            else activeStates.add(s.id);
+            renderStates();
+            applyStateClasses();
+            if (selectedId) selectRegion(selectedId);
+          });
+          statesEl.appendChild(btn);
+        }
+      }
+
+      function selectRegion(id) {
+        selectedId = id;
+        stage.querySelectorAll(".ssc-selected").forEach((n) => n.classList.remove("ssc-selected"));
+        const node = stage.querySelector('[data-ssc-id="' + CSS.escape(id) + '"]');
+        if (node) node.classList.add("ssc-selected");
+
+        const region = byId.get(id);
+        if (!region) {
+          inspector.innerHTML =
+            "<h2>Inspector</h2><p class='ssc-empty'>No region evidence for id <code>" +
+            escapeHtml(id) +
+            "</code> (visual node only).</p>";
+          return;
+        }
+
+        const classDetails = (region.classes || []).map((name) => {
+          const bare = String(name).replace(/^\./, "");
+          const hit = classIndex.get(bare);
+          if (!hit) {
+            return "<li class='ssc-warn'><code>." + escapeHtml(bare) + "</code> — orphan / unresolved</li>";
+          }
+          return (
+            "<li class='ssc-ok'><code>." +
+            escapeHtml(bare) +
+            "</code> — " +
+            escapeHtml(hit.source || "?") +
+            (hit.line != null ? " L" + hit.line : "") +
+            "</li>"
+          );
+        });
+
+        const tokens = new Set();
+        for (const name of region.classes || []) {
+          const hit = classIndex.get(String(name).replace(/^\./, ""));
+          if (hit && hit.tokenRefs) hit.tokenRefs.forEach((t) => tokens.add(t));
+        }
+        const tokenLines = [...tokens]
+          .map((t) => {
+            const def = (pack.tokens || []).find((x) => x.name === t);
+            if (!def) return "<li><code>" + escapeHtml(t) + "</code></li>";
+            return (
+              "<li><code>" +
+              escapeHtml(t) +
+              "</code> = <code>" +
+              escapeHtml(def.value || "") +
+              "</code></li>"
+            );
+          })
+          .join("");
+
+        const lineRange =
+          region.lineStart != null
+            ? "L" + region.lineStart + (region.lineEnd != null ? "–" + region.lineEnd : "")
+            : "—";
+
+        inspector.innerHTML =
+          "<h2>Inspector</h2>" +
+          "<dl>" +
+          "<dt>Label</dt><dd>" + escapeHtml(region.label || region.id) + "</dd>" +
+          "<dt>Kind</dt><dd>" + escapeHtml(region.kind || "") + "</dd>" +
+          "<dt>Tag</dt><dd>" + escapeHtml(region.tag || "") + "</dd>" +
+          "<dt>File</dt><dd>" + escapeHtml(region.file || "") + "</dd>" +
+          "<dt>Lines</dt><dd>" + escapeHtml(lineRange) + "</dd>" +
+          "<dt>Confidence</dt><dd>" + escapeHtml(region.confidence || "") + "</dd>" +
+          "</dl>" +
+          "<h2>Classes</h2>" +
+          (classDetails.length
+            ? "<ul class='ssc-list'>" + classDetails.join("") + "</ul>"
+            : "<p class='ssc-empty'>No classes.</p>") +
+          "<h2>Tokens</h2>" +
+          (tokenLines
+            ? "<ul class='ssc-list'>" + tokenLines + "</ul>"
+            : "<p class='ssc-empty'>No token refs.</p>");
+      }
+
+      document.getElementById("ssc-reset").addEventListener("click", () => {
+        activeStates.clear();
+        for (const s of pack.states || []) if (s.defaultOn) activeStates.add(s.id);
+        selectedId = null;
+        renderStates();
+        renderStage();
+        inspector.innerHTML =
+          "<h2>Inspector</h2><p class='ssc-empty'>Select a region on the stage.</p>";
+      });
+
+      renderStates();
+      renderStage();
+    })();
+  </script>
+</body>
+</html>

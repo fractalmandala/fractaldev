@@ -1,0 +1,34 @@
+{
+  "id": "daylight-cold-front",
+  "name": "Daylight Cold Front",
+  "version": "2.0.0",
+  "author": "amrit",
+  "description": "Cool syntax with one warm keyword, now on neutral stone chrome and a colourless selection \u2014 the ice is gone.",
+  "isDark": false,
+  "tags": [
+    "cold",
+    "light"
+  ],
+  "colors": {
+    "bg": "#F5F6F7",
+    "bg-secondary": "#EDEEEF",
+    "bg-tertiary": "#E3E5E7",
+    "bg-hover": "#EDEEF0",
+    "bg-selected": "#E1E4E7",
+    "bg-active": "#F3E6DD",
+    "text": "#4E5A66",
+    "text-muted": "#808992",
+    "text-faint": "#A2AAB2",
+    "text-disabled": "#BFC5CA",
+    "border": "#DFE1E3",
+    "border-focus": "#E8853C",
+    "primary": "#E8853C",
+    "primary-hover": "#CC7D44",
+    "link": "#E8853C",
+    "link-hover": "#CC7D44",
+    "success": "#3F8F6F",
+    "warning": "#C08A1E",
+    "error": "#D24B4B",
+    "info": "#2E86C8"
+  }
+}

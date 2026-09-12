@@ -1,0 +1,34 @@
+{
+  "id": "lamplight-monoline-ink",
+  "name": "Lamplight Monoline Ink",
+  "version": "2.0.0",
+  "author": "amrit",
+  "description": "The limit case. Zero colour anywhere \u2014 literals are marked by being the darkest thing on the page, and nothing else competes.",
+  "isDark": true,
+  "tags": [
+    "mono",
+    "dark"
+  ],
+  "colors": {
+    "bg": "#151617",
+    "bg-secondary": "#101112",
+    "bg-tertiary": "#18191A",
+    "bg-hover": "#1B1C1D",
+    "bg-selected": "#2B2D2F",
+    "bg-active": "#343536",
+    "text": "#8E9296",
+    "text-muted": "#6A6D70",
+    "text-faint": "#585C5F",
+    "text-disabled": "#414446",
+    "border": "#242526",
+    "border-focus": "#F2F4F6",
+    "primary": "#F2F4F6",
+    "primary-hover": "#E0E2E5",
+    "link": "#F2F4F6",
+    "link-hover": "#E0E2E5",
+    "success": "#7FBE8C",
+    "warning": "#D2A05A",
+    "error": "#E2695A",
+    "info": "#6E9EE8"
+  }
+}

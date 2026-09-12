@@ -1,0 +1,38 @@
+<script lang="ts">
+	import { GraphFunnel } from '$lib';
+</script>
+
+# GraphFunnel
+
+## Import
+
+```svelte
+import { GraphFunnel } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphFunnel
+  title="example"
+  ticks={20}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `steps` | `FunnelStep[]` | `—` | — |
+| `ticks?` | `number` | `20` | — |
+| `stage?` | `string` | `—` | — |
+| `glyphs?` | `Glyphs` | `—` | — |
+| `palette?` | `GraphPalette` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `FunnelStep`
+- `GraphFunnelProps`

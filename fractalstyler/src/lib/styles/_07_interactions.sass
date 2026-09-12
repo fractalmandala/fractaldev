@@ -1,0 +1,174 @@
+.badge
+	display: flex
+	align-items: center
+	gap: calc(var(--space-2xs) * var(--gap-scale, 1))
+	padding: var(--space-xs) var(--space-bs)
+	font-size: var(--text-sm)
+	background: var(--bg-dialog)
+	color: var(--text-primary)
+	border-radius: var(--radius-sm)
+	width: max-content
+
+.pill
+	display: inline-flex
+	align-items: center
+	border: 1px solid var(--theme-color)
+	background: var(--bg-surface)
+	color: var(--text-primary)
+	border-radius: var(--radius-lg)
+	padding: var(--space-xs) var(--space-sm)
+	cursor: pointer
+	white-space: nowrap
+	font-size: var(--text-sm)
+	&:hover
+		border-color: var(--text-primary)
+		color: var(--text-primary)
+	&.active
+		background: var(--theme-color)
+		color: var(--text-inverse)
+	&.themed
+		background: var(--theme-color)
+		color: var(--text-inverse)
+
+.input
+	display: block
+	width: 100%
+	height: var(--control-h-md)
+	padding-inline: calc(var(--space-xs) * var(--pad-scale, 1))
+	font-size: var(--text-sm)
+	line-height: 1.5
+	background: var(--bg-input)
+	color: var(--text-primary)
+	border: 1px solid var(--border)
+	border-radius: var(--radius-md)
+	max-width: 280px
+	&:focus-visible
+		outline: none
+		border-color: var(--theme-color)
+		box-shadow: 0 0 0 2px var(--ring)
+
+.select
+	display: block
+	width: 100%
+	height: var(--control-h-md)
+	padding-inline: calc(var(--space-xs) * var(--pad-scale, 1))
+	padding-right: var(--select-arrow-gap)
+	font-size: var(--text-sm)
+	appearance: none
+	-webkit-appearance: none
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23697080' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E")
+	background-repeat: no-repeat
+	background-position: right 8px center
+	background-color: var(--bg-input)
+	color: var(--text-primary)
+	border: 1px solid var(--border)
+	border-radius: var(--radius-sm)
+	cursor: pointer
+	&:focus-visible
+		outline: none
+		border-color: var(--theme-color)
+		box-shadow: 0 0 0 2px var(--ring)
+
+// --- The link family -------------------------------------------------------------
+.link
+	color: var(--theme-color)
+	text-decoration: none
+	&:hover
+		text-decoration: underline
+
+.link-plain
+	color: inherit
+	text-decoration: none
+	&:hover
+		color: var(--theme-color)
+
+.link-parent
+	&:hover
+		.link,
+		.link-plain
+			color: var(--theme-color-alt)
+
+// --- The button quartet (nested — never standalone) -----------------------------
+.button
+	display: inline-flex
+	background: var(--bg-surface)
+	align-items: center
+	justify-content: center
+	padding-inline: calc(var(--space-sm) * var(--pad-scale, 1))
+	border: 1px solid transparent
+	border-radius: var(--radius-sm)
+	font-weight: 500
+	text-decoration: none
+	cursor: pointer
+	user-select: none
+	transform-origin: center center
+	min-height: 32px
+	border-radius: var(--radius-2)
+	transition: background var(--button-std), border-color var(--motion-fast) ease, color var(--button-std), transition var(--button-std)
+	&:focus-visible
+		outline: 2px solid var(--ring)
+		outline-offset: 1px
+	&:disabled
+		opacity: 0.5
+		cursor: not-allowed
+		pointer-events: none
+	&.primary
+		background: var(--theme-color)
+		color: var(--text-inverse)
+		&:hover
+			background: var(--theme-color-alt)
+		&.outline
+			border: 1px solid var(--theme-color)
+			background: none
+			color: var(--theme-color)
+			&:hover
+				background: var(--theme-color)
+				color: #FFFFFF
+	&.ghost
+		background: none
+		border: none
+		padding-block: var(--space-xs)
+		border-radius: var(--radius-md)
+		&:hover
+			background: var(--state-hover-subtle)
+	&.active
+		background: var(--state-selected)
+		border-color: var(--border)
+		color: var(--text-primary)
+	&.is-icon
+		padding: 0
+		background: 0
+		border: 0
+		color: var(--text-primary)
+		&:hover
+			color: var(--theme-color)
+	&.small
+		height: auto
+		padding: var(--space-xs) var(--space-sm)
+		border: 1px solid var(--theme-color)
+		min-width: max-content
+		font-size: var(--text-sm)
+		background: var(--theme-color)
+		&:hover
+			background: var(--bg)
+		&.outline
+			background: var(--bg)
+			color: var(--theme-color)
+			&:hover
+				background: var(--theme-color)
+				color: var(--text-inverse)
+		&.ghost
+			background: none
+			border: none
+			&.hoverstyle
+				&:hover
+					background: var(--state-hover)
+
+
+.bord0
+	border: none
+
+button.blank
+	background: none
+	border: none
+	padding: 0

@@ -1,0 +1,41 @@
+<script lang="ts">
+	import { GraphDeps } from '$lib';
+</script>
+
+# GraphDeps
+
+## Import
+
+```svelte
+import { GraphDeps } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphDeps
+  title="example"
+  depth={6}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | Caption drawn on the top edge as `[ TITLE ]`. |
+| `deps` | `DepNode[]` | `—` | Root-level dependencies, each with a name and version. |
+| `depth?` | `number` | `6` | Maximum depth to render. Default 6. Clamped 1..16. |
+| `animated?` | `boolean` | `true` | Animate the cascade. Default true. Reduced motion shows the full tree. |
+| `speedMs?` | `number` | `80` | Milliseconds between cascading reveals. Default 80. |
+| `label?` | `string` | `''` | Caption rendered muted under the tree. |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `DepNode`
+- `GraphDepsProps`
+
+## Reduced motion
+
+Animation is disabled under `prefers-reduced-motion`.

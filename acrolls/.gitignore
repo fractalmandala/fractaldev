@@ -1,0 +1,26 @@
+node_modules
+dist
+.svelte-kit
+build
+.DS_Store
+*.log
+.env
+.env.*
+!.env.example
+coverage
+.turbo
+.vite
+playwright-report
+test-results
+*.tsbuildinfo
+.pnpm-store
+vite.config.ts.timestamp-*
+
+# Local research and scratch artifacts
+ref/
+twreplace.css
+
+# Release pack artifacts (`pnpm release:pack` output)
+*.tgz
+temp/
+temp

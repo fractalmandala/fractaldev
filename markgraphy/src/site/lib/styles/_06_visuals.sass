@@ -1,0 +1,155 @@
+// ============================================================================
+// dress — L5. Skin and compositions. Emission order within this file follows
+// Contract 5: bare dress before compositions. Components own their own hover
+// states; there is no standalone .hover / .transition (registry ruling).
+// All compositions read the --radius-* channels so shape presets reach them.
+// ============================================================================
+
+@use 'sass:string'
+@use 'sass:list'
+@use 'sass:map'
+@use '01_config' as *
+
+// --- Bare backgrounds (one declaration each) ----------------------------------
+.bg
+	background: var(--bg)
+.surface
+	background: var(--bg-surface)
+.raised
+	background: var(--bg-raised)
+.panel
+	background: var(--bg-panel)
+.footer
+	background: var(--bg-footer)
+.canvas
+	background: var(--bg-canvas)
+.terminal
+	background: var(--bg-terminal)
+
+// --- Ink ----------------------------------------------------------------------
+.text-primary
+	color: var(--text-primary)
+.text-secondary
+	color: var(--text-secondary)
+.text-muted
+	color: var(--text-muted)
+.text-inverse
+	color: var(--text-inverse)
+.text-theme
+	color: var(--graph-accent, oklch(0.78 0.17 155))
+.text-success
+	color: var(--success)
+.text-warning
+	color: var(--warning)
+.text-danger
+	color: var(--danger)
+.text-info
+	color: var(--info)
+
+// Status fills, mirroring the status inks above. A dot or chip that carries the
+// status as a background had no composable form before these, which made it a
+// reason to open _08_own.sass.
+.bg-success
+	background: var(--success)
+.bg-warning
+	background: var(--warning)
+.bg-danger
+	background: var(--danger)
+.bg-info
+	background: var(--info)
+
+// --- Lines (the partition-law set) ---------------------------------------------
+.border
+	border: 1px solid var(--border)
+.border-subtle
+	border: 1px solid var(--border-subtle)
+.border-top
+	border-top: 1px solid var(--border)
+.border-right
+	border-right: 1px solid var(--border)
+.border-bottom
+	border-bottom: 1px solid var(--border)
+.border-left
+	border-left: 1px solid var(--border)
+
+// --- Typography -----------------------------------------------------------------
+.text-xs
+	font-size: var(--text-xs)
+.text-sm
+	font-size: var(--text-sm)
+.text-md
+	font-size: var(--text-md)
+.text-lg
+	font-size: var(--text-lg)
+.text-xl
+	font-size: var(--text-xl)
+.text-2xl
+	font-size: var(--text-2xl)
+.text-3xl
+	font-size: var(--text-3xl)
+.text-4xl
+	font-size: var(--text-4xl)
+
+.weight-400
+	font-weight: 400
+.weight-500
+	font-weight: 500
+.weight-600
+	font-weight: 600
+.weight-700
+	font-weight: 700
+
+.mono
+	font-family: var(--font-mono)
+.tt-u
+	text-transform: uppercase
+.tt-c
+	text-transform: capitalize
+.ta-c
+	text-align: center
+
+.truncate
+	overflow: hidden
+	white-space: nowrap
+	text-overflow: ellipsis
+
+.clamp-1
+	display: -webkit-box
+	-webkit-line-clamp: 1
+	-webkit-box-orient: vertical
+	overflow: hidden
+.clamp-2
+	display: -webkit-box
+	-webkit-line-clamp: 2
+	-webkit-box-orient: vertical
+	overflow: hidden
+.clamp-3
+	display: -webkit-box
+	-webkit-line-clamp: 3
+	-webkit-box-orient: vertical
+	overflow: hidden
+
+.eyebrow
+	color: var(--text-muted)
+	font-size: 0.68rem
+	letter-spacing: 0.12em
+	text-transform: uppercase
+	font-family: var(--font-mono)
+	font-weight: 500
+
+// --- Compositions (plain classes over the vocabulary, yours to restyle) ----------
+.card
+	display: flex
+	gap: calc(var(--space-sm) * var(--gap-scale, 1))
+	padding: calc(var(--space-md) * var(--pad-scale, 1))
+	background: var(--bg-surface)
+	border: 1px solid var(--border)
+	border-radius: var(--radius-md)
+
+// Shadows — token channels; per-mode values live in tokens.
+.shadow-sm
+	box-shadow: var(--shadow-sm)
+.shadow-md
+	box-shadow: var(--shadow-md)
+.shadow-lg
+	box-shadow: var(--shadow-lg)

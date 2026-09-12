@@ -1,0 +1,43 @@
+diff --git a/src/internal/server/dev.js b/src/internal/server/dev.js
+index e953bac6ce9e35521c865c0827d0d735436045aa..659affcff926dbb962d8ae86ed80bf8e8e0bd94c 100644
+--- a/src/internal/server/dev.js
++++ b/src/internal/server/dev.js
+@@ -56,6 +56,7 @@ function print_error(renderer, message) {
+  */
+ export function push_element(renderer, tag, line, column) {
+ 	var context = /** @type {SSRContext} */ (ssr_context);
++	if (!context || !context.function) return;
+ 	var filename = context.function[FILENAME];
+ 	var parent = context.element;
+ 	var element = { tag, parent, filename, line, column };
+@@ -89,6 +90,8 @@ export function push_element(renderer, tag, line, column) {
+ }
+ 
+ export function pop_element() {
++	var context = /** @type {SSRContext} */ (ssr_context);
++	if (!context) return;
+ 	set_ssr_context(/** @type {SSRContext} */ (ssr_context).p);
+ }
+ 
+diff --git a/src/internal/server/renderer.js b/src/internal/server/renderer.js
+index ba6a361a9078fd70afb6442ba0588217e4631533..1f5a0207f2b9083b3a6dfcef597b3b3dec68c782 100644
+--- a/src/internal/server/renderer.js
++++ b/src/internal/server/renderer.js
+@@ -112,7 +112,16 @@ export class Renderer {
+ 		head.type = 'head';
+ 
+ 		this.#out.push(head);
+-		head.child(fn);
++		const context = ssr_context;
++		head.child((r) => {
++			const previous_context = ssr_context;
++			try {
++				set_ssr_context(context);
++				fn(r);
++			} finally {
++				set_ssr_context(previous_context);
++			}
++		});
+ 	}
+ 
+ 	/**

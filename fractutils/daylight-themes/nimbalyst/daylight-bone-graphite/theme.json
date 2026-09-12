@@ -1,0 +1,34 @@
+{
+  "id": "daylight-bone-graphite",
+  "name": "Daylight Bone Graphite",
+  "version": "2.0.0",
+  "author": "amrit",
+  "description": "For a bright room. Same white ground, but chrome, foreground and every hue are darkened until body text clears 7:1 \u2014 no warmth added anywhere.",
+  "isDark": false,
+  "tags": [
+    "bone",
+    "light"
+  ],
+  "colors": {
+    "bg": "#FCFCFC",
+    "bg-secondary": "#E4E6E8",
+    "bg-tertiary": "#DADCDF",
+    "bg-hover": "#F3F3F3",
+    "bg-selected": "#DCDFE2",
+    "bg-active": "#F4E6DD",
+    "text": "#43474B",
+    "text-muted": "#7A7D80",
+    "text-faint": "#8E949A",
+    "text-disabled": "#B4B8BC",
+    "border": "#D4D7DA",
+    "border-focus": "#C2601F",
+    "primary": "#C2601F",
+    "primary-hover": "#AB5C27",
+    "link": "#C2601F",
+    "link-hover": "#AB5C27",
+    "success": "#4CA750",
+    "warning": "#E6A700",
+    "error": "#E65050",
+    "info": "#399EE6"
+  }
+}

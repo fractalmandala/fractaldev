@@ -1,0 +1,41 @@
+<script lang="ts">
+	import { GraphInvoice } from '$lib';
+</script>
+
+# GraphInvoice
+
+## Import
+
+```svelte
+import { GraphInvoice } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphInvoice
+  title="example"
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `from?` | `InvoiceParty` | `—` | — |
+| `to?` | `InvoiceParty` | `—` | — |
+| `meta?` | `InvoiceMeta[]` | `—` | — |
+| `items` | `InvoiceItem[]` | `—` | — |
+| `totals?` | `InvoiceTotal[]` | `—` | — |
+| `note?` | `string` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `InvoiceParty`
+- `InvoiceMeta`
+- `InvoiceItem`
+- `InvoiceTotal`
+- `GraphInvoiceProps`

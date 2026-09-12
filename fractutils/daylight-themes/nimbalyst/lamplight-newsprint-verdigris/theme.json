@@ -1,0 +1,34 @@
+{
+  "id": "lamplight-newsprint-verdigris",
+  "name": "Lamplight Newsprint Verdigris",
+  "version": "2.0.0",
+  "author": "amrit",
+  "description": "Teal accent on the coolest ground of the family. The quietest of the five \u2014 nothing in it raises its voice.",
+  "isDark": true,
+  "tags": [
+    "news",
+    "dark"
+  ],
+  "colors": {
+    "bg": "#111414",
+    "bg-secondary": "#0D1010",
+    "bg-tertiary": "#1A1D1D",
+    "bg-hover": "#1B1E1E",
+    "bg-selected": "#282C2C",
+    "bg-active": "#1A2A2B",
+    "text": "#E0E3E3",
+    "text-muted": "#A2A5A5",
+    "text-faint": "#6C7070",
+    "text-disabled": "#4C5050",
+    "border": "#202323",
+    "border-focus": "#4FB3B8",
+    "primary": "#4FB3B8",
+    "primary-hover": "#69BCC0",
+    "link": "#4FB3B8",
+    "link-hover": "#69BCC0",
+    "success": "#86C08A",
+    "warning": "#D2A85A",
+    "error": "#E06A78",
+    "info": "#8AA4E8"
+  }
+}

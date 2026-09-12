@@ -1,0 +1,120 @@
+# ── Dependencies ─────────────────────────────────────────────────────────────
+node_modules/
+
+# ── Build output ─────────────────────────────────────────────────────────────
+dist/
+out/
+build/
+*.tsbuildinfo
+
+# ── Rust / Cargo ─────────────────────────────────────────────────────────────
+**/target/
+
+# ── WASM build artifacts (wasm-pack output) ──────────────────────────────────
+**/pkg/
+
+# ── Extensions (auto-installed on first dev/build via npm run setup) ──────────
+/extensions/
+
+# ── Cargo.lock for library crates ───────────────────────────────────────────
+# Library lock files should not be committed (Cargo best practice).
+# The application lock (src-tauri/Cargo.lock) IS committed.
+sidex-extension-sdk/Cargo.lock
+extensions-rust/Cargo.lock
+examples/**/Cargo.lock
+
+# ── Logs ─────────────────────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+logs/
+
+# ── OS files ─────────────────────────────────────────────────────────────────
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini
+ehthumbs.db
+
+# ── IDE / Editor ─────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+.freebuff
+
+# ── Environment / Secrets ────────────────────────────────────────────────────
+.env
+.env.*
+.env.local
+!.env.example
+aws-credentials.json
+
+# ── Tauri generated ──────────────────────────────────────────────────────────
+src-tauri/gen/
+
+# ── Test / Coverage ──────────────────────────────────────────────────────────
+coverage/
+.nyc_output/
+*.lcov
+
+# ── Local scratch / source reconstruction (never ship) ───────────────────────
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+/scratchtmp/
+/recover_sources.py
+/recovered/
+/reconstruct/
+/reconstruct_sources.py
+/recover_*.py
+
+# ── Misc ─────────────────────────────────────────────────────────────────────
+*.tgz
+*.vsix
+.turbo/
+.cache/
+.parcel-cache/
+dump/
+designokf/
+
+acrolls/.claude/
+acrolls/.qoder/
+acrolls/docs-ui/
+acrolls/acrolls-knowledge/
+acrolls/docs/
+fractal-agentic/
+fractal-svelte-scaffold/
+
+fractalicons/.claude
+fractalicons/.vscode
+fractalicons/vendor/
+
+fractalpop/.claude/
+
+fractalstyler/.claude/
+fractalstyler/.ok/
+
+fractalsvelte-ui/vibe_images/
+fractutils/.claude/
+fractutils/.vscode/
+
+markgraphy/.chrome-tmp/
+markgraphy/.claude/
+markgraphy/.commandcode/
+
+site-fractalsvelte/
+
+svelte-animated-icon/.vscode/
+
+svelte-animated-icon/src/lib/flowbite/icons/
+svelte-animated-icon/src/lib/hero/icons/
+svelte-animated-icon/src/lib/ion/icons/
+svelte-animated-icon/src/lib/phosphor/icons/
+svelte-animated-icon/src/lib/remix/icons/

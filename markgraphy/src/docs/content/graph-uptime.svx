@@ -1,0 +1,39 @@
+<script lang="ts">
+	import { GraphUptime } from '$lib';
+</script>
+
+# GraphUptime
+
+## Import
+
+```svelte
+import { GraphUptime } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphUptime
+  title="example"
+  from="example"
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `days` | `UptimeStatus[]` | `—` | — |
+| `from?` | `string` | `—` | — |
+| `to?` | `string` | `—` | — |
+| `columns?` | `number` | `30` | — |
+| `glyphs?` | `Glyphs` | `—` | — |
+| `palette?` | `GraphPalette` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `UptimeStatus`
+- `GraphUptimeProps`

@@ -1,0 +1,50 @@
+<script lang="ts">
+	import { GraphJapa } from '$lib';
+</script>
+
+# GraphJapa
+
+## Import
+
+```svelte
+import { GraphJapa } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphJapa
+  title="example"
+  animated={true}
+  cols={60}
+/>
+```
+
+<div class="live">
+<GraphJapa
+  title="example"
+  animated={true}
+  cols={60}
+/>
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words. |
+| `animated?` | `boolean` | `true` | Animate the marker around the mala. Default true. Reduced motion freezes a mid-mala frame. |
+| `cols?` | `number` | `60` | Width of the scene in characters. Default 60. |
+| `rows?` | `number` | `22` | Height of the scene in rows. Default 22. |
+| `beads?` | `number` | `108` | Total beads per mala. The mala is 108; the counter shows current/total. Default 108. |
+| `speedMs?` | `number` | `110` | Milliseconds per bead. Default 110. |
+| `label?` | `string` | `'a breath for every bead'` | Short caption under the art; the art itself is decorative. |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `GraphJapaProps`
+
+## Reduced motion
+
+Animation is disabled under `prefers-reduced-motion`.

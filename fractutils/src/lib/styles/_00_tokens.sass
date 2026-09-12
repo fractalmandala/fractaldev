@@ -1,0 +1,203 @@
+// =============================================================================
+// 00_TOKENS — the single source of truth for runtime CSS custom properties.
+// -----------------------------------------------------------------------------
+// Light is the marker-free default so tokens stay defined during SSR and with
+// JS disabled; dark comes from prefers-color-scheme and explicit [data-mode='dark'].
+// =============================================================================
+
+=light-theme-tokens
+	color-scheme: light
+	--bg: #fdfefe
+	--bg-surface: #f8f7f7
+	--bg-raised: #f1f5f9
+	--bg-panel: #F1F3F5
+	--bg-footer: #E9ECEF
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #0F172A
+	--bg-input: #FFFFFF
+	--bg-canvas: #F8F9FA
+	--text-primary: #0f172a
+	--text-secondary: #5b6472
+	--text-muted: #929497
+	--text-inverse: #ffffff
+	--state-hover: #E2E8F0
+	--state-hover-subtle: #F1F5F9
+	--state-selected: #CBD5E1
+	--border: #E2E8F0
+	--border-subtle: #EDF2F7
+	--theme-color: #04825B
+	--theme-color-alt: #047857
+	--success: #10B981
+	--success-hover: #059669
+	--warning: #F59E0B
+	--warning-hover: #D97706
+	--danger: #EF4444
+	--danger-hover: #DC2626
+	--info: #3B82F6
+	--info-hover: #2563EB
+	--feedback-error: #DC2626
+	--ring: rgba(0, 127, 78, 0.35)
+	// Per-mode shadows (registry v1)
+	--shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06)
+	--shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08)
+	--shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.12)
+
+=dark-theme-tokens
+	color-scheme: dark
+	--bg: #101010
+	--bg-surface: #202021
+	--bg-raised: #3a3a3a
+	--bg-panel: #1f1f20
+	--bg-footer: #111111
+	--bg-popover: #363637
+	--bg-dialog: #39393a
+	--bg-terminal: #121213
+	--bg-input: #1c1c1d
+	--bg-canvas: #171818
+	--border: #2f2f2f
+	--border-subtle: #1e1e1f
+	--text-primary: #EDF2F7
+	--text-secondary: #c7c7c7
+	--text-muted: #7c7c7c
+	--state-hover: #4a4a4b
+	--state-hover-subtle: #2b2b2b
+	--state-selected: #666668
+	--theme-color: #38BDF8
+	--theme-color-alt: #0EA5E9
+	--text-inverse: #0E1118
+	--success: #34D399
+	--success-hover: #6EE7B7
+	--warning: #FBBF24
+	--warning-hover: #FCD34D
+	--danger: #F87171
+	--danger-hover: #FCA5A5
+	--info: #60A5FA
+	--info-hover: #93C5FD
+	--feedback-error: #F87171
+	--ring: rgba(16, 185, 129, 0.4)
+	// Per-mode shadows (registry v1)
+	--shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4)
+	--shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35)
+	--shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.45)
+
+:root
+	color-scheme: light
+
+	// Fonts
+	--font-sans: "Google Sans Flex", sans-serif
+	--font-mono: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace
+
+	// Fluid type scale (Utopia 360→1240)
+	--text-xs: 0.65rem
+	--text-sm: 0.75rem
+	--text-md: 0.875rem
+	--text-bs: clamp(1rem, 1rem + 0vw, 1rem)
+	--text-lg: clamp(1.125rem, 1.0739rem + 0.2273vw, 1.25rem)
+	--text-xl: clamp(1.2656rem, 1.1442rem + 0.5398vw, 1.5625rem)
+	--text-2xl: clamp(1.4238rem, 1.2073rem + 0.9624vw, 1.9531rem)
+	--text-3xl: clamp(1.6018rem, 1.2583rem + 1.5265vw, 2.4414rem)
+	--text-4xl: clamp(1.802rem, 1.2908rem + 2.2722vw, 3.0518rem)
+	--text-5xl: clamp(2.0273rem, 1.2961rem + 3.2498vw, 3.8147rem)
+
+	--coreSpace-2xs: 0
+	--coreSpace-xs: clamp(0.125rem, 0.0739rem + 0.2273vw, 0.25rem)
+	--coreSpace-sm: clamp(0.25rem, 0.1477rem + 0.4545vw, 0.5rem)
+	--coreSpace-md: clamp(0.5rem, 0.3977rem + 0.4545vw, 0.75rem)
+	--coreSpace-bs: clamp(0.75rem, 0.6477rem + 0.4545vw, 1rem)
+	--coreSpace-lg: clamp(1rem, 0.7955rem + 0.9091vw, 1.5rem)
+	--coreSpace-xl: clamp(1.5rem, 1.2955rem + 0.9091vw, 2rem)
+	--coreSpace-2xl: clamp(2rem, 1.5909rem + 1.8182vw, 3rem)
+	--coreSpace-3xl: clamp(3rem, 2.5909rem + 1.8182vw, 4rem)
+
+	// Fluid space scale — the comfortable values. data-layout scales at USE
+	// sites: gaps/margins × var(--gap-scale), paddings × var(--pad-scale).
+	--space-2xs: 0
+	--space-xs: clamp(0.125rem, 0.0739rem + 0.2273vw, 0.25rem)
+	--space-sm: clamp(0.25rem, 0.1477rem + 0.4545vw, 0.5rem)
+	--space-md: clamp(0.5rem, 0.3977rem + 0.4545vw, 0.75rem)
+	--space-bs: clamp(0.75rem, 0.6477rem + 0.4545vw, 1rem)
+	--space-lg: clamp(1rem, 0.7955rem + 0.9091vw, 1.5rem)
+	--space-xl: clamp(1.5rem, 1.2955rem + 0.9091vw, 2rem)
+	--space-2xl: clamp(2rem, 1.5909rem + 1.8182vw, 3rem)
+	--space-3xl: clamp(3rem, 2.5909rem + 1.8182vw, 4rem)
+
+	// Radius (Concentric hierarchy)
+	--radius-0: 0
+	--radius-2: 2px
+	--radius-3: 3px
+	--radius-4: 4px
+	--radius-6: 6px
+	--radius-8: 8px
+	--radius-12: 12px
+	--radius-16: 16px
+	--radius-24: 24px
+	--radius-full: 9999px
+
+	// Radius channels — compositions read these; shape presets remap them.
+	// Defaults = curved (registry v1); unset data-shape IS curved.
+	--radius-sm: 8px
+	--radius-md: 16px
+	--radius-lg: 24px
+
+	// Motion language (registry v1) — durations and easings all compositions read.
+	--motion-fast: 120ms
+	--motion-base: 160ms
+	--motion-slow: 240ms
+	--ease-out: cubic-bezier(0.16, 1, 0.3, 1)
+	--ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1)
+
+	// Control Heights
+	--control-h-sm: 26px
+	--control-h-md: 32px
+	--control-h-lg: 38px
+
+	// Shadow values live in the theme mixins (per-mode since registry v1).
+
+	// Layering
+	--z-base: 0
+	--z-raised: 10
+	--z-sticky: 100
+	--z-modal: 200
+	--z-toast: 300
+
+	// Layout
+	--header-height: 48px
+	--footer-height: 32px
+	--measure: 65ch
+	--page-gutter: clamp(1rem, 4vw, 2rem)
+	--sidebar-width: 300px
+	--toc-width: 280px
+	--card-min: 16rem
+	--breakpoint: 768px
+	--avatar-size: 32px
+	--switch-w: 40px
+	--switch-h: 22px
+	--switch-thumb: 16px
+	--select-arrow-gap: 28px
+	--popover-offset: 6px
+	--blur-sm: 12px
+
+	// Default Light Palette
+	+light-theme-tokens
+
+// Plain :root, NOT :root:not([data-mode='light']). The :not() was redundant —
+// [data-mode='light'] is emitted below and wins on source order at equal
+// specificity — and it was harmful: :not() pushed this to (0,2,0), which
+// outranks a .theme-* class at (0,1,0). Under OS dark mode every theme's
+// surface tokens were silently overridden by these generic defaults.
+@media (prefers-color-scheme: dark)
+	:root
+		+dark-theme-tokens
+
+[data-mode='dark']
+	+dark-theme-tokens
+
+[data-mode='light']
+	+light-theme-tokens
+
+// Footer height follows the shell composition: 0 when the footer is not part
+// of the declared shell (value has no `f`). Default (attribute absent) keeps the
+// :root 32px above. See [data-shell] in _05_shells.sass.
+[data-shell]:not([data-shell*="f"])
+	--footer-height: 0

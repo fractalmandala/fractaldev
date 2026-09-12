@@ -1,0 +1,34 @@
+{
+  "id": "lamplight-newsprint-stone",
+  "name": "Lamplight Newsprint Stone",
+  "version": "2.0.0",
+  "author": "amrit",
+  "description": "The page itself drops to stone and the chrome drops further, with an olive accent. The heaviest, least glaring variant.",
+  "isDark": true,
+  "tags": [
+    "news",
+    "dark"
+  ],
+  "colors": {
+    "bg": "#1A1B1C",
+    "bg-secondary": "#151617",
+    "bg-tertiary": "#212223",
+    "bg-hover": "#242526",
+    "bg-selected": "#313233",
+    "bg-active": "#2C3127",
+    "text": "#E4E5E6",
+    "text-muted": "#A7A8A9",
+    "text-faint": "#77787A",
+    "text-disabled": "#565759",
+    "border": "#292A2B",
+    "border-focus": "#9DB86A",
+    "primary": "#9DB86A",
+    "primary-hover": "#AAC080",
+    "link": "#9DB86A",
+    "link-hover": "#AAC080",
+    "success": "#86C08A",
+    "warning": "#D2A85A",
+    "error": "#E06A78",
+    "info": "#8AA4E8"
+  }
+}

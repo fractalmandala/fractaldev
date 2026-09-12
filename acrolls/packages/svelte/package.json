@@ -1,0 +1,49 @@
+{
+  "name": "@acrolls/svelte",
+  "private": true,
+  "version": "0.1.1",
+  "description": "Svelte 5 publication primitives for Acrolls.",
+  "license": "Apache-2.0",
+  "repository": { "type": "git", "url": "git+https://github.com/fractalmandala/Acrolls.git", "directory": "packages/svelte" },
+  "bugs": "https://github.com/fractalmandala/Acrolls/issues",
+  "homepage": "https://github.com/fractalmandala/Acrolls#readme",
+  "type": "module",
+  "svelte": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js",
+      "import": "./dist/index.js"
+    },
+    "./PublicationLayout.svelte": "./dist/PublicationLayout.svelte"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "svelte-package -i src/lib -o dist",
+    "check": "svelte-check --tsconfig ./tsconfig.json"
+  },
+  "dependencies": {
+    "mermaid": "^11.9.0"
+  },
+  "peerDependencies": {
+    "svelte": "^5.0.0"
+  },
+  "devDependencies": {
+    "@sveltejs/package": "^2.5.0",
+    "svelte": "^5.38.1",
+    "svelte-check": "^4.3.1",
+    "typescript": "^5.9.2"
+  },
+  "keywords": [
+    "acrolls",
+    "svelte",
+    "sveltekit",
+    "publishing",
+    "mdsvex"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "lamplight-cold-front",
+  "name": "Lamplight Cold Front",
+  "version": "2.0.0",
+  "author": "amrit",
+  "description": "Cool syntax with one warm keyword, now on neutral stone chrome and a colourless selection \u2014 the ice is gone.",
+  "isDark": true,
+  "tags": [
+    "cold",
+    "dark"
+  ],
+  "colors": {
+    "bg": "#15181A",
+    "bg-secondary": "#111416",
+    "bg-tertiary": "#1B1E21",
+    "bg-hover": "#1D2023",
+    "bg-selected": "#283037",
+    "bg-active": "#34291F",
+    "text": "#B9C2C9",
+    "text-muted": "#888F94",
+    "text-faint": "#667077",
+    "text-disabled": "#4A5156",
+    "border": "#232729",
+    "border-focus": "#F0913F",
+    "primary": "#F0913F",
+    "primary-hover": "#E69A58",
+    "link": "#F0913F",
+    "link-hover": "#E69A58",
+    "success": "#5CC0A0",
+    "warning": "#E0B15A",
+    "error": "#EC7A7A",
+    "info": "#62B8EE"
+  }
+}

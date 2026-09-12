@@ -1,0 +1,21 @@
+<script lang="ts">
+	import { DiagramEditor } from '$lib';
+</script>
+
+# DiagramEditor
+
+## Import
+
+```svelte
+import { DiagramEditor } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<DiagramEditor />
+```
+
+<div class="live">
+<DiagramEditor />
+</div>

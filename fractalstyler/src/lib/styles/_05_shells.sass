@@ -1,0 +1,480 @@
+// ============================================================================
+// shells — L4. Canonical markups are canon: every class here implements the
+// markup registered in the registry. Overlay mechanics, the docs-frame roles
+// and the mobile TOC disclosure are authored to the registered behaviors.
+// Motion reads the motion tokens — presets reach everything.
+// ============================================================================
+
+@use 'sass:string'
+@use 'sass:list'
+@use 'sass:map'
+@use '01_config' as *
+
+$md: map.get($breakpoints, md)
+$lg: map.get($breakpoints, lg)
+$xl: map.get($breakpoints, xl)
+
+// --- The app-shell canon ------------------------------------------------------
+.app-shell
+	display: flex
+	flex-direction: column
+
+// Shell composition — [data-shell] on <html>, set by the preset system. The
+// value lists the OPTIONAL regions PRESENT: l = left rail (nav), r = right rail
+// (TOC), f = footer. Absent attribute = the full shell (l r f). A declared
+// composition suppresses any region whose letter it omits; c (content-only)
+// omits all three. The letters are a disjoint alphabet, so substring matching
+// (*=) is unambiguous. Footer height follows the same rule in _00_tokens.sass.
+[data-shell]:not([data-shell*="l"])
+	.app-shell .sidebar-left
+		display: none
+
+[data-shell]:not([data-shell*="r"])
+	.app-shell .sidebar-right
+		display: none
+
+[data-shell]:not([data-shell*="f"])
+	.app-shell .app-footer
+		display: none
+
+.app-header
+	display: flex
+	flex-direction: row
+	align-items: center
+	justify-content: space-between
+	position: sticky
+	top: 0
+	z-index: var(--z-sticky)
+	height: var(--header-height)
+	background: var(--bg)
+	padding-inline: calc(var(--space-bs) * var(--pad-scale, 1))
+
+a.nav-header
+	font-size: var(--text-md)
+	position: relative
+	font-weight: 500
+	letter-spacing: -0.01rem
+	&:after
+		content: ''
+		position: absolute
+		bottom: 0
+		right: 0
+		height: 2px
+		width: 0
+		background: var(--theme-color)
+		transition: width var(--speed-3) var(--transout-3), left var(--speed-3) var(--transin-3)
+	&:hover
+		&:after
+			width: 100%
+			left: 0
+
+.app-main
+	min-height: calc(100vh - var(--header-height) - var(--footer-height))
+	overflow: auto
+	display: flex
+	flex: 1 1 0%
+	min-width: 0
+	@media (max-width: 1024px)
+		padding-inline: calc(var(--space-bs) * var(--pad-scale, 1))
+
+.pop-shell
+	min-height: calc(100vh - var(--header-height) - var(--footer-height))
+.pop-main
+	padding-inline: var(--space-bs)
+	padding-block: var(--space-xl)
+
+.main-section
+	display: block
+	flex: 1 1 0%
+	min-width: 0
+
+.content-section
+	width: 100%
+	padding: var(--space-2xl) 0
+	&.null
+		padding: 0 var(--space-bs)
+	@media (min-width: 769px)
+		padding: var(--space-2xl) var(--space-bs)
+		&.narrow-half
+			padding: var(--space-2xl) 0
+			width: 640px
+			margin-inline: auto
+		&.narrow-wide
+			padding: var(--space-2xl) 0
+			width: 720px
+			margin-inline: auto
+	@media (min-width: 1025px)
+		padding: var(--space-2xl) var(--space-bs)
+		&.narrow-full
+			width: 640px
+			margin-inline: auto
+		&.narrow-half
+			width: 750px
+			padding-right: 25px
+		&.narrow-wide
+			width: 750px
+	@media (min-width: 1281px)
+		&.narrow-full
+			width: 680px
+		&.narrow-half
+			width: 800px
+			padding-right: 120px
+		&.narrow-wide
+			width: 1024px
+	@media (min-width: 1441px)
+		&.narrow-wide
+			width: 1280px
+
+// --- Role-bound rails (Amendment A1) -------------------------------------------
+// Left = nav: visible ≥ lg; below, .open on .app-shell resurrects it as an
+// off-canvas drawer (the header menu button toggles it). Right = TOC: visible
+// ≥ xl; below, its content surfaces in .mobile-toc at the top of the page.
+// A sticky rail must NOT subtract --footer-height. The footer sits in normal
+// flow at the end of the document, so it only occupies viewport space when the
+// page does not scroll — on any longer page it is far below the fold and
+// subtracting it just leaves a dead gap at the bottom of every screen.
+//
+// Instead: no explicit height, so the flex `stretch` default sizes the rail to
+// .app-main (which already stops at the footer), and max-height clamps the
+// STICKY box to the viewport below the header. Short page -> stretch wins and
+// the rail ends exactly at the footer; long page -> the clamp wins and the rail
+// fills the screen, while sticky containment keeps it inside .app-main so it
+// still lands flush on the footer at the bottom of the scroll. Both cases fall
+// out of one rule, with no dependency on whether the footer is on screen.
+.sidebar-left,
+.sidebar-right
+	display: none
+	align-self: stretch
+	position: sticky
+	top: var(--header-height)
+	max-height: calc(100vh - var(--header-height))
+	overflow-y: auto
+	width: var(--sidebar-width)
+
+@media (max-width: #{$lg - 1})
+	.app-shell.open .sidebar-left
+		display: block
+		position: fixed
+		left: 0
+		z-index: var(--z-modal)
+		width: var(--sidebar-width)
+		// Fixed to the viewport: the in-flow footer is not part of it.
+		height: calc(100vh - var(--header-height))
+		background: var(--bg)
+
+@media #{string.unquote('(min-width: #{$lg})')}
+	.sidebar-left
+		display: block
+		align-self: stretch
+		position: sticky
+		top: var(--header-height)
+		max-height: calc(100vh - var(--header-height))
+		overflow-y: auto
+		width: var(--sidebar-width)
+		scrollbar-width: thin
+
+@media #{string.unquote('(min-width: #{$xl})')}
+	.sidebar-right
+		display: block
+
+.app-footer
+	display: flex
+	flex-direction: row
+	align-items: center
+	padding-inline: calc(var(--space-bs) * var(--pad-scale, 1))
+	height: var(--footer-height)
+	border-top: 1px solid var(--border)
+
+// Page-top TOC dropdown — where the TOC lives below xl: <details class="mobile-toc">.
+.mobile-toc
+	padding: calc(var(--space-xs) * var(--pad-scale, 1))
+	border: 1px solid var(--border)
+	border-radius: var(--radius-md)
+	background: var(--bg-surface)
+	summary
+		display: flex
+		flex-direction: row
+		align-items: center
+		justify-content: space-between
+		font-weight: 500
+		font-size: var(--text-sm)
+		color: var(--text-primary)
+		cursor: pointer
+		user-select: none
+		list-style: none
+		&::-webkit-details-marker
+			display: none
+	&[open]
+		background: var(--bg-raised)
+		summary
+			padding-bottom: calc(var(--space-2xs) * var(--pad-scale, 1))
+			margin-bottom: calc(var(--space-xs) * var(--gap-scale, 1))
+			border-bottom: 1px solid var(--border)
+	@media #{string.unquote('(min-width: #{$xl})')}
+		display: none
+
+// --- Canonical shell roles — the tree (left rail) and the TOC (right rail) -----
+.navtree
+	display: flex
+	flex-direction: column
+	flex-shrink: 0
+
+// Flat group label — for groups that don't collapse (collapsible groups ride
+// the accordion family: trigger carries the title, content carries the links).
+.navtree-title
+	padding-inline: calc(var(--space-xs) * var(--pad-scale, 1))
+	font-size: var(--text-xs)
+	font-weight: 600
+	letter-spacing: 0.05em
+	text-transform: uppercase
+	color: var(--text-muted)
+
+.nav-l1, button.nav-l1
+	display: flex
+	align-items: center
+	justify-content: space-between
+	font-size: var(--text-sm)
+	text-decoration: none
+	padding: var(--space-xs) var(--space-sm)
+	border-radius: var(--radius-lg)
+	letter-spacing: -0.01rem
+	background: none
+	border: none
+	width: 100%
+	line-height: 1.3
+	&:hover
+		background: var(--state-hover-subtle)
+
+.nav-label
+	padding: var(--space-sm) var(--space-sm)
+
+.nav-l1
+	color: var(--text-secondary)
+button.nav-l1
+	color: var(--text-primary)
+	font-weight: 520
+
+.nav-l2
+	display: flex
+	align-items: center
+	font-size: var(--text-md)
+	color: var(--text-secondary)
+	text-decoration: none
+	padding: var(--space-sm)
+	border-radius: var(--radius-sm)
+	margin-left: var(--space-md)
+	&:hover
+		background: var(--state-hover-subtle)
+
+.navtree-sub
+	display: flex
+	flex-direction: column
+	gap: calc(var(--space-2xs) * var(--gap-scale, 1))
+	padding-left: calc(var(--space-sm) * var(--pad-scale, 1))
+
+.toc
+	display: flex
+	flex-direction: column
+	gap: calc(var(--space-xs) * var(--gap-scale, 1))
+
+.toc-title
+	padding-inline: calc(var(--space-xs) * var(--pad-scale, 1))
+	font-size: var(--text-xs)
+	font-weight: 600
+	letter-spacing: 0.05em
+	text-transform: uppercase
+	color: var(--text-muted)
+
+.toc-list
+	display: flex
+	flex-direction: column
+	gap: calc(var(--space-2xs) * var(--gap-scale, 1))
+	margin: 0
+	padding: 0
+	list-style: none
+
+.toc-link
+	display: block
+	font-size: var(--text-sm)
+	color: var(--text-secondary)
+	text-decoration: none
+	transition: color var(--motion-fast) ease
+	&:hover
+		color: var(--text-primary)
+	&.active
+		color: var(--theme-color)
+		font-weight: 500
+
+.toc-footer
+	margin-top: calc(var(--space-xs) * var(--gap-scale, 1))
+	padding-top: calc(var(--space-xs) * var(--pad-scale, 1))
+	border-top: 1px solid var(--border)
+	font-size: var(--text-xs)
+	color: var(--text-muted)
+
+// --- Tabs — current = .active; triggers carry native aria-selected -------------
+.tab-list
+	display: flex
+	flex-direction: row
+	gap: calc(var(--space-2xs) * var(--gap-scale, 1))
+	border-bottom: 1px solid var(--border)
+
+.tab-trigger
+	padding-block: calc(var(--space-2xs) * var(--pad-scale, 1))
+	padding-inline: calc(var(--space-xs) * var(--pad-scale, 1))
+	font-size: var(--text-sm)
+	color: var(--text-secondary)
+	background: transparent
+	border: 0
+	border-bottom: 2px solid transparent
+	margin-bottom: -1px
+	cursor: pointer
+	text-decoration: none
+	transition: color var(--motion-fast) ease, border-color var(--motion-fast) ease
+	&:hover
+		color: var(--text-primary)
+	&.active
+		color: var(--text-primary)
+		border-bottom-color: var(--theme-color)
+
+// --- Page frames — padding ownership moves with full-bleed chrome ------------
+.page-shell
+	padding-inline: calc(var(--space-bs) * var(--pad-scale, 1))
+	padding-block: calc(var(--space-bs) * var(--pad-scale, 1))
+
+.page-split
+	display: grid
+	grid-template-columns: minmax(0, 1fr)
+	.page-main
+		min-width: 0
+		padding: var(--page-gutter)
+	.page-sidebar
+		display: none
+	@media #{string.unquote('(min-width: #{$md})')}
+		grid-template-columns: var(--sidebar-width) minmax(0, 1fr)
+		.page-sidebar
+			display: block
+			align-self: stretch
+			position: sticky
+			top: var(--header-height)
+			max-height: calc(100vh - var(--header-height))
+			overflow-y: auto
+			border-right: 1px solid var(--border)
+
+// --- Overlays — shown via .open; triggers carry native aria ------------------
+.drawer
+	position: fixed
+	top: var(--header-height)
+	left: 0
+	z-index: var(--z-modal)
+	width: min(85vw, 320px)
+	height: calc(100vh - var(--header-height))
+	padding: calc(var(--space-sm) * var(--pad-scale, 1))
+	overflow-y: auto
+	background: var(--bg)
+	border-right: 1px solid var(--border)
+	transform: translateX(-105%)
+	visibility: hidden
+	transition: transform var(--motion-base) var(--ease-out), visibility var(--motion-base)
+	&.open
+		transform: translateX(0)
+		visibility: visible
+
+.dialog
+	position: fixed
+	top: 50%
+	left: 50%
+	translate: 0 -4px
+	z-index: var(--z-modal)
+	max-width: min(92vw, 540px)
+	width: 100%
+	background: var(--bg-dialog)
+	border: 1px solid var(--border)
+	border-radius: var(--radius-lg)
+	box-shadow: var(--shadow-lg)
+	opacity: 0
+	visibility: hidden
+	pointer-events: none
+	transition: opacity var(--motion-base) var(--ease-out), visibility var(--motion-base), translate var(--motion-base) var(--ease-out)
+	&.open,
+	&[open]
+		opacity: 1
+		visibility: visible
+		pointer-events: auto
+		translate: 0 0
+	&::backdrop
+		background: rgba(0, 0, 0, 0.5)
+
+.popover
+	position: absolute
+	top: calc(100% + calc(--popover-offset))
+	left: 0
+	z-index: var(--z-raised)
+	min-width: 200px
+	background: var(--bg-popover)
+	border: 1px solid var(--border)
+	border-radius: var(--radius-md)
+	box-shadow: var(--shadow-md)
+	translate: 0 -4px
+	opacity: 0
+	visibility: hidden
+	pointer-events: none
+	transition: opacity var(--motion-fast) var(--ease-out), visibility var(--motion-fast), translate var(--motion-fast) var(--ease-out)
+	&.open
+		opacity: 1
+		visibility: visible
+		pointer-events: auto
+		translate: 0 0
+
+.accordion
+	display: flex
+	flex-direction: column
+	width: 100%
+
+.accordion-item
+	width: 100%
+	.accordion-content
+		width: 100%
+		display: grid
+		grid-template-rows: 0fr
+		padding: 0
+		transition: grid-template-rows var(--motion-base) var(--ease-out)
+	// The panel is what collapses. It needs min-height: 0 so the grid row can
+	// size it, and overflow: hidden so the content clips while closed — which
+	// is why it carries a name rather than being reached at by position.
+	.accordion-panel
+		overflow: hidden
+		min-height: 0
+	&.open .accordion-content
+		grid-template-rows: 1fr
+		padding: calc(var(--space-xs) * var(--pad-scale, 1))
+
+.accordion-trigger
+	display: flex
+	flex-direction: row
+	align-items: center
+	justify-content: space-between
+	width: 100%
+	min-height: var(--control-h-md)
+	padding: calc(var(--space-2xs) * var(--pad-scale, 1)) calc(var(--space-xs) * var(--pad-scale, 1))
+	font-weight: 500
+	font-size: var(--text-sm)
+	text-align: left
+	background: transparent
+	border: 0
+	cursor: pointer
+	user-select: none
+	&:hover
+		background: var(--bg-raised)
+	&:focus-visible
+		outline: 2px solid var(--ring)
+		outline-offset: -2px
+
+// --- .hero — documented sugar: .box.ycenter + gap-lg + pad-y-xl ---------------
+.hero
+	display: flex
+	flex-direction: column
+	align-items: center
+	justify-content: center
+	gap: calc(var(--space-lg) * var(--gap-scale, 1))
+	padding-block: calc(var(--space-xl) * var(--pad-scale, 1))

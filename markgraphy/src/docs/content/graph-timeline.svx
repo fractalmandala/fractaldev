@@ -1,0 +1,35 @@
+<script lang="ts">
+	import { GraphTimeline } from '$lib';
+</script>
+
+# GraphTimeline
+
+## Import
+
+```svelte
+import { GraphTimeline } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphTimeline
+  title="example"
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `events` | `TimelineEvent[]` | `—` | — |
+| `palette?` | `GraphPalette` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `TimelineState`
+- `TimelineEvent`
+- `GraphTimelineProps`

@@ -1,0 +1,58 @@
+// =============================================================================
+// 11_OWN — bespoke project-specific styles and micro-components.
+// =============================================================================
+
+.accent-dot
+	width: 16px
+	height: 16px
+	padding: 0
+	border-radius: 99px
+	border: 1px solid color-mix(in oklab, var(--text-primary) 20%, transparent)
+	background: var(--swatch)
+.accent-dot[aria-pressed='true']
+	outline: 1px solid var(--text-primary)
+	outline-offset: 2px
+
+.site-wrapper
+	position: relative
+	width: 100%
+	max-width: 1600px
+	margin-inline: auto
+	padding: 0 var(--pad) 1.4rem
+
+.cabinet
+	display: flex
+	flex-direction: column
+	min-width: 0
+
+@media (min-width: 1024px)
+	.cabinet
+		display: grid
+		grid-template-columns: 17rem minmax(0, 1fr)
+		align-items: start
+	.cabinet.solo
+		grid-template-columns: minmax(0, 1fr)
+
+.content
+	min-width: 0
+	padding: 1.6rem 1.3rem 4rem
+
+@media (min-width: 1024px)
+	.content
+		padding: 1.6rem 1.6rem 5rem
+
+select
+	appearance: none
+	border: none
+	@supports (appearance: base-select)
+		&,
+		&::picker(select)
+			appearance: base-select
+
+.weight-300
+	font-weight: 300
+
+.fitted-1024
+	max-width: 1024px
+	width: 100%
+	margin-inline: auto

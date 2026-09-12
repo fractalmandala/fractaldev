@@ -1,0 +1,50 @@
+<script lang="ts">
+	import { GraphAum } from '$lib';
+</script>
+
+# GraphAum
+
+## Import
+
+```svelte
+import { GraphAum } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphAum
+  title="example"
+  animated={true}
+  cols={56}
+/>
+```
+
+<div class="live">
+<GraphAum
+  title="example"
+  animated={true}
+  cols={56}
+/>
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words. |
+| `animated?` | `boolean` | `true` | Animate the ink-in and resonance. Default true. Reduced motion freezes a settled frame. |
+| `cols?` | `number` | `56` | Width of the scene in characters; at least 46 so the figure fits. Default 56. |
+| `rows?` | `number` | `22` | Height of the scene in rows. Default 22. |
+| `speedMs?` | `number` | `110` | Milliseconds per tick. Default 110. |
+| `seedNum?` | `number` | `7` | Seed offsets the resonance wave along the stroke. Default 7. |
+| `label?` | `string` | `'the primordial vibration'` | Short caption under the art; the art itself is decorative. |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `GraphAumProps`
+
+## Reduced motion
+
+Animation is disabled under `prefers-reduced-motion`.

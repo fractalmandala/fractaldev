@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fractalmandala.dev/schemas/react-to-sveltekit-output-contract-1.0.json",
+  "title": "React to SvelteKit Conversion Output Contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contractVersion", "status", "source", "target", "dependencies", "dataFlow", "ssr", "verification", "gaps"],
+  "properties": {
+    "contractVersion": { "const": "1.0" },
+    "status": { "enum": ["planned", "complete", "partial", "blocked"] },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["framework", "kind", "files", "route", "animationTier"],
+      "properties": {
+        "framework": { "enum": ["react", "next"] },
+        "kind": { "enum": ["component", "route-component", "page"] },
+        "files": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "route": { "type": ["string", "null"] },
+        "animationTier": { "enum": ["none", "framer-motion", "gsap", "css-timer", "canvas-webgl"] }
+      }
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "files", "route", "publicApi"],
+      "properties": {
+        "kind": { "enum": ["component", "route"] },
+        "files": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
+        "route": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "required": ["path", "params", "searchParams"],
+          "properties": {
+            "path": { "type": "string", "minLength": 1 },
+            "params": { "type": "array", "items": { "type": "string" } },
+            "searchParams": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "publicApi": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["props", "bindings", "callbacks", "snippets"],
+          "properties": {
+            "props": { "type": "array", "items": { "type": "string" } },
+            "bindings": { "type": "array", "items": { "type": "string" } },
+            "callbacks": { "type": "array", "items": { "type": "string" } },
+            "snippets": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    },
+    "dependencies": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["present", "required", "missing", "fallbacks"],
+      "properties": {
+        "present": { "type": "array", "items": { "type": "string" } },
+        "required": { "type": "array", "items": { "type": "string" } },
+        "missing": { "type": "array", "items": { "type": "string" } },
+        "fallbacks": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "dataFlow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["loadFile", "reason", "serverData", "actions", "invalidations", "serialization"],
+      "properties": {
+        "loadFile": { "enum": ["none", "+page.ts", "+page.server.ts", "+layout.ts", "+layout.server.ts", "+server.ts", "remote"] },
+        "reason": { "type": "string", "minLength": 1 },
+        "serverData": { "type": "array", "items": { "type": "string" } },
+        "actions": { "type": "array", "items": { "type": "string" } },
+        "invalidations": { "type": "array", "items": { "type": "string" } },
+        "serialization": { "enum": ["not-applicable", "json-serializable"] }
+      }
+    },
+    "ssr": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "browserOnlyApis", "guards", "disabledReason"],
+      "properties": {
+        "mode": { "enum": ["safe", "browser-effect", "browser-guard", "disabled"] },
+        "browserOnlyApis": { "type": "array", "items": { "type": "string" } },
+        "guards": { "type": "array", "items": { "type": "string" } },
+        "disabledReason": { "type": ["string", "null"] }
+      }
+    },
+    "verification": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["command", "cwd", "purpose", "status", "evidence"],
+        "properties": {
+          "command": { "type": "string", "minLength": 1 },
+          "cwd": { "type": "string", "minLength": 1 },
+          "purpose": { "type": "string", "minLength": 1 },
+          "status": { "enum": ["planned", "passed", "skipped", "failed"] },
+          "evidence": { "type": "string" }
+        }
+      }
+    },
+    "gaps": { "type": "array", "items": { "type": "string" } }
+  }
+}

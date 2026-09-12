@@ -1,0 +1,78 @@
+// ============================================================================
+// frame — decorative framing primitives, plus the utilities the rest of the
+// system turned out to be missing.
+//
+// Loaded last so these compose over any layer. Nothing here invents a value:
+// every colour resolves from the L0 contract, so a theme change moves it all.
+// ============================================================================
+
+// ── gaps that read as rules ─────────────────────────────────────────────────
+// A grid separated by hairlines is `gap-1` over a container painted the border
+// colour, with the cells on `bg`. Until now no class exposed --border as a
+// background, so `surface` was the nearest stand-in — #fbfbfb against a #fdfefe
+// cell, which is a 2/255 difference and invisible.
+.bg-line
+	background: var(--border)
+
+// ── border utilities ────────────────────────────────────────────────────────
+// The system had no border-style and no border-color utility of any kind.
+// Both compose with the existing `.border`.
+
+.border-theme
+	border-color: var(--theme-color)
+
+// ── the accent as a fill ────────────────────────────────────────────────────
+// Every status colour ships a background class (bg-danger, bg-info,
+// bg-success, bg-warning); the theme accent did not.
+.bg-theme
+	background: var(--theme-color)
+
+.bg-theme-alt
+	background: var(--theme-color-alt)
+
+// ── the inset cap ───────────────────────────────────────────────────────────
+// A label that straddles the top edge of a framed region. Needs a positioned
+// ancestor — pair with `.relative` on the frame.
+//
+// The ink is fixed rather than tokenised on purpose: a cap always sits on a
+// saturated or dark fill, and --text-inverse flips with the mode, so it would
+// render dark-on-dark in dark mode. This is a property of the treatment, not
+// of the palette. It also has to out-rank .eyebrow, which sets a muted colour
+// and is declared earlier — hence the colour lives here, on .cap itself.
+.cap
+	position: absolute
+	top: 0
+	padding-inline: var(--space-2xs)
+	white-space: nowrap
+	transform: translateY(-50%)
+
+
+// ── corner marks ────────────────────────────────────────────────────────────
+// The `+` ticks that sit on a frame's corners. Modifiers nest under the base,
+// matching the alignment universe in 03_containers.
+.corner
+	position: absolute
+	line-height: 1
+	user-select: none
+	pointer-events: none
+	&.tl
+		top: 0
+		left: 0
+		transform: translate(-50%, -50%)
+	&.tr
+		top: 0
+		right: 0
+		transform: translate(50%, -50%)
+	&.bl
+		bottom: 0
+		left: 0
+		transform: translate(-50%, 50%)
+	&.br
+		bottom: 0
+		right: 0
+		transform: translate(50%, 50%)
+
+// ── display weight ──────────────────────────────────────────────────────────
+// The ramp stopped at 800; display type wants the top of the family.
+.weight-900
+	font-weight: 900

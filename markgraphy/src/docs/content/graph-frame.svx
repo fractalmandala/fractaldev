@@ -1,0 +1,56 @@
+<script lang="ts">
+	import { Graph } from '$lib';
+</script>
+
+# Graph
+
+Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words.
+
+## Import
+
+```svelte
+import { Graph } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<Graph
+  title="example"
+  corner={'+'}
+  dash={'token'}
+/>
+```
+
+<div class="live">
+<Graph
+  title="example"
+  corner={'+'}
+  dash={'token'}
+/>
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title?` | `string` | `—` | Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words. |
+| `corner?` | `string` | `'+'` | Character at each corner of the frame. Default "+". |
+| `dash?` | `GraphDash` | `'token'` | Dash rhythm. Default 'token' (follows `--graph-framer`). |
+| `motion?` | `GraphMotion` | `'none'` | Frame motion. Every loop is off under `prefers-reduced-motion`. Default 'none'. |
+| `speed?` | `number` | `—` | Seconds per motion cycle — for `draw`, the hover duration.
+Defaults per motion (draw 0.3, march 0.7, pulse 2, scan 3). |
+| `easing?` | `Easing` | `—` | Curve the motion runs on — an `EASINGS` name or a raw timing function. |
+| `pauseOnHover?` | `boolean` | `false` | Pause the loop while hovered. Default false. |
+| `cornerBlink?` | `boolean` | `false` | Blink the corner glyphs. Default false. |
+| `pad?` | `GraphPad` | `'none'` | Inner padding. Default 'none'. |
+| `ink?` | `string` | `—` | Frame colour override. Defaults to `--text-primary`. |
+| `accent?` | `string` | `—` | Corner + title colour override. Defaults to `--graph-accent`. |
+| `class?` | `string` | `''` | — |
+| `children?` | `Snippet` | `—` | — |
+
+## Exported types
+
+- `GraphDash`
+- `GraphMotion`
+- `GraphPad`

@@ -1,0 +1,10 @@
+{
+  "name": "studio-canvas-vending",
+  "private": true,
+  "version": "0.1.0",
+  "devDependencies": {
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.0",
+    "esbuild": "0.25.12"
+  }
+}

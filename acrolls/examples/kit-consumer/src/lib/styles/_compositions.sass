@@ -1,0 +1,101 @@
+// The old hand-rolled app shell (.appshell / .appheader / .appbody / .appfooter /
+// .body-main / .sidebar-*) was retired: all docs chrome now comes from DocsShell in
+// @acrolls/docs. Only the reusable, framework-free layout primitives remain below.
+
+// Layout primitives ----------------------------------------------------
+// Classic composition utilities — reusable everywhere, framework-free.
+
+// Vertical rhythm: owl selector, gap via --stack-gap
+.stack
+	display: flex
+	flex-direction: column
+	justify-content: flex-start
+	gap: var(--stack-gap, var(--space-xs))
+
+// Wrapping row of items with a shared gap
+.cluster
+	display: flex
+	flex-wrap: wrap
+	gap: var(--cluster-gap, var(--space-xs))
+	align-items: var(--cluster-align, center)
+	justify-content: var(--cluster-justify, flex-start)
+
+// Intrinsic sidebar: a fixed-ish rail beside a fluid main, wraps when tight
+.with-sidebar
+	display: flex
+	flex-wrap: wrap
+	gap: var(--sidebar-gap, var(--space-s))
+	.rail
+		flex-basis: var(--rail-width, 240px)
+		flex-grow: 1
+	.flow
+		flex-basis: 0
+		flex-grow: 999
+		min-width: var(--flow-min, 60%)
+
+// Horizontal overflow scroller
+.reel
+	display: flex
+	gap: var(--reel-gap, var(--space-xs))
+	overflow-x: auto
+	overscroll-behavior-inline: contain
+	scroll-snap-type: inline mandatory
+	:where(*)
+		scroll-snap-align: start
+		flex: 0 0 auto
+
+// Cover — vertically centered content filling minimum height
+.cover
+	display: flex
+	flex-direction: column
+	min-height: var(--cover-min-height, 100vh)
+	padding: var(--cover-space, var(--space-s))
+	:where(*)
+		margin-block: 0
+	.cover-center
+		margin-block: auto
+
+// Center — horizontally centered with max-width measure
+.center
+	max-width: var(--center-max, var(--measure, 60ch))
+	margin-inline: auto
+	padding-inline: var(--center-pad, var(--space-s))
+
+// Frame — aspect-ratio container for media
+.frame
+	--frame-ratio: 16 / 9
+	aspect-ratio: var(--frame-ratio)
+	overflow: hidden
+	:is(img, video, iframe)
+		width: 100%
+		height: 100%
+		object-fit: cover
+	&[data-ratio='1/1']
+		--frame-ratio: 1 / 1
+	&[data-ratio='4/3']
+		--frame-ratio: 4 / 3
+	&[data-ratio='16/9']
+		--frame-ratio: 16 / 9
+	&[data-ratio='21/9']
+		--frame-ratio: 21 / 9
+	&[data-ratio='3/4']
+		--frame-ratio: 3 / 4
+	&[data-ratio='2/3']
+		--frame-ratio: 2 / 3
+
+// Auto-grid — intrinsic auto-fit grid
+.auto-grid
+	display: grid
+	grid-template-columns: repeat(auto-fit, minmax(min(var(--auto-grid-min, 15rem), 100%), 1fr))
+	gap: var(--auto-grid-gap, var(--space-s))
+
+// Switcher — container-based layout switching
+.switcher
+	display: flex
+	flex-wrap: wrap
+	gap: var(--switcher-gap, var(--space-s))
+	:where(*)
+		flex-grow: 1
+		flex-basis: calc((var(--switcher-threshold, 30rem) - 100%) * 999)
+	:is(:nth-last-child(n+5), :nth-last-child(n+5) ~ *)
+		flex-basis: 100%

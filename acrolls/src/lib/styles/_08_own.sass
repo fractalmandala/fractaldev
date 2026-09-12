@@ -1,0 +1,147 @@
+// =============================================================================
+// 11_OWN — bespoke project-specific styles and micro-components.
+// =============================================================================
+:root
+	--colown0: #60992D
+	--colown1: #008148
+	--colown2: #157F1F
+	--colown3: #A2D729
+	--colown4: #2b9348
+	--colown5: #55a630
+	--colown6: #80b918
+	--colown7: #70e000
+	--colown8: #008000
+	--colown9: #0C7C59
+	--transin-2: cubic-bezier(0.550, 0.055, 0.675, 0.190)
+	--transin-3: cubic-bezier(0.755, 0.050, 0.855, 0.060)
+	--transin-1: cubic-bezier(0.470, 0.000, 0.745, 0.715)
+	--transout-1: cubic-bezier(0.390, 0.575, 0.565, 1.000)
+	--transout-2: cubic-bezier(0.215, 0.610, 0.355, 1.000)
+	--transout-3: cubic-bezier(0.230, 1.000, 0.320, 1.000)
+	--speed-1: 90ms
+	--speed-2: 140ms
+	--speed-3: 220ms
+	--speed-0: 40ms
+	--insnap: 90ms cubic-bezier(0.755, 0.050, 0.855, 0.060)
+	--article-margin: 2rem
+
+.archos
+	--nu-slate: #2B2A27
+	--nu-gray: #4A4844
+	--nu-dim: #76736E
+	--nu-egg: #E8E5DF
+	--nu-chalk: #F3F1EC
+	--nu-wall: #FAF8F5
+	--nu-snow: #FFFEFC
+
+.udyog
+	--nu-slate: #1F2124
+	--nu-gray: #464B50
+	--nu-dim: #6D737A
+	--nu-egg: #E1E4E6
+	--nu-chalk: #EEF1F3
+	--nu-wall: #F7F8F9
+	--nu-snow: #FFFFFF
+
+.studiyo
+	--nu-slate: #242628
+	--nu-gray: #53565A
+	--nu-dim: #82858A
+	--nu-egg: #EBEAE5
+	--nu-chalk: #F4F3EF
+	--nu-wall: #F9F9F6
+	--nu-snow: #FFFDF9
+
+.text-logo
+	font-family: var(--font-logo)
+	text-decoration: none
+	font-weight: 500
+	font-size: 18px
+	color: inherit
+	display: flex
+	align-items: center
+	gap: 8px
+	svg
+		color: var(--colown5)
+
+nav.header-nav
+	font-size: 0.903rem
+	color: var(--text-secondary)
+	a
+		text-decoration: none
+	@media (max-width: 1024px)
+		display: none
+
+ul.nav-ul, ul.toc-ul
+	list-style-type: none
+	padding: 0
+	margin: 0
+	color: #878787
+	a
+		text-decoration: none
+	ul.toc-ul-in
+		list-style-type: none
+		color: #a7a7a7
+		padding: 0.24rem 0.4rem
+		margin: 0
+
+li.nav-li, p.nav-eyebrow
+	margin: 0
+	padding: 0.24rem 0.64rem
+	font-size: 0.8rem
+	border-radius: 0.35rem
+
+li.toc-li
+	margin: 0
+	padding: 0.24rem 0.4rem
+	font-size: 0.75rem
+	border-radius: 0.15rem
+	a
+		&:hover
+			color: var(--colown5)
+
+li.nav-li
+	transition: background 40ms var(--transin-3)
+	color: #82858A
+	&:hover
+		background: #E1E4E6
+
+.sidebar-nav-link
+	text-decoration: none
+
+.content-shell, .docs-nav-wrapper
+	padding-top: 1vh
+
+.pill
+	font-size: var(--text-xs)
+	background: #949698
+	padding: 0.05rem 0.4rem
+	border-radius: 4px
+	color: var(--text-inverse)
+
+.article-heading
+	border-bottom: 1px solid var(--border-subtle)
+	padding-bottom: var(--space-lg)
+	margin-bottom: var(--space-xs)
+
+.acrolls
+	color: var(--colown5)
+
+.acrolls-content
+	h2
+		margin-top: 2rem
+		font-weight: 600
+		font-size: var(--text-lg)
+		margin-bottom: 1rem
+	ul, ol
+		padding-left: 1.2rem
+	li
+		line-height: 1.85
+	p, li
+		font-size: var(--text-sm)
+		color: #666666
+
+.site-settings
+	margin-left: auto
+	@media (min-width: 1025px)
+		display: none

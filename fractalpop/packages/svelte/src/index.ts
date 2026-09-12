@@ -1,0 +1,11 @@
+/** @fractalpop/svelte — Svelte 5 components + action for fractalpop highlighting. */
+export { default as Highlight } from './Highlight.svelte'
+export { default as Code } from './Code.svelte'
+export { default as Editor, indentCode } from './Editor.svelte'
+export { default as FileTree } from './FileTree.svelte'
+export { fractalpop } from './action.js'
+export { themeStyle } from './theme.js'
+export type { Theme, ThemePalette } from './theme.js'
+export type { TreeItem } from './file-tree/model.js'
+export { highlight } from 'fractalpop/full'
+export type { HighlightOptions } from 'fractalpop/full'

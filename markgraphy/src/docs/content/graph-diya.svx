@@ -1,0 +1,51 @@
+<script lang="ts">
+	import { GraphDiya } from '$lib';
+</script>
+
+# GraphDiya
+
+## Import
+
+```svelte
+import { GraphDiya } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphDiya
+  title="example"
+  animated={true}
+  cols={60}
+/>
+```
+
+<div class="live">
+<GraphDiya
+  title="example"
+  animated={true}
+  cols={60}
+/>
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words. |
+| `animated?` | `boolean` | `true` | Animate the lighting and the breathing. Default true. Reduced motion freezes a fully lit row. |
+| `cols?` | `number` | `60` | Width of the scene in characters. Default 60. |
+| `rows?` | `number` | `14` | Height of the scene in rows. Default 14. |
+| `lamps?` | `number` | `5` | Number of diyas in the row. Default 5. |
+| `speedMs?` | `number` | `110` | Milliseconds per tick. Default 110. |
+| `seedNum?` | `number` | `13` | Seed for the per-lamp phase and gutter schedule. Default 13. |
+| `label?` | `string` | `'row of light'` | Short caption under the art; the art itself is decorative. |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `GraphDiyaProps`
+
+## Reduced motion
+
+Animation is disabled under `prefers-reduced-motion`.

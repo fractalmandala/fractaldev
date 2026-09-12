@@ -1,0 +1,52 @@
+<script lang="ts">
+	import { GraphFlame } from '$lib';
+</script>
+
+# GraphFlame
+
+Draw one frame as a bar of glyphs. Narrow frames collapse to just the
+side borders; wider frames get a left-aligned label and a fill of
+shade glyphs. The fill density is the only thing that distinguishes
+a hot frame from a cool one in monochrome.
+
+## Import
+
+```svelte
+import { GraphFlame } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphFlame
+  title="example"
+  animated={true}
+  speedMs={600}
+/>
+```
+
+<div class="live">
+<GraphFlame
+  title="example"
+  animated={true}
+  speedMs={600}
+/>
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words. |
+| `animated?` | `boolean` | `true` | Animate the hot-path cycle. Default true. Reduced motion freezes on the first leaf. |
+| `speedMs?` | `number` | `600` | Milliseconds per leaf. Default 600. |
+| `label?` | `string` | `'flame graph` | Short caption under the art; the chart itself is the message. |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `GraphFlameProps`
+
+## Reduced motion
+
+Animation is disabled under `prefers-reduced-motion`.

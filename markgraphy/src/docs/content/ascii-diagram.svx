@@ -1,0 +1,48 @@
+<script lang="ts">
+	import { AsciiDiagram } from '$lib';
+</script>
+
+# AsciiDiagram
+
+## Import
+
+```svelte
+import { AsciiDiagram } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<AsciiDiagram
+  content={''}
+  title={''}
+  showCopy={true}
+/>
+```
+
+<div class="live">
+<AsciiDiagram
+  content={''}
+  title={''}
+  showCopy={true}
+/>
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `content?` | `string` | `''` | Raw ASCII or Unicode diagram text. |
+| `title?` | `string` | `''` | Optional label above the diagram. Uppercase, 1-2 words. |
+| `showCopy?` | `boolean` | `true` | Show a copy-to-clipboard button. Default true. |
+| `bordered?` | `boolean` | `true` | Dashed border around the diagram. Default true. |
+| `glow?` | `boolean` | `false` | Phosphor glow on accent tokens. Default false. |
+| `fontSize?` | `string` | `'0.85rem'` | Font size of the diagram text. |
+| `lineHeight?` | `string` | `'1.35'` | Line height of the diagram text. |
+| `align?` | `'left' | 'center'` | `'left'` | — |
+| `class?` | `string` | `''` | — |
+| `children?` | `Snippet` | `—` | Custom content instead of text. |
+
+## Exported types
+
+- `AsciiDiagramProps`

@@ -1,0 +1,39 @@
+<script lang="ts">
+	import { GraphStack } from '$lib';
+</script>
+
+# GraphStack
+
+## Import
+
+```svelte
+import { GraphStack } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphStack
+  title="example"
+  accent="example"
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `rows` | `StackRow[]` | `—` | — |
+| `accent?` | `string` | `—` | — |
+| `ticks?` | `number` | `24` | — |
+| `glyphs?` | `Glyphs` | `—` | — |
+| `palette?` | `GraphPalette` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `StackSegment`
+- `StackRow`
+- `GraphStackProps`

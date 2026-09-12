@@ -1,0 +1,36 @@
+<script lang="ts">
+	import { GraphCountdown } from '$lib';
+</script>
+
+# GraphCountdown
+
+## Import
+
+```svelte
+import { GraphCountdown } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphCountdown
+  title="example"
+  done={'done'}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `to` | `Date | number | string` | `—` | — |
+| `done?` | `string` | `'done'` | — |
+| `caption?` | `string` | `—` | — |
+| `palette?` | `GraphPalette` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `GraphCountdownProps`

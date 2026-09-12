@@ -1,0 +1,40 @@
+@forward '00_tokens'
+@use '00_graph' as *
+@use '08_own' as *
+
+@font-face
+	font-family: 'Google Sans Code'
+	src: url('/fonts/googlesanscode.woff2') format('woff2')
+	font-weight: 300 700
+	font-style: normal
+	font-display: swap
+@font-face
+	font-family: 'Stack Sans Text'
+	src: url('/fonts/stacksans.woff2') format('woff2')
+	font-weight: 300 700
+	font-style: normal
+	font-display: swap
+
+html
+	color-scheme: dark
+*,
+*::before,
+*::after
+	box-sizing: border-box
+body
+	margin: 0
+	background-color: var(--bg)
+	color: var(--text-primary)
+	font-family: var(--font-sans)
+	font-size: 14px
+	line-height: 1.45
+	-webkit-font-smoothing: antialiased
+	font-variant-numeric: tabular-nums
+::selection
+	background: var(--graph-accent, oklch(0.78 0.17 155))
+	color: var(--bg)
+:focus-visible
+	outline: 1px dashed var(--graph-accent, oklch(0.78 0.17 155))
+	outline-offset: 3px
+button:not(:disabled)
+	cursor: pointer

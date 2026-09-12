@@ -1,0 +1,38 @@
+<script lang="ts">
+	import { GraphSlope } from '$lib';
+</script>
+
+# GraphSlope
+
+## Import
+
+```svelte
+import { GraphSlope } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphSlope
+  title="example"
+  fromLabel="example"
+  toLabel="example"
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `fromLabel` | `string` | `—` | — |
+| `toLabel` | `string` | `—` | — |
+| `items` | `SlopeItem[]` | `—` | — |
+| `palette?` | `GraphPalette` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `SlopeItem`
+- `GraphSlopeProps`

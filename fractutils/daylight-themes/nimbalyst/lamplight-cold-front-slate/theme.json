@@ -1,0 +1,34 @@
+{
+  "id": "lamplight-cold-front-slate",
+  "name": "Lamplight Cold Front Slate",
+  "version": "2.0.0",
+  "author": "amrit",
+  "description": "Same idea with the chrome a further step down and the syntax deepened to match. Holds up under overhead light.",
+  "isDark": true,
+  "tags": [
+    "cold",
+    "dark"
+  ],
+  "colors": {
+    "bg": "#191D20",
+    "bg-secondary": "#14181B",
+    "bg-tertiary": "#1E2326",
+    "bg-hover": "#212629",
+    "bg-selected": "#2C353C",
+    "bg-active": "#372E26",
+    "text": "#C0C9D0",
+    "text-muted": "#8E959B",
+    "text-faint": "#6E7880",
+    "text-disabled": "#50585E",
+    "border": "#272C30",
+    "border-focus": "#F09A4C",
+    "primary": "#F09A4C",
+    "primary-hover": "#E7A264",
+    "link": "#F09A4C",
+    "link-hover": "#E7A264",
+    "success": "#5CC0A0",
+    "warning": "#E0B15A",
+    "error": "#EC7A7A",
+    "info": "#62B8EE"
+  }
+}

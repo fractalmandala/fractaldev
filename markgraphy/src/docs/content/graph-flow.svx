@@ -1,0 +1,36 @@
+<script lang="ts">
+	import { GraphFlow } from '$lib';
+</script>
+
+# GraphFlow
+
+## Import
+
+```svelte
+import { GraphFlow } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphFlow
+  title="example"
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `rows` | `FlowRow[]` | `—` | — |
+| `palette?` | `GraphPalette` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `FlowTone`
+- `FlowNode`
+- `FlowRow`
+- `GraphFlowProps`

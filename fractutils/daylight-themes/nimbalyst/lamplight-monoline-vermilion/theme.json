@@ -1,0 +1,34 @@
+{
+  "id": "lamplight-monoline-vermilion",
+  "name": "Lamplight Monoline Vermilion",
+  "version": "2.0.0",
+  "author": "amrit",
+  "description": "The reference for the family: pure white, five strengths of ink, and a vermilion that appears on nothing but strings and numbers.",
+  "isDark": true,
+  "tags": [
+    "mono",
+    "dark"
+  ],
+  "colors": {
+    "bg": "#141516",
+    "bg-secondary": "#0F1011",
+    "bg-tertiary": "#17191A",
+    "bg-hover": "#1B1C1D",
+    "bg-selected": "#2A2C2E",
+    "bg-active": "#311D19",
+    "text": "#9AA0A6",
+    "text-muted": "#72767B",
+    "text-faint": "#5B6165",
+    "text-disabled": "#424649",
+    "border": "#232425",
+    "border-focus": "#E2512B",
+    "primary": "#E2512B",
+    "primary-hover": "#D55F41",
+    "link": "#E2512B",
+    "link-hover": "#D55F41",
+    "success": "#7FBE8C",
+    "warning": "#D2A05A",
+    "error": "#E2695A",
+    "info": "#6E9EE8"
+  }
+}

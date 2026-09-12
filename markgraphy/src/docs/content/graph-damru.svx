@@ -1,0 +1,49 @@
+<script lang="ts">
+	import { GraphDamru } from '$lib';
+</script>
+
+# GraphDamru
+
+## Import
+
+```svelte
+import { GraphDamru } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphDamru
+  title="example"
+  animated={true}
+  cols={60}
+/>
+```
+
+<div class="live">
+<GraphDamru
+  title="example"
+  animated={true}
+  cols={60}
+/>
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words. |
+| `animated?` | `boolean` | `true` | Animate the tala. Default true. Reduced motion freezes a clap beat. |
+| `cols?` | `number` | `60` | Width of the scene in characters. Default 60. |
+| `rows?` | `number` | `16` | Height of the scene in rows. Default 16. |
+| `speedMs?` | `number` | `220` | Milliseconds per beat. Default 220. |
+| `label?` | `string` | `'the first sound'` | Short caption under the art; the art itself is decorative. |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `GraphDamruProps`
+
+## Reduced motion
+
+Animation is disabled under `prefers-reduced-motion`.

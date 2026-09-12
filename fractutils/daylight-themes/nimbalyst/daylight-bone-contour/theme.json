@@ -1,0 +1,34 @@
+{
+  "id": "daylight-bone-contour",
+  "name": "Daylight Bone Contour",
+  "version": "2.0.0",
+  "author": "amrit",
+  "description": "Sidebar and tabs painted the same white as the editor; a single hairline is the only separation. Strings and numbers cool off to teal and periwinkle.",
+  "isDark": false,
+  "tags": [
+    "bone",
+    "light"
+  ],
+  "colors": {
+    "bg": "#FCFCFC",
+    "bg-secondary": "#FCFCFC",
+    "bg-tertiary": "#F2F3F3",
+    "bg-hover": "#F4F4F4",
+    "bg-selected": "#E9EAEB",
+    "bg-active": "#FAECE1",
+    "text": "#5C6166",
+    "text-muted": "#8C9093",
+    "text-faint": "#AFB4BA",
+    "text-disabled": "#CACDD1",
+    "border": "#E6E7E9",
+    "border-focus": "#F08A3C",
+    "primary": "#F08A3C",
+    "primary-hover": "#D58344",
+    "link": "#F08A3C",
+    "link-hover": "#D58344",
+    "success": "#4CA750",
+    "warning": "#E6A700",
+    "error": "#E65050",
+    "info": "#399EE6"
+  }
+}

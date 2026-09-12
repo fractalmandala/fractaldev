@@ -1,0 +1,34 @@
+{
+  "id": "lamplight-green-lantern",
+  "name": "Lamplight Green Lantern",
+  "version": "2.0.0",
+  "author": "amrit",
+  "description": "",
+  "isDark": true,
+  "tags": [
+    "news",
+    "dark"
+  ],
+  "colors": {
+    "bg": "#090909",
+    "bg-secondary": "#EBEBEB",
+    "bg-tertiary": "#E1E1E1",
+    "bg-hover": "#0C0C0C",
+    "bg-selected": "#2B3035",
+    "bg-active": "#161F0A",
+    "text": "#444444",
+    "text-muted": "#323232",
+    "text-faint": "#6E7478",
+    "text-disabled": "#4B4F51",
+    "border": "#D6D6D6",
+    "border-focus": "#66A80F",
+    "primary": "#66A80F",
+    "primary-hover": "#609619",
+    "link": "#66A80F",
+    "link-hover": "#609619",
+    "success": "#86C08A",
+    "warning": "#D2A85A",
+    "error": "#E06A78",
+    "info": "#8AA4E8"
+  }
+}

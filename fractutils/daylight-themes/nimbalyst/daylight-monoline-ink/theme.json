@@ -1,0 +1,34 @@
+{
+  "id": "daylight-monoline-ink",
+  "name": "Daylight Monoline Ink",
+  "version": "2.0.0",
+  "author": "amrit",
+  "description": "The limit case. Zero colour anywhere \u2014 literals are marked by being the darkest thing on the page, and nothing else competes.",
+  "isDark": false,
+  "tags": [
+    "mono",
+    "light"
+  ],
+  "colors": {
+    "bg": "#F6F6F6",
+    "bg-secondary": "#EDEDED",
+    "bg-tertiary": "#E4E5E5",
+    "bg-hover": "#EEEEEF",
+    "bg-selected": "#E3E3E3",
+    "bg-active": "#D7D7D7",
+    "text": "#5C6064",
+    "text-muted": "#8A8D90",
+    "text-faint": "#ABAFB2",
+    "text-disabled": "#C5C8CA",
+    "border": "#E0E0E0",
+    "border-focus": "#16181B",
+    "primary": "#16181B",
+    "primary-hover": "#232528",
+    "link": "#16181B",
+    "link-hover": "#232528",
+    "success": "#3C7048",
+    "warning": "#A5720F",
+    "error": "#C0392B",
+    "info": "#2F5FA8"
+  }
+}

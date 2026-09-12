@@ -1,0 +1,53 @@
+<script lang="ts">
+	import { GraphFire } from '$lib';
+</script>
+
+# GraphFire
+
+Each cell takes heat from below minus random cooling; the base row stays max.
+
+## Import
+
+```svelte
+import { GraphFire } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphFire
+  title="example"
+  animated={true}
+  cols={60}
+/>
+```
+
+<div class="live">
+<GraphFire
+  title="example"
+  animated={true}
+  cols={60}
+/>
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words. |
+| `animated?` | `boolean` | `true` | Animate the burn. Default true. Reduced motion freezes a mid-burn frame. |
+| `cols?` | `number` | `60` | Width of the fire in characters. Default 60. |
+| `rows?` | `number` | `14` | Height of the fire in rows. Default 14. |
+| `speedMs?` | `number` | `90` | Milliseconds per simulation step. Default 90. |
+| `cooling?` | `number` | `0.6` | Random decay strength; higher burns out sooner. Default 0.6. |
+| `seedNum?` | `number` | `3` | Seed for the reproducible burn. Default 3. |
+| `label?` | `string` | `'simulated fire'` | Short caption under the art; the art itself is decorative. |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `GraphFireProps`
+
+## Reduced motion
+
+Animation is disabled under `prefers-reduced-motion`.

@@ -1,0 +1,40 @@
+<script lang="ts">
+	import { GraphTicker } from '$lib';
+</script>
+
+# GraphTicker
+
+## Import
+
+```svelte
+import { GraphTicker } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphTicker
+  title="example"
+  speedMs={140}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words. |
+| `items` | `TickerItem[]` | `—` | Tokens rotated through the row, in order. |
+| `speedMs?` | `number` | `140` | Milliseconds per rotation step. Default 140. |
+| `animated?` | `boolean` | `true` | Animate the rotation. Default true. Reduced motion shows the first items. |
+| `corner?` | `string` | `—` | Character at each corner of the frame. Default '+'. |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `TickerItem`
+- `GraphTickerProps`
+
+## Reduced motion
+
+Animation is disabled under `prefers-reduced-motion`.

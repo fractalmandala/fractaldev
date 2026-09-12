@@ -1,0 +1,49 @@
+<script lang="ts">
+	import { GraphQuota } from '$lib';
+</script>
+
+# GraphQuota
+
+## Import
+
+```svelte
+import { GraphQuota } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphQuota
+  title="example"
+  used={0}
+  limit={0}
+/>
+```
+
+<div class="live">
+<GraphQuota
+  title="example"
+  used={0}
+  limit={0}
+/>
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `used` | `number` | `—` | — |
+| `limit` | `number` | `—` | — |
+| `unit?` | `string` | `—` | Unit label, e.g. "API calls" or "GB". |
+| `resets?` | `string` | `—` | Optional reset label, e.g. "Oct 1" or "in 4 days". |
+| `daysInto?` | `number` | `—` | Days elapsed in the current window. Enables the projection. |
+| `daysTotal?` | `number` | `—` | Window length in days. |
+| `format?` | `(n: number) => string` | `—` | Optional number formatter. Defaults to thousands-grouped. |
+| `caption?` | `string` | `—` | Optional caption below the panel. |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `GraphQuotaProps`

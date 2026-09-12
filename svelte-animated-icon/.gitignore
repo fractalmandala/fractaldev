@@ -1,0 +1,30 @@
+node_modules
+
+# Output
+.output
+.vercel
+.netlify
+.wrangler
+/.svelte-kit
+/build
+/dist
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.*
+!.env.example
+!.env.test
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+svelte-animated-icon/src/lib/flowbite/icons/
+svelte-animated-icon/src/lib/hero/icons/
+svelte-animated-icon/src/lib/ion/icons/
+svelte-animated-icon/src/lib/phosphor/icons/
+svelte-animated-icon/src/lib/remix/icons/

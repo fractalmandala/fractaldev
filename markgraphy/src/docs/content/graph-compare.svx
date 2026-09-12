@@ -1,0 +1,37 @@
+<script lang="ts">
+	import { GraphCompare } from '$lib';
+</script>
+
+# GraphCompare
+
+## Import
+
+```svelte
+import { GraphCompare } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphCompare
+  title="example"
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `columns` | `string[]` | `—` | — |
+| `rows` | `CompareRow[]` | `—` | — |
+| `accent?` | `string` | `—` | — |
+| `palette?` | `GraphPalette` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `CompareCell`
+- `CompareRow`
+- `GraphCompareProps`

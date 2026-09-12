@@ -1,0 +1,34 @@
+<script lang="ts">
+	import { GraphSpec } from '$lib';
+</script>
+
+# GraphSpec
+
+## Import
+
+```svelte
+import { GraphSpec } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphSpec
+  title="example"
+  corner="example"
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `rows` | `SpecRow[]` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `SpecRow`
+- `GraphSpecProps`

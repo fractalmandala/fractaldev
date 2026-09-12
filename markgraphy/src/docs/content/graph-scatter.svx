@@ -1,0 +1,43 @@
+<script lang="ts">
+	import { GraphScatter } from '$lib';
+</script>
+
+# GraphScatter
+
+## Import
+
+```svelte
+import { GraphScatter } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphScatter
+  title="example"
+  cols={60}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | Caption drawn on the top edge as `[ TITLE ]`. |
+| `data` | `ScatterPoint[]` | `—` | Points to plot. x and y are real numbers; the plot scales them. |
+| `cols?` | `number` | `60` | Scene width in columns (excluding y-axis gutter). Default 60. |
+| `rows?` | `number` | `14` | Scene height in rows (excluding x-axis row and optional trend row). Default 14. |
+| `trend?` | `boolean` | `false` | Render a single-row linear trend strip below the plot. Default false. |
+| `animated?` | `boolean` | `true` | Animate the reveal. Default true. Reduced motion shows the full plot. |
+| `speedMs?` | `number` | `60` | Milliseconds between reveals of new points. Default 60. |
+| `label?` | `string` | `''` | Caption rendered muted under the plot. |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `ScatterPoint`
+- `GraphScatterProps`
+
+## Reduced motion
+
+Animation is disabled under `prefers-reduced-motion`.

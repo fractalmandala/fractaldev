@@ -1,0 +1,2108 @@
+// Curated Multi-Tier Themes for Fractal Mandala
+// All themes define distinct, harmoniously tiered elevation surfaces, interactive states,
+// crisp typography contrast, syntax tokens, and markdown prose styling.
+// Format: Indented SASS (single tab, no braces, no semicolons)
+
+// ============================================================================
+// LIGHT THEMES (21)
+// ============================================================================
+
+// 1. Default Light (Emerald Minimal)
+.theme-light-default
+	--bg: #FFFFFF
+	--bg-surface: #F8F9FA
+	--bg-raised: #FFFFFF
+	--bg-panel: #F1F3F5
+	--bg-footer: #E9ECEF
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #0F172A
+	--bg-input: #FFFFFF
+	--bg-canvas: #F8F9FA
+	--border: #E2E8F0
+	--border-subtle: #EDF2F7
+	--text-primary: #0F172A
+	--text-secondary: #475569
+	--text-muted: #7F91AA
+	--state-hover: #E2E8F0
+	--state-hover-subtle: #F1F5F9
+	--state-selected: #CBD5E1
+	--theme-color: #04825B
+	--theme-color-alt: #047857
+	--text-inverse: #FFFFFF
+	--feedback-error: #DC2626
+	--syntax-heading: #047857
+	--syntax-link: #04825B
+	--syntax-code: #DC2626
+	--syntax-quote: #475569
+	--syntax-marker: #04825B
+	--syntax-meta: #7C3AED
+	--syntax-comment: #7F91AA
+	--canvas-postit-bg: #FEF3C7
+	--canvas-postit-text: #1F1B0A
+	--shadow-popover: 0 4px 16px rgba(15, 23, 42, 0.08)
+	--shadow-drag: 0 10px 28px rgba(15, 23, 42, 0.14)
+	--bg-palette: rgba(15, 23, 42, 0.25)
+	--shadow-palette: rgba(15, 23, 42, 0.2)
+	--bg-badge: rgba(5, 150, 105, 0.12)
+	--shadow-pdf-viewer: rgba(15, 23, 42, 0.05)
+	--scrollbar-thumb: #CBD5E1
+	--md-h1: #0F172A
+	--md-h2: #04825B
+	--md-h3: #7C3AED
+	--md-bold: #047857
+	--md-code: #DC2626
+	--md-code-back: #F1F5F9
+	--md-bullet: #04825B
+	--md-bullet-in: #04825B
+	--md-blockquote: #475569
+	--border-md-table: #E2E8F0
+
+// 2. Himalaya Light (Alpine Slate & Azure)
+.theme-himalaya-light
+	--bg: #F8FAFC
+	--bg-surface: #FFFFFF
+	--bg-raised: #F1F5F9
+	--bg-panel: #EAEFF5
+	--bg-footer: #E2E8F0
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #0B1120
+	--bg-input: #FFFFFF
+	--bg-canvas: #F8FAFC
+	--border: #CBD5E1
+	--border-subtle: #E2E8F0
+	--text-primary: #0F172A
+	--text-secondary: #334155
+	--text-muted: #64748B
+	--state-hover: #E2E8F0
+	--state-hover-subtle: #F1F5F9
+	--state-selected: #CBD5E1
+	--theme-color: #2563EB
+	--theme-color-alt: #1D4ED8
+	--text-inverse: #FFFFFF
+	--feedback-error: #D92D20
+	--syntax-heading: #1E293B
+	--syntax-link: #2563EB
+	--syntax-code: #DC2626
+	--syntax-quote: #475467
+	--syntax-marker: #2563EB
+	--syntax-meta: #5A5DF0
+	--syntax-comment: #7B8EA8
+	--canvas-postit-bg: #EFF6FF
+	--canvas-postit-text: #1E3A8A
+	--shadow-popover: 0 4px 16px rgba(15, 23, 42, 0.07)
+	--shadow-drag: 0 10px 30px rgba(15, 23, 42, 0.12)
+	--bg-palette: rgba(15, 23, 42, 0.25)
+	--shadow-palette: rgba(15, 23, 42, 0.2)
+	--bg-badge: rgba(37, 99, 235, 0.1)
+	--shadow-pdf-viewer: rgba(15, 23, 42, 0.04)
+	--scrollbar-thumb: #CBD5E1
+	--md-h1: #0F172A
+	--md-h2: #2563EB
+	--md-h3: #475569
+	--md-bold: #1E293B
+	--md-code: #2563EB
+	--md-code-back: #F1F5F9
+	--md-bullet: #2563EB
+	--md-bullet-in: #0769E3
+	--md-blockquote: #334155
+	--border-md-table: #CBD5E1
+
+// 3. Editorial Light (Warm Book Paper & Olive)
+.theme-editorial-light
+	--bg: #FAF8F5
+	--bg-surface: #F2EFE9
+	--bg-raised: #FFFFFF
+	--bg-panel: #EAE5DC
+	--bg-footer: #E0D9CE
+	--bg-popover: #FFFEFA
+	--bg-dialog: #FFFEFA
+	--bg-terminal: #1F2421
+	--bg-input: #FFFFFF
+	--bg-canvas: #FAF8F5
+	--border: #DCD5C9
+	--border-subtle: #E8E2D7
+	--text-primary: #232220
+	--text-secondary: #58554E
+	--text-muted: #8E8A80
+	--state-hover: #E5DFC0
+	--state-hover-subtle: #F4F0E8
+	--state-selected: #D8CEBC
+	--theme-color: #2E5A36
+	--theme-color-alt: #43734C
+	--text-inverse: #FFFFFF
+	--feedback-error: #BA1A1A
+	--syntax-heading: #2E5A36
+	--syntax-link: #43734C
+	--syntax-code: #BA1A1A
+	--syntax-quote: #58554E
+	--syntax-marker: #2E5A36
+	--syntax-meta: #8B6A30
+	--syntax-comment: #8E8A80
+	--canvas-postit-bg: #FFF9E6
+	--canvas-postit-text: #201A05
+	--shadow-popover: 0 4px 16px rgba(46, 90, 54, 0.08)
+	--shadow-drag: 0 10px 28px rgba(46, 90, 54, 0.12)
+	--bg-palette: rgba(46, 90, 54, 0.22)
+	--shadow-palette: rgba(46, 90, 54, 0.18)
+	--bg-badge: rgba(46, 90, 54, 0.1)
+	--shadow-pdf-viewer: rgba(46, 90, 54, 0.04)
+	--scrollbar-thumb: #DCD5C9
+	--md-h1: #232220
+	--md-h2: #2E5A36
+	--md-h3: #4A4640
+	--md-bold: #2E5A36
+	--md-code: #43734C
+	--md-code-back: #F2EFE9
+	--md-bullet: #2E5A36
+	--md-bullet-in: #58554E
+	--md-blockquote: #4A4640
+	--border-md-table: #DCD5C9
+
+// 4. Space Light (Pine Mint & Clean Frost)
+.theme-space-light
+	--bg: #F4F8F6
+	--bg-surface: #E8F1EC
+	--bg-raised: #FFFFFF
+	--bg-panel: #DCE8E2
+	--bg-footer: #CFDFD7
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #0A1C14
+	--bg-input: #FFFFFF
+	--bg-canvas: #F4F8F6
+	--border: #BED4C8
+	--border-subtle: #D6E5DC
+	--text-primary: #0D261C
+	--text-secondary: #335C4A
+	--text-muted: #688E7D
+	--state-hover: #CFE2D7
+	--state-hover-subtle: #E2EEE7
+	--state-selected: #B8D3C4
+	--theme-color: #0D7A4D
+	--theme-color-alt: #065F38
+	--text-inverse: #FFFFFF
+	--feedback-error: #DC2626
+	--syntax-heading: #0D7A4D
+	--syntax-link: #0B7C56
+	--syntax-code: #DC2626
+	--syntax-quote: #335C4A
+	--syntax-marker: #0D7A4D
+	--syntax-meta: #0273AE
+	--syntax-comment: #688E7D
+	--canvas-postit-bg: #E6F7F0
+	--canvas-postit-text: #064E3B
+	--shadow-popover: 0 4px 16px rgba(13, 122, 77, 0.08)
+	--shadow-drag: 0 10px 28px rgba(13, 122, 77, 0.14)
+	--bg-palette: rgba(13, 122, 77, 0.2)
+	--shadow-palette: rgba(13, 122, 77, 0.16)
+	--bg-badge: rgba(13, 122, 77, 0.12)
+	--shadow-pdf-viewer: rgba(13, 122, 77, 0.04)
+	--scrollbar-thumb: #BED4C8
+	--md-h1: #0D261C
+	--md-h2: #0D7A4D
+	--md-h3: #335C4A
+	--md-bold: #065F38
+	--md-code: #0D7A4D
+	--md-code-back: #E8F1EC
+	--md-bullet: #0D7A4D
+	--md-bullet-in: #0B7C56
+	--md-blockquote: #335C4A
+	--border-md-table: #BED4C8
+
+// 5. Sun Light (Terracotta Amber & Clay)
+.theme-sun-light
+	--bg: #FAF6F0
+	--bg-surface: #F3ECE0
+	--bg-raised: #FFFFFF
+	--bg-panel: #EAE0D0
+	--bg-footer: #E0D4C0
+	--bg-popover: #FFFCF7
+	--bg-dialog: #FFFCF7
+	--bg-terminal: #241814
+	--bg-input: #FFFFFF
+	--bg-canvas: #FAF6F0
+	--border: #D8C8B4
+	--border-subtle: #E8DC output
+	--border-subtle: #E8DDCC
+	--text-primary: #2E1E14
+	--text-secondary: #684E3E
+	--text-muted: #9E806E
+	--state-hover: #E5D2BF
+	--state-hover-subtle: #F4EAE0
+	--state-selected: #D5BDA6
+	--theme-color: #B64F2A
+	--theme-color-alt: #9E3C1B
+	--text-inverse: #FFFFFF
+	--feedback-error: #B91C1C
+	--syntax-heading: #B64F2A
+	--syntax-link: #BE480A
+	--syntax-code: #B91C1C
+	--syntax-quote: #684E3E
+	--syntax-marker: #B64F2A
+	--syntax-meta: #B45309
+	--syntax-comment: #9E806E
+	--canvas-postit-bg: #FDF2E9
+	--canvas-postit-text: #2D1E18
+	--shadow-popover: 0 4px 16px rgba(194, 84, 45, 0.08)
+	--shadow-drag: 0 10px 28px rgba(194, 84, 45, 0.12)
+	--bg-palette: rgba(194, 84, 45, 0.22)
+	--shadow-palette: rgba(194, 84, 45, 0.18)
+	--bg-badge: rgba(194, 84, 45, 0.1)
+	--shadow-pdf-viewer: rgba(194, 84, 45, 0.03)
+	--scrollbar-thumb: #D8C8B4
+	--md-h1: #2E1E14
+	--md-h2: #B64F2A
+	--md-h3: #684E3E
+	--md-bold: #9E3C1B
+	--md-code: #BE480A
+	--md-code-back: #F3ECE0
+	--md-bullet: #B64F2A
+	--md-bullet-in: #BE480A
+	--md-blockquote: #684E3E
+	--border-md-table: #D8C8B4
+
+// 6. Monochrono Light (High Contrast Obsidian & Indigo)
+.theme-monochrono-light
+	--bg: #FFFFFF
+	--bg-surface: #F4F4F6
+	--bg-raised: #FFFFFF
+	--bg-panel: #E9E9EE
+	--bg-footer: #DDDEE5
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #09090B
+	--bg-input: #FFFFFF
+	--bg-canvas: #FFFFFF
+	--border: #D1D1DB
+	--border-subtle: #E4E4EB
+	--text-primary: #09090B
+	--text-secondary: #49495A
+	--text-muted: #84849A
+	--state-hover: #E2E2EB
+	--state-hover-subtle: #F0F0F5
+	--state-selected: #D0D0DD
+	--theme-color: #312E81
+	--theme-color-alt: #4338CA
+	--text-inverse: #FFFFFF
+	--feedback-error: #EF4444
+	--syntax-heading: #1E1B4B
+	--syntax-link: #4338CA
+	--syntax-code: #E71414
+	--syntax-quote: #49495A
+	--syntax-marker: #312E81
+	--syntax-meta: #7C3AED
+	--syntax-comment: #84849A
+	--canvas-postit-bg: #EEF2FF
+	--canvas-postit-text: #1E1B4B
+	--shadow-popover: 0 4px 16px rgba(49, 46, 129, 0.08)
+	--shadow-drag: 0 10px 28px rgba(49, 46, 129, 0.14)
+	--bg-palette: rgba(0, 0, 0, 0.25)
+	--shadow-palette: rgba(0, 0, 0, 0.2)
+	--bg-badge: rgba(49, 46, 129, 0.1)
+	--shadow-pdf-viewer: rgba(0, 0, 0, 0.04)
+	--scrollbar-thumb: #D1D1DB
+	--md-h1: #09090B
+	--md-h2: #312E81
+	--md-h3: #49495A
+	--md-bold: #1E1B4B
+	--md-code: #4338CA
+	--md-code-back: #F4F4F6
+	--md-bullet: #312E81
+	--md-bullet-in: #4338CA
+	--md-blockquote: #49495A
+	--border-md-table: #D1D1DB
+
+// 7. Molly Light (Sky Azure & Periwinkle)
+.theme-molly-light
+	--bg: #F0F7FF
+	--bg-surface: #E0EFFF
+	--bg-raised: #FFFFFF
+	--bg-panel: #D0E4FA
+	--bg-footer: #BED8F5
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #0A192F
+	--bg-input: #FFFFFF
+	--bg-canvas: #F0F7FF
+	--border: #B6D4F2
+	--border-subtle: #D2E4F8
+	--text-primary: #0B2545
+	--text-secondary: #2A4B7C
+	--text-muted: #5C7CA8
+	--state-hover: #CBE2F8
+	--state-hover-subtle: #E2EFFC
+	--state-selected: #B3D4F5
+	--theme-color: #0273AE
+	--theme-color-alt: #0369A1
+	--text-inverse: #FFFFFF
+	--feedback-error: #EF4444
+	--syntax-heading: #0369A1
+	--syntax-link: #0273AE
+	--syntax-code: #D91313
+	--syntax-quote: #2A4B7C
+	--syntax-marker: #0B786E
+	--syntax-meta: #7C3AED
+	--syntax-comment: #5C7CA8
+	--canvas-postit-bg: #E0F2FE
+	--canvas-postit-text: #0369A1
+	--shadow-popover: 0 4px 16px rgba(2, 132, 199, 0.08)
+	--shadow-drag: 0 10px 28px rgba(2, 132, 199, 0.14)
+	--bg-palette: rgba(11, 37, 69, 0.22)
+	--shadow-palette: rgba(11, 37, 69, 0.18)
+	--bg-badge: rgba(2, 132, 199, 0.12)
+	--shadow-pdf-viewer: rgba(2, 132, 199, 0.04)
+	--scrollbar-thumb: #B6D4F2
+	--md-h1: #0B2545
+	--md-h2: #0273AE
+	--md-h3: #7C3AED
+	--md-bold: #0369A1
+	--md-code: #0273AE
+	--md-code-back: #E0EFFF
+	--md-bullet: #0273AE
+	--md-bullet-in: #0273AE
+	--md-blockquote: #2A4B7C
+	--border-md-table: #B6D4F2
+
+// 8. Malana Light (Cream Stone & Warm Cinnamon)
+.theme-malana-light
+	--bg: #FCF9F2
+	--bg-surface: #F4EDE0
+	--bg-raised: #FFFFFF
+	--bg-panel: #EADECB
+	--bg-footer: #DFCEB5
+	--bg-popover: #FFFDF9
+	--bg-dialog: #FFFDF9
+	--bg-terminal: #1C1814
+	--bg-input: #FFFFFF
+	--bg-canvas: #FCF9F2
+	--border: #D7C7AE
+	--border-subtle: #E9DECD
+	--text-primary: #211812
+	--text-secondary: #5E4B3E
+	--text-muted: #937F70
+	--state-hover: #E5D3BD
+	--state-hover-subtle: #F3E8DA
+	--state-selected: #D4BD9E
+	--theme-color: #BA501F
+	--theme-color-alt: #B44614
+	--text-inverse: #FFFFFF
+	--feedback-error: #DC2626
+	--syntax-heading: #BA501F
+	--syntax-link: #C3490A
+	--syntax-code: #DC2626
+	--syntax-quote: #5E4B3E
+	--syntax-marker: #15803D
+	--syntax-meta: #B45309
+	--syntax-comment: #937F70
+	--canvas-postit-bg: #FEF3C7
+	--canvas-postit-text: #451A03
+	--shadow-popover: 0 4px 16px rgba(217, 93, 36, 0.08)
+	--shadow-drag: 0 10px 28px rgba(217, 93, 36, 0.12)
+	--bg-palette: rgba(33, 24, 18, 0.22)
+	--shadow-palette: rgba(33, 24, 18, 0.18)
+	--bg-badge: rgba(217, 93, 36, 0.1)
+	--shadow-pdf-viewer: rgba(217, 93, 36, 0.03)
+	--scrollbar-thumb: #D7C7AE
+	--md-h1: #211812
+	--md-h2: #BA501F
+	--md-h3: #15803D
+	--md-bold: #B44614
+	--md-code: #C3490A
+	--md-code-back: #F4EDE0
+	--md-bullet: #BA501F
+	--md-bullet-in: #B45309
+	--md-blockquote: #5E4B3E
+	--border-md-table: #D7C7AE
+
+// 9. Coresync Light (Industrial Titanium & Blaze)
+.theme-coresync-light
+	--bg: #E6E8EC
+	--bg-surface: #F0F2F5
+	--bg-raised: #FFFFFF
+	--bg-panel: #DCE0E6
+	--bg-footer: #CFD4DC
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #111318
+	--bg-input: #FFFFFF
+	--bg-canvas: #E6E8EC
+	--border: #C4CAD4
+	--border-subtle: #D8DDE5
+	--text-primary: #111622
+	--text-secondary: #424B5D
+	--text-muted: #728096
+	--state-hover: #D2D8E2
+	--state-hover-subtle: #E5EAF0
+	--state-selected: #BFC7D5
+	--theme-color: #BD3300
+	--theme-color-alt: #BD3300
+	--text-inverse: #FFFFFF
+	--feedback-error: #DC2626
+	--syntax-heading: #BD3300
+	--syntax-link: #BD3200
+	--syntax-code: #C42020
+	--syntax-quote: #424B5D
+	--syntax-marker: #111622
+	--syntax-meta: #4F46E5
+	--syntax-comment: #728096
+	--canvas-postit-bg: #FFF7ED
+	--canvas-postit-text: #7C2D12
+	--shadow-popover: 0 4px 16px rgba(17, 22, 34, 0.08)
+	--shadow-drag: 0 12px 30px rgba(17, 22, 34, 0.14)
+	--bg-palette: rgba(17, 22, 34, 0.25)
+	--shadow-palette: rgba(17, 22, 34, 0.18)
+	--bg-badge: rgba(255, 69, 0, 0.1)
+	--shadow-pdf-viewer: rgba(17, 22, 34, 0.04)
+	--scrollbar-thumb: #C4CAD4
+	--md-h1: #111622
+	--md-h2: #BD3300
+	--md-h3: #111622
+	--md-bold: #BD3300
+	--md-code: #C42020
+	--md-code-back: #F0F2F5
+	--md-bullet: #BD3300
+	--md-bullet-in: #BD3200
+	--md-blockquote: #424B5D
+	--border-md-table: #C4CAD4
+
+// 10. Studio Light (Architectural Bone & Ochre)
+.theme-studio-light
+	--bg: #F4F0E8
+	--bg-surface: #EAE4D6
+	--bg-raised: #FAF8F3
+	--bg-panel: #DDD5C3
+	--bg-footer: #D0C5AF
+	--bg-popover: #FCFAF6
+	--bg-dialog: #FCFAF6
+	--bg-terminal: #1B1A17
+	--bg-input: #FAF8F3
+	--bg-canvas: #F4F0E8
+	--border: #C8BC output
+	--border: #C8BDA8
+	--border-subtle: #DBD2C0
+	--text-primary: #1C1A17
+	--text-secondary: #544E44
+	--text-muted: #8E8678
+	--state-hover: #D8CEB8
+	--state-hover-subtle: #EAE3D2
+	--state-selected: #C8BBA0
+	--theme-color: #24201B
+	--theme-color-alt: #896525
+	--text-inverse: #F4F0E8
+	--feedback-error: #C84B31
+	--syntax-heading: #1C1A17
+	--syntax-link: #896525
+	--syntax-code: #B8452D
+	--syntax-quote: #544E44
+	--syntax-marker: #2D4232
+	--syntax-meta: #70695E
+	--syntax-comment: #8E8678
+	--canvas-postit-bg: #FFFDEB
+	--canvas-postit-text: #3D2A00
+	--shadow-popover: 0 4px 16px rgba(28, 26, 23, 0.08)
+	--shadow-drag: 0 10px 30px rgba(28, 26, 23, 0.14)
+	--bg-palette: rgba(28, 26, 23, 0.25)
+	--shadow-palette: rgba(28, 26, 23, 0.2)
+	--bg-badge: rgba(201, 148, 54, 0.12)
+	--shadow-pdf-viewer: rgba(28, 26, 23, 0.04)
+	--scrollbar-thumb: #C8BDA8
+	--md-h1: #1C1A17
+	--md-h2: #1C1A17
+	--md-h3: #544E44
+	--md-bold: #896525
+	--md-code: #B8452D
+	--md-code-back: #FAF8F3
+	--md-bullet: #896525
+	--md-bullet-in: #24201B
+	--md-blockquote: #544E44
+	--border-md-table: #C8BDA8
+
+// 11. Matcha Light (Zen Bamboo & Sweet Matcha)
+.theme-matcha-light
+	--bg: #F5F7F2
+	--bg-surface: #EBF0E4
+	--bg-raised: #FFFFFF
+	--bg-panel: #DFE7D6
+	--bg-footer: #D2DDC7
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #162016
+	--bg-input: #FFFFFF
+	--bg-canvas: #F5F7F2
+	--border: #C3D3B5
+	--border-subtle: #DAE6CF
+	--text-primary: #1C2719
+	--text-secondary: #4A5B44
+	--text-muted: #7E9377
+	--state-hover: #D5E2C9
+	--state-hover-subtle: #E8F0DF
+	--state-selected: #C0D2B2
+	--theme-color: #4D7C0F
+	--theme-color-alt: #3F6212
+	--text-inverse: #FFFFFF
+	--feedback-error: #DC2626
+	--syntax-heading: #3F6212
+	--syntax-link: #4B780A
+	--syntax-code: #D52222
+	--syntax-quote: #4A5B44
+	--syntax-marker: #4D7C0F
+	--syntax-meta: #A16207
+	--syntax-comment: #7E9377
+	--canvas-postit-bg: #ECFCCB
+	--canvas-postit-text: #365314
+	--shadow-popover: 0 4px 16px rgba(77, 124, 15, 0.08)
+	--shadow-drag: 0 10px 28px rgba(77, 124, 15, 0.12)
+	--bg-palette: rgba(28, 39, 25, 0.22)
+	--shadow-palette: rgba(28, 39, 25, 0.18)
+	--bg-badge: rgba(77, 124, 15, 0.12)
+	--shadow-pdf-viewer: rgba(77, 124, 15, 0.04)
+	--scrollbar-thumb: #C3D3B5
+	--md-h1: #1C2719
+	--md-h2: #4D7C0F
+	--md-h3: #4A5B44
+	--md-bold: #3F6212
+	--md-code: #4D7C0F
+	--md-code-back: #EBF0E4
+	--md-bullet: #4D7C0F
+	--md-bullet-in: #4B780A
+	--md-blockquote: #4A5B44
+	--border-md-table: #C3D3B5
+
+// 12. Sakura Light (Japanese Cherry Blossom & Rose Quartz)
+.theme-sakura-light
+	--bg: #FDF7F8
+	--bg-surface: #F9ECF0
+	--bg-raised: #FFFFFF
+	--bg-panel: #F3DEE4
+	--bg-footer: #EBCFD7
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #22151B
+	--bg-input: #FFFFFF
+	--bg-canvas: #FDF7F8
+	--border: #E4BCC8
+	--border-subtle: #F0D5DD
+	--text-primary: #331622
+	--text-secondary: #6B4354
+	--text-muted: #A3798C
+	--state-hover: #EED0DA
+	--state-hover-subtle: #F7E4EB
+	--state-selected: #E2BC output
+	--state-selected: #E2BCC9
+	--theme-color: #D02370
+	--theme-color-alt: #BE185D
+	--text-inverse: #FFFFFF
+	--feedback-error: #E11D48
+	--syntax-heading: #BE185D
+	--syntax-link: #D02370
+	--syntax-code: #D81C45
+	--syntax-quote: #6B4354
+	--syntax-marker: #D02370
+	--syntax-meta: #9333EA
+	--syntax-comment: #A3798C
+	--canvas-postit-bg: #FCE7F3
+	--canvas-postit-text: #831843
+	--shadow-popover: 0 4px 16px rgba(219, 39, 119, 0.08)
+	--shadow-drag: 0 10px 28px rgba(219, 39, 119, 0.14)
+	--bg-palette: rgba(51, 22, 34, 0.22)
+	--shadow-palette: rgba(51, 22, 34, 0.18)
+	--bg-badge: rgba(219, 39, 119, 0.1)
+	--shadow-pdf-viewer: rgba(219, 39, 119, 0.04)
+	--scrollbar-thumb: #E4BCC8
+	--md-h1: #331622
+	--md-h2: #D02370
+	--md-h3: #9333EA
+	--md-bold: #BE185D
+	--md-code: #D02370
+	--md-code-back: #F9ECF0
+	--md-bullet: #D02370
+	--md-bullet-in: #BE185D
+	--md-blockquote: #6B4354
+	--border-md-table: #E4BCC8
+
+// 13. Nordic Frost Light (Arctic Ice & Glacier Blue)
+.theme-nordic-frost-light
+	--bg: #F4FAFC
+	--bg-surface: #E5F3F7
+	--bg-raised: #FFFFFF
+	--bg-panel: #D5EAF0
+	--bg-footer: #C4DEE7
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #0B1922
+	--bg-input: #FFFFFF
+	--bg-canvas: #F4FAFC
+	--border: #B2D3DF
+	--border-subtle: #CCE3EC
+	--text-primary: #0C232F
+	--text-secondary: #2C5366
+	--text-muted: #5F869A
+	--state-hover: #C5E1EC
+	--state-hover-subtle: #DCEDF4
+	--state-selected: #AED2E0
+	--theme-color: #0273AE
+	--theme-color-alt: #0369A1
+	--text-inverse: #FFFFFF
+	--feedback-error: #E11D48
+	--syntax-heading: #0369A1
+	--syntax-link: #077995
+	--syntax-code: #D81C45
+	--syntax-quote: #2C5366
+	--syntax-marker: #0273AE
+	--syntax-meta: #4F46E5
+	--syntax-comment: #5F869A
+	--canvas-postit-bg: #E0F2FE
+	--canvas-postit-text: #075985
+	--shadow-popover: 0 4px 16px rgba(2, 132, 199, 0.08)
+	--shadow-drag: 0 10px 28px rgba(2, 132, 199, 0.14)
+	--bg-palette: rgba(12, 35, 47, 0.22)
+	--shadow-palette: rgba(12, 35, 47, 0.18)
+	--bg-badge: rgba(2, 132, 199, 0.1)
+	--shadow-pdf-viewer: rgba(2, 132, 199, 0.04)
+	--scrollbar-thumb: #B2D3DF
+	--md-h1: #0C232F
+	--md-h2: #0273AE
+	--md-h3: #077995
+	--md-bold: #0369A1
+	--md-code: #0273AE
+	--md-code-back: #E5F3F7
+	--md-bullet: #0273AE
+	--md-bullet-in: #077995
+	--md-blockquote: #2C5366
+	--border-md-table: #B2D3DF
+
+// 14. Desert Dune Light (Sahara Gold, Dune Sand & Ochre)
+.theme-desert-dune-light
+	--bg: #FDF9F0
+	--bg-surface: #F6EEDC
+	--bg-raised: #FFFFFF
+	--bg-panel: #EDE0C7
+	--bg-footer: #E2D1B2
+	--bg-popover: #FFFDF8
+	--bg-dialog: #FFFDF8
+	--bg-terminal: #251D14
+	--bg-input: #FFFFFF
+	--bg-canvas: #FDF9F0
+	--border: #D8C4A0
+	--border-subtle: #E9DC output
+	--border-subtle: #E8DAC2
+	--text-primary: #291F14
+	--text-secondary: #634F38
+	--text-muted: #968065
+	--state-hover: #E4D2B2
+	--state-hover-subtle: #F3E6CE
+	--state-selected: #D5BD96
+	--theme-color: #A75C05
+	--theme-color-alt: #B45309
+	--text-inverse: #FFFFFF
+	--feedback-error: #DC2626
+	--syntax-heading: #B45309
+	--syntax-link: #A75C05
+	--syntax-code: #DC2626
+	--syntax-quote: #634F38
+	--syntax-marker: #A75C05
+	--syntax-meta: #C2410C
+	--syntax-comment: #968065
+	--canvas-postit-bg: #FEF3C7
+	--canvas-postit-text: #78350F
+	--shadow-popover: 0 4px 16px rgba(217, 119, 6, 0.08)
+	--shadow-drag: 0 10px 28px rgba(217, 119, 6, 0.12)
+	--bg-palette: rgba(41, 31, 20, 0.22)
+	--shadow-palette: rgba(41, 31, 20, 0.18)
+	--bg-badge: rgba(217, 119, 6, 0.12)
+	--shadow-pdf-viewer: rgba(217, 119, 6, 0.03)
+	--scrollbar-thumb: #D8C4A0
+	--md-h1: #291F14
+	--md-h2: #A75C05
+	--md-h3: #C2410C
+	--md-bold: #B45309
+	--md-code: #A75C05
+	--md-code-back: #F6EEDC
+	--md-bullet: #A75C05
+	--md-bullet-in: #B45309
+	--md-blockquote: #634F38
+	--border-md-table: #D8C4A0
+
+// 15. Lavender Mist Light (Gentle Lilac & Royal Amethyst)
+.theme-lavender-mist-light
+	--bg: #FAF8FD
+	--bg-surface: #F0EAF8
+	--bg-raised: #FFFFFF
+	--bg-panel: #E5DBF2
+	--bg-footer: #D9CBEC
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #1B1226
+	--bg-input: #FFFFFF
+	--bg-canvas: #FAF8FD
+	--border: #CDB9E4
+	--border-subtle: #E0D3F0
+	--text-primary: #221633
+	--text-secondary: #574173
+	--text-muted: #8E76AC
+	--state-hover: #DAC9EE
+	--state-hover-subtle: #EDE3F6
+	--state-selected: #CAB3E5
+	--theme-color: #7C3AED
+	--theme-color-alt: #6D28D9
+	--text-inverse: #FFFFFF
+	--feedback-error: #E11D48
+	--syntax-heading: #6D28D9
+	--syntax-link: #7C3AED
+	--syntax-code: #D81C45
+	--syntax-quote: #574173
+	--syntax-marker: #7C3AED
+	--syntax-meta: #B824CA
+	--syntax-comment: #8E76AC
+	--canvas-postit-bg: #F3E8FF
+	--canvas-postit-text: #581C87
+	--shadow-popover: 0 4px 16px rgba(124, 58, 237, 0.08)
+	--shadow-drag: 0 10px 28px rgba(124, 58, 237, 0.14)
+	--bg-palette: rgba(34, 22, 51, 0.22)
+	--shadow-palette: rgba(34, 22, 51, 0.18)
+	--bg-badge: rgba(124, 58, 237, 0.1)
+	--shadow-pdf-viewer: rgba(124, 58, 237, 0.04)
+	--scrollbar-thumb: #CDB9E4
+	--md-h1: #221633
+	--md-h2: #7C3AED
+	--md-h3: #B824CA
+	--md-bold: #6D28D9
+	--md-code: #7C3AED
+	--md-code-back: #F0EAF8
+	--md-bullet: #7C3AED
+	--md-bullet-in: #9333EA
+	--md-blockquote: #574173
+	--border-md-table: #CDB9E4
+
+// 16. Botanical Light (Lush Fern, Botanical Herb & Earth Umber)
+.theme-botanical-light
+	--bg: #F7FAF6
+	--bg-surface: #EBF2E8
+	--bg-raised: #FFFFFF
+	--bg-panel: #DEE9D9
+	--bg-footer: #D0DEC9
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #152216
+	--bg-input: #FFFFFF
+	--bg-canvas: #F7FAF6
+	--border: #BED1B7
+	--border-subtle: #D8E5D3
+	--text-primary: #182819
+	--text-secondary: #425B44
+	--text-muted: #738E75
+	--state-hover: #D1E2CA
+	--state-hover-subtle: #E6EFE2
+	--state-selected: #BACFB1
+	--theme-color: #117F3A
+	--theme-color-alt: #15803D
+	--text-inverse: #FFFFFF
+	--feedback-error: #DC2626
+	--syntax-heading: #15803D
+	--syntax-link: #117F3A
+	--syntax-code: #DC2626
+	--syntax-quote: #425B44
+	--syntax-marker: #117F3A
+	--syntax-meta: #936403
+	--syntax-comment: #738E75
+	--canvas-postit-bg: #DCFCE7
+	--canvas-postit-text: #14532D
+	--shadow-popover: 0 4px 16px rgba(22, 163, 74, 0.08)
+	--shadow-drag: 0 10px 28px rgba(22, 163, 74, 0.12)
+	--bg-palette: rgba(24, 40, 25, 0.22)
+	--shadow-palette: rgba(24, 40, 25, 0.18)
+	--bg-badge: rgba(22, 163, 74, 0.1)
+	--shadow-pdf-viewer: rgba(22, 163, 74, 0.04)
+	--scrollbar-thumb: #BED1B7
+	--md-h1: #182819
+	--md-h2: #117F3A
+	--md-h3: #425B44
+	--md-bold: #15803D
+	--md-code: #117F3A
+	--md-code-back: #EBF2E8
+	--md-bullet: #117F3A
+	--md-bullet-in: #167F3D
+	--md-blockquote: #425B44
+	--border-md-table: #BED1B7
+
+// 17. Clay Studio Light (Terracotta Ceramic, Warm Bisque & Sienna)
+.theme-clay-studio-light
+	--bg: #FAF5F0
+	--bg-surface: #F2E7DC
+	--bg-raised: #FFFFFF
+	--bg-panel: #E8D7C8
+	--bg-footer: #DEC5B2
+	--bg-popover: #FFFBF8
+	--bg-dialog: #FFFBF8
+	--bg-terminal: #281A14
+	--bg-input: #FFFFFF
+	--bg-canvas: #FAF5F0
+	--border: #D3B9A4
+	--border-subtle: #E5D3C3
+	--text-primary: #2C1A12
+	--text-secondary: #6B4B3D
+	--text-muted: #9E7D6F
+	--state-hover: #DFC8B6
+	--state-hover-subtle: #EFE0D4
+	--state-selected: #D0B29C
+	--theme-color: #B45309
+	--theme-color-alt: #92400E
+	--text-inverse: #FFFFFF
+	--feedback-error: #B91C1C
+	--syntax-heading: #92400E
+	--syntax-link: #B45309
+	--syntax-code: #B91C1C
+	--syntax-quote: #6B4B3D
+	--syntax-marker: #B45309
+	--syntax-meta: #C2410C
+	--syntax-comment: #9E7D6F
+	--canvas-postit-bg: #FEF3C7
+	--canvas-postit-text: #78350F
+	--shadow-popover: 0 4px 16px rgba(180, 83, 9, 0.08)
+	--shadow-drag: 0 10px 28px rgba(180, 83, 9, 0.12)
+	--bg-palette: rgba(44, 26, 18, 0.22)
+	--shadow-palette: rgba(44, 26, 18, 0.18)
+	--bg-badge: rgba(180, 83, 9, 0.1)
+	--shadow-pdf-viewer: rgba(180, 83, 9, 0.03)
+	--scrollbar-thumb: #D3B9A4
+	--md-h1: #2C1A12
+	--md-h2: #B45309
+	--md-h3: #C2410C
+	--md-bold: #92400E
+	--md-code: #B45309
+	--md-code-back: #F2E7DC
+	--md-bullet: #B45309
+	--md-bullet-in: #92400E
+	--md-blockquote: #6B4B3D
+	--border-md-table: #D3B9A4
+
+// 18. Solaris Light (Golden Sunbeam, Warm Amber & Marigold)
+.theme-solaris-light
+	--bg: #FFFCF2
+	--bg-surface: #FFF5D6
+	--bg-raised: #FFFFFF
+	--bg-panel: #FFEBB8
+	--bg-footer: #FEDF94
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #241C0A
+	--bg-input: #FFFFFF
+	--bg-canvas: #FFFCF2
+	--border: #F3CF76
+	--border-subtle: #FBE5A5
+	--text-primary: #291E04
+	--text-secondary: #6B5216
+	--text-muted: #A3853E
+	--state-hover: #F8DC8E
+	--state-hover-subtle: #FDF0C3
+	--state-selected: #ECC768
+	--theme-color: #AC5F05
+	--theme-color-alt: #B45309
+	--text-inverse: #FFFFFF
+	--feedback-error: #DC2626
+	--syntax-heading: #B45309
+	--syntax-link: #AC5F05
+	--syntax-code: #DC2626
+	--syntax-quote: #6B5216
+	--syntax-marker: #AC5F05
+	--syntax-meta: #C3490A
+	--syntax-comment: #A3853E
+	--canvas-postit-bg: #FEF9C3
+	--canvas-postit-text: #713F12
+	--shadow-popover: 0 4px 16px rgba(217, 119, 6, 0.08)
+	--shadow-drag: 0 10px 28px rgba(217, 119, 6, 0.12)
+	--bg-palette: rgba(41, 30, 4, 0.22)
+	--shadow-palette: rgba(41, 30, 4, 0.18)
+	--bg-badge: rgba(217, 119, 6, 0.12)
+	--shadow-pdf-viewer: rgba(217, 119, 6, 0.03)
+	--scrollbar-thumb: #F3CF76
+	--md-h1: #291E04
+	--md-h2: #AC5F05
+	--md-h3: #C3490A
+	--md-bold: #B45309
+	--md-code: #AC5F05
+	--md-code-back: #FFF5D6
+	--md-bullet: #AC5F05
+	--md-bullet-in: #B45309
+	--md-blockquote: #6B5216
+	--border-md-table: #F3CF76
+
+// 19. Cyberpunk Day Light (Neo-Shinjuku Pastel Cream & Fuchsia)
+.theme-cyberpunk-day-light
+	--bg: #FDFEFA
+	--bg-surface: #F6F8E8
+	--bg-raised: #FFFFFF
+	--bg-panel: #EBF0CD
+	--bg-footer: #DFE7AC
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #12101F
+	--bg-input: #FFFFFF
+	--bg-canvas: #FDFEFA
+	--border: #CCD88D
+	--border-subtle: #E2ECAD
+	--text-primary: #15102A
+	--text-secondary: #483C6E
+	--text-muted: #8275A8
+	--state-hover: #DEEB9F
+	--state-hover-subtle: #F1F6D2
+	--state-selected: #C9D97E
+	--theme-color: #E11D48
+	--theme-color-alt: #077D9A
+	--text-inverse: #FFFFFF
+	--feedback-error: #E11D48
+	--syntax-heading: #E11D48
+	--syntax-link: #077D9A
+	--syntax-code: #E11D48
+	--syntax-quote: #483C6E
+	--syntax-marker: #7C3AED
+	--syntax-meta: #AC5F05
+	--syntax-comment: #8275A8
+	--canvas-postit-bg: #FEF08A
+	--canvas-postit-text: #1E1B4B
+	--shadow-popover: 0 4px 16px rgba(225, 29, 72, 0.1)
+	--shadow-drag: 0 10px 28px rgba(225, 29, 72, 0.16)
+	--bg-palette: rgba(21, 16, 42, 0.22)
+	--shadow-palette: rgba(21, 16, 42, 0.18)
+	--bg-badge: rgba(225, 29, 72, 0.12)
+	--shadow-pdf-viewer: rgba(225, 29, 72, 0.04)
+	--scrollbar-thumb: #CCD88D
+	--md-h1: #15102A
+	--md-h2: #E11D48
+	--md-h3: #077D9A
+	--md-bold: #7C3AED
+	--md-code: #E11D48
+	--md-code-back: #F6F8E8
+	--md-bullet: #E11D48
+	--md-bullet-in: #077D9A
+	--md-blockquote: #483C6E
+	--border-md-table: #CCD88D
+
+// 20. Copper Patina Light (Oxidized Verdigris & Aegean Teal)
+.theme-copper-patina-light
+	--bg: #F3FAF8
+	--bg-surface: #E3F2EE
+	--bg-raised: #FFFFFF
+	--bg-panel: #D1E8E2
+	--bg-footer: #BFDCD5
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #112220
+	--bg-input: #FFFFFF
+	--bg-canvas: #F3FAF8
+	--border: #A9CEC5
+	--border-subtle: #C6E3DC
+	--text-primary: #0F2824
+	--text-secondary: #305B54
+	--text-muted: #608C85
+	--state-hover: #BFDFD7
+	--state-hover-subtle: #DBEFEA
+	--state-selected: #A3CCC2
+	--theme-color: #0B7D72
+	--theme-color-alt: #0F766E
+	--text-inverse: #FFFFFF
+	--feedback-error: #DC2626
+	--syntax-heading: #0F766E
+	--syntax-link: #0B7D72
+	--syntax-code: #DC2626
+	--syntax-quote: #305B54
+	--syntax-marker: #0B7D72
+	--syntax-meta: #B45309
+	--syntax-comment: #608C85
+	--canvas-postit-bg: #CCFBF1
+	--canvas-postit-text: #115E59
+	--shadow-popover: 0 4px 16px rgba(13, 148, 136, 0.08)
+	--shadow-drag: 0 10px 28px rgba(13, 148, 136, 0.12)
+	--bg-palette: rgba(15, 40, 36, 0.22)
+	--shadow-palette: rgba(15, 40, 36, 0.18)
+	--bg-badge: rgba(13, 148, 136, 0.1)
+	--shadow-pdf-viewer: rgba(13, 148, 136, 0.04)
+	--scrollbar-thumb: #A9CEC5
+	--md-h1: #0F2824
+	--md-h2: #0B7D72
+	--md-h3: #B45309
+	--md-bold: #0F766E
+	--md-code: #0B7D72
+	--md-code-back: #E3F2EE
+	--md-bullet: #0B7D72
+	--md-bullet-in: #0F766E
+	--md-blockquote: #305B54
+	--border-md-table: #A9CEC5
+
+// 21. Dracula Light (Alucard Gothic Cream & Crimson Coral)
+.theme-dracula-light
+	--bg: #F8F7FA
+	--bg-surface: #EDEAF3
+	--bg-raised: #FFFFFF
+	--bg-panel: #E0DAEA
+	--bg-footer: #D2C8DF
+	--bg-popover: #FFFFFF
+	--bg-dialog: #FFFFFF
+	--bg-terminal: #282A36
+	--bg-input: #FFFFFF
+	--bg-canvas: #F8F7FA
+	--border: #C4B5D7
+	--border-subtle: #DCD2EB
+	--text-primary: #282A36
+	--text-secondary: #585474
+	--text-muted: #8E89AC
+	--state-hover: #D7CBEC
+	--state-hover-subtle: #ECE4F6
+	--state-selected: #C6B4E3
+	--theme-color: #7C3AED
+	--theme-color-alt: #D02370
+	--text-inverse: #FFFFFF
+	--feedback-error: #E11D48
+	--syntax-heading: #7C3AED
+	--syntax-link: #D02370
+	--syntax-code: #D81C45
+	--syntax-quote: #585474
+	--syntax-marker: #047D58
+	--syntax-meta: #A75C05
+	--syntax-comment: #8E89AC
+	--canvas-postit-bg: #F5F3FF
+	--canvas-postit-text: #4C1D95
+	--shadow-popover: 0 4px 16px rgba(124, 58, 237, 0.08)
+	--shadow-drag: 0 10px 28px rgba(124, 58, 237, 0.14)
+	--bg-palette: rgba(40, 42, 54, 0.22)
+	--shadow-palette: rgba(40, 42, 54, 0.18)
+	--bg-badge: rgba(124, 58, 237, 0.1)
+	--shadow-pdf-viewer: rgba(124, 58, 237, 0.04)
+	--scrollbar-thumb: #C4B5D7
+	--md-h1: #282A36
+	--md-h2: #7C3AED
+	--md-h3: #D02370
+	--md-bold: #7C3AED
+	--md-code: #D02370
+	--md-code-back: #EDEAF3
+	--md-bullet: #7C3AED
+	--md-bullet-in: #D02370
+	--md-blockquote: #585474
+	--border-md-table: #C4B5D7
+
+
+// ============================================================================
+// DARK THEMES (20)
+// ============================================================================
+
+// 22. Lagoona Dark (Deep Abyss Electric Aqua)
+.theme-lagoona-dark
+	--bg: #0E1118
+	--bg-surface: #141824
+	--bg-raised: #1C2232
+	--bg-panel: #101420
+	--bg-footer: #0B0D14
+	--bg-popover: #20273A
+	--bg-dialog: #20273A
+	--bg-terminal: #080A0F
+	--bg-input: #121622
+	--bg-canvas: #0E1118
+	--border: #28324A
+	--border-subtle: #1E2538
+	--text-primary: #EDF2F7
+	--text-secondary: #9BB0C7
+	--text-muted: #5D7087
+	--state-hover: #263047
+	--state-hover-subtle: #1B2233
+	--state-selected: #32405E
+	--theme-color: #38BDF8
+	--theme-color-alt: #0EA5E9
+	--text-inverse: #0E1118
+	--feedback-error: #F87171
+	--syntax-heading: #38BDF8
+	--syntax-link: #60A5FA
+	--syntax-code: #F87171
+	--syntax-quote: #9BB0C7
+	--syntax-marker: #34D399
+	--syntax-meta: #A78BFA
+	--syntax-comment: #5D7087
+	--canvas-postit-bg: #2C2616
+	--canvas-postit-text: #FDE68A
+	--shadow-popover: 0 4px 20px rgba(0, 0, 0, 0.45)
+	--shadow-drag: 0 12px 32px rgba(0, 0, 0, 0.6)
+	--bg-palette: rgba(255, 255, 255, 0.1)
+	--shadow-palette: rgba(0, 0, 0, 0.35)
+	--bg-badge: rgba(56, 189, 248, 0.15)
+	--shadow-pdf-viewer: rgba(0, 0, 0, 0.25)
+	--scrollbar-thumb: #28324A
+	--md-h1: #EDF2F7
+	--md-h2: #38BDF8
+	--md-h3: #34D399
+	--md-bold: #F472B6
+	--md-code: #F87171
+	--md-code-back: #141824
+	--md-bullet: #38BDF8
+	--md-bullet-in: #60A5FA
+	--md-blockquote: #9BB0C7
+	--border-md-table: #28324A
+
+// 23. Frozen Dark (Nordic Polar Sage & Frost)
+.theme-frozen-dark
+	--bg: #15171C
+	--bg-surface: #1D2128
+	--bg-raised: #262C36
+	--bg-panel: #191C22
+	--bg-footer: #111317
+	--bg-popover: #2A313D
+	--bg-dialog: #2A313D
+	--bg-terminal: #0E1013
+	--bg-input: #181B22
+	--bg-canvas: #15171C
+	--border: #343D4C
+	--border-subtle: #262C37
+	--text-primary: #ECEFF4
+	--text-secondary: #B4BECE
+	--text-muted: #68768A
+	--state-hover: #313947
+	--state-hover-subtle: #232933
+	--state-selected: #414C5E
+	--theme-color: #A3BE8C
+	--theme-color-alt: #8FBCBB
+	--text-inverse: #15171C
+	--feedback-error: #BF616A
+	--syntax-heading: #88C0D0
+	--syntax-link: #81A1C1
+	--syntax-code: #C26871
+	--syntax-quote: #B4BECE
+	--syntax-marker: #A3BE8C
+	--syntax-meta: #B48EAD
+	--syntax-comment: #68768A
+	--canvas-postit-bg: #2B2A24
+	--canvas-postit-text: #EBCB8B
+	--shadow-popover: 0 4px 16px rgba(0, 0, 0, 0.4)
+	--shadow-drag: 0 8px 28px rgba(0, 0, 0, 0.5)
+	--bg-palette: rgba(255, 255, 255, 0.08)
+	--shadow-palette: rgba(0, 0, 0, 0.3)
+	--bg-badge: rgba(163, 190, 140, 0.15)
+	--shadow-pdf-viewer: rgba(0, 0, 0, 0.2)
+	--scrollbar-thumb: #343D4C
+	--md-h1: #ECEFF4
+	--md-h2: #8FBCBB
+	--md-h3: #88C0D0
+	--md-bold: #B48EAD
+	--md-code: #C26871
+	--md-code-back: #1D2128
+	--md-bullet: #81A1C1
+	--md-bullet-in: #A3BE8C
+	--md-blockquote: #B4BECE
+	--border-md-table: #343D4C
+
+// 24. Night Dark (Tokyo Night Indigo & Cyber Lime)
+.theme-night-dark
+	--bg: #13141F
+	--bg-surface: #1A1B2A
+	--bg-raised: #222438
+	--bg-panel: #161724
+	--bg-footer: #0F1018
+	--bg-popover: #282A42
+	--bg-dialog: #282A42
+	--bg-terminal: #0D0E15
+	--bg-input: #171826
+	--bg-canvas: #13141F
+	--border: #303352
+	--border-subtle: #22243A
+	--text-primary: #C0CAF5
+	--text-secondary: #9099C4
+	--text-muted: #5B6284
+	--state-hover: #2F3250
+	--state-hover-subtle: #202237
+	--state-selected: #3E426B
+	--theme-color: #9ECE6A
+	--theme-color-alt: #7AA2F7
+	--text-inverse: #13141F
+	--feedback-error: #F7768E
+	--syntax-heading: #7AA2F7
+	--syntax-link: #BB9AF7
+	--syntax-code: #F7768E
+	--syntax-quote: #9099C4
+	--syntax-marker: #9ECE6A
+	--syntax-meta: #E0AF68
+	--syntax-comment: #5B6284
+	--canvas-postit-bg: #292524
+	--canvas-postit-text: #E0AF68
+	--shadow-popover: 0 4px 24px rgba(0, 0, 0, 0.45)
+	--shadow-drag: 0 12px 36px rgba(0, 0, 0, 0.6)
+	--bg-palette: rgba(255, 255, 255, 0.12)
+	--shadow-palette: rgba(0, 0, 0, 0.35)
+	--bg-badge: rgba(158, 206, 106, 0.15)
+	--shadow-pdf-viewer: rgba(0, 0, 0, 0.25)
+	--scrollbar-thumb: #303352
+	--md-h1: #C0CAF5
+	--md-h2: #7AA2F7
+	--md-h3: #BB9AF7
+	--md-bold: #FF007F
+	--md-code: #F7768E
+	--md-code-back: #1A1B2A
+	--md-bullet: #7AA2F7
+	--md-bullet-in: #9ECE6A
+	--md-blockquote: #9099C4
+	--border-md-table: #303352
+
+// 25. Inkworm Dark (Vintage Espresso & Warm Amber)
+.theme-inkworm-dark
+	--bg: #171513
+	--bg-surface: #211E1B
+	--bg-raised: #2C2824
+	--bg-panel: #1A1815
+	--bg-footer: #12100E
+	--bg-popover: #35302B
+	--bg-dialog: #35302B
+	--bg-terminal: #0F0E0C
+	--bg-input: #1E1B18
+	--bg-canvas: #171513
+	--border: #423C36
+	--border-subtle: #2F2B26
+	--text-primary: #E8E2D8
+	--text-secondary: #ADA394
+	--text-muted: #6E6659
+	--state-hover: #3A342E
+	--state-hover-subtle: #282420
+	--state-selected: #4E463E
+	--theme-color: #E58A1F
+	--theme-color-alt: #F97316
+	--text-inverse: #171513
+	--feedback-error: #EF4444
+	--syntax-heading: #E58A1F
+	--syntax-link: #F97316
+	--syntax-code: #EF4444
+	--syntax-quote: #ADA394
+	--syntax-marker: #10B981
+	--syntax-meta: #FBBF24
+	--syntax-comment: #6E6659
+	--canvas-postit-bg: #302619
+	--canvas-postit-text: #FBBF24
+	--shadow-popover: 0 4px 16px rgba(0, 0, 0, 0.4)
+	--shadow-drag: 0 8px 32px rgba(0, 0, 0, 0.55)
+	--bg-palette: rgba(255, 255, 255, 0.08)
+	--shadow-palette: rgba(0, 0, 0, 0.3)
+	--bg-badge: rgba(229, 138, 31, 0.15)
+	--shadow-pdf-viewer: rgba(0, 0, 0, 0.2)
+	--scrollbar-thumb: #423C36
+	--md-h1: #E8E2D8
+	--md-h2: #E58A1F
+	--md-h3: #F97316
+	--md-bold: #F59E0B
+	--md-code: #EF4444
+	--md-code-back: #211E1B
+	--md-bullet: #E58A1F
+	--md-bullet-in: #F97316
+	--md-blockquote: #ADA394
+	--border-md-table: #423C36
+
+// 26. Monochrono Dark (True Pitch Black & Titanium)
+.theme-monochrono-dark
+	--bg: #050505
+	--bg-surface: #101012
+	--bg-raised: #1A1A1E
+	--bg-panel: #0A0A0C
+	--bg-footer: #020202
+	--bg-popover: #222228
+	--bg-dialog: #222228
+	--bg-terminal: #000000
+	--bg-input: #0E0E10
+	--bg-canvas: #050505
+	--border: #2E2E36
+	--border-subtle: #1E1E24
+	--text-primary: #FFFFFF
+	--text-secondary: #B0B0BC
+	--text-muted: #666675
+	--state-hover: #2A2A33
+	--state-hover-subtle: #17171C
+	--state-selected: #383845
+	--theme-color: #FFFFFF
+	--theme-color-alt: #D4D4DE
+	--text-inverse: #050505
+	--feedback-error: #DC2626
+	--syntax-heading: #FFFFFF
+	--syntax-link: #E5E5EB
+	--syntax-code: #E03C3C
+	--syntax-quote: #B0B0BC
+	--syntax-marker: #FFFFFF
+	--syntax-meta: #9E9EB0
+	--syntax-comment: #666675
+	--canvas-postit-bg: #1E1B4B
+	--canvas-postit-text: #E0E7FF
+	--shadow-popover: 0 4px 20px rgba(0, 0, 0, 0.8)
+	--shadow-drag: 0 12px 40px rgba(0, 0, 0, 0.9)
+	--bg-palette: rgba(255, 255, 255, 0.15)
+	--shadow-palette: rgba(0, 0, 0, 0.5)
+	--bg-badge: rgba(255, 255, 255, 0.15)
+	--shadow-pdf-viewer: rgba(0, 0, 0, 0.35)
+	--scrollbar-thumb: #2E2E36
+	--md-h1: #FFFFFF
+	--md-h2: #E5E5EB
+	--md-h3: #B0B0BC
+	--md-bold: #FFFFFF
+	--md-code: #FFFFFF
+	--md-code-back: #101012
+	--md-bullet: #FFFFFF
+	--md-bullet-in: #D4D4DE
+	--md-blockquote: #B0B0BC
+	--border-md-table: #2E2E36
+
+// 27. Four AM Dark (Midnight Neon Magenta & Electric Mint)
+.theme-fouram-dark
+	--bg: #080B14
+	--bg-surface: #0F1424
+	--bg-raised: #182038
+	--bg-panel: #0B0E1B
+	--bg-footer: #05070E
+	--bg-popover: #1E2847
+	--bg-dialog: #1E2847
+	--bg-terminal: #04060A
+	--bg-input: #0E1220
+	--bg-canvas: #080B14
+	--border: #27345C
+	--border-subtle: #19223D
+	--text-primary: #F3F6FC
+	--text-secondary: #A2B2D8
+	--text-muted: #5C6B94
+	--state-hover: #243054
+	--state-hover-subtle: #151D34
+	--state-selected: #314273
+	--theme-color: #F43F8E
+	--theme-color-alt: #10B981
+	--text-inverse: #080B14
+	--feedback-error: #EF4444
+	--syntax-heading: #F43F8E
+	--syntax-link: #38BDF8
+	--syntax-code: #F43F5E
+	--syntax-quote: #A2B2D8
+	--syntax-marker: #10B981
+	--syntax-meta: #A855F7
+	--syntax-comment: #5C6B94
+	--canvas-postit-bg: #2E1B2C
+	--canvas-postit-text: #FBCFE8
+	--shadow-popover: 0 4px 24px rgba(244, 63, 142, 0.15)
+	--shadow-drag: 0 12px 36px rgba(0, 0, 0, 0.6)
+	--bg-palette: rgba(255, 255, 255, 0.12)
+	--shadow-palette: rgba(0, 0, 0, 0.4)
+	--bg-badge: rgba(244, 63, 142, 0.15)
+	--shadow-pdf-viewer: rgba(0, 0, 0, 0.3)
+	--scrollbar-thumb: #27345C
+	--md-h1: #F3F6FC
+	--md-h2: #F43F8E
+	--md-h3: #A855F7
+	--md-bold: #10B981
+	--md-code: #F43F5E
+	--md-code-back: #0F1424
+	--md-bullet: #38BDF8
+	--md-bullet-in: #F43F8E
+	--md-blockquote: #A2B2D8
+	--border-md-table: #27345C
+
+// 28. Winter Came Dark (Obsidian Charcoal & Molten Ember)
+.theme-wintercame-dark
+	--bg: #0D0D0E
+	--bg-surface: #161619
+	--bg-raised: #212126
+	--bg-panel: #111114
+	--bg-footer: #080809
+	--bg-popover: #2B2B33
+	--bg-dialog: #2B2B33
+	--bg-terminal: #060607
+	--bg-input: #141417
+	--bg-canvas: #0D0D0E
+	--border: #383842
+	--border-subtle: #24242B
+	--text-primary: #F8F8FA
+	--text-secondary: #ABABBC
+	--text-muted: #686877
+	--state-hover: #2F2F3B
+	--state-hover-subtle: #1D1D24
+	--state-selected: #404050
+	--theme-color: #FF6600
+	--theme-color-alt: #FFAB00
+	--text-inverse: #0D0D0E
+	--feedback-error: #FF3333
+	--syntax-heading: #FF6600
+	--syntax-link: #FFAB00
+	--syntax-code: #FF3333
+	--syntax-quote: #ABABBC
+	--syntax-marker: #00E5FF
+	--syntax-meta: #D4D4E0
+	--syntax-comment: #686877
+	--canvas-postit-bg: #2A1F10
+	--canvas-postit-text: #FFE6C7
+	--shadow-popover: 0 4px 20px rgba(255, 102, 0, 0.12)
+	--shadow-drag: 0 12px 40px rgba(0, 0, 0, 0.7)
+	--bg-palette: rgba(255, 255, 255, 0.1)
+	--shadow-palette: rgba(0, 0, 0, 0.5)
+	--bg-badge: rgba(255, 102, 0, 0.15)
+	--shadow-pdf-viewer: rgba(0, 0, 0, 0.4)
+	--scrollbar-thumb: #383842
+	--md-h1: #F8F8FA
+	--md-h2: #FF6600
+	--md-h3: #FFAB00
+	--md-bold: #00E5FF
+	--md-code: #FF3333
+	--md-code-back: #161619
+	--md-bullet: #FFAB00
+	--md-bullet-in: #FF6600
+	--md-blockquote: #ABABBC
+	--border-md-table: #383842
+
+// 29. Sun Dark (Graphite Carbon & Cyber Aqua)
+.theme-sun-dark
+	--bg: #0B0D11
+	--bg-surface: #12161E
+	--bg-raised: #1A202B
+	--bg-panel: #0E1218
+	--bg-footer: #07080B
+	--bg-popover: #222A38
+	--bg-dialog: #222A38
+	--bg-terminal: #050608
+	--bg-input: #11141C
+	--bg-canvas: #0B0D11
+	--border: #293447
+	--border-subtle: #1C2432
+	--text-primary: #EEF4FC
+	--text-secondary: #9EB2CF
+	--text-muted: #5C6D87
+	--state-hover: #243042
+	--state-hover-subtle: #161D29
+	--state-selected: #32425C
+	--theme-color: #00E5FF
+	--theme-color-alt: #00B8D9
+	--text-inverse: #0B0D11
+	--feedback-error: #FF4A5A
+	--syntax-heading: #00E5FF
+	--syntax-link: #38BDF8
+	--syntax-code: #FF4A5A
+	--syntax-quote: #9EB2CF
+	--syntax-marker: #00E5FF
+	--syntax-meta: #A855F7
+	--syntax-comment: #5C6D87
+	--canvas-postit-bg: #271E1C
+	--canvas-postit-text: #FED7AA
+	--shadow-popover: 0 4px 24px rgba(0, 229, 255, 0.1)
+	--shadow-drag: 0 12px 40px rgba(0, 0, 0, 0.6)
+	--bg-palette: rgba(255, 255, 255, 0.08)
+	--shadow-palette: rgba(0, 0, 0, 0.4)
+	--bg-badge: rgba(0, 229, 255, 0.12)
+	--shadow-pdf-viewer: rgba(0, 0, 0, 0.3)
+	--scrollbar-thumb: #293447
+	--md-h1: #EEF4FC
+	--md-h2: #00E5FF
+	--md-h3: #38BDF8
+	--md-bold: #00E5FF
+	--md-code: #FF4A5A
+	--md-code-back: #12161E
+	--md-bullet: #38BDF8
+	--md-bullet-in: #00E5FF
+	--md-blockquote: #9EB2CF
+	--border-md-table: #293447
+
+// 30. Console Dark (CRT Matrix Phosphor Green & Soot)
+.theme-console-dark
+	--bg: #0D110E
+	--bg-surface: #141A15
+	--bg-raised: #1B241D
+	--bg-panel: #101511
+	--bg-footer: #080B09
+	--bg-popover: #232E26
+	--bg-dialog: #232E26
+	--bg-terminal: #060806
+	--bg-input: #121713
+	--bg-canvas: #0D110E
+	--border: #2A3A2F
+	--border-subtle: #1C271F
+	--text-primary: #DCF5E3
+	--text-secondary: #8DBA96
+	--text-muted: #4E7355
+	--state-hover: #26362A
+	--state-hover-subtle: #17211A
+	--state-selected: #344A3A
+	--theme-color: #10B981
+	--theme-color-alt: #34D399
+	--text-inverse: #0D110E
+	--feedback-error: #EF4444
+	--syntax-heading: #10B981
+	--syntax-link: #34D399
+	--syntax-code: #EF4444
+	--syntax-quote: #8DBA96
+	--syntax-marker: #10B981
+	--syntax-meta: #A78BFA
+	--syntax-comment: #4E7355
+	--canvas-postit-bg: #2B241A
+	--canvas-postit-text: #FDE68A
+	--shadow-popover: 0 4px 20px rgba(16, 185, 129, 0.08)
+	--shadow-drag: 0 12px 36px rgba(0, 0, 0, 0.5)
+	--bg-palette: rgba(255, 255, 255, 0.08)
+	--shadow-palette: rgba(0, 0, 0, 0.3)
+	--bg-badge: rgba(16, 185, 129, 0.12)
+	--shadow-pdf-viewer: rgba(0, 0, 0, 0.2)
+	--scrollbar-thumb: #2A3A2F
+	--md-h1: #DCF5E3
+	--md-h2: #10B981
+	--md-h3: #34D399
+	--md-bold: #10B981
+	--md-code: #EF4444
+	--md-code-back: #141A15
+	--md-bullet: #34D399
+	--md-bullet-in: #10B981
+	--md-blockquote: #8DBA96
+	--border-md-table: #2A3A2F
+
+// 31. Dracula Dark (Classic Gothic Vampire & Orchid)
+.theme-dracula-dark
+	--bg: #282A36
+	--bg-surface: #343746
+	--bg-raised: #44475A
+	--bg-panel: #21222C
+	--bg-footer: #191A21
+	--bg-popover: #44475A
+	--bg-dialog: #44475A
+	--bg-terminal: #191A21
+	--bg-input: #21222C
+	--bg-canvas: #282A36
+	--border: #6272A4
+	--border-subtle: #44475A
+	--text-primary: #F8F8F2
+	--text-secondary: #BD93F9
+	--text-muted: #6272A4
+	--state-hover: #44475A
+	--state-hover-subtle: #343746
+	--state-selected: #555870
+	--theme-color: #BD93F9
+	--theme-color-alt: #FF79C6
+	--text-inverse: #282A36
+	--feedback-error: #FF5555
+	--syntax-heading: #BD93F9
+	--syntax-link: #8BE9FD
+	--syntax-code: #FF5555
+	--syntax-quote: #8995BA
+	--syntax-marker: #50FA7B
+	--syntax-meta: #FFB86C
+	--syntax-comment: #6272A4
+	--canvas-postit-bg: #44475A
+	--canvas-postit-text: #F1FA8C
+	--shadow-popover: 0 4px 20px rgba(0, 0, 0, 0.45)
+	--shadow-drag: 0 12px 36px rgba(0, 0, 0, 0.6)
+	--bg-palette: rgba(255, 255, 255, 0.1)
+	--shadow-palette: rgba(0, 0, 0, 0.4)
+	--bg-badge: rgba(189, 147, 249, 0.15)
+	--shadow-pdf-viewer: rgba(0, 0, 0, 0.25)
+	--scrollbar-thumb: #6272A4
+	--md-h1: #F8F8F2
+	--md-h2: #BD93F9
+	--md-h3: #8BE9FD
+	--md-bold: #FF79C6
+	--md-code: #FF5555
+	--md-code-back: #343746
+	--md-bullet: #50FA7B
+	--md-bullet-in: #BD93F9
+	--md-blockquote: #8995BA
+	--border-md-table: #6272A4
+
+// 32. Catppuccin Mocha (Cozy Pastel Velvet & Mauve)
+.theme-catppuccin-mocha
+	--bg: #1E1E2E
+	--bg-surface: #252538
+	--bg-raised: #313244
+	--bg-panel: #181825
+	--bg-footer: #11111B
+	--bg-popover: #313244
+	--bg-dialog: #313244
+	--bg-terminal: #11111B
+	--bg-input: #181825
+	--bg-canvas: #1E1E2E
+	--border: #45475A
+	--border-subtle: #313244
+	--text-primary: #CDD6F4
+	--text-secondary: #A6ADC8
+	--text-muted: #6C7086
+	--state-hover: #3b3d54
+	--state-hover-subtle: #2a2b3d
+	--state-selected: #4E516B
+	--theme-color: #CBA6F7
+	--theme-color-alt: #89B4FA
+	--text-inverse: #1E1E2E
+	--feedback-error: #F38BA8
+	--syntax-heading: #89B4FA
+	--syntax-link: #CBA6F7
+	--syntax-code: #F38BA8
+	--syntax-quote: #A6ADC8
+	--syntax-marker: #A6E3A1
+	--syntax-meta: #FAB387
+	--syntax-comment: #6C7086
+	--canvas-postit-bg: #313244
+	--canvas-postit-text: #F9E2AF
+	--shadow-popover: 0 4px 20px rgba(0, 0, 0, 0.4)
+	--shadow-drag: 0 12px 36px rgba(0, 0, 0, 0.55)
+	--bg-palette: rgba(255, 255, 255, 0.1)
+	--shadow-palette: rgba(0, 0, 0, 0.35)
+	--bg-badge: rgba(203, 166, 247, 0.15)
+	--shadow-pdf-viewer: rgba(0, 0, 0, 0.25)
+	--scrollbar-thumb: #45475A
+	--md-h1: #CDD6F4
+	--md-h2: #CBA6F7
+	--md-h3: #89B4FA
+	--md-bold: #F38BA8
+	--md-code: #F38BA8
+	--md-code-back: #252538
+	--md-bullet: #A6E3A1
+	--md-bullet-in: #89B4FA
+	--md-blockquote: #A6ADC8
+	--border-md-table: #45475A
+
+// 33. Nord Dark (Arctic Polar Night & Aurora)
+.theme-nord-dark
+	--bg: #2E3440
+	--bg-surface: #3B4252
+	--bg-raised: #434C5E
+	--bg-panel: #272C37
+	--bg-footer: #1E222A
+	--bg-popover: #434C5E
+	--bg-dialog: #434C5E
+	--bg-terminal: #1E222A
+	--bg-input: #272C37
+	--bg-canvas: #2E3440
+	--border: #4C566A
+	--border-subtle: #3B4252
+	--text-primary: #ECEFF4
+	--text-secondary: #D8DEE9
+	--text-muted: #7E8EAA
+	--state-hover: #4C566A
+	--state-hover-subtle: #3B4252
+	--state-selected: #5A667E
+	--theme-color: #88C0D0
+	--theme-color-alt: #81A1C1
+	--text-inverse: #2E3440
+	--feedback-error: #BF616A
+	--syntax-heading: #88C0D0
+	--syntax-link: #81A1C1
+	--syntax-code: #D18D93
+	--syntax-quote: #D8DEE9
+	--syntax-marker: #A3BE8C
+	--syntax-meta: #B894B1
+	--syntax-comment: #7E8EAA
+	--canvas-postit-bg: #3B4252
+	--canvas-postit-text: #EBCB8B
+	--shadow-popover: 0 4px 20px rgba(0, 0, 0, 0.4)
+	--shadow-drag: 0 12px 36px rgba(0, 0, 0, 0.55)
+	--bg-palette: rgba(255, 255, 255, 0.1)
+	--shadow-palette: rgba(0, 0, 0, 0.35)
+	--bg-badge: rgba(136, 192, 208, 0.15)
+	--shadow-pdf-viewer: rgba(0, 0, 0, 0.25)
+	--scrollbar-thumb: #4C566A
+	--md-h1: #ECEFF4
+	--md-h2: #88C0D0
+	--md-h3: #81A1C1
+	--md-bold: #B894B1
+	--md-code: #D18D93
+	--md-code-back: #3B4252
+	--md-bullet: #A3BE8C
+	--md-bullet-in: #88C0D0
+	--md-blockquote: #D8DEE9
+	--border-md-table: #4C566A
+
+// 34. Gruvbox Dark (Retro Warm Groove & Saffron)
+.theme-gruvbox-dark
+	--bg: #282828
+	--bg-surface: #32302F
+	--bg-raised: #3C3836
+	--bg-panel: #1D2021
+	--bg-footer: #141617
+	--bg-popover: #3C3836
+	--bg-dialog: #3C3836
+	--bg-terminal: #1D2021
+	--bg-input: #1D2021
+	--bg-canvas: #282828
+	--border: #504945
+	--border-subtle: #3C3836
+	--text-primary: #EBDBB2
+	--text-secondary: #D5C4A1
+	--text-muted: #928374
+	--state-hover: #4A4440
+	--state-hover-subtle: #32302F
+	--state-selected: #5A524C
+	--theme-color: #FE8019
+	--theme-color-alt: #FABD2F
+	--text-inverse: #282828
+	--feedback-error: #FB4934
+	--syntax-heading: #FABD2F
+	--syntax-link: #FE8019
+	--syntax-code: #FB5B48
+	--syntax-quote: #D5C4A1
+	--syntax-marker: #B8BB26
+	--syntax-meta: #83A598
+	--syntax-comment: #928374
+	--canvas-postit-bg: #3C3836
+	--canvas-postit-text: #FABD2F
+	--shadow-popover: 0 4px 20px rgba(0, 0, 0, 0.45)
+	--shadow-drag: 0 12px 36px rgba(0, 0, 0, 0.6)
+	--bg-palette: rgba(255, 255, 255, 0.08)
+	--shadow-palette: rgba(0, 0, 0, 0.35)
+	--bg-badge: rgba(254, 128, 25, 0.15)
+	--shadow-pdf-viewer: rgba(0, 0, 0, 0.25)
+	--scrollbar-thumb: #504945
+	--md-h1: #EBDBB2
+	--md-h2: #FE8019
+	--md-h3: #FABD2F
+	--md-bold: #B8BB26
+	--md-code: #FB5B48
+	--md-code-back: #32302F
+	--md-bullet: #FABD2F
+	--md-bullet-in: #FE8019
+	--md-blockquote: #D5C4A1
+	--border-md-table: #504945
+
+// 35. One Dark Pro (Atom Slate Blue & Coral Mint)
+.theme-onedark-pro
+	--bg: #21252B
+	--bg-surface: #282C34
+	--bg-raised: #2F3440
+	--bg-panel: #1B1D23
+	--bg-footer: #15171C
+	--bg-popover: #2F3440
+	--bg-dialog: #2F3440
+	--bg-terminal: #1B1D23
+	--bg-input: #1B1D23
+	--bg-canvas: #21252B
+	--border: #3E4451
+	--border-subtle: #2C313C
+	--text-primary: #ABB2BF
+	--text-secondary: #888E9C
+	--text-muted: #6A7281
+	--state-hover: #383E4C
+	--state-hover-subtle: #282C34
+	--state-selected: #464E5F
+	--theme-color: #61AFEF
+	--theme-color-alt: #98C379
+	--text-inverse: #21252B
+	--feedback-error: #E06C75
+	--syntax-heading: #61AFEF
+	--syntax-link: #C678DD
+	--syntax-code: #E06C75
+	--syntax-quote: #888E9C
+	--syntax-marker: #98C379
+	--syntax-meta: #E5C07B
+	--syntax-comment: #6A7281
+	--canvas-postit-bg: #282C34
+	--canvas-postit-text: #E5C07B
+	--shadow-popover: 0 4px 20px rgba(0, 0, 0, 0.4)
+	--shadow-drag: 0 12px 36px rgba(0, 0, 0, 0.55)
+	--bg-palette: rgba(255, 255, 255, 0.08)
+	--shadow-palette: rgba(0, 0, 0, 0.35)
+	--bg-badge: rgba(97, 175, 239, 0.15)
+	--shadow-pdf-viewer: rgba(0, 0, 0, 0.25)
+	--scrollbar-thumb: #3E4451
+	--md-h1: #ABB2BF
+	--md-h2: #61AFEF
+	--md-h3: #C678DD
+	--md-bold: #98C379
+	--md-code: #E06C75
+	--md-code-back: #282C34
+	--md-bullet: #61AFEF
+	--md-bullet-in: #98C379
+	--md-blockquote: #888E9C
+	--border-md-table: #3E4451
+
+// 36. Rose Pine Dark (SoHo Midnight Rose & Pine)
+.theme-rose-pine-dark
+	--bg: #191724
+	--bg-surface: #1F1D2E
+	--bg-raised: #26233A
+	--bg-panel: #151320
+	--bg-footer: #0D0B14
+	--bg-popover: #26233A
+	--bg-dialog: #26233A
+	--bg-terminal: #151320
+	--bg-input: #151320
+	--bg-canvas: #191724
+	--border: #403D52
+	--border-subtle: #26233A
+	--text-primary: #E0DEF4
+	--text-secondary: #908CAA
+	--text-muted: #6E6A86
+	--state-hover: #312E46
+	--state-hover-subtle: #1F1D2E
+	--state-selected: #3E3B56
+	--theme-color: #EB6F92
+	--theme-color-alt: #3B8DAD
+	--text-inverse: #191724
+	--feedback-error: #EB6F92
+	--syntax-heading: #EB6F92
+	--syntax-link: #9CCFD8
+	--syntax-code: #EB6F92
+	--syntax-quote: #908CAA
+	--syntax-marker: #3B8DAD
+	--syntax-meta: #F6C177
+	--syntax-comment: #6E6A86
+	--canvas-postit-bg: #26233A
+	--canvas-postit-text: #F6C177
+	--shadow-popover: 0 4px 20px rgba(0, 0, 0, 0.45)
+	--shadow-drag: 0 12px 36px rgba(0, 0, 0, 0.6)
+	--bg-palette: rgba(255, 255, 255, 0.1)
+	--shadow-palette: rgba(0, 0, 0, 0.35)
+	--bg-badge: rgba(235, 111, 146, 0.15)
+	--shadow-pdf-viewer: rgba(0, 0, 0, 0.25)
+	--scrollbar-thumb: #403D52
+	--md-h1: #E0DEF4
+	--md-h2: #EB6F92
+	--md-h3: #9CCFD8
+	--md-bold: #3B8DAD
+	--md-code: #EB6F92
+	--md-code-back: #1F1D2E
+	--md-bullet: #EB6F92
+	--md-bullet-in: #9CCFD8
+	--md-blockquote: #908CAA
+	--border-md-table: #403D52
+
+// 37. Midnight Emerald Dark (Deep Malachite Forest & Jade)
+.theme-midnight-emerald-dark
+	--bg: #0A140F
+	--bg-surface: #102018
+	--bg-raised: #182E23
+	--bg-panel: #0D1B14
+	--bg-footer: #060D0A
+	--bg-popover: #182E23
+	--bg-dialog: #182E23
+	--bg-terminal: #060D0A
+	--bg-input: #0D1B14
+	--bg-canvas: #0A140F
+	--border: #234534
+	--border-subtle: #14281E
+	--text-primary: #E2F8EE
+	--text-secondary: #8BC4AA
+	--text-muted: #4F8069
+	--state-hover: #1E3A2C
+	--state-hover-subtle: #102018
+	--state-selected: #294D3B
+	--theme-color: #10B981
+	--theme-color-alt: #34D399
+	--text-inverse: #0A140F
+	--feedback-error: #F87171
+	--syntax-heading: #34D399
+	--syntax-link: #10B981
+	--syntax-code: #F87171
+	--syntax-quote: #8BC4AA
+	--syntax-marker: #34D399
+	--syntax-meta: #A7F3D0
+	--syntax-comment: #4F8069
+	--canvas-postit-bg: #182E23
+	--canvas-postit-text: #A7F3D0
+	--shadow-popover: 0 4px 20px rgba(16, 185, 129, 0.1)
+	--shadow-drag: 0 12px 36px rgba(0, 0, 0, 0.55)
+	--bg-palette: rgba(255, 255, 255, 0.08)
+	--shadow-palette: rgba(0, 0, 0, 0.35)
+	--bg-badge: rgba(16, 185, 129, 0.15)
+	--shadow-pdf-viewer: rgba(0, 0, 0, 0.25)
+	--scrollbar-thumb: #234534
+	--md-h1: #E2F8EE
+	--md-h2: #34D399
+	--md-h3: #10B981
+	--md-bold: #34D399
+	--md-code: #F87171
+	--md-code-back: #102018
+	--md-bullet: #34D399
+	--md-bullet-in: #10B981
+	--md-blockquote: #8BC4AA
+	--border-md-table: #234534
+
+// 38. Obsidian Crimson Dark (Gothic Bloodstone & Velvet Ruby)
+.theme-obsidian-crimson-dark
+	--bg: #120B0D
+	--bg-surface: #1C1215
+	--bg-raised: #281A1F
+	--bg-panel: #160D10
+	--bg-footer: #0A0507
+	--bg-popover: #281A1F
+	--bg-dialog: #281A1F
+	--bg-terminal: #0A0507
+	--bg-input: #160D10
+	--bg-canvas: #120B0D
+	--border: #42252F
+	--border-subtle: #2A171D
+	--text-primary: #FDE8ED
+	--text-secondary: #D490A2
+	--text-muted: #8F5464
+	--state-hover: #331F27
+	--state-hover-subtle: #1C1215
+	--state-selected: #472B36
+	--theme-color: #E5375D
+	--theme-color-alt: #FB7185
+	--text-inverse: #120B0D
+	--feedback-error: #FF4D6D
+	--syntax-heading: #FB7185
+	--syntax-link: #E5375D
+	--syntax-code: #FF4D6D
+	--syntax-quote: #D490A2
+	--syntax-marker: #E5375D
+	--syntax-meta: #FDA4AF
+	--syntax-comment: #8F5464
+	--canvas-postit-bg: #281A1F
+	--canvas-postit-text: #FECDD3
+	--shadow-popover: 0 4px 20px rgba(225, 29, 72, 0.15)
+	--shadow-drag: 0 12px 36px rgba(0, 0, 0, 0.6)
+	--bg-palette: rgba(255, 255, 255, 0.08)
+	--shadow-palette: rgba(0, 0, 0, 0.4)
+	--bg-badge: rgba(225, 29, 72, 0.15)
+	--shadow-pdf-viewer: rgba(0, 0, 0, 0.3)
+	--scrollbar-thumb: #42252F
+	--md-h1: #FDE8ED
+	--md-h2: #E5375D
+	--md-h3: #FB7185
+	--md-bold: #FB7185
+	--md-code: #FF4D6D
+	--md-code-back: #1C1215
+	--md-bullet: #E5375D
+	--md-bullet-in: #FB7185
+	--md-blockquote: #D490A2
+	--border-md-table: #42252F
+
+// 39. Synthwave Dark (Retro 80s Sunset Neon Violet & Laser Cyan)
+.theme-synthwave-dark
+	--bg: #160D26
+	--bg-surface: #201338
+	--bg-raised: #2C1A4C
+	--bg-panel: #1A0F2E
+	--bg-footer: #0E071A
+	--bg-popover: #2C1A4C
+	--bg-dialog: #2C1A4C
+	--bg-terminal: #0E071A
+	--bg-input: #1A0F2E
+	--bg-canvas: #160D26
+	--border: #482878
+	--border-subtle: #2C1A4C
+	--text-primary: #FDF4FF
+	--text-secondary: #D4A9F7
+	--text-muted: #8762B3
+	--state-hover: #382161
+	--state-hover-subtle: #201338
+	--state-selected: #4D2D85
+	--theme-color: #FF2A85
+	--theme-color-alt: #00F0FF
+	--text-inverse: #160D26
+	--feedback-error: #FF2A85
+	--syntax-heading: #00F0FF
+	--syntax-link: #FF2A85
+	--syntax-code: #FFE600
+	--syntax-quote: #D4A9F7
+	--syntax-marker: #00F0FF
+	--syntax-meta: #FFB800
+	--syntax-comment: #8762B3
+	--canvas-postit-bg: #2C1A4C
+	--canvas-postit-text: #FFE600
+	--shadow-popover: 0 4px 24px rgba(255, 42, 133, 0.2)
+	--shadow-drag: 0 12px 40px rgba(0, 0, 0, 0.7)
+	--bg-palette: rgba(255, 255, 255, 0.12)
+	--shadow-palette: rgba(0, 0, 0, 0.4)
+	--bg-badge: rgba(255, 42, 133, 0.2)
+	--shadow-pdf-viewer: rgba(0, 0, 0, 0.35)
+	--scrollbar-thumb: #482878
+	--md-h1: #FDF4FF
+	--md-h2: #FF2A85
+	--md-h3: #00F0FF
+	--md-bold: #FFE600
+	--md-code: #FF2A85
+	--md-code-back: #201338
+	--md-bullet: #00F0FF
+	--md-bullet-in: #FF2A85
+	--md-blockquote: #D4A9F7
+	--border-md-table: #482878
+
+// 40. Deep Ocean Dark (Bioluminescent Abyss & Aquamarine)
+.theme-deep-ocean-dark
+	--bg: #07111A
+	--bg-surface: #0C1A27
+	--bg-raised: #13273B
+	--bg-panel: #0A1622
+	--bg-footer: #04090E
+	--bg-popover: #13273B
+	--bg-dialog: #13273B
+	--bg-terminal: #04090E
+	--bg-input: #0A1622
+	--bg-canvas: #07111A
+	--border: #1E3E5C
+	--border-subtle: #11263A
+	--text-primary: #E0F5FE
+	--text-secondary: #8BC9E8
+	--text-muted: #4B7D99
+	--state-hover: #19344E
+	--state-hover-subtle: #0C1A27
+	--state-selected: #22476B
+	--theme-color: #00E5FF
+	--theme-color-alt: #38BDF8
+	--text-inverse: #07111A
+	--feedback-error: #F87171
+	--syntax-heading: #00E5FF
+	--syntax-link: #38BDF8
+	--syntax-code: #F87171
+	--syntax-quote: #8BC9E8
+	--syntax-marker: #2DD4BF
+	--syntax-meta: #A5F3FC
+	--syntax-comment: #4B7D99
+	--canvas-postit-bg: #13273B
+	--canvas-postit-text: #A5F3FC
+	--shadow-popover: 0 4px 20px rgba(0, 229, 255, 0.12)
+	--shadow-drag: 0 12px 36px rgba(0, 0, 0, 0.6)
+	--bg-palette: rgba(255, 255, 255, 0.08)
+	--shadow-palette: rgba(0, 0, 0, 0.35)
+	--bg-badge: rgba(0, 229, 255, 0.15)
+	--shadow-pdf-viewer: rgba(0, 0, 0, 0.25)
+	--scrollbar-thumb: #1E3E5C
+	--md-h1: #E0F5FE
+	--md-h2: #00E5FF
+	--md-h3: #2DD4BF
+	--md-bold: #38BDF8
+	--md-code: #F87171
+	--md-code-back: #0C1A27
+	--md-bullet: #00E5FF
+	--md-bullet-in: #2DD4BF
+	--md-blockquote: #8BC9E8
+	--border-md-table: #1E3E5C
+
+// 41. Amethyst Void Dark (Cosmic Deep Violet & Starlight)
+.theme-amethyst-void-dark
+	--bg: #0F091A
+	--bg-surface: #180F29
+	--bg-raised: #24173D
+	--bg-panel: #130B21
+	--bg-footer: #08040E
+	--bg-popover: #24173D
+	--bg-dialog: #24173D
+	--bg-terminal: #08040E
+	--bg-input: #130B21
+	--bg-canvas: #0F091A
+	--border: #3B2463
+	--border-subtle: #24173D
+	--text-primary: #F7EEFE
+	--text-secondary: #CEACF3
+	--text-muted: #8062A3
+	--state-hover: #2F1D50
+	--state-hover-subtle: #180F29
+	--state-selected: #432A70
+	--theme-color: #A855F7
+	--theme-color-alt: #EC4899
+	--text-inverse: #0F091A
+	--feedback-error: #F43F5E
+	--syntax-heading: #C084FC
+	--syntax-link: #EC4899
+	--syntax-code: #F43F5E
+	--syntax-quote: #CEACF3
+	--syntax-marker: #A855F7
+	--syntax-meta: #F472B6
+	--syntax-comment: #8062A3
+	--canvas-postit-bg: #24173D
+	--canvas-postit-text: #F5D0FE
+	--shadow-popover: 0 4px 20px rgba(168, 85, 247, 0.15)
+	--shadow-drag: 0 12px 36px rgba(0, 0, 0, 0.6)
+	--bg-palette: rgba(255, 255, 255, 0.1)
+	--shadow-palette: rgba(0, 0, 0, 0.35)
+	--bg-badge: rgba(168, 85, 247, 0.18)
+	--shadow-pdf-viewer: rgba(0, 0, 0, 0.3)
+	--scrollbar-thumb: #3B2463
+	--md-h1: #F7EEFE
+	--md-h2: #C084FC
+	--md-h3: #EC4899
+	--md-bold: #A855F7
+	--md-code: #F43F5E
+	--md-code-back: #180F29
+	--md-bullet: #A855F7
+	--md-bullet-in: #EC4899
+	--md-blockquote: #CEACF3
+	--border-md-table: #3B2463

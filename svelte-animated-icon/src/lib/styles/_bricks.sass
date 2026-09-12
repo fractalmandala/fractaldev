@@ -1,0 +1,79 @@
+button.is-primary
+	background: var(--bg-surface)
+	border: 1px solid var(--border)
+	height: 32px
+	padding-left: 12px
+	padding-right: 12px
+
+button.is-icon-strong
+	color: var(--text-primary)
+	background: none	
+	border: none
+	padding: 0
+	svg
+		transform-origin: center center
+	&:hover
+		transform: scale(1.1)
+
+.appshell
+	position: relative
+	isolation: isolate
+	display: flex
+	flex-direction: column
+	min-height: 100vh
+	background: var(--bg)
+	color: var(--text-primary)
+
+header.appheader
+	height: var(--header-height)
+	padding-inline: clamp(0.5rem, -0.9318rem + 6.3636vw, 4rem)
+	display: flex
+	align-items: center
+	justify-content: space-between
+
+.pagebox
+	padding-top: 64px
+	display: flex
+	flex-direction: column
+	gap: 32px
+
+.bodyshell
+	padding-inline: clamp(0.5rem, -0.9318rem + 6.3636vw, 4rem)
+
+/*--------------------------GLOBAL RESETS-----------------------------
+
+a
+	text-decoration-color: var(--theme-color)
+	color: var(--text-primary)
+
+.logoarea
+	a
+		text-decoration: none
+		font-size: var(--text-lg)
+		font-weight: 600
+		color: var(--text-primary)
+
+a.is-primary
+	background: var(--theme-color)
+	padding: 8px 16px
+	border-radius: 5px
+	&:hover
+		transform: scale(0.95)
+
+a.header-nav
+	text-decoration: none
+	&:hover
+		color: var(--theme-color)
+
+.fitted
+	width: 80ch
+	margin-inline: auto
+
+.body-std
+	font-size: var(--text-lg)
+.page-title
+	font-size: var(--text-5xl)
+	font-weight: 500
+	letter-spacing: -0.1rem
+.eyebrow
+	font-size: var(--text-sm)

@@ -1,0 +1,32 @@
+{
+  "name": "fractal-svelte",
+  "version": "1.0.0",
+  "description": "Svelte 5 / SvelteKit build agent with an on-disk CLI tool surface.",
+  "author": {
+    "name": "Amrit"
+  },
+  "homepage": "https://github.com/fractalmandala/mandala/tree/main/packages/fractal-agentic",
+  "repository": "https://github.com/fractalmandala/mandala",
+  "license": "MIT",
+  "interface": {
+    "displayName": "Fractal Svelte",
+    "shortDescription": "Routed Svelte 5 / SvelteKit agent with a CLI tool surface",
+    "longDescription": "One agent, one contract. A zero-dependency CLI (bin/fa.mjs) routes each task to the exact skills to load, serves component recipes and the project's real design tokens, and writes three-layer verification receipts. Progressive disclosure by default: 22 skills on disk, 2-3 loaded per task.",
+    "defaultPrompt": [
+      "fa route \"add an accordion to the docs page\"",
+      "Route this task, load only the skills it names, then build and verify.",
+      "Run fa doctor and fix any armory integrity problems."
+    ]
+  },
+  "skills": "./skills/",
+  "keywords": [
+    "svelte",
+    "sveltekit",
+    "svelte5",
+    "cube-css",
+    "sass",
+    "agent",
+    "cli",
+    "scaffold"
+  ]
+}

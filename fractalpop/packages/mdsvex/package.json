@@ -1,0 +1,57 @@
+{
+  "name": "@fractalpop/mdsvex",
+  "version": "0.1.0",
+  "description": "mdsvex highlighter for fractalpop — highlights code fences in .svx files",
+  "type": "module",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "mdsvex",
+    "svelte"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "bunchee",
+    "test": "vitest run",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "fractalpop": "workspace:^"
+  },
+  "devDependencies": {
+    "bunchee": "^6.0.0",
+    "mdsvex": "^0.12.0",
+    "svelte": "^5.0.0",
+    "typescript": "^5.6.0",
+    "vitest": "^4.1.11"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fractalmandala/fractalpop.git",
+    "directory": "packages/mdsvex"
+  },
+  "peerDependencies": {
+    "mdsvex": ">=0.11",
+    "svelte": "^5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "mdsvex": {
+      "optional": true
+    },
+    "svelte": {
+      "optional": true
+    }
+  }
+}

@@ -1,0 +1,73 @@
+@use 'foundation'
+
+.acrolls
+	--acrolls-content-width: 70ch
+	--acrolls-wide-width: min(92rem, calc(100vw - 2rem))
+	--acrolls-gutter: clamp(1rem, 4vw, 2.5rem)
+	--acrolls-radius: 0.75rem
+	--acrolls-body-size: clamp(1rem, 0.97rem + 0.15vw, 1.075rem)
+	--acrolls-leading: 1.78
+	--acrolls-paragraph-spacing: 1.35em 0
+	--acrolls-section-spacing: clamp(3.2rem, 8cqi, 5.5rem)
+	--acrolls-h1-size: clamp(2.2rem, 1.6rem + 2.4cqi, 3.6rem)
+	--acrolls-h2-size: clamp(1.55rem, 1.35rem + 0.9cqi, 2.2rem)
+	--acrolls-h3-size: clamp(1.25rem, 1.15rem + 0.45cqi, 1.55rem)
+	--acrolls-code-leading: 1.7
+	--acrolls-code-block-padding-block: clamp(1rem, 3cqi, 1.45rem)
+	--acrolls-code-block-padding-inline: clamp(1rem, 3cqi, 1.45rem)
+	--acrolls-table-cell-padding-block: 0.8rem
+	--acrolls-table-cell-padding-inline: clamp(0.85rem, 2.5cqi, 1.25rem)
+	container-type: inline-size
+	font-size: var(--acrolls-body-size)
+	line-height: var(--acrolls-leading)
+.acrolls > :first-child
+	margin-top: 0
+.acrolls p
+	margin: var(--acrolls-paragraph-spacing)
+.acrolls h1
+	font-size: var(--acrolls-h1-size)
+	line-height: 1.12
+	letter-spacing: -0.02em
+	margin: 0 0 1.2rem
+	font-weight: 700
+.acrolls h2
+	font-size: var(--acrolls-h2-size)
+	line-height: 1.2
+	letter-spacing: -0.015em
+	margin: var(--acrolls-section-spacing) 0 0.85rem
+	font-weight: 650
+.acrolls h3
+	font-size: var(--acrolls-h3-size)
+	line-height: 1.3
+	margin: 2.5rem 0 0.7rem
+	font-weight: 650
+.acrolls h4, .acrolls h5, .acrolls h6
+	margin: 2rem 0 0.6rem
+	font-weight: 600
+.acrolls ul, .acrolls ol
+	margin-block: 1rem
+	padding-left: 1.35rem
+.acrolls li + li
+	margin-top: 0.35em
+.acrolls blockquote
+	margin-block: 1.35rem
+	margin-inline: 0
+	padding: 0.25rem 0 0.25rem 1rem
+	border-left: 3px solid var(--acrolls-border)
+	color: var(--acrolls-muted)
+.acrolls hr
+	border: 0
+	border-top: 1px solid var(--acrolls-border)
+	margin-block: 2.5rem
+.acrolls .acrolls-banner
+	padding: clamp(1.25rem, 3cqi, 2rem)
+	gap: 0.75rem
+.acrolls .acrolls-banner__title
+	font-size: clamp(1.75rem, 1.4rem + 1.5cqi, 2.6rem)
+	line-height: 1.15
+	letter-spacing: -0.02em
+@media (prefers-color-scheme: dark)
+	.acrolls:not([data-theme='light'])
+		--acrolls-shadow: 0 1.25rem 3rem color-mix(in oklab, #000 35%, transparent)
+.acrolls[data-theme='dark']
+	--acrolls-shadow: 0 1.25rem 3rem color-mix(in oklab, #000 35%, transparent)

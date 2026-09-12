@@ -1,0 +1,39 @@
+<script lang="ts">
+	import { GraphLatency } from '$lib';
+</script>
+
+# GraphLatency
+
+## Import
+
+```svelte
+import { GraphLatency } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphLatency
+  title="example"
+  unit={'ms'}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `data` | `LatencyPoint[]` | `—` | — |
+| `unit?` | `string` | `'ms'` | — |
+| `height?` | `number` | `8` | — |
+| `labels?` | `[string, string]` | `—` | — |
+| `max?` | `number` | `—` | — |
+| `palette?` | `GraphPalette` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `LatencyPoint`
+- `GraphLatencyProps`

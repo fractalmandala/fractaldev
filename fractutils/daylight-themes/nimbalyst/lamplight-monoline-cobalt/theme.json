@@ -1,0 +1,34 @@
+{
+  "id": "lamplight-monoline-cobalt",
+  "name": "Lamplight Monoline Cobalt",
+  "version": "2.0.0",
+  "author": "amrit",
+  "description": "The same ink structure on a faint stone page, with the literals in cobalt. Reads more like documentation than code.",
+  "isDark": true,
+  "tags": [
+    "mono",
+    "dark"
+  ],
+  "colors": {
+    "bg": "#131416",
+    "bg-secondary": "#0F1012",
+    "bg-tertiary": "#17191B",
+    "bg-hover": "#1A1B1D",
+    "bg-selected": "#292B2E",
+    "bg-active": "#1D2737",
+    "text": "#989EA4",
+    "text-muted": "#707579",
+    "text-faint": "#5A6064",
+    "text-disabled": "#414549",
+    "border": "#222325",
+    "border-focus": "#5B9BFF",
+    "primary": "#5B9BFF",
+    "primary-hover": "#669CEF",
+    "link": "#5B9BFF",
+    "link-hover": "#669CEF",
+    "success": "#7FBE8C",
+    "warning": "#D2A05A",
+    "error": "#E2695A",
+    "info": "#6E9EE8"
+  }
+}

@@ -1,0 +1,52 @@
+<script lang="ts">
+	import { GraphPulse } from '$lib';
+</script>
+
+# GraphPulse
+
+## Import
+
+```svelte
+import { GraphPulse } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphPulse
+  title="example"
+  animated={true}
+  length={60}
+/>
+```
+
+<div class="live">
+<GraphPulse
+  title="example"
+  animated={true}
+  length={60}
+/>
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | Caption drawn on the top edge as `[ TITLE ]`. Uppercase, 1–2 words. |
+| `animated?` | `boolean` | `true` | Append a live blip every interval. Default true. Reduced motion freezes a pre-filled window. |
+| `length?` | `number` | `60` | Window size in blips, newest at the right. Default 60. |
+| `intervalMs?` | `number` | `1000` | Milliseconds between appends. Default 1000. |
+| `okRate?` | `number` | `0.94` | Chance an appended blip is ok; about 4% of the rest degrade, the rest go down. Default 0.94. |
+| `feed?` | `() => PulseStatus` | `—` | Replace the built-in generator with your own stream of statuses. |
+| `seedNum?` | `number` | `11` | Seed for the reproducible generator. Default 11. |
+| `from?` | `string` | `'now'` | Label at the left edge of the caption row. Default 'now'. |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `PulseStatus`
+- `GraphPulseProps`
+
+## Reduced motion
+
+Animation is disabled under `prefers-reduced-motion`.

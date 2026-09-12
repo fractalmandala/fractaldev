@@ -1,0 +1,34 @@
+{
+  "id": "daylight-newsprint",
+  "name": "Daylight Newsprint",
+  "version": "2.0.0",
+  "author": "amrit",
+  "description": "The reference: ink at four strengths, and one red reserved for keywords and literals. Built for eight-hour reading.",
+  "isDark": false,
+  "tags": [
+    "news",
+    "light"
+  ],
+  "colors": {
+    "bg": "#FBFBFB",
+    "bg-secondary": "#F1F1F1",
+    "bg-tertiary": "#E4E4E4",
+    "bg-hover": "#F0F0F0",
+    "bg-selected": "#E7E7E7",
+    "bg-active": "#EBDCDE",
+    "text": "#1F1F1F",
+    "text-muted": "#616161",
+    "text-faint": "#9B9B9B",
+    "text-disabled": "#BDBDBD",
+    "border": "#E3E3E3",
+    "border-focus": "#8C1A2B",
+    "primary": "#8C1A2B",
+    "primary-hover": "#781B29",
+    "link": "#8C1A2B",
+    "link-hover": "#781B29",
+    "success": "#3F6B3F",
+    "warning": "#8A6A12",
+    "error": "#B3202F",
+    "info": "#3A5A8C"
+  }
+}

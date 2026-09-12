@@ -1,0 +1,138 @@
+{
+  "name": "acrolls",
+  "version": "0.8.0",
+  "description": "Acrolls publishing and documentation framework for SvelteKit.",
+  "license": "Apache-2.0",
+  "repository": { "type": "git", "url": "git+https://github.com/fractalmandala/Acrolls.git", "directory": "packages/acrolls" },
+  "bugs": "https://github.com/fractalmandala/Acrolls/issues",
+  "homepage": "https://github.com/fractalmandala/Acrolls#readme",
+  "publishConfig": { "access": "public" },
+  "type": "module",
+  "bin": {
+    "acrolls": "./bin/acrolls.mjs"
+  },
+  "exports": {
+    "./mdsvex": {
+      "types": "./exports/mdsvex.d.ts",
+      "import": "./exports/mdsvex.js"
+    },
+    "./svelte": {
+      "types": "./exports/svelte.d.ts",
+      "svelte": "./exports/svelte.js",
+      "import": "./exports/svelte.js"
+    },
+    "./docs": {
+      "types": "./exports/docs.d.ts",
+      "svelte": "./exports/docs.js",
+      "import": "./exports/docs.js"
+    },
+    "./docs/content": {
+      "types": "./exports/docs-content.d.ts",
+      "import": "./exports/docs-content.js"
+    },
+    "./content": {
+      "types": "./exports/content.d.ts",
+      "import": "./exports/content.js"
+    },
+    "./sveltekit": {
+      "types": "./exports/sveltekit.d.ts",
+      "import": "./exports/sveltekit.js"
+    },
+    "./styles/foundation.css": "./styles/foundation.css",
+    "./styles/default.css": "./styles/default.css",
+    "./styles/colors.css": "./styles/colors.css",
+    "./styles/theme.css": "./styles/theme.css",
+    "./docs/styles.css": "./styles/docs.css",
+    "./styles/foundation": "./styles/foundation.sass",
+    "./styles/default": "./styles/default.sass",
+    "./styles/colors": "./styles/colors.sass",
+    "./styles/theme": "./styles/theme.sass",
+    "./docs/styles": "./styles/docs.sass",
+    "./styles/tokens": "./styles/tokens.sass",
+    "./styles/foundation.sass": "./styles/foundation.sass",
+    "./styles/default.sass": "./styles/default.sass",
+    "./styles/colors.sass": "./styles/colors.sass",
+    "./styles/theme.sass": "./styles/theme.sass",
+    "./docs/styles.sass": "./styles/docs.sass",
+    "./styles/tokens.sass": "./styles/tokens.sass"
+  },
+  "files": [
+    "bin",
+    "exports",
+    "styles",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "./styles/*.css"
+  ],
+  "scripts": {
+    "check": "node --check bin/acrolls.mjs && node --check exports/mdsvex.js && node --check exports/svelte.js && node --check exports/docs.js && node --check exports/docs-content.js && node --check exports/content.js && node --check exports/sveltekit.js"
+  },
+  "dependencies": {
+    "@acrolls/cli": "workspace:^",
+    "@acrolls/docs": "workspace:^",
+    "@acrolls/mdsvex": "workspace:^",
+    "@acrolls/styles": "workspace:^",
+    "@acrolls/svelte": "workspace:^",
+    "@acrolls/sveltekit": "workspace:^",
+    "@sveltejs/acorn-typescript": "^1.0.12",
+    "acorn": "^8.18.0",
+    "github-slugger": "^2.0.0",
+    "hast-util-to-string": "^3.0.1",
+    "mdsvex": "^0.12.6",
+    "mermaid": "^11.9.0",
+    "rehype-slug": "^6.0.0",
+    "rehype-stringify": "^10.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.2",
+    "shiki": "^3.12.2",
+    "unified": "^11.0.5",
+    "unist-util-is": "^6.0.0",
+    "unist-util-visit": "^5.0.0",
+    "unist-util-visit-parents": "^6.0.0"
+  },
+  "bundledDependencies": [
+    "@acrolls/cli",
+    "@acrolls/docs",
+    "@acrolls/mdsvex",
+    "@acrolls/styles",
+    "@acrolls/svelte",
+    "@acrolls/sveltekit",
+    "unist-util-is",
+    "unist-util-visit",
+    "unist-util-visit-parents"
+  ],
+  "peerDependencies": {
+    "svelte": "^5.0.0",
+    "fractalthemer": "^0.1.0",
+    "pagefind": ">=1.0.0",
+    "yaml": ">=2.0.0",
+    "graphql": ">=16.0.0"
+  },
+  "peerDependenciesMeta": {
+    "fractalthemer": {
+      "optional": true
+    },
+    "pagefind": {
+      "optional": true
+    },
+    "yaml": {
+      "optional": true
+    },
+    "graphql": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "keywords": [
+    "acrolls",
+    "publishing",
+    "markdown",
+    "sveltekit",
+    "documentation"
+  ]
+}

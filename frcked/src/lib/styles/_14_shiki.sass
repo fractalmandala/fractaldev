@@ -1,0 +1,85 @@
+.shiki
+	margin: 0
+	padding: var(--space-sm)
+	overflow-x: auto
+	tab-size: 2
+	font-family: var(--font-mono)
+	font-size: var(--text-xs)
+	line-height: 1.65
+	background: transparent
+	color: var(--shiki-light, var(--text-primary))
+	code
+		display: block
+		width: fit-content
+		min-width: 100%
+		padding: var(--space-sm)
+		border: 0
+		background: transparent
+		font-size: inherit
+		font: var(--font-mono)
+	span
+		color: var(--shiki-light, inherit)
+	figcaption
+		padding: 0
+
+:root[data-mode='dark']
+	.shiki, .shiki span
+		color: var(--shiki-dark, inherit)
+
+@media (prefers-color-scheme: dark)
+	:root:not([data-mode='light'])
+		.shiki, .shiki span
+			color: var(--shiki-dark, inherit)
+
+.shiki[data-wrap='true'] code
+	white-space: pre-wrap
+	word-break: break-word
+
+.code-frame
+	display: flex
+	flex-direction: column
+	min-width: 0
+	margin: 0
+	border: 1px solid var(--border)
+	border-radius: var(--radius-bs)
+	overflow: hidden
+
+.code-frame__head
+	display: flex
+	align-items: center
+	justify-content: space-between
+	gap: var(--space-sm)
+	padding-inline: var(--space-sm)
+	line-height: 1
+	border-bottom: 1px solid var(--border)
+	color: var(--text-primary)
+	font-size: .62rem
+	letter-spacing: .14em
+	text-transform: uppercase
+	background: var(--state-hover-subtle)
+	margin: 0
+	height: var(--space-lg)
+
+.code-frame__copy
+	display: inline-flex
+	align-items: center
+	flex-shrink: 0
+	border: 0
+	font-size: .62rem
+	background: transparent
+	font-family: inherit
+	letter-spacing: .05em
+	text-transform: uppercase
+	white-space: nowrap
+	cursor: pointer
+	&:hover
+		color: var(--text-primary)
+	&:focus-visible
+		outline: 1px solid var(--accent)
+		outline-offset: 2px
+	&.is-copied
+		color: var(--accent)
+
+.code-frame__body
+	min-width: 0
+	overflow-x: auto

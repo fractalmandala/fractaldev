@@ -1,0 +1,690 @@
+// =============================================================================
+// 09_DECK — the philosophy deck (PhilosophyDeck.svelte).
+//
+// A self-contained marketing surface. It deliberately declares its OWN paper/ink
+// palette instead of reading theme tokens, so it renders identically under every
+// theme, preset and colour mode — the deck is one committed look, not a themed
+// component. Everything is prefixed `pd-` and scoped under `.pdeck` so none of
+// these generic names (tag, key, value, rung, wire…) can collide with utilities.
+//
+// Height comes from --pd-h so the deck works standalone or inside a shell. It
+// falls back to 100dvh; set --pd-h on any ancestor to shrink it, e.g.
+// --pd-h: calc(100dvh - var(--header-height)).
+// =============================================================================
+
+@keyframes pd-grow
+	from
+		transform: scaleX(.12)
+		opacity: 0
+	to
+		transform: scaleX(1)
+		opacity: 1
+
+.pdeck
+	--pd-paper: #f2f1ec
+	--pd-ink: #0e0e10
+	--pd-ink-2: #54524c
+	--pd-line: #d3d1c8
+	--pd-acid: #ff3b1f
+	--pd-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif
+	--pd-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace
+	--pd-deva: 'Kohinoor Devanagari', 'Devanagari MT', 'Noto Serif Devanagari', 'Noto Sans Devanagari', serif
+
+	position: relative
+	// The 100dvh default is a var() FALLBACK, not a declaration on .pdeck — a
+	// property set on the element itself would outrank an inherited --pd-h and
+	// silently ignore a host that is trying to shrink the deck to fit its shell.
+	height: var(--pd-h, 100dvh)
+	overflow: hidden
+	background: var(--pd-paper)
+	color: var(--pd-ink)
+	font-family: var(--pd-sans)
+	-webkit-font-smoothing: antialiased
+
+	// fine engineering grid, faded at the edges
+	&::before
+		content: ''
+		position: absolute
+		inset: 0
+		pointer-events: none
+		opacity: .5
+		background-image: linear-gradient(var(--pd-line) 1px, transparent 1px), linear-gradient(90deg, var(--pd-line) 1px, transparent 1px)
+		background-size: 64px 64px
+		mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, #000 20%, transparent 78%)
+		-webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, #000 20%, transparent 78%)
+
+	// --- slides -------------------------------------------------------------
+	.pd-slide
+		position: absolute
+		inset: 0
+		display: flex
+		flex-direction: column
+		align-items: center
+		justify-content: center
+		// horizontal padding reserves the gutter the ‹ › arrows sit in
+		padding: clamp(20px, 5vw, 64px) clamp(60px, 7vw, 96px)
+		text-align: center
+		opacity: 0
+		visibility: hidden
+		transform: translateY(20px)
+		transition: opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1), visibility .7s
+
+		> *
+			opacity: 0
+			transform: translateY(14px)
+			transition: opacity .7s ease, transform .7s ease
+
+		&.active
+			opacity: 1
+			visibility: visible
+			transform: none
+
+			> *
+				opacity: 1
+				transform: none
+
+			> *:nth-child(1)
+				transition-delay: .10s
+			> *:nth-child(2)
+				transition-delay: .22s
+			> *:nth-child(3)
+				transition-delay: .34s
+			> *:nth-child(4)
+				transition-delay: .46s
+			> *:nth-child(5)
+				transition-delay: .58s
+
+	// --- shared type --------------------------------------------------------
+	.pd-tag
+		display: flex
+		align-items: center
+		gap: 12px
+		margin-bottom: 1.9rem
+		font-family: var(--pd-mono)
+		font-size: 10px
+		letter-spacing: .34em
+		text-transform: uppercase
+		color: var(--pd-acid)
+
+		&::before, &::after
+			content: ''
+			width: 30px
+			height: 1px
+			background: var(--pd-acid)
+			opacity: .45
+
+		.pd-dv
+			font-family: var(--pd-deva)
+			font-size: 15px
+			letter-spacing: 0
+			text-transform: none
+
+	h1
+		max-width: 17ch
+		font-size: clamp(2rem, 6.4vw, 5.2rem)
+		font-weight: 800
+		letter-spacing: -.045em
+		line-height: .96
+
+	h2
+		max-width: 20ch
+		font-size: clamp(1.45rem, 3.8vw, 2.7rem)
+		font-weight: 700
+		letter-spacing: -.03em
+		line-height: 1.1
+
+	h1 u, h2 u
+		text-decoration: none
+		color: var(--pd-acid)
+
+	p
+		margin-top: 1.6rem
+		max-width: 50ch
+		font-size: clamp(.92rem, 1.35vw, 1.12rem)
+		line-height: 1.65
+		color: var(--pd-ink-2)
+
+		b
+			color: var(--pd-ink)
+			font-weight: 600
+
+	.pd-strip
+		margin-top: 2rem
+		padding-top: 12px
+		border-top: 2px solid var(--pd-ink)
+		font-family: var(--pd-mono)
+		font-size: 10px
+		letter-spacing: .26em
+		text-transform: uppercase
+		color: var(--pd-ink-2)
+
+		.pd-dv
+			font-family: var(--pd-deva)
+			font-size: 14px
+			letter-spacing: 0
+			text-transform: none
+			color: var(--pd-ink)
+
+	// --- 1 · the collapse ---------------------------------------------------
+	.pd-collapse
+		display: flex
+		justify-content: center
+		margin-bottom: .4rem
+		font-family: var(--pd-mono)
+		font-weight: 600
+		font-size: clamp(1.1rem, 5.2vw, 3.6rem)
+		letter-spacing: -.02em
+		white-space: nowrap
+
+		span
+			display: inline-block
+			max-width: 2ch
+			overflow: hidden
+			transition: max-width .5s cubic-bezier(.7,0,.2,1), opacity .32s ease, color .5s ease, transform .5s ease
+
+		&.done
+			.drop
+				max-width: 0
+				opacity: 0
+				transform: translateY(-6px)
+			.keep
+				color: var(--pd-acid)
+
+	.pd-cap
+		height: 14px
+		margin-top: 1.4rem
+		font-family: var(--pd-mono)
+		font-size: 11px
+		letter-spacing: .28em
+		text-transform: uppercase
+		color: var(--pd-ink-2)
+
+	// --- 3 · the three devices ----------------------------------------------
+	.pd-devices
+		display: grid
+		grid-template-columns: repeat(3, 1fr)
+		gap: clamp(12px, 2vw, 26px)
+		margin-top: 2.6rem
+		width: min(1020px, 100%)
+
+	.pd-device
+		padding: 22px 18px
+		border: 2px solid var(--pd-ink)
+		background: rgba(255,255,255,.5)
+		text-align: center
+
+		.pd-dv
+			font-family: var(--pd-deva)
+			font-size: clamp(1.35rem, 2.7vw, 2.05rem)
+			line-height: 1.35
+			color: var(--pd-ink)
+
+		.pd-tr
+			margin-top: 8px
+			font-family: var(--pd-mono)
+			font-size: 10px
+			font-weight: 700
+			letter-spacing: .2em
+			text-transform: uppercase
+			color: var(--pd-acid)
+
+		.pd-ds
+			margin-top: 13px
+			font-size: clamp(.85rem, 1.15vw, .98rem)
+			line-height: 1.55
+			color: var(--pd-ink-2)
+
+	// --- 4 · ṛta · micro/macro ----------------------------------------------
+	.pd-verse
+		font-family: var(--pd-deva)
+		font-size: clamp(1.25rem, 3.6vw, 2.7rem)
+		font-weight: 500
+		line-height: 1.75
+
+	.pd-translit
+		margin-top: 1.1rem
+		font-family: var(--pd-mono)
+		font-size: clamp(9px, 1.15vw, 12px)
+		letter-spacing: .16em
+		color: var(--pd-acid)
+
+	.pd-micmac
+		display: flex
+		align-items: center
+		justify-content: center
+		gap: clamp(18px, 4vw, 52px)
+		margin-top: 2.2rem
+
+	.pd-mm
+		display: flex
+		flex-direction: column
+		align-items: center
+		gap: 12px
+
+		figcaption
+			font-family: var(--pd-mono)
+			font-size: 9px
+			letter-spacing: .2em
+			text-transform: uppercase
+			color: var(--pd-ink-2)
+
+			b
+				display: block
+				margin-bottom: 4px
+				font-family: var(--pd-deva)
+				font-size: 14px
+				font-weight: 600
+				letter-spacing: 0
+				text-transform: none
+				color: var(--pd-ink)
+
+	// the same motif drawn at two scales — the claim, rendered
+	.pd-q
+		display: grid
+		grid-template-columns: 1fr 1fr
+		gap: 3px
+		padding: 3px
+		border: 2px solid var(--pd-ink)
+		background: rgba(255,255,255,.6)
+
+		&.sm
+			width: 66px
+			height: 66px
+
+		&.lg
+			width: clamp(120px, 20vw, 190px)
+			height: clamp(120px, 20vw, 190px)
+
+		i
+			display: block
+			background: var(--pd-ink)
+
+			&.hot
+				background: var(--pd-acid)
+
+	.pd-cell
+		display: grid
+		grid-template-columns: 1fr 1fr
+		gap: 2px
+		padding: 2px
+		border: 1px solid var(--pd-ink)
+
+	.pd-eq
+		font-size: clamp(18px, 3vw, 30px)
+		font-weight: 300
+		color: var(--pd-acid)
+
+	// --- 5 · the ladder -----------------------------------------------------
+	.pd-ladder
+		display: flex
+		flex-direction: column
+		gap: 7px
+		margin-top: 2.2rem
+		width: min(720px, 100%)
+
+	.pd-rung
+		display: flex
+		align-items: center
+		gap: 14px
+		padding: 9px 15px
+		border: 2px solid var(--pd-ink)
+		background: rgba(255,255,255,.55)
+		transform-origin: left center
+
+		.pd-lv
+			width: 24px
+			font-family: var(--pd-mono)
+			font-size: 11px
+			font-weight: 800
+			color: var(--pd-acid)
+
+		.pd-nm
+			font-size: clamp(12px, 1.5vw, 15px)
+			font-weight: 800
+			letter-spacing: -.015em
+
+		.pd-ds
+			margin-left: auto
+			font-family: var(--pd-mono)
+			font-size: 9px
+			letter-spacing: .14em
+			text-transform: uppercase
+			text-align: right
+			color: var(--pd-ink-2)
+
+	.pd-slide.active .pd-rung
+		animation: pd-grow .65s cubic-bezier(.2,.85,.3,1) backwards
+
+	// --- 6 · the live composer ----------------------------------------------
+	.pd-composer
+		display: flex
+		flex-wrap: wrap
+		align-items: center
+		justify-content: center
+		gap: clamp(18px, 3.5vw, 54px)
+		margin-top: 2.1rem
+
+	.pd-keys
+		display: flex
+		flex-direction: column
+		gap: 9px
+
+	.pd-key
+		display: flex
+		align-items: center
+		gap: 12px
+		min-width: 180px
+		padding: 9px 15px
+		border: 2px solid var(--pd-ink)
+		background: transparent
+		font-family: var(--pd-mono)
+		font-size: 12px
+		font-weight: 700
+		letter-spacing: .06em
+		color: var(--pd-ink)
+		cursor: pointer
+		user-select: none
+		transition: background .25s ease, color .25s ease, transform .25s ease
+
+		.pd-ltr
+			width: 15px
+			font-size: 16px
+			text-align: center
+
+		.pd-nm
+			font-size: 9px
+			font-weight: 600
+			letter-spacing: .16em
+			text-transform: uppercase
+			opacity: .6
+
+		&:hover
+			transform: translateX(3px)
+
+		&[aria-pressed='true']
+			background: var(--pd-ink)
+			color: var(--pd-paper)
+
+			.pd-nm
+				opacity: .75
+
+	.pd-wire
+		display: flex
+		flex-direction: column
+		width: min(400px, 100%)
+		aspect-ratio: 4 / 3
+		border: 2px solid var(--pd-ink)
+		background: rgba(255,255,255,.55)
+		overflow: hidden
+
+	.pd-head
+		flex: 0 0 auto
+		height: 15%
+		display: grid
+		place-items: center
+		border-bottom: 2px solid var(--pd-ink)
+		font-family: var(--pd-mono)
+		font-size: 9px
+		letter-spacing: .24em
+		text-transform: uppercase
+		color: var(--pd-ink-2)
+
+	.pd-bodyrow
+		flex: 1
+		display: flex
+		min-height: 0
+
+	.pd-rail
+		flex: 0 0 22%
+		display: grid
+		place-items: center
+		border-right: 2px solid var(--pd-ink)
+		overflow: hidden
+		background: repeating-linear-gradient(45deg, transparent, transparent 6px, rgba(14,14,16,.05) 6px, rgba(14,14,16,.05) 12px)
+		font-family: var(--pd-mono)
+		font-size: 9px
+		letter-spacing: .16em
+		text-transform: uppercase
+		color: var(--pd-ink-2)
+		transition: flex-basis .42s cubic-bezier(.6,0,.2,1), opacity .3s ease
+
+		&.r
+			border-right: 0
+			border-left: 2px solid var(--pd-ink)
+
+		&.off
+			flex-basis: 0
+			opacity: 0
+
+	.pd-mainrow
+		flex: 1
+		display: grid
+		place-items: center
+		min-width: 0
+		padding: 10px
+
+	// article = .app-content: a FIXED 640px reading column centred in main-section.
+	// It is absolute, NOT proportional — identical whether or not the rails are
+	// present — so this must stay a constant (176px ≈ 640px at the wire's scale)
+	// and must never become a percentage of main. Without it PageShell full-bleeds.
+	.pd-art
+		display: flex
+		flex-direction: column
+		align-items: center
+		justify-content: center
+		width: 176px
+		max-width: 100%
+		height: 100%
+		border: 1px solid var(--pd-acid)
+		background: rgba(255,59,31,.06)
+		font-family: var(--pd-mono)
+		font-size: 9px
+		letter-spacing: .18em
+		text-transform: uppercase
+		color: var(--pd-acid)
+		transition: width .42s cubic-bezier(.6,0,.2,1), border-color .3s, color .3s, background .3s
+
+		b
+			display: block
+			margin-top: 4px
+			font-size: 7px
+			font-weight: 600
+			letter-spacing: .1em
+			opacity: .7
+
+		&.wide
+			width: 100%
+			border-color: var(--pd-line)
+			background: transparent
+			color: var(--pd-ink-2)
+
+	.pd-foot
+		flex: 0 0 auto
+		height: 13%
+		display: grid
+		place-items: center
+		border-top: 2px solid var(--pd-ink)
+		overflow: hidden
+		font-family: var(--pd-mono)
+		font-size: 9px
+		letter-spacing: .24em
+		text-transform: uppercase
+		color: var(--pd-ink-2)
+		transition: height .42s cubic-bezier(.6,0,.2,1), opacity .3s ease, border-width .3s
+
+		&.off
+			height: 0
+			opacity: 0
+			border-top-width: 0
+
+	.pd-value
+		margin-top: 1.8rem
+		font-family: var(--pd-mono)
+		font-size: clamp(.95rem, 2.7vw, 1.6rem)
+		font-weight: 700
+
+		s
+			text-decoration: none
+			color: var(--pd-ink-2)
+
+		b
+			color: var(--pd-acid)
+
+		i
+			display: block
+			margin-top: 9px
+			font-style: normal
+			font-size: 10px
+			font-weight: 600
+			letter-spacing: .26em
+			text-transform: uppercase
+			color: var(--pd-ink-2)
+
+	// --- 7 · figures --------------------------------------------------------
+	.pd-figs
+		display: flex
+		flex-wrap: wrap
+		justify-content: center
+		gap: clamp(24px, 7vw, 92px)
+		margin-top: 2.8rem
+
+	.pd-f
+		b
+			display: block
+			font-size: clamp(2.2rem, 6.6vw, 4.6rem)
+			font-weight: 800
+			letter-spacing: -.045em
+			line-height: 1
+
+			&.hot
+				color: var(--pd-acid)
+
+		i
+			display: block
+			margin-top: 11px
+			font-style: normal
+			font-family: var(--pd-mono)
+			font-size: 10px
+			letter-spacing: .22em
+			text-transform: uppercase
+			color: var(--pd-ink-2)
+
+	.pd-mark
+		margin-top: .5rem
+		font-family: var(--pd-mono)
+		font-size: clamp(1.4rem, 4.6vw, 3rem)
+		font-weight: 700
+		letter-spacing: -.03em
+
+		span
+			color: var(--pd-acid)
+
+	// --- chrome -------------------------------------------------------------
+	.pd-idx
+		position: absolute
+		top: 28px
+		left: 36px
+		z-index: 6
+		font-family: var(--pd-mono)
+		font-size: 10px
+		font-weight: 700
+		letter-spacing: .3em
+
+	.pd-brand
+		position: absolute
+		top: 28px
+		right: 36px
+		z-index: 6
+		font-family: var(--pd-mono)
+		font-size: 10px
+		letter-spacing: .3em
+		text-transform: uppercase
+		color: var(--pd-ink-2)
+
+	.pd-dots
+		position: absolute
+		bottom: 30px
+		left: 50%
+		transform: translateX(-50%)
+		display: flex
+		gap: 7px
+		z-index: 6
+
+	.pd-dot
+		width: 26px
+		height: 3px
+		padding: 0
+		border: 0
+		background: rgba(14,14,16,.16)
+		cursor: pointer
+		transition: background .35s ease
+
+		&.on
+			background: var(--pd-acid)
+
+	.pd-nav
+		position: absolute
+		top: 50%
+		transform: translateY(-50%)
+		z-index: 7
+		display: grid
+		place-items: center
+		width: 46px
+		height: 46px
+		padding: 0
+		border: 2px solid var(--pd-ink)
+		background: var(--pd-paper)
+		color: var(--pd-ink)
+		font-size: 20px
+		font-weight: 700
+		line-height: 0
+		cursor: pointer
+		transition: background .2s ease, color .2s ease, border-color .2s ease, transform .2s ease
+
+		&:hover
+			background: var(--pd-acid)
+			border-color: var(--pd-acid)
+			color: #fff
+
+		&.prev
+			left: 22px
+
+			&:hover
+				transform: translateY(-50%) translateX(-3px)
+
+		&.next
+			right: 22px
+
+			&:hover
+				transform: translateY(-50%) translateX(3px)
+
+	// --- responsive ---------------------------------------------------------
+	@media (max-width: 900px)
+		.pd-idx, .pd-brand
+			display: none
+
+		.pd-nav
+			width: 36px
+			height: 36px
+			font-size: 16px
+
+			&.prev
+				left: 6px
+
+			&.next
+				right: 6px
+
+	@media (max-width: 800px)
+		.pd-devices
+			grid-template-columns: 1fr
+			gap: 10px
+
+		.pd-device
+			padding: 14px
+
+			.pd-ds
+				font-size: .85rem
+
+	@media (max-width: 620px)
+		.pd-rung .pd-ds
+			display: none

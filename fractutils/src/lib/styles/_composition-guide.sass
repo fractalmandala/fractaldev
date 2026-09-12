@@ -1,0 +1,148 @@
+// ============================================================================
+// COMPOSITION GUIDE — documentation only; not loaded by index.sass.
+// The styling grammar is indented Sass. Full entry: styles/index. Recommended
+// application delivery: virtual:fractutils.css through the used-only Vite
+// plugin. See PANINIAN-COMPOSITIONS.md for the complete guide and build config.
+// ============================================================================
+//
+// 1. GRAMMAR
+//
+// A compound contains two or three operations, always in border-padding-gap
+// order. Each operation has one scope. Missing operations emit NOTHING, not a
+// reset. A gap does not enable flex/grid: keep .box, .row, or .grid separate.
+//
+// Border: b (all), bt (top), br (right), bb (bottom), bl (left).
+// Padding: p{short-step}; directional p{scope}:{full-step}.
+// Gap: g{short-step}; directional gr:{full-step} or gc:{full-step}.
+// Padding scopes: t/r/b/l are physical; x/y mean inline/block, as in pad-x/y.
+// Append -mob or -desk ONCE to scope the entire compound to that band.
+//
+// Full step     2xs  xs  sm  md  bs  lg  xl  2xl  3xl
+// Short step    2xs  xs  s   md  b   l   xl  2xl  3xl
+//
+// Scoped steps use full names ONLY: px:sm, not px:s. Unscoped steps use the
+// short names ONLY: ps, not psm. One spelling per meaning avoids multiplying
+// aliases. Thus pxs = pad-xs, whereas px:sm = pad-x-sm. No ambiguity.
+//
+// Markup class                          Equivalent utilities
+// b-ps-gl                              border pad-sm gap-lg
+// bl-ps-gl                             border-left pad-sm gap-lg
+// b-pl:sm-gr:lg                        border pad-left-sm rgap-lg
+// pb-gc:sm                             pad-bs cgap-sm
+// b-px:xs-gr:lg                        border pad-x-xs rgap-lg
+// bb-py:md                            border-bottom pad-y-md
+// bt-gxl                              border-top gap-xl
+// ps-gb                               pad-sm gap-bs
+// b-ps-gl-desk                         border-desk pad-sm-desk gap-lg-desk
+//
+// HTML example: <div class="box b-ps-gl pad-top-lg">...</div>
+// Responsive:   <div class="box b-ps-gs pb-gl-desk">...</div>
+// Scope example:<div class="row b-px:xs-gr:lg">...</div>
+// Colons are written literally in markup. The builder escapes CSS selectors.
+// When using querySelector yourself, escape the class with CSS.escape().
+//
+// NOT generated: single-operation abbreviations (use border/pad-sm/gap-lg),
+// arbitrary term order, multiple padding scopes in one compound, pixel steps,
+// negatives, border-subtle, resets, full-name synonyms for short measures, or
+// shorthand responsive variants other than the configured responsive modes.
+// Unsupported markup simply has no matching rule; Sass does not read markup
+// and cannot report a typo in it. Dynamic valid names work with full output;
+// used-only delivery additionally requires discoverable literals or a safelist.
+//
+// 2. GENERAL RULE AND EXCEPTION — THE EXISTING CASCADE, NOT CLASS ORDER
+//
+// Compose an extra utility for an exception: b-ps-gl pad-top-lg. The all-side
+// padding rule precedes physical-side rules, so the latter wins. Reordering
+// the HTML classes changes nothing. The same is true for row/column gap rules.
+//
+// Compounds are aliases on original rules, not a late override layer. They
+// have ordinary class specificity and read exactly the same declarations.
+// .card still wins over pad/gap utilities where its later rules already won;
+// a shorthand does NOT turn utilities into stronger component overrides.
+// Two competing values for the same scope still follow stylesheet order.
+// Avoid them rather than treating order inside class="..." as an instruction.
+//
+// Density is recovered from context: padding reads --pad-scale, gaps read
+// --gap-scale. Equal step names do NOT promise equal computed pixel lengths.
+// The theme supplies --border. No tokens are copied into a separate system.
+//
+// Border responsive variants now exist alongside spacing variants. -mob/-desk
+// queries come from 01_config; extra configured modes work as well. Keep the
+// mob/desk keys: the existing visibility utilities require both of them.
+// Neither an omitted border nor absence outside a media query means border: 0.
+//
+// 3. CONFIGURATION AND COST
+//
+// Configure before loading any style module that uses 01_config:
+//
+// @use '01_config' as cfg with (
+// 	$composition-steps: ('sm' 'bs' 'lg'),
+// 	$composition-directions: false
+// )
+// @use 'index'
+//
+// $compositions-enabled: false removes ALL shorthand aliases. Ordinary
+// utilities, including the new responsive border utilities, remain available.
+// $composition-steps restricts the shorthand scale only, not the utility scale.
+// $composition-directions: false keeps all-side border/pad/gap combinations;
+// it removes physical-side border, scoped padding, and row/column-gap aliases.
+// Unknown or duplicate configured steps and non-boolean flags fail compilation.
+//
+// Defaults: B=5 border terms, P=7*9 padding terms, G=3*9 gap terms.
+// Compounds per band: B*P + B*G + P*G + B*P*G = 10,656.
+// Three default bands therefore make 31,968 distinct compound class names.
+// Declarations are shared, but selector text is NOT free. Restrict steps or
+// directions if this is too much for an application's stylesheet budget.
+// No markup scanner, tree-shaking, or used-only output is implied by Sass loops.
+// The separate build-time scanner/pruner supplies used-only application output;
+// dynamic names must be discoverable as full literals or explicitly safelisted.
+// Measured with Dart Sass compressed output in this project:
+// - Full defaults: about 1.90 MB / 232 KB gzip for the entire stylesheet.
+// - Three steps, directions off: about 168 KB / 28 KB gzip (72 compounds).
+// - Shorthand disabled: about 166 KB / 28 KB gzip.
+// Bundler minification/compression can produce slightly different totals.
+//
+// 4. REVIEW: FURTHER PANINIAN COMPOSITIONS (PROPOSED, NOT IMPLEMENTED)
+//
+// These are design analogies to shared grammar, not claims of a literal
+// implementation of Panini's grammatical machinery.
+//
+// Shared measure / continuation: pg:sm could stand for pad-sm gap-sm. A strong
+// next candidate because the repeated measure is stated once. Keep the two
+// density channels distinct. It would need an explicit additional grammar rule.
+//
+// Governing context: row-x:between-y:center could abbreviate row xbetween
+// ycenter. Preserve the contextual selectors: row and box interpret alignment
+// differently, and box.xcenter also sets text-align. Do not flatten them into
+// standalone alignment declarations or accidentally increase specificity.
+//
+// Container + rhythm: box-gs or row-y:center-gxs is a useful bounded family.
+// Unlike b-ps-gl, the container term explicitly asks for display/direction.
+//
+// Grid + rhythm: grid:3-gl could mean grid-3 gap-lg, but must preserve grid-3's
+// responsive 1 -> 3 stepping, not replace it with a static three-column grid.
+//
+// Technical designation: card, eyebrow, field-label and kbd already name
+// meaningful bundles. Prefer stable semantic names over arbitrary tuples of
+// surface, radius and shadow; these properties need not vary in lockstep.
+//
+// Inherited scope: data-layout/data-shape/data-motion already state context
+// once. Keep this mechanism instead of encoding presets in every compound.
+//
+// Structural obligations: retain canonical shell markup and role names. A
+// shorter shell class cannot eliminate the child structure its rules require.
+//
+// Existing issues observed, intentionally NOT changed by this implementation:
+// - Several compositions reference --space-3xs, absent from the token scale.
+//   The grammar does not invent a value or advertise that unsupported step.
+// - The hero recipe comment omits its implemented align-items: center. Its
+//   claimed equivalence to box.ycenter is therefore incomplete.
+//
+// 5. CHECKS
+//
+// Compile _composition-tests.sass explicitly with Dart Sass to run the
+// compile-time assertions. It is not imported by index and emits no CSS of its
+// own. Also compile index.sass and compare enabled/disabled output: each alias
+// must accompany exactly the original utility rules it expands to.
+// From the project root (macOS/Linux):
+// pnpm exec sass --no-source-map src/lib/styles/_composition-tests.sass /dev/null

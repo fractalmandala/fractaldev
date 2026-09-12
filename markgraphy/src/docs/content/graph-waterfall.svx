@@ -1,0 +1,38 @@
+<script lang="ts">
+	import { GraphWaterfall } from '$lib';
+</script>
+
+# GraphWaterfall
+
+## Import
+
+```svelte
+import { GraphWaterfall } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphWaterfall
+  title="example"
+  ticks={24}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `items` | `WaterfallItem[]` | `—` | — |
+| `ticks?` | `number` | `24` | — |
+| `glyphs?` | `Glyphs` | `—` | — |
+| `palette?` | `GraphPalette` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `WaterfallKind`
+- `WaterfallItem`
+- `GraphWaterfallProps`

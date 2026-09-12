@@ -1,0 +1,48 @@
+<script lang="ts">
+	import { GraphCalendar } from '$lib';
+</script>
+
+# GraphCalendar
+
+## Import
+
+```svelte
+import { GraphCalendar } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphCalendar
+  title="example"
+  year={0}
+  month={0}
+/>
+```
+
+<div class="live">
+<GraphCalendar
+  title="example"
+  year={0}
+  month={0}
+/>
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title?` | `string` | `—` | — |
+| `year` | `number` | `—` | — |
+| `month` | `number` | `—` | — |
+| `weekStartsOn?` | `0 | 1` | `1` | — |
+| `marks?` | `CalendarMark[] | number[]` | `—` | — |
+| `today?` | `number` | `—` | — |
+| `palette?` | `GraphPalette` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `CalendarMark`
+- `GraphCalendarProps`

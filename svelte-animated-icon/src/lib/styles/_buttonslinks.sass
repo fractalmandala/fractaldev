@@ -1,0 +1,79 @@
+.button
+	display: inline-flex
+	align-items: center
+	justify-content: center
+	gap: 8px
+	padding: 8px 16px
+	font-size: var(--text-md)
+	font-weight: 500
+	line-height: 1
+	border-radius: var(--radius-6)
+	border: 1px solid var(--border)
+	background: var(--bg-raised)
+	color: var(--text-primary)
+	cursor: pointer
+	transition: background-color 0.15s ease, border-color 0.15s ease
+	&:hover
+		background: var(--bg-surface)
+	&:focus-visible
+		outline: 2px solid var(--ring)
+		outline-offset: 2px
+
+.button[data-variant='primary']
+	background: var(--theme)
+	color: #ffffff
+	border-color: var(--theme)
+	&:hover
+		filter: brightness(0.95)
+	&[data-state='open']
+		background: color-mix(in srgb, var(--theme) 85%, black)
+		border-color: color-mix(in srgb, var(--theme) 85%, black)
+
+.button[data-variant='quiet']
+	background: transparent
+	border-color: transparent
+	color: var(--text-primary)
+	&:hover
+		background: var(--bg-surface)
+	&[data-state='open']
+		background: var(--bg-surface)
+
+.button-icon
+	padding: 0
+	border: 1px solid transparent
+	background: transparent
+	color: var(--text-secondary)
+	&:hover
+		color: var(--theme-color)
+	&.themed
+		background: var(--theme-color)
+		color: #FFFFFF
+		&:hover
+			color: #FFFFFF
+			background: var(--theme-color-alt)
+
+.button-icon-pad
+	padding: 4px
+	height: 32px
+	width: 32px
+	border-radius: 4px
+	border: 1px solid var(--border)
+	background: var(--bg)
+	color: var(--text-secondary)
+	&:hover
+		background: var(--state-hover)
+		color: var(--text-primary)
+
+a.secondary-to-theme
+	text-decoration: none
+	color: var(--text-secondary)
+	&:hover
+		color: var(--theme-color)
+
+.button-menu
+	@media (min-width: 1024px)
+		display: none
+
+.button-desk
+	@media (max-width: 1023px)
+		display: none

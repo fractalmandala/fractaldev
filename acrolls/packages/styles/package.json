@@ -1,0 +1,79 @@
+{
+  "name": "@acrolls/styles",
+  "private": true,
+  "version": "0.1.1",
+  "description": "Canonical CSS and indented Sass styles for Acrolls.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fractalmandala/Acrolls.git",
+    "directory": "packages/styles"
+  },
+  "bugs": "https://github.com/fractalmandala/Acrolls/issues",
+  "homepage": "https://github.com/fractalmandala/Acrolls#readme",
+  "type": "module",
+  "files": [
+    "foundation.css",
+    "default.css",
+    "docs.css",
+    "colors.css",
+    "theme.css",
+    "foundation.sass",
+    "default.sass",
+    "docs.sass",
+    "colors.sass",
+    "theme.sass",
+    "tokens.sass",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    "./foundation.css": "./foundation.css",
+    "./default.css": "./default.css",
+    "./docs.css": "./docs.css",
+    "./colors.css": "./colors.css",
+    "./theme.css": "./theme.css",
+    "./foundation": "./foundation.sass",
+    "./default": "./default.sass",
+    "./docs": "./docs.sass",
+    "./colors": "./colors.sass",
+    "./theme": "./theme.sass",
+    "./tokens": "./tokens.sass",
+    "./foundation.sass": "./foundation.sass",
+    "./default.sass": "./default.sass",
+    "./docs.sass": "./docs.sass",
+    "./colors.sass": "./colors.sass",
+    "./theme.sass": "./theme.sass",
+    "./tokens.sass": "./tokens.sass"
+  },
+  "sideEffects": [
+    "./foundation.css",
+    "./default.css",
+    "./docs.css",
+    "./colors.css",
+    "./theme.css"
+  ],
+  "scripts": {
+    "build": "node ./scripts/build.mjs",
+    "check": "node ./scripts/check.mjs"
+  },
+  "keywords": [
+    "acrolls",
+    "css",
+    "sass",
+    "publishing",
+    "sveltekit"
+  ],
+  "peerDependencies": {
+    "fractalthemer": "^0.1.0"
+  },
+  "peerDependenciesMeta": {
+    "fractalthemer": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "sass": "^1.102.0"
+  }
+}

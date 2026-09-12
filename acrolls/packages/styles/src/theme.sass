@@ -1,0 +1,30 @@
+// Acrolls theme builder surface — the full fractalthemer experience.
+//
+// Layers, in emission order:
+//   1. `scheme`  — the self-contained light/dark baseline (also the lean tier).
+//   2. `bridge`  — the shadcn-name mapping the Acrolls surfaces consume. Its
+//      position is order-independent: it only defines shadcn names
+//      (--background, --card, …) via runtime `var(--bg, …)`, and never the raw
+//      fractalthemer tokens the `.theme-*` classes set, so there is no collision.
+//   3. fractalthemer's engine — its curated light/dark themes, aura backgrounds,
+//      and theme-picker styling, forwarded from the published package via `pkg:`
+//      URLs. The `.theme-*` classes are emitted AFTER the `scheme` baseline (the
+//      load-bearing invariant), so at equal `:root`/`.theme-*` specificity the
+//      active named theme wins by source order.
+//
+// Requires `fractalthemer` to be installed (an OPTIONAL peer dependency of
+// acrolls). If you only need light/dark without the theme builder, import
+// `acrolls/styles/colors` instead — no fractalthemer required.
+//
+// Consume as sass (needs a Node package importer for the `pkg:` URLs — wired in
+// the CLI build and the example vite config):
+//   @use 'acrolls/styles/theme'
+// or precompiled (fractalthemer inlined, no importer, no runtime dep for CSS):
+//   import 'acrolls/styles/theme.css'
+
+@use 'scheme'
+@use 'bridge'
+
+@forward 'pkg:fractalthemer/styles/themes'
+@forward 'pkg:fractalthemer/styles/auras'
+@forward 'pkg:fractalthemer/styles/theme-picker'

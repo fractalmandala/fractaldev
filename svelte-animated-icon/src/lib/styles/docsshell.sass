@@ -1,0 +1,183 @@
+// ======================================================================
+// Blume Documentation Layout & Styling System
+// ======================================================================
+// Breakpoints:
+//   $bp-lg: 1024px  (Mobile/Tablet Drawer -> 2-Column Mode: Nav + Content)
+//   $bp-xl: 1280px  (Desktop 3-Column Mode: 360px Nav + 760px Article + 240px TOC)
+// ======================================================================
+
+$bp-md: 768px
+$bp-lg: 1024px
+$bp-xl: 1280px
+
+$sidebar-mobile-w: min(86vw, 280px)
+$sidebar-tablet-w: 280px
+$sidebar-desktop-w: 280px
+$toc-desktop-w: 240px
+$reading-measure: 760px
+
+// 1. Blume Root Shell --------------------------------------------------
+.blume-root
+	position: relative
+	isolation: isolate
+	display: flex
+	flex-direction: column
+	min-height: 100vh
+	background-color: var(--bg)
+	color: var(--text-primary)
+
+// 2. Blume Body Layout Container ---------------------------------------
+.blume-body
+	display: flex
+	flex-direction: column
+	width: 100%
+	flex: 1
+	min-height: calc(100vh - var(--header-height, 56px))
+	position: relative
+
+// 3. Left Navigation Sidebar -------------------------------------------
+// Hidden on mobile/tablet (< 1024px); global .mobile-menu handles mobile navigation
+.sidebar
+	display: none
+
+// 4. Center Content Wrapper --------------------------------------------
+.content-wrapper
+	flex: 1
+	min-width: 0
+	width: 100%
+	padding: 24px 16px 64px
+	display: flex
+	flex-direction: column
+	align-items: center
+
+	// Constant reading measure across all viewports (never contracts on resize)
+	.fitted
+		width: 100%
+		max-width: $reading-measure
+		margin-inline: auto
+
+// Wide mode (e.g. index cards and tag browse overviews)
+.content-wrapper[data-width="wide"]
+	.fitted
+		max-width: var(--layout-max, 1600px)
+
+// 5. Right Table of Contents Sidebar -----------------------------------
+// Hidden by default on screens < 1280px
+.toc-sidebar
+	display: none
+
+// ======================================================================
+// 2-Column Mode (1024px - 1279px) -> 320px Sticky Left Nav + 760px Article
+// ======================================================================
+@media (min-width: 1024px)
+	.blume-body
+		flex-direction: row
+		width: 100%
+	.sidebar
+		display: flex
+		flex-direction: column
+		position: sticky
+		top: var(--header-height, 56px)
+		height: calc(100vh - var(--header-height, 56px))
+		width: $sidebar-tablet-w
+		flex-shrink: 0
+		transform: none
+		background: transparent
+		border-right: 1px solid var(--border-subtle, var(--border))
+		padding: 32px 20px
+		z-index: 10
+		overflow-y: auto
+		scrollbar-width: thin
+	.content-wrapper
+		padding: 32px
+	.toc-sidebar
+		display: none
+
+// ======================================================================
+// 3-Column Mode (>= 1280px) -> 360px Left Nav + 760px Article + 240px TOC
+// ======================================================================
+@media (min-width: 1280px)
+	.sidebar
+		width: $sidebar-desktop-w
+		padding: 32px 24px
+	.content-wrapper
+		padding: 32px 16px
+		.fitted
+			max-width: 68ch
+	.toc-sidebar
+		display: flex
+		flex-direction: column
+		position: sticky
+		top: var(--header-height, 56px)
+		height: calc(100vh - var(--header-height, 56px))
+		width: $toc-desktop-w
+		flex-shrink: 0
+		padding: 36px 20px
+		overflow-y: auto
+		scrollbar-width: thin
+		nav
+			.toc-title
+				font-size: var(--text-xs, 0.75rem)
+				font-weight: 600
+				text-transform: uppercase
+				letter-spacing: 0.05em
+				color: var(--text-muted)
+				margin-bottom: 12px
+			.toc-link
+				font-size: var(--text-sm, 0.875rem)
+				line-height: 1.45
+				color: var(--text-secondary)
+				text-decoration: none
+				transition: color 0.15s ease
+				display: block
+				&:hover
+					color: var(--theme-color, var(--theme))
+				&[data-level="3"]
+					padding-inline-start: 12px
+					font-size: var(--text-xs, 0.8rem)
+					color: var(--text-muted)
+					&:hover
+						color: var(--theme-color, var(--theme))
+				&[data-level="4"]
+					padding-inline-start: 20px
+					font-size: var(--text-xs, 0.75rem)
+					color: var(--text-muted)
+					&:hover
+						color: var(--theme-color, var(--theme))
+
+// Scrollbars for sticky rails
+.sidebar, .toc-sidebar
+	scrollbar-width: thin
+	&::-webkit-scrollbar
+		width: 5px
+	&::-webkit-scrollbar-thumb
+		background-color: var(--border)
+		border-radius: 9999px
+	&::-webkit-scrollbar-track
+		background-color: transparent
+
+.fitted
+	code
+		font-family: var(--font-mono)
+		font-size: 0.875em
+		padding: 0.15em 0.4em
+		border-radius: var(--radius-4, 4px)
+		background: var(--bg-raised)
+		color: var(--text-primary)
+	pre
+		padding: 16px
+		overflow-x: auto
+		border: 1px solid var(--border)
+		border-radius: var(--radius-8, 8px)
+		background: var(--bg-surface)
+		code
+			padding: 0
+			background: none
+	hr
+		height: 1px
+		border: 0
+		background: var(--border)
+		margin-block: 2.5em
+	img
+		max-width: 100%
+		border-radius: var(--radius-8, 8px)

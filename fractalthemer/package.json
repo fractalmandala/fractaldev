@@ -1,0 +1,77 @@
+{
+  "name": "fractalthemer",
+  "version": "0.5.0",
+  "description": "Ultra-light Svelte 5 theming system with 42 curated light & dark themes, 203 atmospheric GPU auras, 257 CSS background patterns, and responsive drawer",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "svelte": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles/index.css",
+    "./styles": "./dist/styles/index.sass",
+    "./styles/tokens": "./dist/styles/_tokens.sass",
+    "./styles/themes": "./dist/styles/_themes.sass",
+    "./styles/auras": "./dist/styles/_auras.sass",
+    "./styles/glass": "./dist/styles/_glass.sass",
+    "./styles/picker": "./dist/styles/_theme-picker.sass",
+    "./styles/*": "./dist/styles/*",
+    "./tokens": "./dist/styles/_tokens.sass",
+    "./themes": "./dist/styles/_themes.sass",
+    "./auras": "./dist/styles/_auras.sass",
+    "./glass": "./dist/styles/_glass.sass",
+    "./picker": "./dist/styles/_theme-picker.sass",
+    "./script": {
+      "types": "./dist/utils/anti-flicker.d.ts",
+      "default": "./dist/utils/anti-flicker.js"
+    }
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.test.*",
+    "!dist/**/*.spec.*"
+  ],
+  "sideEffects": [
+    "**/*.css",
+    "**/*.sass"
+  ],
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build && npm run package",
+    "preview": "vite preview",
+    "prepare": "svelte-kit sync || echo ''",
+    "prepack": "svelte-kit sync && svelte-package && sass src/lib/styles/index.sass dist/styles/index.css --no-source-map",
+    "package": "svelte-kit sync && svelte-package && sass src/lib/styles/index.sass dist/styles/index.css --no-source-map",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+  },
+  "peerDependencies": {
+    "svelte": "^5.0.0"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-auto": "^4.0.0",
+    "@sveltejs/kit": "^2.63.0",
+    "@sveltejs/package": "^2.5.8",
+    "@sveltejs/vite-plugin-svelte": "^7.1.2",
+    "@types/node": "^24.0.0",
+    "sass": "^1.102.0",
+    "svelte": "^5.56.10",
+    "svelte-check": "^4.6.0",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.16"
+  },
+  "keywords": [
+    "svelte",
+    "svelte5",
+    "sveltekit",
+    "themes",
+    "dark-mode",
+    "aura-gradients",
+    "theme-picker"
+  ]
+}

@@ -1,0 +1,47 @@
+---
+title: Acrolls acceptance fixture
+description: One host route exercising code, tables, callouts, and figures together.
+---
+
+<script>
+  import { Callout, Figure } from 'acrolls/svelte';
+</script>
+
+# Acrolls acceptance fixture
+
+This page deliberately keeps the core publication primitives together so a host build can
+verify the complete article surface in one request.
+
+## Code
+
+```ts title="peer-state.ts"
+type PeerState = 'idle' | 'connecting' | 'ready';
+
+export function describePeer(state: PeerState) {
+  return `peer is ${state}`;
+}
+```
+
+## Table
+
+| Surface | Expected output |
+| --- | --- |
+| Code | Shiki-highlighted code frame |
+| Table | Responsive table wrapper |
+| Callout | Semantic callout component |
+| Figure | Captioned figure component |
+
+## Callout
+
+<Callout variant="insight" title="Acceptance check">
+  The host should render this callout without requiring a second layout or stylesheet.
+</Callout>
+
+## Figure
+
+<Figure caption="Acceptance fixture figure" wide={true}>
+  <img
+    src="https://placehold.co/1200x400/eee/333?text=Acrolls+acceptance+fixture"
+    alt="Placeholder diagram for the Acrolls acceptance fixture"
+  />
+</Figure>

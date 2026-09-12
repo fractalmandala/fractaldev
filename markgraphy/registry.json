@@ -1,0 +1,684 @@
+{
+  "components": [
+    {
+      "slug": "graph-table",
+      "name": "GraphTable",
+      "title": "Table",
+      "description": "Framed data table with an optional footer row for totals.",
+      "registry": "graph-table",
+      "docs": "/docs/graph-table",
+      "when": "Good when the numbers belong in a spreadsheet.",
+      "not": "Grouped sections are Sheet. Label/value rows are Spec."
+    },
+    {
+      "slug": "graph-flow",
+      "name": "GraphFlow",
+      "title": "Flow",
+      "description": "Process diagram with nodes on a dashed arrow. Accent a node to highlight a path.",
+      "registry": "graph-flow",
+      "docs": "/docs/graph-flow",
+      "when": "Good for a pipeline, a request path, or walking through a change.",
+      "not": "A dated list is Timeline. A schedule with start and end is Gantt."
+    },
+    {
+      "slug": "graph-bars",
+      "name": "GraphBars",
+      "title": "Bars",
+      "description": "Two bar groups side by side, drawn with glyphs. The right group is usually the larger one.",
+      "registry": "graph-bars",
+      "docs": "/docs/graph-bars",
+      "when": "Good for a before and after, or any two small histograms.",
+      "not": "A ranked list is Rank."
+    },
+    {
+      "slug": "graph-rank",
+      "name": "GraphRank",
+      "title": "Rank",
+      "description": "A list of labels with a bar of characters and a number on the right.",
+      "registry": "graph-rank",
+      "docs": "/docs/graph-rank",
+      "when": "Good for traffic, coverage, or anything you'd sort highest first.",
+      "not": "Two histograms side by side is Bars. A table of numbers is Table."
+    },
+    {
+      "slug": "graph-cells",
+      "name": "GraphCells",
+      "title": "Cells",
+      "description": "Grid of filled and empty cells, drawn with glyphs. Useful for density or comparing two sets.",
+      "registry": "graph-cells",
+      "docs": "/docs/graph-cells",
+      "when": "Good for a small grid of filled and empty cells.",
+      "not": "A share of a hundred cells is Waffle. A year of days is Activity."
+    },
+    {
+      "slug": "graph-meter",
+      "name": "GraphMeter",
+      "title": "Meter",
+      "description": "Progress bar drawn with = characters. Empty slots stay as dashes.",
+      "registry": "graph-meter",
+      "docs": "/docs/graph-meter",
+      "when": "Good for one value between 0 and 1, shown as a fill.",
+      "not": "Actual versus a target is Bullet. Parts of a whole is Stack."
+    },
+    {
+      "slug": "graph-spark",
+      "name": "GraphSpark",
+      "title": "Spark",
+      "description": "Sparkline from block characters. Values scale to the highest point.",
+      "registry": "graph-spark",
+      "docs": "/docs/graph-spark",
+      "when": "Good for a handful of numbers when you don't need an axis.",
+      "not": "If you need a y-scale, use Plot."
+    },
+    {
+      "slug": "graph-tree",
+      "name": "GraphTree",
+      "title": "Tree",
+      "description": "Nested tree with branch glyphs. Accent a node to highlight it.",
+      "registry": "graph-tree",
+      "docs": "/docs/graph-tree",
+      "when": "Good for nested files or an org chart.",
+      "not": "A timeline or a table."
+    },
+    {
+      "slug": "graph-timeline",
+      "name": "GraphTimeline",
+      "title": "Timeline",
+      "description": "Vertical list of dates. Mark one row as current with the accent color.",
+      "registry": "graph-timeline",
+      "docs": "/docs/graph-timeline",
+      "when": "Good for steps in order, with one marked as current.",
+      "not": "A punch list is Check. A schedule with start and end is Gantt."
+    },
+    {
+      "slug": "graph-stack",
+      "name": "GraphStack",
+      "title": "Stack",
+      "description": "Stacked bar for parts of a whole. Different glyphs per segment instead of colors.",
+      "registry": "graph-stack",
+      "docs": "/docs/graph-stack",
+      "when": "Good for parts of a whole on one track.",
+      "not": "There is no pie chart. Use Waffle if you want a share of cells."
+    },
+    {
+      "slug": "graph-funnel",
+      "name": "GraphFunnel",
+      "title": "Funnel",
+      "description": "Steps get narrower as values drop. Percentages compare to the first step.",
+      "registry": "graph-funnel",
+      "docs": "/docs/graph-funnel",
+      "when": "Good for steps that get narrower as people drop off.",
+      "not": "A ranked list is Rank. A process diagram is Flow."
+    },
+    {
+      "slug": "graph-gantt",
+      "name": "GraphGantt",
+      "title": "Gantt",
+      "description": "Schedule chart. start and end are fractions from 0 to 1 along the track.",
+      "registry": "graph-gantt",
+      "docs": "/docs/graph-gantt",
+      "when": "Good for work that overlaps on a shared calendar.",
+      "not": "A dated log is Timeline."
+    },
+    {
+      "slug": "graph-plot",
+      "name": "GraphPlot",
+      "title": "Plot",
+      "description": "Line or area chart built from columns of block characters.",
+      "registry": "graph-plot",
+      "docs": "/docs/graph-plot",
+      "when": "Good when the series needs a y-scale.",
+      "not": "A handful of points with no axis is Spark."
+    },
+    {
+      "slug": "graph-waffle",
+      "name": "GraphWaffle",
+      "title": "Waffle",
+      "description": "Grid of 100 cells. The value sets how many are filled in.",
+      "registry": "graph-waffle",
+      "docs": "/docs/graph-waffle",
+      "when": "Good for a share shown as a grid of about a hundred cells.",
+      "not": "Labeled parts of a whole is Stack."
+    },
+    {
+      "slug": "graph-diff",
+      "name": "GraphDiff",
+      "title": "Diff",
+      "description": "List with add, remove, and unchanged rows. Works for changelogs or bundle sizes.",
+      "registry": "graph-diff",
+      "docs": "/docs/graph-diff",
+      "when": "Good for showing what was added, removed, or kept.",
+      "not": "A list of numeric before and after is Slope."
+    },
+    {
+      "slug": "graph-invoice",
+      "name": "GraphInvoice",
+      "title": "Invoice",
+      "description": "Document table for invoices and quotes. From, bill-to, line items, and a totals block.",
+      "registry": "graph-invoice",
+      "docs": "/docs/graph-invoice",
+      "when": "Good for from, bill-to, line items, and totals.",
+      "not": "A generic table is Table."
+    },
+    {
+      "slug": "graph-compare",
+      "name": "GraphCompare",
+      "title": "Compare",
+      "description": "Feature matrix. Cells are text or true/false, drawn as ✓ and –.",
+      "registry": "graph-compare",
+      "docs": "/docs/graph-compare",
+      "when": "Good for putting two options side by side.",
+      "not": "Exact numbers on both axes are Matrix. Numeric ranks are Rank."
+    },
+    {
+      "slug": "graph-stat",
+      "name": "GraphStat",
+      "title": "Stat",
+      "description": "A row of large numbers with labels.",
+      "registry": "graph-stat",
+      "docs": "/docs/graph-stat",
+      "when": "Good for two to four large numbers, with no sparkline.",
+      "not": "One number with a trend is KPI. A live clock is Timer."
+    },
+    {
+      "slug": "graph-kpi",
+      "name": "GraphKpi",
+      "title": "KPI",
+      "description": "One large number with a sparkline under it.",
+      "registry": "graph-kpi",
+      "docs": "/docs/graph-kpi",
+      "when": "Good when one number is the headline and the rest is context.",
+      "not": "Several numbers with no trend is Stat."
+    },
+    {
+      "slug": "graph-spec",
+      "name": "GraphSpec",
+      "title": "Spec",
+      "description": "Aligned label and value rows. Spec sheets, shipping labels, type samples.",
+      "registry": "graph-spec",
+      "docs": "/docs/graph-spec",
+      "when": "Good for aligned label and value rows, like a spec sheet.",
+      "not": "Large headline numbers are Stat. A table with headers is Table."
+    },
+    {
+      "slug": "graph-activity",
+      "name": "GraphActivity",
+      "title": "Activity",
+      "description": "GitHub-style contribution grid. Pass dated counts; weeks, months, and intensity are derived.",
+      "registry": "graph-activity",
+      "docs": "/docs/graph-activity",
+      "when": "Good for daily counts over months, like a contribution grid.",
+      "not": "One month of marks is Calendar. Up or down days is Uptime."
+    },
+    {
+      "slug": "graph-heatmap",
+      "name": "GraphHeatmap",
+      "title": "Heatmap",
+      "description": "Labeled rows and columns with the same intensity glyphs as Activity. Punchcards, hours, anything 2d.",
+      "registry": "graph-heatmap",
+      "docs": "/docs/graph-heatmap",
+      "when": "Good for a labeled grid of intensities.",
+      "not": "Exact numbers on both axes are Matrix. A contribution calendar is Activity."
+    },
+    {
+      "slug": "graph-calendar",
+      "name": "GraphCalendar",
+      "title": "Calendar",
+      "description": "One month as a seven-column grid. Marked days use the accent. today is wrapped in brackets.",
+      "registry": "graph-calendar",
+      "docs": "/docs/graph-calendar",
+      "when": "Good for one month with a few days marked.",
+      "not": "A year of activity is Activity."
+    },
+    {
+      "slug": "graph-waterfall",
+      "name": "GraphWaterfall",
+      "title": "Waterfall",
+      "description": "Running total as floating bars. First row is the start, last is the end, signed values in between.",
+      "registry": "graph-waterfall",
+      "docs": "/docs/graph-waterfall",
+      "when": "Good for a running total as floating bars.",
+      "not": "Parts of a whole is Stack."
+    },
+    {
+      "slug": "graph-uptime",
+      "name": "GraphUptime",
+      "title": "Uptime",
+      "description": "One glyph per day. ok, degraded, down, or empty. Wraps every 30 days.",
+      "registry": "graph-uptime",
+      "docs": "/docs/graph-uptime",
+      "when": "Good for a status per day, or the blast radius of an outage.",
+      "not": "A heatmap or an activity grid."
+    },
+    {
+      "slug": "graph-latency",
+      "name": "GraphLatency",
+      "title": "Latency",
+      "description": "Percentile band chart. Each column stacks p50, p50-to-p95, and p95-to-p99. Mark a point spike to draw a caret above it.",
+      "registry": "graph-latency",
+      "docs": "/docs/graph-latency",
+      "when": "Good for percentile latency over time, like a SRE dashboard.",
+      "not": "A single sparkline is Spark. An error budget is SLO."
+    },
+    {
+      "slug": "graph-slo",
+      "name": "GraphSlo",
+      "title": "SLO",
+      "description": "Error-budget burn bar over a window. Spent fills the bar, remaining is the dim trail. Burn rate, time-to-empty, target, and actual follow below.",
+      "registry": "graph-slo",
+      "docs": "/docs/graph-slo",
+      "when": "Good for an error budget or burn-rate panel.",
+      "not": "Percentile bands are Latency. A usage limit is Quota."
+    },
+    {
+      "slug": "graph-quota",
+      "name": "GraphQuota",
+      "title": "Quota",
+      "description": "Usage against a hard limit, with a reset date and end-of-window projection. Billing-style: the headline figure, the X-of-Y copy, and pace are surfaced together.",
+      "registry": "graph-quota",
+      "docs": "/docs/graph-quota",
+      "when": "Good for usage against a hard limit with a reset date.",
+      "not": "An error budget is SLO. A single progress fill is Meter."
+    },
+    {
+      "slug": "graph-slope",
+      "name": "GraphSlope",
+      "title": "Slope",
+      "description": "Two figures per row with an arrow between. Up uses the accent, down recedes.",
+      "registry": "graph-slope",
+      "docs": "/docs/graph-slope",
+      "when": "Good for a before and after number on each row.",
+      "not": "Two bar groups is Bars. A ranked list is Rank."
+    },
+    {
+      "slug": "graph-bullet",
+      "name": "GraphBullet",
+      "title": "Bullet",
+      "description": "Actual versus target on a shared track. The marker is the target.",
+      "registry": "graph-bullet",
+      "docs": "/docs/graph-bullet",
+      "when": "Good when a number has a goal sitting on the same track.",
+      "not": "A single fill from 0 to 1 is Meter."
+    },
+    {
+      "slug": "graph-timer",
+      "name": "GraphTimer",
+      "title": "Timer",
+      "description": "Elapsed time, how long ago, or the time of day. The numbers update every second.",
+      "registry": "graph-timer",
+      "docs": "/docs/graph-timer",
+      "when": "Good for uptime, last deploy, or a clock in the corner.",
+      "not": "Time left until a date is Countdown. A static number is Stat."
+    },
+    {
+      "slug": "graph-countdown",
+      "name": "GraphCountdown",
+      "title": "Countdown",
+      "description": "Time left until a date. After that it shows a short label you pass in.",
+      "registry": "graph-countdown",
+      "docs": "/docs/graph-countdown",
+      "when": "Good for a freeze, a launch, or a window that closes.",
+      "not": "Elapsed time since a start is Timer."
+    },
+    {
+      "slug": "graph-frame",
+      "name": "Graph",
+      "title": "Frame",
+      "description": "Dashed frame wrapper used by every graph. Compose with GraphTitle, GraphBody, GraphRule, GraphTrack, and GraphTick. corner picks the character at each corner.",
+      "registry": "graph-frame",
+      "docs": "/docs/graph-frame",
+      "when": "Good when you're putting together a custom figure.",
+      "not": "If the chart already exists, install that one instead."
+    },
+    {
+      "slug": "ascii-diagram",
+      "name": "AsciiDiagram",
+      "title": "ASCII Diagram",
+      "description": "Renders raw ASCII or Unicode diagrams with live tokens: titles, arrows, corners, and glyph blocks pick up the accent automatically.",
+      "registry": "ascii-diagram",
+      "docs": "/docs/ascii-diagram",
+      "when": "Good for pasting an existing ASCII drawing and having it themed.",
+      "not": "An interactive editor is DiagramEditor. A specific wave diagram is Amplifier."
+    },
+    {
+      "slug": "diagram-editor",
+      "name": "DiagramEditor",
+      "title": "Diagram Editor",
+      "description": "An embeddable playground: presets, a glyph palette, auto-align, and copy-as-Svelte or .svx. Takes no props.",
+      "registry": "diagram-editor",
+      "docs": "/docs/diagram-editor",
+      "when": "Good for letting a user build and export a diagram interactively.",
+      "not": "A static render is AsciiDiagram."
+    },
+    {
+      "slug": "amplifier-diagram",
+      "name": "AmplifierDiagram",
+      "title": "Amplifier",
+      "description": "A small taste wave runs through an AI stage and comes out amplified. The gain slider scales the output wave live.",
+      "registry": "amplifier-diagram",
+      "docs": "/docs/amplifier-diagram",
+      "when": "Good for showing signal gain through a stage.",
+      "not": "A generic ASCII render is AsciiDiagram."
+    },
+    {
+      "slug": "nested-radii-diagram",
+      "name": "NestedRadiiDiagram",
+      "title": "Nested Radii",
+      "description": "Interactive explainer for nested border radius: two sliders update the ASCII art, the formula, and a real CSS preview together.",
+      "registry": "nested-radii-diagram",
+      "docs": "/docs/nested-radii-diagram",
+      "when": "Good for explaining how nested border-radius works.",
+      "not": "A generic ASCII render is AsciiDiagram."
+    },
+    {
+      "slug": "prompt-loop-diagram",
+      "name": "PromptLoopDiagram",
+      "title": "Prompt Loop",
+      "description": "The prompt-and-iterate loop as a six-step player. Steps light up in turn, with play, pause, seek dots, and a speed slider.",
+      "registry": "prompt-loop-diagram",
+      "docs": "/docs/prompt-loop-diagram",
+      "when": "Good for showing the prompt-iterate feedback cycle.",
+      "not": "A generic step player is FlowPlayer. A workflow DAG is Workflow."
+    },
+    {
+      "slug": "metrics-table-diagram",
+      "name": "MetricsTableDiagram",
+      "title": "Metrics Table",
+      "description": "A cost ledger as ASCII: label, tool calls, and time per row, with a total row. Static by design.",
+      "registry": "metrics-table-diagram",
+      "docs": "/docs/metrics-table-diagram",
+      "when": "Good for a cost or usage ledger with tool calls and time.",
+      "not": "A generic data table is Table."
+    },
+    {
+      "slug": "graph-agni",
+      "name": "GraphAgni",
+      "title": "Agni",
+      "description": "A vedic fire in a havan kund: heat rises from the pit mouth in a breathing column while sparks drift and fade. Decorative, and frozen under reduced motion.",
+      "registry": "graph-agni",
+      "docs": "/docs/graph-agni",
+      "when": "Good for a decorative vedic fire scene.",
+      "not": "An open flame is Fire. A candle row is Diya."
+    },
+    {
+      "slug": "graph-aum",
+      "name": "GraphAum",
+      "title": "Aum",
+      "description": "The om figure inked stroke by stroke, then held by a resonance crest that travels the stroke order and rests. Frozen settled under reduced motion.",
+      "registry": "graph-aum",
+      "docs": "/docs/graph-aum",
+      "when": "Good for the om glyph as an animated figure.",
+      "not": "A lotus bloom is Mandala. A spinning sun is Surya."
+    },
+    {
+      "slug": "graph-boot",
+      "name": "GraphBoot",
+      "title": "Boot",
+      "description": "A deploy log: per-step progress bars, check on pass and cross on fail, plus a total summary row. Frozen mid-run under reduced motion.",
+      "registry": "graph-boot",
+      "docs": "/docs/graph-boot",
+      "when": "Good for a deploy or startup sequence animation.",
+      "not": "A scripted shell session is Terminal. A dependency tree is Deps."
+    },
+    {
+      "slug": "graph-cron",
+      "name": "GraphCron",
+      "title": "Cron",
+      "description": "A zero-dep cron parser. The next N runs of any standard 5-field expression laid out on a tick timeline, with a date and HH:MM ribbon under each marker. Frozen on the first run under reduced motion.",
+      "registry": "graph-cron",
+      "docs": "/docs/graph-cron",
+      "when": "Good for visualizing the next runs of a cron expression.",
+      "not": "A dependency tree is Deps. A ticker marquee is Ticker."
+    },
+    {
+      "slug": "graph-damru",
+      "name": "GraphDamru",
+      "title": "Damru",
+      "description": "Two triangles meet at a point and pulse on every beat of an 8-beat Adi tala, with a ripple expanding and fading each time. Frozen on a clap beat under reduced motion.",
+      "registry": "graph-damru",
+      "docs": "/docs/graph-damru",
+      "when": "Good for a rhythmic pulse animation tied to a tala.",
+      "not": "A fire scene is Agni. A flowing river is Ganga."
+    },
+    {
+      "slug": "graph-deps",
+      "name": "GraphDeps",
+      "title": "Deps",
+      "description": "A dependency tree from a manifest, with version tags on every row and a depth-mark column on the left. Rows cascade in from the root, then a brief rest. Frozen fully-revealed under reduced motion.",
+      "registry": "graph-deps",
+      "docs": "/docs/graph-deps",
+      "when": "Good for a package dependency tree with versions.",
+      "not": "A nested file tree is Tree. A boot sequence is Boot."
+    },
+    {
+      "slug": "graph-diya",
+      "name": "GraphDiya",
+      "title": "Diya",
+      "description": "A row of oil lamps lights left-to-right one by one, then breathes together, occasionally one gutters and relights. Frozen lit under reduced motion.",
+      "registry": "graph-diya",
+      "docs": "/docs/graph-diya",
+      "when": "Good for a row of oil lamps during a festival scene.",
+      "not": "A vedic fire is Agni. A flowing river is Ganga."
+    },
+    {
+      "slug": "graph-fire",
+      "name": "GraphFire",
+      "title": "Fire",
+      "description": "Demoscene fire in shade glyphs: heat rises from a hot base and cools as it climbs. Decorative, and frozen under reduced motion.",
+      "registry": "graph-fire",
+      "docs": "/docs/graph-fire",
+      "when": "Good for a demoscene-style fire effect.",
+      "not": "A vedic fire is Agni. Matrix-style rain is Rain."
+    },
+    {
+      "slug": "graph-flame",
+      "name": "GraphFlame",
+      "title": "Flame",
+      "description": "ASCII flame graph: nested rows of frames where each frame's width is its share of time. Cycles through hot leaves and lights the ancestor chain. Frozen on the first leaf under reduced motion.",
+      "registry": "graph-flame",
+      "docs": "/docs/graph-flame",
+      "when": "Good for a profiling flame graph animation.",
+      "not": "A demoscene fire is Fire. A state machine is State."
+    },
+    {
+      "slug": "graph-flow-player",
+      "name": "GraphFlowPlayer",
+      "title": "Flow Player",
+      "description": "A play/pause step-player for ordered process steps. The active step lights up and its detail unfolds beneath it.",
+      "registry": "graph-flow-player",
+      "docs": "/docs/graph-flow-player",
+      "when": "Good for walking through ordered steps one at a time.",
+      "not": "A DAG workflow is Workflow. A static flow is Flow."
+    },
+    {
+      "slug": "graph-ganga",
+      "name": "GraphGanga",
+      "title": "Ganga",
+      "description": "Three meandering flow lines cascade in steps, with a lone diya flame bobbing downstream. A calmer GraphStream. Frozen mid-flow under reduced motion.",
+      "registry": "graph-ganga",
+      "docs": "/docs/graph-ganga",
+      "when": "Good for a flowing river scene.",
+      "not": "A terminal stream is Stream. A fire is Fire."
+    },
+    {
+      "slug": "graph-hash",
+      "name": "GraphHash",
+      "title": "Hash",
+      "description": "Any string to its 64-bit FNV-1a digest as a 4-tier glyph-checkerboard fingerprint with a scan line that sweeps the grid and a hex readout underneath. Same input always yields the same fingerprint.",
+      "registry": "graph-hash",
+      "docs": "/docs/graph-hash",
+      "when": "Good for visualizing a string fingerprint.",
+      "not": "A spinner is Spinners. A typewriter is Typewriter."
+    },
+    {
+      "slug": "graph-japa",
+      "name": "GraphJapa",
+      "title": "Japa",
+      "description": "A 108-bead mala with a marker advancing clockwise, a soft tail behind, and a corner counter; the whole ring shimmers on every revolution. Frozen mid-mala under reduced motion.",
+      "registry": "graph-japa",
+      "docs": "/docs/graph-japa",
+      "when": "Good for a mala counting animation.",
+      "not": "A diya row is Diya. A sun wheel is Surya."
+    },
+    {
+      "slug": "graph-life",
+      "name": "GraphLife",
+      "title": "Life",
+      "description": "Conway's Game of Life in block glyphs with faint death trails, toroidal edges, and a gen/pop readout. Play, step, or reset.",
+      "registry": "graph-life",
+      "docs": "/docs/graph-life",
+      "when": "Good for a cellular automaton simulation.",
+      "not": "A Mandelbrot zoom is Mandel. A scope trace is Scope."
+    },
+    {
+      "slug": "graph-mandel",
+      "name": "GraphMandel",
+      "title": "Mandelbrot",
+      "description": "A slowly zooming ASCII Mandelbrot drifting into seahorse valley, its dense core tinted accent. The brand piece.",
+      "registry": "graph-mandel",
+      "docs": "/docs/graph-mandel",
+      "when": "Good for a fractal zoom animation.",
+      "not": "A mandala bloom is Mandala. Conway's Game is Life."
+    },
+    {
+      "slug": "graph-mandala",
+      "name": "GraphMandala",
+      "title": "Mandala",
+      "description": "Lotus-petal rings bloom ring by ring from a bindu, with K-fold rotational symmetry; one canonical petal is rotated K times. Every seed is a different mandala. Frozen fully bloomed under reduced motion.",
+      "registry": "graph-mandala",
+      "docs": "/docs/graph-mandala",
+      "when": "Good for a symmetric lotus bloom animation.",
+      "not": "A Mandelbrot zoom is Mandel. A spoked sun is Surya."
+    },
+    {
+      "slug": "graph-pulse",
+      "name": "GraphPulse",
+      "title": "Pulse",
+      "description": "A live uptime strip that appends one blip per tick, with a legend, percent-up, and a last-check caption.",
+      "registry": "graph-pulse",
+      "docs": "/docs/graph-pulse",
+      "when": "Good for a live uptime blip strip.",
+      "not": "A KPI stream is Stream. A static uptime grid is Uptime."
+    },
+    {
+      "slug": "graph-rain",
+      "name": "GraphRain",
+      "title": "Rain",
+      "description": "Matrix-style glyph rain: columns fall at their own speeds behind a bright head, trails fading to faint. Decorative.",
+      "registry": "graph-rain",
+      "docs": "/docs/graph-rain",
+      "when": "Good for a Matrix-style rain effect.",
+      "not": "A fire is Fire. A flowing river is Ganga."
+    },
+    {
+      "slug": "graph-scatter",
+      "name": "GraphScatter",
+      "title": "Scatter",
+      "description": "An x/y dot plot in the glyph grid, with a 4-char y-axis gutter and an x-axis ribbon under the plot. Pass trend for a single-row linear-regression strip below. Reveals left-to-right, then a brief rest. Frozen fully-revealed under reduced motion.",
+      "registry": "graph-scatter",
+      "docs": "/docs/graph-scatter",
+      "when": "Good for an animated x/y scatter with optional trend line.",
+      "not": "A scrolling oscilloscope is Scope. A static plot is Plot."
+    },
+    {
+      "slug": "graph-surya",
+      "name": "GraphSurya",
+      "title": "Surya",
+      "description": "A spoked sun that rises from behind the horizon line, turns one spoke at a time, and sets again. Frozen mid-morning under reduced motion.",
+      "registry": "graph-surya",
+      "docs": "/docs/graph-surya",
+      "when": "Good for a rising sun animation.",
+      "not": "A mala is Japa. A mandala bloom is Mandala."
+    },
+    {
+      "slug": "graph-scope",
+      "name": "GraphScope",
+      "title": "Scope",
+      "description": "A scrolling oscilloscope window over any number series, drawn in block glyphs; the newest column glows accent.",
+      "registry": "graph-scope",
+      "docs": "/docs/graph-scope",
+      "when": "Good for a scrolling oscilloscope trace.",
+      "not": "A static sparkline is Spark. An animated scatter is Scatter."
+    },
+    {
+      "slug": "graph-sequence",
+      "name": "GraphSequence",
+      "title": "Sequence",
+      "description": "ASCII sequence diagram: participants on columns, labeled dashed arrows between them, and activation bars on each lifeline. The current message and its endpoints light up. Frozen on the first message under reduced motion.",
+      "registry": "graph-sequence",
+      "docs": "/docs/graph-sequence",
+      "when": "Good for an animated sequence or interaction diagram.",
+      "not": "A state machine is State. A workflow DAG is Workflow."
+    },
+    {
+      "slug": "graph-spinners",
+      "name": "GraphSpinners",
+      "title": "Spinners",
+      "description": "A family of glyph spinners — slash, dots, bounce, bar — with a muted label. Holds frame one under reduced motion.",
+      "registry": "graph-spinners",
+      "docs": "/docs/graph-spinners",
+      "when": "Good for a loading indicator.",
+      "not": "A ticker marquee is Ticker. A typewriter is Typewriter."
+    },
+    {
+      "slug": "graph-state",
+      "name": "GraphState",
+      "title": "State",
+      "description": "ASCII state-machine chart: state boxes in a 2x2 grid with labeled transitions on the arrows. The current state and its outgoing transition light up. Frozen on the first state under reduced motion.",
+      "registry": "graph-state",
+      "docs": "/docs/graph-state",
+      "when": "Good for an animated state-machine diagram.",
+      "not": "A sequence diagram is Sequence. A workflow DAG is Workflow."
+    },
+    {
+      "slug": "graph-stream",
+      "name": "GraphStream",
+      "title": "Stream",
+      "description": "A live terminal KPI: big current value, a one-row glyph sparkline that appends, and an updated-Ns-ago caption.",
+      "registry": "graph-stream",
+      "docs": "/docs/graph-stream",
+      "when": "Good for a live-streaming KPI value.",
+      "not": "An uptime blip strip is Pulse. A typewriter is Typewriter."
+    },
+    {
+      "slug": "graph-terminal",
+      "name": "GraphTerminal",
+      "title": "Terminal",
+      "description": "A scripted shell session: a prompt gets typed character-by-character, output blocks stream right after, the whole script loops. Combines a typewriter and a stream into one frame.",
+      "registry": "graph-terminal",
+      "docs": "/docs/graph-terminal",
+      "when": "Good for a scripted terminal session animation.",
+      "not": "A typewriter is Typewriter. A boot log is Boot."
+    },
+    {
+      "slug": "graph-ticker",
+      "name": "GraphTicker",
+      "title": "Ticker",
+      "description": "A one-row status marquee that rotates whole OK / WARN / DOWN tokens, colors staying attached.",
+      "registry": "graph-ticker",
+      "docs": "/docs/graph-ticker",
+      "when": "Good for a rotating status marquee.",
+      "not": "A spinner is Spinners. A typewriter is Typewriter."
+    },
+    {
+      "slug": "graph-typewriter",
+      "name": "GraphTypewriter",
+      "title": "Typewriter",
+      "description": "Text that types itself with a blinking block cursor, holds, and loops. Reduced motion shows the full text.",
+      "registry": "graph-typewriter",
+      "docs": "/docs/graph-typewriter",
+      "when": "Good for text that types itself out.",
+      "not": "A terminal session is Terminal. A status marquee is Ticker."
+    },
+    {
+      "slug": "graph-workflow",
+      "name": "GraphWorkflow",
+      "title": "Workflow",
+      "description": "A typed workflow diagram: nodes and edges as data, auto-laid out as a top-down DAG, with a play/pause step-player that lights up the path.",
+      "registry": "graph-workflow",
+      "docs": "/docs/graph-workflow",
+      "when": "Good for a DAG workflow with animated step activation.",
+      "not": "A linear step player is FlowPlayer. A static flow is Flow. A sequence diagram is Sequence."
+    }
+  ]
+}

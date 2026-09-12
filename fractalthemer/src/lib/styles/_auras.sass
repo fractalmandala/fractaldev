@@ -1,0 +1,839 @@
+// Aura Gradients Engine for Fractal Mandala
+// Provides GPU-accelerated atmospheric gradient blend layers matched to all 41 themes.
+// Controlled via [data-bg-style="aura"] on <html>.
+// Format: Indented SASS (strictly single tabs, no braces, no semicolons)
+
+[data-bg-style="plain"]
+	.aura-ambient, .aura-gradient-backdrop, .aura-pattern-backdrop
+		display: none !important
+
+[data-bg-style="aura"]
+	.aura-ambient
+		display: block
+	.aura-gradient-backdrop, .aura-pattern-backdrop
+		display: none !important
+	body, html
+		background-color: transparent !important
+	.site-shell, .app-shell, .site-body, .docs, .fullwrapper, .appshell, .appshel, .bodywrapper, .appbody, .blume-root, .blume-body, .site-main, .site-article, .landing-hero, .landing-section
+		background: transparent !important
+		background-color: transparent !important
+		background-image: none !important
+	.site-sidebar, .docs-nav, .navtree
+		background: color-mix(in srgb, var(--bg-surface) 25%, transparent) !important
+		backdrop-filter: blur(14px)
+		-webkit-backdrop-filter: blur(14px)
+	.sidebar-section[data-open] .sidebar-section__trigger
+		background: transparent !important
+	.appheader, .site-header
+		background: color-mix(in srgb, var(--bg-canvas) 20%, transparent) !important
+		backdrop-filter: blur(14px)
+		-webkit-backdrop-filter: blur(14px)
+
+[data-bg-style="gradient"]
+	.aura-ambient, .aura-pattern-backdrop
+		display: none !important
+	.aura-gradient-backdrop
+		display: block
+	body, html
+		background-color: transparent !important
+	.site-shell, .app-shell, .site-body, .docs, .fullwrapper, .appshell, .appshel, .bodywrapper, .appbody, .blume-root, .blume-body, .site-main, .site-article, .landing-hero, .landing-section
+		background: transparent !important
+		background-color: transparent !important
+		background-image: none !important
+	.site-sidebar, .docs-nav, .navtree
+		background: color-mix(in srgb, var(--bg-surface) 25%, transparent) !important
+		backdrop-filter: blur(16px)
+		-webkit-backdrop-filter: blur(16px)
+	.sidebar-section[data-open] .sidebar-section__trigger
+		background: transparent !important
+	.appheader, .site-header
+		background: color-mix(in srgb, var(--bg-canvas) 20%, transparent) !important
+		backdrop-filter: blur(16px)
+		-webkit-backdrop-filter: blur(16px)
+
+[data-bg-style="pattern"]
+	.aura-ambient, .aura-gradient-backdrop
+		display: none !important
+	.aura-pattern-backdrop
+		display: block
+	body, html
+		background-color: transparent !important
+	.site-shell, .app-shell, .site-body, .docs, .fullwrapper, .appshell, .appshel, .bodywrapper, .appbody, .blume-root, .blume-body, .site-main, .site-article, .landing-hero, .landing-section
+		background: transparent !important
+		background-color: transparent !important
+		background-image: none !important
+	.site-sidebar, .docs-nav, .navtree
+		background: color-mix(in srgb, var(--bg-surface) 35%, transparent) !important
+		backdrop-filter: blur(14px)
+		-webkit-backdrop-filter: blur(14px)
+	.sidebar-section[data-open] .sidebar-section__trigger
+		background: transparent !important
+	.appheader, .site-header
+		background: color-mix(in srgb, var(--bg-canvas) 30%, transparent) !important
+		backdrop-filter: blur(14px)
+		-webkit-backdrop-filter: blur(14px)
+
+.aura-ambient, .aura-gradient-backdrop, .aura-pattern-backdrop
+	position: fixed
+	inset: 0
+	z-index: 0 !important
+	overflow: hidden
+	pointer-events: none !important
+	contain: strict
+	transform: translateZ(0)
+	will-change: transform
+	*
+		pointer-events: none !important
+
+.site-shell, .app-shell, .fullwrapper, .appshell
+	position: relative
+	z-index: 1
+
+.aura-gradient-backdrop
+	background-color: var(--bg)
+	pointer-events: none !important
+	.gradient-canvas
+		position: absolute
+		inset: 0
+		opacity: 0.92
+		pointer-events: none !important
+		transition: background 0.4s ease, opacity 0.4s ease
+	.gradient-overlay-soft
+		position: absolute
+		inset: 0
+		pointer-events: none !important
+		background: radial-gradient(circle at 50% 50%, transparent 60%, rgba(0, 0, 0, 0.12) 100%)
+
+.aura-pattern-backdrop
+	background-color: var(--bg)
+	pointer-events: none !important
+	.pattern-canvas
+		position: absolute
+		inset: 0
+		opacity: 0.75
+		pointer-events: none !important
+		transition: opacity 0.4s ease
+	.pattern-overlay-soft
+		position: absolute
+		inset: 0
+		pointer-events: none !important
+		background: radial-gradient(circle at 50% 50%, transparent 60%, rgba(0, 0, 0, 0.08) 100%)
+
+[data-mode="dark"]
+	.aura-gradient-backdrop
+		.gradient-canvas
+			opacity: 0.95
+		.gradient-overlay-soft
+			background: radial-gradient(circle at 50% 50%, transparent 50%, rgba(0, 0, 0, 0.4) 100%)
+	.aura-pattern-backdrop
+		.pattern-canvas
+			opacity: 0.85
+			mix-blend-mode: screen
+		.pattern-overlay-soft
+			background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.4) 100%)
+
+// Light mode inherits the base opacities above: presets are mode-filtered in
+// the picker, so a light-mode backdrop is designed for light mode and renders
+// at full strength. The old multiply wash (0.28/0.32) made light backdrops
+// nearly invisible and is gone.
+
+.fullwrapper, .appshell, .appshel
+	position: relative
+	z-index: 1
+
+.aura-layer
+	position: absolute
+	inset: 0
+	transform: translateZ(0)
+	will-change: transform
+	pointer-events: none
+
+// theme-light-default -> Frosted Jade (mesh-frosted-jade)
+.theme-light-default[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-light-default"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: radial-gradient(circle at 25% 30%, rgba(52,211,153,0.5) 0%, transparent 50%)
+		mix-blend-mode: normal
+		filter: blur(200px)
+	.aura-layer-2
+		background: radial-gradient(circle at 75% 25%, rgba(16,185,129,0.4) 0%, transparent 45%)
+		mix-blend-mode: normal
+		filter: blur(175px)
+	.aura-layer-3
+		background: radial-gradient(circle at 50% 80%, rgba(6,182,212,0.35) 0%, transparent 55%)
+		mix-blend-mode: soft-light
+		filter: blur(200px)
+	.aura-layer-4
+		background: radial-gradient(circle at 30% 70%, rgba(209,250,229,0.5) 0%, transparent 40%)
+		mix-blend-mode: overlay
+		filter: blur(150px)
+
+// theme-himalaya-light -> Glacier Mist (glacier-mist)
+.theme-himalaya-light[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-himalaya-light"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: linear-gradient(rgba(0,0,0,0) 0%, rgba(77,210,255,0.12) 28%, rgb(255,255,255) 18%, rgb(53,230,192) 68%, rgb(91,110,245) 100%)
+		mix-blend-mode: hard-light
+		filter: blur(90px)
+	.aura-layer-2
+		background: linear-gradient(rgba(0,0,0,0) 0%, rgba(77,210,255,0.22) 34%, rgb(255,255,255) 66%, rgb(53,230,192) 82%, rgb(91,110,245) 100%)
+		mix-blend-mode: soft-light
+		filter: blur(90px)
+
+// theme-editorial-light -> Warm Ash (warm-ash)
+.theme-editorial-light[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-editorial-light"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: linear-gradient(rgba(0,0,0,0) 0%, rgba(214,204,190,0.12) 28%, rgb(255,255,255) 18%, rgb(196,181,160) 68%, rgb(168,148,122) 100%)
+		mix-blend-mode: hard-light
+		filter: blur(90px)
+	.aura-layer-2
+		background: linear-gradient(rgba(0,0,0,0) 0%, rgba(214,204,190,0.22) 34%, rgb(255,255,255) 66%, rgb(196,181,160) 82%, rgb(168,148,122) 100%)
+		mix-blend-mode: soft-light
+		filter: blur(90px)
+
+// theme-space-light -> Sage Smoke (flux-sage-smoke)
+.theme-space-light[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-space-light"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: radial-gradient(ellipse 55% 48% at 30% 48%, rgba(132,204,22,0.34) 0%, rgba(101,163,13,0.08) 48%, transparent 72%)
+		mix-blend-mode: normal
+		filter: blur(100px)
+	.aura-layer-2
+		background: radial-gradient(ellipse 46% 52% at 68% 42%, rgba(45,212,191,0.28) 0%, rgba(20,184,166,0.06) 50%, transparent 74%)
+		mix-blend-mode: normal
+		filter: blur(75px)
+	.aura-layer-3
+		background: radial-gradient(ellipse 32% 30% at 52% 70%, rgba(255,255,255,0.50) 0%, transparent 68%)
+		mix-blend-mode: soft-light
+		filter: blur(75px)
+
+// theme-sun-light -> Golden Hour (golden-hour)
+.theme-sun-light[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-sun-light"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: linear-gradient(rgba(0,0,0,0) 0%, rgba(255,183,77,0.12) 28%, rgb(255,255,255) 18%, rgb(255,138,61) 68%, rgb(183,77,0) 100%)
+		mix-blend-mode: hard-light
+		filter: blur(125px)
+	.aura-layer-2
+		background: linear-gradient(rgba(0,0,0,0) 0%, rgba(255,183,77,0.22) 34%, rgb(255,255,255) 66%, rgb(255,138,61) 82%, rgb(183,77,0) 100%)
+		mix-blend-mode: soft-light
+		filter: blur(100px)
+
+// theme-monochrono-light -> Light Weave (lattice-light-weave)
+.theme-monochrono-light[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-monochrono-light"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: linear-gradient(rgba(14,165,233,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(14,165,233,0.08) 1px, transparent 1px)
+		mix-blend-mode: normal
+		filter: blur(75px)
+	.aura-layer-2
+		background: radial-gradient(circle at 50% 50%, rgba(56,189,248,0.25) 0%, transparent 50%)
+		mix-blend-mode: normal
+		filter: blur(150px)
+	.aura-layer-3
+		background: radial-gradient(circle at 30% 70%, rgba(99,102,241,0.15) 0%, transparent 40%)
+		mix-blend-mode: normal
+		filter: blur(125px)
+
+// theme-molly-light -> Aqua Bubble (glass-aqua-bubble)
+.theme-molly-light[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-molly-light"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: radial-gradient(circle at 25% 40%, rgba(34,211,238,0.34) 0%, rgba(103,232,249,0.12) 32%, transparent 55%), radial-gradient(circle at 72% 58%, rgba(14,165,233,0.28) 0%, rgba(125,211,252,0.10) 34%, transparent 58%)
+		mix-blend-mode: normal
+		filter: blur(63px)
+	.aura-layer-2
+		background: radial-gradient(circle at 25% 40%, rgba(255,255,255,0.65) 0%, transparent 12%)
+		mix-blend-mode: screen
+		filter: blur(30px)
+	.aura-layer-3
+		background: radial-gradient(circle at 72% 58%, rgba(255,255,255,0.55) 0%, transparent 13%)
+		mix-blend-mode: screen
+		filter: blur(35px)
+	.aura-layer-4
+		background: linear-gradient(135deg, rgba(255,255,255,0.42) 0%, transparent 45%, rgba(6,182,212,0.12) 100%)
+		mix-blend-mode: soft-light
+		filter: blur(50px)
+
+// theme-malana-light -> Terracotta (grain-terracotta)
+.theme-malana-light[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-malana-light"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: linear-gradient(145deg, #fed7aa 0%, #f97316 38%, #c2410c 68%, #9a3412 100%)
+		mix-blend-mode: normal
+		filter: blur(75px)
+	.aura-layer-2
+		background: radial-gradient(ellipse 48% 42% at 40% 45%, rgba(255,237,213,0.22) 0%, transparent 60%)
+		mix-blend-mode: soft-light
+		filter: blur(95px)
+
+// theme-coresync-light -> Concrete Grain (grain-concrete)
+.theme-coresync-light[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-coresync-light"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: linear-gradient(150deg, #e4e4e7 0%, #d4d4d8 40%, #a1a1aa 70%, #71717a 100%)
+		mix-blend-mode: normal
+		filter: blur(75px)
+	.aura-layer-2
+		background: radial-gradient(circle at 50% 40%, rgba(113,113,122,0.2) 0%, transparent 55%)
+		mix-blend-mode: soft-light
+		filter: blur(75px)
+
+// theme-studio-light -> Milk Tea (flux-milk-tea)
+.theme-studio-light[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-studio-light"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: radial-gradient(ellipse 55% 45% at 30% 50%, rgba(217,119,6,0.38) 0%, rgba(245,158,11,0.12) 48%, transparent 72%)
+		mix-blend-mode: normal
+		filter: blur(145px)
+	.aura-layer-2
+		background: radial-gradient(ellipse 45% 52% at 68% 40%, rgba(180,83,9,0.28) 0%, rgba(217,119,6,0.08) 50%, transparent 74%)
+		mix-blend-mode: normal
+		filter: blur(155px)
+	.aura-layer-3
+		background: radial-gradient(ellipse 30% 28% at 50% 72%, rgba(255,255,255,0.62) 0%, transparent 68%)
+		mix-blend-mode: soft-light
+		filter: blur(95px)
+
+// theme-matcha-light -> Alpine Meadow (mesh-alpine-meadow)
+.theme-matcha-light[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-matcha-light"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: radial-gradient(circle at 20% 30%, rgba(132,204,22,0.5) 0%, transparent 50%)
+		mix-blend-mode: normal
+		filter: blur(200px)
+	.aura-layer-2
+		background: radial-gradient(circle at 75% 25%, rgba(52,211,153,0.4) 0%, transparent 45%)
+		mix-blend-mode: normal
+		filter: blur(175px)
+	.aura-layer-3
+		background: radial-gradient(circle at 50% 80%, rgba(250,204,21,0.35) 0%, transparent 55%)
+		mix-blend-mode: soft-light
+		filter: blur(200px)
+	.aura-layer-4
+		background: radial-gradient(circle at 30% 70%, rgba(167,139,250,0.25) 0%, transparent 40%)
+		mix-blend-mode: overlay
+		filter: blur(150px)
+
+// theme-sakura-light -> Sakura Fields (mesh-sakura)
+.theme-sakura-light[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-sakura-light"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: radial-gradient(circle at 20% 30%, rgba(251,113,133,0.7) 0%, transparent 50%)
+		mix-blend-mode: normal
+		filter: blur(150px)
+	.aura-layer-2
+		background: radial-gradient(circle at 80% 20%, rgba(249,168,212,0.6) 0%, transparent 45%)
+		mix-blend-mode: normal
+		filter: blur(175px)
+	.aura-layer-3
+		background: radial-gradient(circle at 60% 80%, rgba(253,164,175,0.5) 0%, transparent 55%)
+		mix-blend-mode: normal
+		filter: blur(200px)
+	.aura-layer-4
+		background: radial-gradient(circle at 30% 70%, rgba(244,114,182,0.4) 0%, transparent 40%)
+		mix-blend-mode: soft-light
+		filter: blur(125px)
+
+// theme-nordic-frost-light -> Arctic Frost (arctic-frost)
+.theme-nordic-frost-light[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-nordic-frost-light"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: linear-gradient(rgba(0,0,0,0) 0%, rgba(200,230,255,0.12) 28%, rgb(255,255,255) 18%, rgb(150,200,255) 68%, rgb(100,130,200) 100%)
+		mix-blend-mode: hard-light
+		filter: blur(90px)
+	.aura-layer-2
+		background: linear-gradient(rgba(0,0,0,0) 0%, rgba(200,230,255,0.22) 34%, rgb(255,255,255) 66%, rgb(150,200,255) 82%, rgb(100,130,200) 100%)
+		mix-blend-mode: soft-light
+		filter: blur(90px)
+
+// theme-desert-dune-light -> Desert Sand (grain-desert-sand)
+.theme-desert-dune-light[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-desert-dune-light"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: linear-gradient(155deg, #fef9c3 0%, #fde68a 40%, #fcd34d 70%, #fbbf24 100%)
+		mix-blend-mode: normal
+		filter: blur(75px)
+	.aura-layer-2
+		background: radial-gradient(circle at 50% 40%, rgba(245,158,11,0.2) 0%, transparent 55%)
+		mix-blend-mode: soft-light
+		filter: blur(75px)
+
+// theme-lavender-mist-light -> Lavender Haze (mesh-lavender-haze)
+.theme-lavender-mist-light[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-lavender-mist-light"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: radial-gradient(circle at 20% 40%, rgba(192,132,252,0.6) 0%, transparent 50%)
+		mix-blend-mode: normal
+		filter: blur(200px)
+	.aura-layer-2
+		background: radial-gradient(circle at 70% 30%, rgba(167,139,250,0.5) 0%, transparent 45%)
+		mix-blend-mode: normal
+		filter: blur(175px)
+	.aura-layer-3
+		background: radial-gradient(circle at 45% 75%, rgba(216,180,254,0.4) 0%, transparent 40%)
+		mix-blend-mode: normal
+		filter: blur(200px)
+	.aura-layer-4
+		background: radial-gradient(circle at 85% 65%, rgba(232,121,249,0.35) 0%, transparent 35%)
+		mix-blend-mode: soft-light
+		filter: blur(150px)
+
+// theme-botanical-light -> Mint Cloud (nebula-mint-cloud)
+.theme-botanical-light[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-botanical-light"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: radial-gradient(ellipse 40% 45% at 30% 40%, rgba(52,211,153,0.7) 0%, transparent 65%)
+		mix-blend-mode: normal
+		filter: blur(150px)
+	.aura-layer-2
+		background: radial-gradient(ellipse 35% 40% at 65% 55%, rgba(20,184,166,0.5) 0%, transparent 60%)
+		mix-blend-mode: normal
+		filter: blur(138px)
+	.aura-layer-3
+		background: radial-gradient(ellipse 25% 30% at 75% 25%, rgba(110,231,183,0.4) 0%, transparent 55%)
+		mix-blend-mode: normal
+		filter: blur(125px)
+
+// theme-clay-studio-light -> Saffron Silk (mesh-saffron-silk)
+.theme-clay-studio-light[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-clay-studio-light"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: radial-gradient(circle at 20% 25%, rgba(234,179,8,0.6) 0%, transparent 50%)
+		mix-blend-mode: normal
+		filter: blur(188px)
+	.aura-layer-2
+		background: radial-gradient(circle at 80% 30%, rgba(217,119,6,0.5) 0%, transparent 45%)
+		mix-blend-mode: normal
+		filter: blur(175px)
+	.aura-layer-3
+		background: radial-gradient(circle at 50% 80%, rgba(180,83,9,0.4) 0%, transparent 55%)
+		mix-blend-mode: soft-light
+		filter: blur(200px)
+	.aura-layer-4
+		background: radial-gradient(circle at 30% 70%, rgba(251,191,36,0.3) 0%, transparent 40%)
+		mix-blend-mode: overlay
+		filter: blur(150px)
+
+// theme-solaris-light -> Citrine Mesh (mesh-citrine)
+.theme-solaris-light[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-solaris-light"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: radial-gradient(circle at 22% 28%, rgba(250,204,21,0.6) 0%, transparent 45%)
+		mix-blend-mode: normal
+		filter: blur(175px)
+	.aura-layer-2
+		background: radial-gradient(circle at 78% 32%, rgba(253,224,71,0.5) 0%, transparent 40%)
+		mix-blend-mode: normal
+		filter: blur(200px)
+	.aura-layer-3
+		background: radial-gradient(circle at 50% 78%, rgba(234,179,8,0.4) 0%, transparent 50%)
+		mix-blend-mode: normal
+		filter: blur(200px)
+	.aura-layer-4
+		background: radial-gradient(circle at 85% 75%, rgba(202,138,4,0.3) 0%, transparent 35%)
+		mix-blend-mode: soft-light
+		filter: blur(138px)
+
+// theme-cyberpunk-day-light -> Sunrise Drift (sunrise-drift)
+.theme-cyberpunk-day-light[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-cyberpunk-day-light"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: linear-gradient(rgba(0,0,0,0) 0%, rgba(0,138,255,0.1) 30%, rgb(255,255,255) 20%, rgb(247,164,66) 70%, rgb(233,66,247) 100%)
+		mix-blend-mode: hard-light
+		filter: blur(75px)
+	.aura-layer-2
+		background: linear-gradient(rgba(0,0,0,0) 0%, rgba(0,138,255,0.2) 35%, rgb(255,255,255) 70%, rgb(247,164,66) 80%, rgb(233,66,247) 100%)
+		mix-blend-mode: soft-light
+		filter: blur(125px)
+
+// theme-copper-patina-light -> Ocean Pearl (ocean-pearl)
+.theme-copper-patina-light[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-copper-patina-light"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: linear-gradient(rgba(0,0,0,0) 0%, rgba(178,235,242,0.12) 28%, rgb(255,255,255) 18%, rgb(77,182,200) 68%, rgb(45,100,130) 100%)
+		mix-blend-mode: hard-light
+		filter: blur(90px)
+	.aura-layer-2
+		background: linear-gradient(rgba(0,0,0,0) 0%, rgba(178,235,242,0.22) 34%, rgb(255,255,255) 66%, rgb(77,182,200) 82%, rgb(45,100,130) 100%)
+		mix-blend-mode: soft-light
+		filter: blur(90px)
+
+// theme-dracula-light -> Orchid Bloom (orchid-bloom)
+.theme-dracula-light[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-dracula-light"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: linear-gradient(rgba(0,0,0,0) 0%, rgba(242,61,224,0.12) 28%, rgb(255,255,255) 18%, rgb(139,92,246) 68%, rgb(61,139,255) 100%)
+		mix-blend-mode: hard-light
+		filter: blur(90px)
+	.aura-layer-2
+		background: linear-gradient(rgba(0,0,0,0) 0%, rgba(242,61,224,0.22) 34%, rgb(255,255,255) 66%, rgb(139,92,246) 82%, rgb(61,139,255) 100%)
+		mix-blend-mode: soft-light
+		filter: blur(90px)
+
+// theme-lagoona-dark -> Deep Lagoon (deep-lagoon)
+.theme-lagoona-dark[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-lagoona-dark"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: linear-gradient(rgba(0,0,0,0) 0%, rgba(47,209,166,0.12) 28%, rgb(255,255,255) 18%, rgb(61,124,255) 68%, rgb(122,92,255) 100%)
+		mix-blend-mode: hard-light
+		filter: blur(90px)
+	.aura-layer-2
+		background: linear-gradient(rgba(0,0,0,0) 0%, rgba(47,209,166,0.22) 34%, rgb(255,255,255) 66%, rgb(61,124,255) 82%, rgb(122,92,255) 100%)
+		mix-blend-mode: soft-light
+		filter: blur(90px)
+
+// theme-frozen-dark -> Arctic Dawn (arctic-dawn)
+.theme-frozen-dark[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-frozen-dark"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: linear-gradient(rgba(0,0,0,0) 0%, rgba(56,189,248,0.9) 40%, rgb(255,255,255) 70%, rgb(199,210,254) 82%, rgb(249,168,212) 100%)
+		mix-blend-mode: hard-light
+		filter: blur(200px)
+	.aura-layer-2
+		background: linear-gradient(rgba(0,0,0,0) 0%, rgba(56,189,248,0.9) 40%, rgb(255,255,255) 70%, rgb(199,210,254) 82%, rgb(249,168,212) 100%)
+		mix-blend-mode: soft-light
+		filter: blur(200px)
+
+// theme-night-dark -> Midnight Horizon (midnight-horizon)
+.theme-night-dark[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-night-dark"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 138, 255, 0.9) 40%, rgb(255, 255, 255) 70%, rgb(247, 164, 66) 80%, rgb(233, 66, 247) 100%)
+		mix-blend-mode: hard-light
+		filter: blur(125px)
+	.aura-layer-2
+		background: linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 138, 255, 0.9) 40%, rgb(255, 255, 255) 70%, rgb(247, 164, 66) 80%, rgb(233, 66, 247) 100%)
+		mix-blend-mode: soft-light
+		filter: blur(40px)
+	.aura-layer-3
+		background: linear-gradient(to top, rgb(0, 0, 31) 0%, rgba(0, 0, 31, 0.99) 8.1%, rgba(0, 0, 31, 0.953) 15.5%, rgba(0, 0, 31, 0.894) 22.5%, rgba(0, 0, 31, 0.824) 29%, rgba(0, 0, 31, 0.74) 35.3%, rgba(0, 0, 31, 0.647) 41.2%, rgba(0, 0, 31, 0.55) 47.1%, rgba(0, 0, 31, 0.45) 52.9%, rgba(0, 0, 31, 0.353) 58.8%, rgba(0, 0, 31, 0.26) 64.7%, rgba(0, 0, 31, 0.176) 71%, rgba(0, 0, 31, 0.106) 77.5%, rgba(0, 0, 31, 0.047) 84.5%, rgba(0, 0, 31, 0.01) 91.9%, rgba(0, 0, 31, 0) 100%)
+		mix-blend-mode: normal
+		filter: blur(110px)
+
+// theme-inkworm-dark -> Bourbon Smoke (mesh-bourbon-smoke)
+.theme-inkworm-dark[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-inkworm-dark"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: radial-gradient(circle at 25% 30%, rgba(180,83,9,0.6) 0%, transparent 45%)
+		mix-blend-mode: screen
+		filter: blur(175px)
+	.aura-layer-2
+		background: radial-gradient(circle at 75% 25%, rgba(217,119,6,0.5) 0%, transparent 40%)
+		mix-blend-mode: screen
+		filter: blur(200px)
+	.aura-layer-3
+		background: radial-gradient(circle at 50% 75%, rgba(120,53,15,0.5) 0%, transparent 50%)
+		mix-blend-mode: multiply
+		filter: blur(200px)
+	.aura-layer-4
+		background: radial-gradient(circle at 20% 80%, rgba(251,191,36,0.25) 0%, transparent 35%)
+		mix-blend-mode: overlay
+		filter: blur(138px)
+
+// theme-monochrono-dark -> Graphite Mesh (mesh-graphite)
+.theme-monochrono-dark[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-monochrono-dark"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: radial-gradient(circle at 25% 30%, rgba(100,116,139,0.6) 0%, transparent 45%)
+		mix-blend-mode: screen
+		filter: blur(175px)
+	.aura-layer-2
+		background: radial-gradient(circle at 75% 25%, rgba(148,163,184,0.4) 0%, transparent 40%)
+		mix-blend-mode: screen
+		filter: blur(200px)
+	.aura-layer-3
+		background: radial-gradient(circle at 50% 75%, rgba(71,85,105,0.5) 0%, transparent 50%)
+		mix-blend-mode: screen
+		filter: blur(200px)
+	.aura-layer-4
+		background: radial-gradient(circle at 85% 70%, rgba(203,213,225,0.25) 0%, transparent 30%)
+		mix-blend-mode: screen
+		filter: blur(138px)
+
+// theme-fouram-dark -> Neon Skyline (neon-skyline)
+.theme-fouram-dark[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-fouram-dark"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: linear-gradient(rgba(0,0,0,0) 0%, rgba(34,211,238,0.9) 40%, rgb(255,255,255) 70%, rgb(232,121,249) 82%, rgb(139,92,246) 100%)
+		mix-blend-mode: hard-light
+		filter: blur(200px)
+	.aura-layer-2
+		background: linear-gradient(rgba(0,0,0,0) 0%, rgba(34,211,238,0.9) 40%, rgb(255,255,255) 70%, rgb(232,121,249) 82%, rgb(139,92,246) 100%)
+		mix-blend-mode: soft-light
+		filter: blur(200px)
+	.aura-layer-3
+		background: linear-gradient(to top, rgb(8,4,20) 0%, rgba(8,4,20,0.85) 15%, rgba(8,4,20,0.5) 35%, rgba(8,4,20,0.15) 60%, rgba(8,4,20,0) 100%)
+		mix-blend-mode: normal
+		filter: blur(75px)
+		opacity: 0.6
+
+// theme-wintercame-dark -> Eclipse Flare (eclipse-flare)
+.theme-wintercame-dark[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-wintercame-dark"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: radial-gradient(ellipse 89% 99% at 50% -38%, rgba(0,0,0,0) 0%, rgb(30,32,35) 38%, rgb(45,70,115) 70%, rgb(142,123,227) 90%, rgb(248,104,196) 100%)
+		mix-blend-mode: hard-light
+		filter: blur(125px)
+		opacity: 0.5
+	.aura-layer-2
+		background: radial-gradient(ellipse 95% 105% at 50% -34%, rgba(0,0,0,0.15) 0%, rgb(30,32,35) 42%, rgb(55,82,135) 74%, rgb(150,126,228) 92%, rgb(246,108,198) 100%)
+		mix-blend-mode: soft-light
+		filter: blur(200px)
+
+// theme-sun-dark -> Liquid Cyan (glass-liquid-cyan)
+.theme-sun-dark[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-sun-dark"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: linear-gradient(135deg, rgba(8,47,73,0.82) 0%, rgba(14,116,144,0.48) 48%, rgba(34,211,238,0.30) 100%)
+		mix-blend-mode: normal
+		filter: blur(75px)
+	.aura-layer-2
+		background: radial-gradient(ellipse 55% 42% at 28% 42%, rgba(34,211,238,0.42) 0%, transparent 68%)
+		mix-blend-mode: screen
+		filter: blur(120px)
+	.aura-layer-3
+		background: radial-gradient(ellipse 45% 55% at 72% 58%, rgba(103,232,249,0.30) 0%, transparent 68%)
+		mix-blend-mode: screen
+		filter: blur(138px)
+	.aura-layer-4
+		background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.18) 48%, rgba(255,255,255,0.04) 58%, transparent 72%)
+		mix-blend-mode: screen
+		filter: blur(45px)
+
+// theme-console-dark -> Greenflare (greenflare)
+.theme-console-dark[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-console-dark"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: radial-gradient(24% 42% at 72% 48%, rgba(48,145,76,0.38) 0%, rgba(28,83,48,0.18) 42%, transparent 82%)
+		mix-blend-mode: screen
+		filter: blur(105px)
+	.aura-layer-2
+		background: linear-gradient(112deg, transparent 38%, rgba(47,132,74,0.18) 50%, transparent 64%)
+		mix-blend-mode: screen
+		filter: blur(95px)
+		opacity: 0.9
+	.aura-layer-3
+		background: radial-gradient(45% 70% at 20% 52%, rgba(24,70,38,0.14) 0%, transparent 80%)
+		mix-blend-mode: soft-light
+		filter: blur(138px)
+		opacity: 0.8
+
+// theme-dracula-dark -> Violet Horizon (violet-horizon)
+.theme-dracula-dark[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-dracula-dark"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: linear-gradient(rgba(0,0,0,0) 0%, rgba(99,102,241,0.9) 40%, rgb(255,255,255) 70%, rgb(216,180,254) 82%, rgb(244,114,182) 100%)
+		mix-blend-mode: hard-light
+		filter: blur(200px)
+	.aura-layer-2
+		background: linear-gradient(rgba(0,0,0,0) 0%, rgba(99,102,241,0.9) 40%, rgb(255,255,255) 70%, rgb(216,180,254) 82%, rgb(244,114,182) 100%)
+		mix-blend-mode: soft-light
+		filter: blur(200px)
+	.aura-layer-3
+		background: linear-gradient(to top, rgb(10,8,26) 0%, rgba(10,8,26,0.9) 15%, rgba(10,8,26,0.55) 35%, rgba(10,8,26,0.2) 60%, rgba(10,8,26,0) 100%)
+		mix-blend-mode: normal
+		filter: blur(75px)
+
+// theme-catppuccin-mocha -> Solstice Veil (solstice-veil)
+.theme-catppuccin-mocha[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-catppuccin-mocha"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: linear-gradient(rgba(0,0,0,0) 0%, rgba(255,94,58,0.9) 40%, rgb(255,255,255) 70%, rgb(255,159,67) 82%, rgb(236,64,122) 100%)
+		mix-blend-mode: hard-light
+		filter: blur(200px)
+	.aura-layer-2
+		background: linear-gradient(rgba(0,0,0,0) 0%, rgba(255,94,58,0.9) 40%, rgb(255,255,255) 70%, rgb(255,159,67) 82%, rgb(236,64,122) 100%)
+		mix-blend-mode: soft-light
+		filter: blur(200px)
+	.aura-layer-3
+		background: linear-gradient(to top, rgb(31,4,10) 0%, rgba(31,4,10,0.9) 15%, rgba(31,4,10,0.6) 35%, rgba(31,4,10,0.25) 60%, rgba(31,4,10,0) 100%)
+		mix-blend-mode: normal
+		filter: blur(75px)
+
+// theme-nord-dark -> Aurora Beams (aurora-beams)
+.theme-nord-dark[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-nord-dark"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: radial-gradient(55.8% 55.49% at 50% 100%, rgb(38, 77, 76) 0%, rgba(25, 48, 47, 0) 100%)
+		mix-blend-mode: screen
+		filter: blur(75px)
+	.aura-layer-2
+		background: repeating-linear-gradient( 100deg, #262626 0%, #262626 3%, rgba(38, 38, 38, 0.7) 5%, rgba(38, 38, 38, 0.7) 7%, transparent 10%, transparent 12%, rgba(38, 38, 38, 0.7) 14%, #262626 16% ), repeating-linear-gradient( 100deg, #9ca3af 0%, #9ca3af 1.5%, rgba(156, 163, 175, 0.8) 2%, #6b7280 3%, #6b7280 4%, rgba(156, 163, 175, 0.8) 4.5%, #9ca3af 5% )
+		mix-blend-mode: screen
+		filter: blur(75px)
+		opacity: 0.9
+	.aura-layer-3
+		background: radial-gradient(ellipse at 100% 100%, #ffffff 20%, #0a0a0a 80%)
+		mix-blend-mode: multiply
+		filter: blur(75px)
+
+// theme-gruvbox-dark -> Copper Shadow (copper-shadow)
+.theme-gruvbox-dark[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-gruvbox-dark"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: radial-gradient(58% 62% at 72% 64%, rgba(127,72,39,0.32) 0%, rgba(74,43,26,0.16) 42%, transparent 80%)
+		mix-blend-mode: screen
+		filter: blur(145px)
+	.aura-layer-2
+		background: linear-gradient(135deg, transparent 35%, rgba(160,91,45,0.20) 52%, transparent 70%)
+		mix-blend-mode: screen
+		filter: blur(113px)
+		opacity: 0.8
+	.aura-layer-3
+		background: radial-gradient(28% 30% at 84% 22%, rgba(194,119,69,0.13) 0%, transparent 78%)
+		mix-blend-mode: soft-light
+		filter: blur(88px)
+		opacity: 0.8
+
+// theme-onedark-pro -> Deep Cosmos (deep-cosmos)
+.theme-onedark-pro[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-onedark-pro"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: linear-gradient(180deg, #0F0F12 0%, rgba(76, 29, 149, 0.5) 50%, rgba(109, 40, 217, 0.7) 100%)
+		mix-blend-mode: normal
+		filter: blur(75px)
+	.aura-layer-2
+		background: radial-gradient(ellipse at 50% 115%, rgba(147, 51, 234, 0.55) 0%, rgba(109, 40, 217, 0.2) 60%, transparent 80%)
+		mix-blend-mode: screen
+		filter: blur(200px)
+	.aura-layer-3
+		background: radial-gradient(circle at 100% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 40%)
+		mix-blend-mode: screen
+		filter: blur(200px)
+	.aura-layer-4
+		background: radial-gradient(circle at 12% 18%, rgba(255,255,255,0.8) 1px, transparent 3px), radial-gradient(circle at 78% 14%, rgba(250,232,255,0.9) 1.5px, transparent 4px), radial-gradient(circle at 88% 44%, rgba(255,255,255,0.7) 1px, transparent 3px), radial-gradient(circle at 18% 58%, rgba(233,213,255,1) 1.5px, transparent 4px), radial-gradient(circle at 6% 40%, rgba(255,255,255,0.6) 1px, transparent 3px), radial-gradient(circle at 68% 6%, rgba(250,232,255,0.8) 1px, transparent 3px)
+		mix-blend-mode: screen
+		filter: blur(75px)
+
+// theme-rose-pine-dark -> Midnight Rose (nebula-midnight-rose)
+.theme-rose-pine-dark[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-rose-pine-dark"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: radial-gradient(ellipse 42% 48% at 35% 40%, rgba(159,18,57,0.85) 0%, transparent 65%)
+		mix-blend-mode: screen
+		filter: blur(138px)
+	.aura-layer-2
+		background: radial-gradient(ellipse 38% 42% at 70% 50%, rgba(190,18,60,0.7) 0%, transparent 60%)
+		mix-blend-mode: screen
+		filter: blur(125px)
+	.aura-layer-3
+		background: radial-gradient(ellipse 28% 32% at 55% 75%, rgba(219,39,119,0.5) 0%, transparent 55%)
+		mix-blend-mode: screen
+		filter: blur(113px)
+	.aura-layer-4
+		background: radial-gradient(ellipse 18% 20% at 20% 25%, rgba(244,114,182,0.3) 0%, transparent 50%)
+		mix-blend-mode: screen
+		filter: blur(88px)
+
+// theme-midnight-emerald-dark -> Emerald Lens (glass-emerald-lens)
+.theme-midnight-emerald-dark[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-midnight-emerald-dark"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: linear-gradient(135deg, rgba(2,44,34,0.95) 0%, rgba(6,78,59,0.7) 50%, rgba(4,120,87,0.5) 100%)
+		mix-blend-mode: normal
+		filter: blur(75px)
+	.aura-layer-2
+		background: radial-gradient(circle at 40% 30%, rgba(16,185,129,0.5) 0%, transparent 40%)
+		mix-blend-mode: screen
+		filter: blur(138px)
+	.aura-layer-3
+		background: radial-gradient(circle at 60% 70%, rgba(52,211,153,0.35) 0%, transparent 35%)
+		mix-blend-mode: screen
+		filter: blur(125px)
+	.aura-layer-4
+		background: linear-gradient(45deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.02) 100%)
+		mix-blend-mode: overlay
+		filter: blur(25px)
+
+// theme-obsidian-crimson-dark -> Blood Aurora (blood-aurora)
+.theme-obsidian-crimson-dark[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-obsidian-crimson-dark"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: linear-gradient(154deg, transparent 18%, rgba(60,10,10,0.06) 29%, rgba(255,40,0,0.40) 36%, rgb(255,255,255) 42%, rgba(207,60,20,0.32) 48%, rgba(158,20,10,0.22) 55%, rgba(255,90,0,0.30) 62%, rgba(60,15,10,0.08) 68%, transparent 82%)
+		mix-blend-mode: screen
+		filter: blur(85px)
+	.aura-layer-2
+		background: linear-gradient(128deg, transparent 28%, rgba(80,10,20,0.06) 38%, rgba(255,80,0,0.35) 43%, rgb(255,255,255) 48%, rgba(200,60,30,0.22) 52%, rgba(255,40,0,0.25) 57%, rgba(90,20,10,0.10) 62%, transparent 76%)
+		mix-blend-mode: screen
+		filter: blur(75px)
+		opacity: 0.9
+	.aura-layer-3
+		background: radial-gradient(ellipse 78% 20% at 51% 53%, rgba(200,50,20,0.24) 0%, rgba(100,20,10,0.10) 45%, transparent 82%)
+		mix-blend-mode: screen
+		filter: blur(70px)
+		opacity: 0.9
+	.aura-layer-4
+		background: radial-gradient(ellipse 48% 9% at 52% 50%, rgba(255,220,190,0.14) 0%, rgba(200,80,50,0.06) 45%, transparent 80%)
+		mix-blend-mode: screen
+		filter: blur(175px)
+	.aura-layer-5
+		background: linear-gradient(to top, rgba(5,1,1,0.90) 0%, rgba(5,1,1,0.58) 28%, rgba(5,1,1,0.20) 55%, transparent 78%)
+		mix-blend-mode: multiply
+		filter: blur(80px)
+		opacity: 0.9
+	.aura-layer-6
+		background: radial-gradient(ellipse 50% 28% at 72% 18%, rgba(150,90,20,0.10) 0%, rgba(100,60,10,0.04) 45%, transparent 82%)
+		mix-blend-mode: screen
+		filter: blur(138px)
+		opacity: 0.7
+
+// theme-synthwave-dark -> Neon Tokyo (mesh-neon-tokyo)
+.theme-synthwave-dark[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-synthwave-dark"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: radial-gradient(circle at 15% 20%, rgba(255,0,128,0.7) 0%, transparent 50%)
+		mix-blend-mode: screen
+		filter: blur(200px)
+	.aura-layer-2
+		background: radial-gradient(circle at 85% 15%, rgba(0,255,255,0.6) 0%, transparent 45%)
+		mix-blend-mode: screen
+		filter: blur(175px)
+	.aura-layer-3
+		background: radial-gradient(circle at 50% 80%, rgba(255,255,0,0.4) 0%, transparent 55%)
+		mix-blend-mode: screen
+		filter: blur(200px)
+	.aura-layer-4
+		background: radial-gradient(circle at 70% 50%, rgba(255,0,255,0.3) 0%, transparent 40%)
+		mix-blend-mode: overlay
+		filter: blur(150px)
+
+// theme-deep-ocean-dark -> Deep Current (deep-current)
+.theme-deep-ocean-dark[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-deep-ocean-dark"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: linear-gradient(90deg, transparent 0%, rgba(16,58,58,0.12) 24%, rgba(24,105,103,0.34) 52%, rgba(18,74,73,0.18) 72%, transparent 100%)
+		mix-blend-mode: screen
+		filter: blur(163px)
+	.aura-layer-2
+		background: radial-gradient(70% 28% at 54% 62%, rgba(34,124,120,0.28) 0%, rgba(20,68,67,0.13) 48%, transparent 82%)
+		mix-blend-mode: screen
+		filter: blur(120px)
+		opacity: 0.9
+	.aura-layer-3
+		background: linear-gradient(90deg, transparent 30%, rgba(75,158,153,0.08) 52%, transparent 72%)
+		mix-blend-mode: overlay
+		filter: blur(60px)
+		opacity: 0.7
+
+// theme-amethyst-void-dark -> Starlit Abyss (starlit-abyss)
+.theme-amethyst-void-dark[data-bg-style="aura"] .aura-ambient,
+[data-theme="theme-amethyst-void-dark"][data-bg-style="aura"] .aura-ambient
+	.aura-layer-1
+		background: linear-gradient(180deg, #06060c 0%, rgba(30,27,75,0.5) 50%, rgba(49,46,129,0.6) 100%)
+		mix-blend-mode: normal
+		filter: blur(75px)
+	.aura-layer-2
+		background: radial-gradient(ellipse at 50% 115%, rgba(79,70,229,0.55) 0%, rgba(49,46,129,0.15) 60%, transparent 80%)
+		mix-blend-mode: screen
+		filter: blur(200px)
+	.aura-layer-3
+		background: radial-gradient(circle at 15% 20%, rgba(56,189,248,0.15) 0%, transparent 40%)
+		mix-blend-mode: screen
+		filter: blur(200px)
+	.aura-layer-4
+		background: radial-gradient(circle at 10% 15%, rgba(255,255,255,0.8) 1px, transparent 3px), radial-gradient(circle at 82% 10%, rgba(199,210,254,0.9) 1.5px, transparent 4px), radial-gradient(circle at 90% 48%, rgba(255,255,255,0.7) 1px, transparent 3px), radial-gradient(circle at 22% 62%, rgba(224,231,255,1) 1.5px, transparent 4px), radial-gradient(circle at 5% 45%, rgba(255,255,255,0.6) 1px, transparent 3px), radial-gradient(circle at 65% 8%, rgba(199,210,254,0.8) 1px, transparent 3px)
+		mix-blend-mode: screen
+		filter: blur(75px)
+

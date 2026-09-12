@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Theme Studio</title>
+<style>
+:root{
+  --ground:#161719; --surface:#1e2023; --sunk:#101113; --rule:#2d2f33;
+  --ink:#e9eaec; --ink-2:#b4b7bb; --muted:#8b8e93; --signal:#e4703a;
+  --ok:#6fbf73; --bad:#e2685f;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--ground);color:var(--ink);font:14px/1.5 var(--sans);overflow:hidden}
+button,input,select,textarea{font:inherit;color:inherit}
+
+/* top bar */
+.bar{display:flex;align-items:center;gap:14px;padding:10px 16px;background:var(--sunk);
+     border-bottom:1px solid var(--rule);height:52px}
+.bar h1{font-size:14px;margin:0;font-weight:600;letter-spacing:.02em;white-space:nowrap}
+.bar h1 span{color:var(--muted);font-weight:400}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--signal);opacity:0;transition:opacity .2s}
+.dot.on{opacity:1}
+.grow{flex:1}
+.msg{font-family:var(--mono);font-size:11.5px;color:var(--muted);white-space:nowrap;
+     overflow:hidden;text-overflow:ellipsis;max-width:46ch}
+.msg.ok{color:var(--ok)} .msg.bad{color:var(--bad)} .msg.busy{color:var(--signal)}
+.btn{appearance:none;background:transparent;border:1px solid var(--rule);border-radius:3px;
+     padding:7px 12px;cursor:pointer;font-family:var(--mono);font-size:11px;letter-spacing:.06em;
+     text-transform:uppercase;color:var(--ink-2)}
+.btn:hover:not(:disabled){color:var(--ink);border-color:var(--muted)}
+.btn:disabled{opacity:.4;cursor:default}
+.btn.primary{background:var(--signal);border-color:var(--signal);color:#fff}
+.btn.primary:hover:not(:disabled){filter:brightness(1.1)}
+select.bump{background:var(--sunk);border:1px solid var(--rule);border-radius:3px;padding:6px 8px;
+     font-family:var(--mono);font-size:11px;color:var(--ink-2)}
+
+/* shell */
+.shell{display:grid;grid-template-columns:250px 1fr;height:calc(100% - 52px)}
+aside{background:var(--sunk);border-right:1px solid var(--rule);overflow-y:auto;padding-bottom:12px}
+.fam{padding:14px 14px 4px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+     text-transform:uppercase;color:var(--signal)}
+.item{display:flex;align-items:center;gap:9px;padding:7px 14px;cursor:pointer;border-left:2px solid transparent}
+.item:hover{background:#00000030}
+.item.on{background:var(--surface);border-left-color:var(--signal)}
+.item .nm{flex:1;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pair{display:flex;gap:2px}
+.pair i{width:11px;height:11px;border-radius:2px;border:1px solid #ffffff22;display:block}
+.side-acts{display:flex;gap:6px;padding:12px 14px;border-top:1px solid var(--rule);margin-top:10px}
+.side-acts .btn{flex:1;padding:6px 4px;font-size:10px;letter-spacing:.04em}
+
+main{overflow-y:auto;padding:22px 26px 60px}
+.head{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start;margin-bottom:20px}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.field input,.field select,.field textarea{
+  background:var(--sunk);border:1px solid var(--rule);border-radius:3px;padding:7px 9px;font-size:13px}
+.field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--signal)}
+#f-name{width:210px;font-weight:600}
+#f-tag{width:180px}
+#f-thesis{flex:1;min-width:320px;resize:vertical;min-height:62px;font:13px/1.45 var(--sans)}
+.head .field:nth-child(4){flex:1}
+
+h2.sec{font-size:11px;font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;
+       color:var(--muted);margin:26px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--rule)}
+
+/* previews */
+.panes{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:1180px){.panes{grid-template-columns:1fr}}
+.pane-lbl{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:7px}
+.pane-lbl .t{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+.cr{font-family:var(--mono);font-size:10.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.cr b{color:var(--ink);font-weight:500}
+.cr .aa{color:var(--ok)} .cr .no{color:var(--bad)}
+
+.mock{font-family:var(--mono);font-size:11.6px;line-height:1.7;display:flex;border:1px solid var(--rule);border-radius:3px;overflow:hidden}
+.mock .rail{width:96px;flex:0 0 96px;background:var(--m-side-bg);border-right:1px solid var(--m-side-border);padding:8px 0}
+.mock .rail .ttl{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--m-side-title);padding:2px 10px 7px}
+.mock .rail button{display:block;width:100%;text-align:left;background:none;border:0;padding:3px 10px;
+  color:var(--m-side-fg);opacity:.78;font-family:var(--mono);font-size:10.5px;cursor:pointer}
+.mock .rail button:hover{opacity:1}
+.mock .rail button.on{background:var(--m-row-bg);color:var(--m-row-fg);opacity:1}
+.mock .main{flex:1;min-width:0;background:var(--m-bg);display:flex;flex-direction:column}
+.tabs{display:flex;background:var(--m-tab-strip);border-bottom:1px solid var(--m-tab-border)}
+.tabs button{padding:6px 12px;font-family:var(--mono);font-size:10.5px;border:0;cursor:pointer;
+  background:var(--m-tab-ibg);color:var(--m-tab-ifg);border-right:1px solid var(--m-tab-border)}
+.tabs button.on{background:var(--m-tab-abg);color:var(--m-tab-afg);box-shadow:inset 0 2px 0 var(--m-tab-top)}
+.code{display:flex;overflow-x:auto;padding:9px 0}
+.gut{flex:0 0 auto;white-space:pre;padding:0 11px 0 13px;text-align:right;color:var(--m-gutter);
+     user-select:none;font-variant-numeric:tabular-nums}
+.gut b{color:var(--m-gutter-on);font-weight:400}
+.src{flex:1;padding-right:14px;white-space:pre;color:var(--m-fg);min-width:0}
+.status{display:flex;justify-content:space-between;padding:4px 12px;background:var(--m-status-bg);
+        border-top:1px solid var(--m-tab-border);font-size:10px;color:var(--m-status-fg)}
+.status .nm{color:var(--m-accent);font-weight:500}
+.c{color:var(--m-comment);font-style:italic}
+.k{color:var(--m-key)}.s{color:var(--m-str)}.n{color:var(--m-num)}
+.f{color:var(--m-fn)}.t{color:var(--m-type)}.p{color:var(--m-prop)}
+.o{color:var(--m-op)}.x{color:var(--m-punct)}.a{color:var(--m-accent)}
+.selx{background:var(--m-sel)}
+.cur{border-left:1.5px solid var(--m-accent);margin-left:-1.5px}
+
+/* role grid */
+table.roles{width:100%;border-collapse:collapse}
+table.roles th{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);text-align:left;padding:0 10px 8px;font-weight:400}
+table.roles td{padding:3px 10px;border-top:1px solid #ffffff0d}
+td.rl{font-family:var(--mono);font-size:11.5px;color:var(--ink-2);width:120px}
+td.rl small{display:block;color:var(--muted);font-size:10px;font-family:var(--sans);letter-spacing:0}
+.cc{display:flex;align-items:center;gap:8px}
+.cc input[type=color]{-webkit-appearance:none;appearance:none;width:34px;height:26px;padding:0;
+  border:1px solid var(--rule);border-radius:3px;background:none;cursor:pointer}
+.cc input[type=color]::-webkit-color-swatch-wrapper{padding:2px}
+.cc input[type=color]::-webkit-color-swatch{border:none;border-radius:2px}
+.cc input[type=text]{width:96px;background:var(--sunk);border:1px solid var(--rule);border-radius:3px;
+  padding:5px 7px;font-family:var(--mono);font-size:11.5px;text-transform:uppercase}
+.cc input[type=text].bad{border-color:var(--bad)}
+.cc .ctr{font-family:var(--mono);font-size:10px;color:var(--muted);font-variant-numeric:tabular-nums;min-width:52px}
+
+/* workbench overrides */
+.wbgrp{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--signal);padding:16px 10px 6px}
+td.rl code{font-family:var(--mono);font-size:9.5px;color:var(--muted);display:block;letter-spacing:0}
+.cc input[type=text].inherit{color:var(--muted);font-style:italic;opacity:.75}
+.rst{appearance:none;background:none;border:0;color:var(--muted);cursor:pointer;font-size:15px;
+  line-height:1;padding:0 4px;visibility:hidden}
+.rst:hover{color:var(--signal)}
+.rst.on{visibility:visible}
+.hint{color:var(--muted);font-size:12px;margin:-4px 0 14px}
+details.sem{margin-top:26px;border:1px solid var(--rule);border-radius:3px;background:var(--sunk)}
+details.sem summary{cursor:pointer;padding:11px 14px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+details.sem .body{padding:4px 14px 16px}
+details.sem p{color:var(--muted);font-size:12.5px;margin:0 0 12px;max-width:78ch}
+.empty{color:var(--muted);padding:40px 0;text-align:center}
+</style>
+</head>
+<body>
+<div class="bar">
+  <h1>Theme Studio <span id="count"></span></h1>
+  <span class="dot" id="dirty" title="unsaved changes"></span>
+  <span class="grow"></span>
+  <span class="msg" id="msg"></span>
+  <button class="btn" id="save">Save</button>
+  <button class="btn" id="build">Build</button>
+  <select class="bump" id="bump" title="version bump before packaging">
+    <option value="">no bump</option><option value="patch">patch</option>
+    <option value="minor">minor</option><option value="major">major</option>
+  </select>
+  <button class="btn primary" id="pack">Package .vsix</button>
+</div>
+
+<div class="shell">
+  <aside id="side"></aside>
+  <main id="main"><div class="empty">loading…</div></main>
+</div>
+
+<script>
+const SAMPLES = {
+ 'palette.ts': { active: 13, lines: [
+ '<span class="c">// token colours resolve against the active scope</span>','',
+ '<span class="k">import</span> <span class="x">{</span> <span class="f">defineTheme</span> <span class="x">}</span> <span class="k">from</span> <span class="s">"./palette"</span><span class="x">;</span>','',
+ '<span class="k">const</span> <span class="n">CONTRAST_MIN</span> <span class="o">=</span> <span class="n">4.5</span><span class="x">;</span>','',
+ '<span class="k">export</span> <span class="k">interface</span> <span class="t">Swatch</span> <span class="x">{</span>',
+ '  <span class="p">scope</span><span class="x">:</span> <span class="t">string</span><span class="x">;</span>',
+ '  <span class="p">hex</span><span class="x">:</span> <span class="t">string</span><span class="x">;</span>',
+ '<span class="x">}</span>','',
+ '<span class="k">export</span> <span class="k">function</span> <span class="f">resolve</span><span class="x">(</span><span class="p">list</span><span class="x">:</span> <span class="t">Swatch</span><span class="x">[],</span> <span class="p">scope</span><span class="x">:</span> <span class="t">string</span><span class="x">)</span> <span class="x">{</span>',
+ '  <span class="k">const</span> <span class="p">hit</span> <span class="o">=</span> <span class="p">list</span><span class="x">.</span><span class="f">find</span><span class="x">((</span><span class="p">s</span><span class="x">)</span> <span class="o">=&gt;</span> <span class="p">s</span><span class="x">.</span><span class="p">scope</span> <span class="o">===</span> <span class="selx">scope</span><span class="cur"></span><span class="x">);</span>',
+ '  <span class="k">if</span> <span class="x">(</span><span class="o">!</span><span class="p">hit</span><span class="x">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="t">Error</span><span class="x">(</span><span class="s">`no swatch for ${scope}`</span><span class="x">);</span>',
+ '  <span class="k">return</span> <span class="x">{</span> <span class="p">hex</span><span class="x">:</span> <span class="p">hit</span><span class="x">.</span><span class="p">hex</span><span class="x">,</span> <span class="p">ratio</span><span class="x">:</span> <span class="n">CONTRAST_MIN</span> <span class="x">};</span>',
+ '<span class="x">}</span>'] },
+
+ 'theme.json': { active: 6, lines: [
+ '<span class="x">{</span>',
+ '  <span class="p">"name"</span><span class="x">:</span> <span class="s">"Daylight Bone"</span><span class="x">,</span>',
+ '  <span class="p">"type"</span><span class="x">:</span> <span class="s">"light"</span><span class="x">,</span>',
+ '  <span class="p">"semanticHighlighting"</span><span class="x">:</span> <span class="n">true</span><span class="x">,</span>',
+ '  <span class="p">"colors"</span><span class="x">:</span> <span class="x">{</span>',
+ '    <span class="p">"editor.background"</span><span class="x">:</span> <span class="s">"#FCFCFC"</span><span class="x">,</span>',
+ '    <span class="p">"editorCursor.foreground"</span><span class="x">:</span> <span class="s">"#FF9940"</span><span class="x">,</span>',
+ '    <span class="p">"sideBar.background"</span><span class="x">:</span> <span class="s">"#F3F4F5"</span>',
+ '  <span class="x">},</span>',
+ '  <span class="p">"tokenColors"</span><span class="x">:</span> <span class="x">[</span>',
+ '    <span class="x">{</span>',
+ '      <span class="p">"scope"</span><span class="x">:</span> <span class="x">[</span><span class="s">"comment"</span><span class="x">],</span>',
+ '      <span class="p">"settings"</span><span class="x">:</span> <span class="x">{</span> <span class="p">"fontStyle"</span><span class="x">:</span> <span class="s">"italic"</span> <span class="x">}</span>',
+ '    <span class="x">}</span>',
+ '  <span class="x">]</span>',
+ '<span class="x">}</span>'] },
+
+ 'tokens.css': { active: 9, lines: [
+ '<span class="c">/* surfaces derive from two neutrals */</span>',
+ '<span class="t">:root</span> <span class="x">{</span>',
+ '  <span class="p">--ground</span><span class="x">:</span> <span class="n">#fcfcfc</span><span class="x">;</span>',
+ '  <span class="p">--ink</span><span class="x">:</span> <span class="n">#5c6166</span><span class="x">;</span>',
+ '  <span class="p">--accent</span><span class="x">:</span> <span class="n">#ff9940</span><span class="x">;</span>',
+ '<span class="x">}</span>','',
+ '<span class="t">.editor__gutter</span> <span class="x">{</span>',
+ '  <span class="p">color</span><span class="x">:</span> <span class="f">var</span><span class="x">(</span><span class="p">--ink</span><span class="x">);</span>',
+ '  <span class="p">font-variant-numeric</span><span class="x">:</span> <span class="s">tabular-nums</span><span class="x">;</span>',
+ '  <span class="p">padding</span><span class="x">:</span> <span class="n">0</span> <span class="n">12px</span> <span class="n">0</span> <span class="n">14px</span><span class="x">;</span>',
+ '<span class="x">}</span>','',
+ '<span class="k">@media</span> <span class="x">(</span><span class="p">prefers-color-scheme</span><span class="x">:</span> <span class="s">dark</span><span class="x">)</span> <span class="x">{</span>',
+ '  <span class="t">:root</span> <span class="x">{</span> <span class="p">--ground</span><span class="x">:</span> <span class="n">#16181a</span><span class="x">;</span> <span class="x">}</span>',
+ '<span class="x">}</span>'] },
+
+ 'README.md': { active: 1, lines: [
+ '<span class="t"><b># Daylight Bone</b></span>','',
+ 'Warm near-white, foreground held short of black.',
+ 'Chrome barely separates from the page.','',
+ '<span class="t"><b>## Roles</b></span>','',
+ '<span class="x">-</span> <span class="s">`editor.background`</span> is the page itself',
+ '<span class="x">-</span> <span class="k"><b>**accent**</b></span> carries cursor and keyword',
+ '<span class="x">-</span> <span class="c"><i>*comments*</i></span> recede almost to the paper','',
+ '<span class="x">[</span><span class="a">contrast notes</span><span class="x">](</span><span class="s">./README.md#contrast</span><span class="x">)</span>','',
+ '<span class="c">&gt; A red squiggle that reads as ink is one you miss.</span>'] }
+};
+const FILES = Object.keys(SAMPLES);
+let file = FILES[0];
+
+const ROLE_NOTE = {
+  bg:'editor.background', alt:'sidebar, tabs, status bar', border:'hairlines between surfaces',
+  sel:'selection + active row', fg:'body text', comment:'comments (italic)',
+  punct:'brackets, line numbers', op:'operators', key:'keywords, storage',
+  str:'strings', num:'numbers, constants', fn:'function names',
+  type:'types, classes, tags', prop:'variables, properties', accent:'cursor, active tab, badges'
+};
+const SEM_NOTE = { err:'errors', warn:'warnings', ok:'success / untracked', info:'info',
+                   add:'git added', mod:'git modified', delete:'git deleted' };
+
+let DOC=null, SCHEMA={ui:[]}, cur=0, dirty=false, busy=false;
+
+/* ---------- colour maths ---------- */
+const lum = h => { const v=[1,3,5].map(i=>{const c=parseInt(h.slice(i,i+2),16)/255;
+  return c<=0.03928?c/12.92:Math.pow((c+0.055)/1.055,2.4);});
+  return .2126*v[0]+.7152*v[1]+.0722*v[2]; };
+const ratio = (a,b)=>{const l1=lum(a),l2=lum(b);const hi=Math.max(l1,l2),lo=Math.min(l1,l2);
+  return (hi+.05)/(lo+.05);};
+const ok6 = v => /^#[0-9a-fA-F]{6}$/.test(v);
+
+/* ---------- chrome ---------- */
+function say(text, cls){ const m=document.getElementById('msg'); m.textContent=text; m.className='msg '+(cls||''); }
+function setDirty(v){ dirty=v; document.getElementById('dirty').classList.toggle('on',v); }
+function lock(v){ busy=v; ['save','build','pack'].forEach(id=>document.getElementById(id).disabled=v); }
+
+async function api(path, body){
+  lock(true);
+  try{
+    const r = await fetch(path, body===undefined ? {} :
+      {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    return await r.json();
+  } catch(e){ return {ok:false,error:String(e)}; }
+  finally{ lock(false); }
+}
+
+/* ---------- sidebar ---------- */
+function sidebar(){
+  const byFam = {};
+  DOC.themes.forEach((t,i)=>{ (byFam[t.family] ||= []).push(i); });
+  let html='';
+  for(const [fid,fam] of Object.entries(DOC.families)){
+    const idx = byFam[fid]||[];
+    if(!idx.length) continue;
+    html += `<div class="fam">${fam.label} · ${idx.length}</div>`;
+    html += idx.map(i=>{
+      const t=DOC.themes[i];
+      return `<div class="item ${i===cur?'on':''}" data-i="${i}">
+        <span class="pair"><i style="background:${t.light.bg}"></i><i style="background:${t.dark.bg}"></i>
+        <i style="background:${t.light.accent}"></i></span>
+        <span class="nm">${esc(t.name)}</span></div>`;
+    }).join('');
+  }
+  html += `<div class="side-acts">
+     <button class="btn" id="new">New</button>
+     <button class="btn" id="dup">Duplicate</button>
+     <button class="btn" id="del">Delete</button></div>`;
+  const side=document.getElementById('side');
+  side.innerHTML=html;
+  side.querySelectorAll('.item').forEach(el=>el.onclick=()=>{cur=+el.dataset.i;render();});
+  document.getElementById('new').onclick=newPair;
+  document.getElementById('dup').onclick=duplicate;
+  document.getElementById('del').onclick=remove;
+  document.getElementById('count').textContent =
+    `— ${DOC.themes.length} pairs, ${DOC.themes.length*2} themes`;
+}
+const esc = s => String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------- preview ---------- */
+const eff = (p,key,fb) => (p.ui||{})[key] || p[fb];
+
+function mock(p,name){
+  const v = {
+    'bg':p.bg,'fg':p.fg,'comment':p.comment,'key':p.key,'str':p.str,'fn':p.fn,'num':p.num,
+    'type':p.type,'op':p.op,'prop':p.prop,'punct':p.punct,'accent':p.accent,'sel':p.sel,
+    'side-bg':eff(p,'sidebar.bg','alt'), 'side-fg':eff(p,'sidebar.fg','fg'),
+    'side-border':eff(p,'sidebar.border','border'), 'side-title':eff(p,'sidebar.title','punct'),
+    'row-bg':eff(p,'list.activeBg','sel'), 'row-fg':eff(p,'list.activeFg','fg'),
+    'tab-strip':eff(p,'tab.stripBg','alt'), 'tab-abg':eff(p,'tab.activeBg','bg'),
+    'tab-afg':eff(p,'tab.activeFg','fg'), 'tab-ibg':eff(p,'tab.inactiveBg','alt'),
+    'tab-ifg':eff(p,'tab.inactiveFg','punct'), 'tab-border':eff(p,'tab.border','border'),
+    'tab-top':eff(p,'tab.activeTop','accent'),
+    'status-bg':eff(p,'statusBar.bg','alt'), 'status-fg':eff(p,'statusBar.fg','op'),
+    'gutter':eff(p,'gutter.fg','punct'), 'gutter-on':eff(p,'gutter.activeFg','accent')
+  };
+  const vars = Object.entries(v).map(([k,c])=>`--m-${k}:${c}`).join(';');
+  const sample = SAMPLES[file];
+  const gut = sample.lines.map((_,i)=>
+    i+1===sample.active ? `<b>${i+1}</b>` : String(i+1)).join('\n');
+  const lang = file.split('.').pop().toUpperCase();
+  return `<div class="mock" style="${vars}">
+    <div class="rail"><div class="ttl">Explorer</div>
+      ${FILES.map(f=>`<button data-file="${f}" class="${f===file?'on':''}">${f}</button>`).join('')}</div>
+    <div class="main">
+      <div class="tabs">${FILES.slice(0,2).map(f=>
+        `<button data-file="${f}" class="${f===file?'on':''}">${f}</button>`).join('')}</div>
+      <div class="code"><div class="gut">${gut}</div><div class="src">${sample.lines.join('\n')}</div></div>
+      <div class="status"><span class="nm">${esc(name)}</span><span>Ln ${sample.active} · ${lang}</span></div>
+    </div></div>`;
+}
+
+function crLine(p){
+  const f=ratio(p.bg,p.fg), c=ratio(p.bg,p.comment), s=ratio(p.bg,p.str);
+  const tag = f>=7 ? '<span class="aa">AAA</span>' : f>=4.5 ? '<span class="aa">AA</span>' : '<span class="no">under AA</span>';
+  return `fg <b>${f.toFixed(2)}</b> ${tag} · comment <b>${c.toFixed(2)}</b> · string <b>${s.toFixed(2)}</b>`;
+}
+
+function paint(){
+  const t=DOC.themes[cur];
+  for(const [kind,prefix] of [['light',DOC.meta.lightPrefix],['dark',DOC.meta.darkPrefix]]){
+    document.getElementById('mock-'+kind).innerHTML = mock(t[kind], prefix+' '+t.name);
+    document.getElementById('cr-'+kind).innerHTML = crLine(t[kind]);
+  }
+  document.querySelectorAll('[data-file]').forEach(b=>b.onclick=()=>{ file=b.dataset.file; paint(); });
+  document.querySelectorAll('[data-ctr]').forEach(el=>{
+    const [kind,role]=el.dataset.ctr.split('|');
+    const p=DOC.themes[cur][kind];
+    el.textContent = role==='bg' ? '' : ratio(p.bg,p[role]).toFixed(2)+':1';
+  });
+  sidebar();
+}
+
+/* ---------- editor ---------- */
+function colourCell(kind, role, container){
+  const t=DOC.themes[cur];
+  return `<div class="cc">
+     <input type="color" value="${t[kind][role]}" data-k="${kind}" data-r="${role}" data-w="${container}">
+     <input type="text" value="${t[kind][role]}" data-k="${kind}" data-r="${role}" data-w="${container}" spellcheck="false">
+     ${container==='role'?`<span class="ctr" data-ctr="${kind}|${role}"></span>`:''}
+   </div>`;
+}
+
+function wbCell(kind, key, from){
+  const t = DOC.themes[cur];
+  const over = (t[kind].ui||{})[key];
+  const val = over || t[kind][from];
+  return `<div class="cc">
+     <input type="color" value="${val}" data-ui="${kind}|${key}|${from}">
+     <input type="text" value="${val}" data-ui="${kind}|${key}|${from}" spellcheck="false"
+            class="${over?'':'inherit'}" title="${over?'overridden':'inherited from '+from}">
+     <button class="rst ${over?'on':''}" data-rst="${kind}|${key}" title="restore inheritance">&times;</button>
+   </div>`;
+}
+
+function wbRows(){
+  let html='', group='';
+  for(const u of SCHEMA.ui){
+    if(u.group!==group){
+      group=u.group;
+      html += `<tr><td colspan="3" class="wbgrp">${esc(group)}</td></tr>`;
+    }
+    html += `<tr><td class="rl">${esc(u.label)}<code>${esc(u.key)}</code></td>
+      <td>${wbCell('light',u.key,u.from)}</td><td>${wbCell('dark',u.key,u.from)}</td></tr>`;
+  }
+  return html;
+}
+
+function render(){
+  if(!DOC.themes.length){ document.getElementById('main').innerHTML='<div class="empty">No themes. Add one.</div>'; sidebar(); return; }
+  cur = Math.min(cur, DOC.themes.length-1);
+  const t = DOC.themes[cur];
+  const fam = DOC.families[t.family];
+
+  const famOpts = Object.entries(DOC.families)
+    .map(([id,f])=>`<option value="${id}" ${id===t.family?'selected':''}>${esc(f.label)}</option>`).join('');
+
+  const rows = DOC.roles.map(r=>`<tr>
+      <td class="rl">${r}<small>${ROLE_NOTE[r]||''}</small></td>
+      <td>${colourCell('light',r,'role')}</td>
+      <td>${colourCell('dark',r,'role')}</td>
+    </tr>`).join('');
+
+  const semRows = Object.keys(fam.semantic.light).map(k=>`<tr>
+      <td class="rl">${k}<small>${SEM_NOTE[k]||''}</small></td>
+      <td><div class="cc">
+        <input type="color" value="${fam.semantic.light[k]}" data-sk="light" data-r="${k}">
+        <input type="text" value="${fam.semantic.light[k]}" data-sk="light" data-r="${k}" spellcheck="false"></div></td>
+      <td><div class="cc">
+        <input type="color" value="${fam.semantic.dark[k]}" data-sk="dark" data-r="${k}">
+        <input type="text" value="${fam.semantic.dark[k]}" data-sk="dark" data-r="${k}" spellcheck="false"></div></td>
+    </tr>`).join('');
+
+  document.getElementById('main').innerHTML = `
+   <div class="head">
+     <div class="field"><label>Name</label><input id="f-name" value="${esc(t.name)}"></div>
+     <div class="field"><label>Family</label><select id="f-fam">${famOpts}</select></div>
+     <div class="field"><label>Tag</label><input id="f-tag" value="${esc(t.tag||'')}"></div>
+     <div class="field"><label>Thesis</label><textarea id="f-thesis">${esc(t.thesis||'')}</textarea></div>
+   </div>
+
+   <div class="panes">
+     <div><div class="pane-lbl"><span class="t">${esc(DOC.meta.lightPrefix)}</span><span class="cr" id="cr-light"></span></div>
+       <div id="mock-light"></div></div>
+     <div><div class="pane-lbl"><span class="t">${esc(DOC.meta.darkPrefix)}</span><span class="cr" id="cr-dark"></span></div>
+       <div id="mock-dark"></div></div>
+   </div>
+
+   <h2 class="sec">Palette — contrast shown against each mode's own background</h2>
+   <table class="roles"><thead><tr><th>role</th><th>${esc(DOC.meta.lightPrefix)}</th><th>${esc(DOC.meta.darkPrefix)}</th></tr></thead>
+     <tbody>${rows}</tbody></table>
+
+   <h2 class="sec">Workbench — inherited from the palette unless overridden</h2>
+   <p class="hint">Each surface shows the value it derives from the core palette. Type a colour to
+      pin it; the × restores inheritance so it keeps tracking the palette.</p>
+   <table class="roles"><thead><tr><th>surface</th><th>${esc(DOC.meta.lightPrefix)}</th><th>${esc(DOC.meta.darkPrefix)}</th></tr></thead>
+     <tbody>${wbRows()}</tbody></table>
+
+   <details class="sem"><summary>Diagnostics for the ${esc(fam.label)} family — shared by every theme in it</summary>
+     <div class="body">
+       <p>Errors, warnings and git status stay hued even in the monochrome families: a red squiggle
+          that reads as ink is one you miss. Editing these changes every ${esc(fam.label)} theme.</p>
+       <table class="roles"><thead><tr><th>role</th><th>${esc(DOC.meta.lightPrefix)}</th><th>${esc(DOC.meta.darkPrefix)}</th></tr></thead>
+       <tbody>${semRows}</tbody></table>
+     </div></details>`;
+
+  // text fields
+  const bindText=(id,fn)=>{const el=document.getElementById(id);el.oninput=()=>{fn(el.value);setDirty(true);};};
+  bindText('f-name', v=>{ DOC.themes[cur].name=v; sidebar(); paint(); });
+  bindText('f-tag',  v=>{ DOC.themes[cur].tag=v; });
+  bindText('f-thesis',v=>{ DOC.themes[cur].thesis=v; });
+  document.getElementById('f-fam').onchange=e=>{ DOC.themes[cur].family=e.target.value; setDirty(true); render(); };
+
+  // colour inputs
+  document.querySelectorAll('input[data-r]').forEach(el=>{
+    el.addEventListener('input',()=>{
+      let v=el.value.trim();
+      if(el.type==='text'){
+        if(!v.startsWith('#')) v='#'+v;
+        if(!ok6(v)){ el.classList.add('bad'); return; }
+        el.classList.remove('bad');
+      }
+      v=v.toUpperCase();
+      const role=el.dataset.r;
+      if(el.dataset.sk) DOC.families[DOC.themes[cur].family].semantic[el.dataset.sk][role]=v;
+      else DOC.themes[cur][el.dataset.k][role]=v;
+      // keep the sibling input in step without stealing focus
+      const box=el.parentElement;
+      box.querySelectorAll('input').forEach(o=>{ if(o!==el) o.value=v; });
+      setDirty(true);
+      if(!el.dataset.sk) paint();
+    });
+  });
+
+  document.querySelectorAll('input[data-ui]').forEach(el=>{
+    el.addEventListener('input',()=>{
+      let v=el.value.trim();
+      if(el.type==='text'){
+        if(!v.startsWith('#')) v='#'+v;
+        if(!ok6(v)){ el.classList.add('bad'); return; }
+        el.classList.remove('bad');
+      }
+      v=v.toUpperCase();
+      const [kind,key]=el.dataset.ui.split('|');
+      const p=DOC.themes[cur][kind];
+      (p.ui ||= {})[key]=v;
+      const box=el.parentElement;
+      box.querySelectorAll('input').forEach(o=>{ if(o!==el) o.value=v; });
+      box.querySelector('input[type=text]').classList.remove('inherit');
+      box.querySelector('.rst').classList.add('on');
+      setDirty(true); paint();
+    });
+  });
+  document.querySelectorAll('.rst').forEach(b=>{
+    b.onclick=()=>{
+      const [kind,key]=b.dataset.rst.split('|');
+      const p=DOC.themes[cur][kind];
+      if(p.ui){ delete p.ui[key]; if(!Object.keys(p.ui).length) delete p.ui; }
+      setDirty(true); render();
+    };
+  });
+
+  paint();
+}
+
+/* ---------- theme list actions ---------- */
+function uniqueName(base){
+  const taken=new Set(DOC.themes.map(t=>t.name));
+  if(!taken.has(base)) return base;
+  let n=2; while(taken.has(`${base} ${n}`)) n++; return `${base} ${n}`;
+}
+function duplicate(){
+  const t=structuredClone(DOC.themes[cur]);
+  t.name=uniqueName(t.name+' copy');
+  DOC.themes.splice(cur+1,0,t); cur++; setDirty(true); render();
+}
+function newPair(){
+  const t=structuredClone(DOC.themes[cur] || DOC.themes[0]);
+  t.name=uniqueName('Untitled'); t.tag='draft'; t.thesis='';
+  DOC.themes.splice(cur+1,0,t); cur++; setDirty(true); render();
+}
+function remove(){
+  const t=DOC.themes[cur];
+  if(!confirm(`Delete "${t.name}"? Its two theme files are removed on the next build.`)) return;
+  DOC.themes.splice(cur,1); cur=Math.max(0,cur-1); setDirty(true); render();
+}
+
+/* ---------- server actions ---------- */
+async function save(){
+  say('saving…','busy');
+  const r=await api('/api/save',DOC);
+  if(r.ok){ setDirty(false); say(r.message,'ok'); } else say(r.error||'save failed','bad');
+  return r.ok;
+}
+async function build(){
+  if(dirty && !await save()) return false;
+  say('building…','busy');
+  const r=await api('/api/build',{});
+  say(r.message||r.error||'build failed', r.ok?'ok':'bad');
+  return r.ok;
+}
+async function pack(){
+  if(dirty && !await save()) return;
+  const bump=document.getElementById('bump').value;
+  say('packaging… (vsce can take a moment)','busy');
+  const r=await api('/api/package', bump?{bump}:{});
+  if(r.ok){
+    const line=(r.message||'').split('\n').filter(Boolean).pop();
+    say(line||'packaged','ok');
+    document.getElementById('bump').value='';
+  } else say((r.message||r.error||'package failed').split('\n').pop(),'bad');
+}
+
+document.getElementById('save').onclick=save;
+document.getElementById('build').onclick=build;
+document.getElementById('pack').onclick=pack;
+addEventListener('keydown',e=>{
+  if((e.metaKey||e.ctrlKey)&&e.key==='s'){ e.preventDefault(); if(!busy) save(); }
+});
+addEventListener('beforeunload',e=>{ if(dirty){ e.preventDefault(); e.returnValue=''; } });
+
+Promise.all([fetch('/api/state').then(r=>r.json()), fetch('/api/schema').then(r=>r.json())])
+  .then(([d,sch])=>{ DOC=d; SCHEMA=sch; render(); say('ready'); })
+  .catch(e=>say('could not load: '+e,'bad'));
+</script>
+</body>
+</html>

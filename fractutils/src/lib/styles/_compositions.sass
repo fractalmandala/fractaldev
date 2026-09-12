@@ -1,0 +1,117 @@
+// ============================================================================
+// COMPOSITIONS — a finite grammar over the existing border/padding/gap utilities.
+// No CSS declarations here: selectors() adds aliases at each ORIGINAL rule.
+// This preserves source order, specificity, density scaling and component wins.
+// See PANINIAN-COMPOSITIONS.md for philosophy, grammar, config and used-only
+// delivery. _composition-guide.sass is the compact Sass-only reference.
+// ============================================================================
+
+@use 'sass:list'
+@use 'sass:map'
+@use 'sass:meta'
+@use 'sass:string'
+@use '01_config' as cfg
+@use 'style-vocabulary' as vocabulary
+
+$_short-steps: ('2xs': '2xs', 'xs': 'xs', 'sm': 's', 'md': 'md', 'bs': 'b', 'lg': 'l', 'xl': 'xl', '2xl': '2xl', '3xl': '3xl')
+$_border-prefixes: (border: 'b', border-top: 'bt', border-right: 'br', border-bottom: 'bb', border-left: 'bl')
+$_pad-prefixes: (pad: 'p', pad-x: 'px:', pad-y: 'py:', pad-top: 'pt:', pad-right: 'pr:', pad-bottom: 'pb:', pad-left: 'pl:')
+$_gap-prefixes: (gap: 'g', rgap: 'gr:', cgap: 'gc:')
+
+@if meta.type-of(cfg.$compositions-enabled) != 'bool' or meta.type-of(cfg.$composition-directions) != 'bool'
+	@error 'Composition enabled/directions flags must be booleans.'
+
+$_seen: ()
+@each $step in cfg.$composition-steps
+	@if not list.index(vocabulary.$steps, $step)
+		@error 'Unknown composition step "#{$step}". Use steps from #{vocabulary.$steps}.'
+	@if list.index($_seen, $step)
+		@error 'Duplicate composition step "#{$step}".'
+	$_seen: list.append($_seen, $step)
+
+// Unscoped terms use short measures (ps, gb); scoped terms use full measures
+// (px:sm, gr:bs). This keeps pxs = all-padding-xs unambiguous beside px:sm.
+@function -term($family, $step: null)
+	@if map.has-key($_border-prefixes, $family)
+		@return map.get($_border-prefixes, $family)
+	$prefix: map.get($_pad-prefixes, $family)
+	@if $prefix == null
+		$prefix: map.get($_gap-prefixes, $family)
+	@if $prefix == null or not map.has-key($_short-steps, $step)
+		@error 'Unknown composition utility: #{$family}-#{$step}.'
+	@if $family == pad or $family == gap
+		@return '#{$prefix}#{map.get($_short-steps, $step)}'
+	@return '#{$prefix}#{$step}'
+
+// Only ':' needs escaping: every other character comes from closed maps.
+// Escaping belongs to selectors, never to the HTML class attribute.
+@function -escape($name)
+	$result: ''
+	@for $i from 1 through string.length($name)
+		$char: string.slice($name, $i, $i)
+		@if $char == ':'
+			$result: $result + '\\:'
+		@else
+			$result: $result + $char
+	@return $result
+
+$_borders: ()
+$_pads: ()
+$_gaps: ()
+@if cfg.$compositions-enabled
+	@each $family, $prop in vocabulary.$border-families
+		@if cfg.$composition-directions or $family == border
+			$_borders: list.append($_borders, -term($family))
+	@each $family, $prop in vocabulary.$pad-families
+		@if cfg.$composition-directions or $family == pad
+			@each $step in cfg.$composition-steps
+				$_pads: list.append($_pads, -term($family, $step))
+	@each $family, $prop in vocabulary.$gap-families
+		@if cfg.$composition-directions or $family == gap
+			@each $step in cfg.$composition-steps
+				$_gaps: list.append($_gaps, -term($family, $step))
+
+// Index aliases by the utility they stand for. Build once; reuse in every band.
+// A compound has >= 2 operations in b -> p -> g order, one scope per operation.
+// Store escaped names here so responsive emission does not repeat that work.
+$_aliases: ()
+@function -register($index, $name, $terms...)
+	$escaped: -escape($name)
+	@each $term in $terms
+		$names: map.get($index, $term)
+		@if $names == null
+			$names: ()
+		$index: map.set($index, $term, list.append($names, $escaped))
+	@return $index
+
+@each $b in $_borders
+	@each $p in $_pads
+		$_aliases: -register($_aliases, '#{$b}-#{$p}', $b, $p)
+	@each $g in $_gaps
+		$_aliases: -register($_aliases, '#{$b}-#{$g}', $b, $g)
+@each $p in $_pads
+	@each $g in $_gaps
+		$_aliases: -register($_aliases, '#{$p}-#{$g}', $p, $g)
+		@each $b in $_borders
+			$_aliases: -register($_aliases, '#{$b}-#{$p}-#{$g}', $b, $p, $g)
+
+// Public builder function, not an authoring mixin. Returns the existing utility
+// selector first, followed by equivalent compounds. Unsupported/disabled scopes
+// return ONLY the original utility. No substring selectors and no !important.
+@function selectors($family, $step: null, $mode: null)
+	$utility: $family
+	@if $step != null
+		$utility: '#{$family}-#{$step}'
+	$suffix: ''
+	@if $mode != null
+		$suffix: '-#{$mode}'
+	$result: (string.unquote('.#{$utility}#{$suffix}'),)
+	@if not cfg.$compositions-enabled
+		@return $result
+	@if $step != null and not list.index(cfg.$composition-steps, $step)
+		@return $result
+	$names: map.get($_aliases, -term($family, $step))
+	@if $names != null
+		@each $name in $names
+			$result: list.append($result, string.unquote('.#{$name}#{$suffix}'), comma)
+	@return $result

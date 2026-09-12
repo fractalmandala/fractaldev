@@ -1,0 +1,92 @@
+[
+	{
+		"id": "welcome",
+		"title": "Welcome",
+		"icon": "👋",
+		"file": "general/overview.md",
+		"category": "general",
+		"categoryOrder": 1,
+		"sectionOrder": 1
+	},
+	{
+		"id": "installation",
+		"title": "Installation",
+		"icon": "🚀",
+		"file": "general/installation.md",
+		"category": "general",
+		"categoryOrder": 1,
+		"sectionOrder": 2
+	},
+	{
+		"id": "main-components",
+		"title": "Main Components",
+		"icon": "🏗️",
+		"file": "components/main.md",
+		"category": "components",
+		"categoryOrder": 2,
+		"sectionOrder": 1
+	},
+	{
+		"id": "icons",
+		"title": "Icon Library",
+		"icon": "🎨",
+		"file": "components/icons.md",
+		"category": "components",
+		"categoryOrder": 2,
+		"sectionOrder": 2
+	},
+	{
+		"id": "form-components",
+		"title": "Form Components",
+		"icon": "📝",
+		"file": "partials/form.md",
+		"category": "components",
+		"categoryOrder": 2,
+		"sectionOrder": 3
+	},
+	{
+		"id": "layout-components",
+		"title": "Layout Components",
+		"icon": "📐",
+		"file": "partials/layout.md",
+		"category": "components",
+		"categoryOrder": 2,
+		"sectionOrder": 4
+	},
+	{
+		"id": "data-components",
+		"title": "Data Display Components",
+		"icon": "📊",
+		"file": "partials/data.md",
+		"category": "components",
+		"categoryOrder": 2,
+		"sectionOrder": 5
+	},
+	{
+		"id": "feedback-components",
+		"title": "Feedback Components",
+		"icon": "💬",
+		"file": "partials/feedback.md",
+		"category": "components",
+		"categoryOrder": 2,
+		"sectionOrder": 6
+	},
+	{
+		"id": "api-documentation",
+		"title": "API Documentation",
+		"icon": "🔌",
+		"file": "api/README.md",
+		"category": "technical",
+		"categoryOrder": 3,
+		"sectionOrder": 1
+	},
+	{
+		"id": "utilities",
+		"title": "Utilities & Helpers",
+		"icon": "🛠️",
+		"file": "utils/README.md",
+		"category": "technical",
+		"categoryOrder": 3,
+		"sectionOrder": 2
+	}
+]

@@ -1,0 +1,107 @@
+<script lang="ts">
+	import { GraphBars, GraphMeter, GraphSpark, GraphStat, GraphTable } from '$lib';
+</script>
+
+# Graphs next to prose
+
+This page lives in a file called `example.svx`. It is markdown — same
+paragraphs, same headings, same rules — with one small script block at the
+top that imports a few components. mdsvex compiles the whole thing into a
+Svelte component, so the page that wanted this article just writes
+`import Example from './example.svx'` and renders it like any other
+component. There is no markdown parser running in the browser and no second
+pipeline: the figures below are part of the component tree, and they
+server-render with the rest of the page.
+
+That is the entire pitch of markgraphy. When you are writing a document
+and you need a number in the middle of it, you should not have to stop,
+open a chart tool, export an image, and embed the image. You type a tag and
+keep going.
+
+## A figure where a paragraph would go
+
+The graph stat below is four numbers under one title. On a component-heavy
+page you would assemble it from parts. In markdown you write one line
+between two paragraphs:
+
+<GraphStat title="THIS WEEK" items={[{ value: '41', label: 'deploys' }, { value: '2', label: 'rollbacks', hint: 'both on friday', accent: true }, { value: '4.2s', label: 'p95 cold start' }, { value: '0', label: 'incidents' }]} />
+
+Nothing around it changed. Same measure, same margins, same typeface. The
+dashed frame carries the structure, so the document does not need a
+`<figure>` wrapper, a caption, or a CSS grid to look finished.
+
+## Before and after in one row
+
+Comparison is the other half of documentation: what it was, what it is, and
+what happened in between. One component, two rows of glyphs:
+
+<GraphBars title="BUNDLE" from={{ label: 'raw', values: [58, 42, 61, 35, 47, 66, 52] }} to={{ label: 'minified', values: [21, 16, 23, 12, 18, 26, 19] }} processor="lightningcss" />
+
+The labels are data, not annotations, so they reflow with the graph when
+the column narrows. There is no absolute positioning anywhere in the
+library — the monospace grid is the layout engine.
+
+## Progress, quota, any single number
+
+<GraphMeter title="QUOTA" value={0.64} caption="storage used on the free tier" />
+
+A graph meter is one number wearing a frame. When the value comes from a
+live feed you pass a new `value` prop and the ticks redraw; the brackets
+and the percent keep their rhythm.
+
+## The shape of the last ten builds
+
+<GraphSpark title="LATENCY" data={[12, 18, 9, 14, 22, 11, 16, 8, 13, 19]} caption="p50 ms across the last ten builds" />
+
+A graph spark is honest about being small. It never stretches to fill the
+frame — the frame sizes itself around the glyphs.
+
+## Tables are graphs too
+
+<GraphTable title="PIPELINE" headers={['step', 'time', 'status']} rows={[['install', '6.1s', 'ok'], ['typecheck', '11.4s', 'ok'], ['build', '38.9s', 'ok'], ['deploy', '2.2s', 'live']]} align={['left', 'right', 'right']} />
+
+Same frame, same corner marks, same dashed rule under the header. If your
+CI emits JSON, this is one `map` call away from being a published artifact.
+
+## Theming follows the page
+
+Every graph reads the same custom properties as the document around it, so
+one rule restyles every figure in the file:
+
+```css
+:root {
+	--graph-accent: oklch(0.72 0.12 300);
+	--graph-accent-2: oklch(0.62 0.1 300);
+}
+```
+
+The accent picker in the site header does exactly this at runtime — pick a
+swatch and watch the frames on this page change with it. No props threaded
+through five levels, no re-render of the prose.
+
+## What the file actually looks like
+
+There is no build step beyond mdsvex itself. The article you are reading is
+this:
+
+````md
+<script lang="ts">
+  import { GraphStat } from 'markgraphy';
+</script>
+
+# Deploy report
+
+Forty-one deploys this week, two rollbacks.
+
+<GraphStat
+  title="THIS WEEK"
+  items={[{ value: '41', label: 'deploys' }, { value: '2', label: 'rollbacks', accent: true }]}
+/>
+
+## Bundle size
+
+<GraphBars title="BUNDLE" from={{ label: 'raw', values: [58] }} to={{ label: 'min', values: [21] }} processor="lightningcss" />
+````
+
+Install from npm, write markdown, render the component. The frame draws
+itself.

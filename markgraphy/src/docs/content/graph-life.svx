@@ -1,0 +1,53 @@
+<script lang="ts">
+	import { GraphLife } from '$lib';
+</script>
+
+# GraphLife
+
+## Import
+
+```svelte
+import { GraphLife } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphLife
+  title="example"
+  cols={44}
+  rows={14}
+/>
+```
+
+<div class="live">
+<GraphLife
+  title="example"
+  cols={44}
+  rows={14}
+/>
+</div>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | Caption drawn on the top edge as `[ TITLE ]`. |
+| `cols?` | `number` | `44` | Columns of the board. Default 44. |
+| `rows?` | `number` | `14` | Rows of the board. Default 14. |
+| `density?` | `number` | `0.28` | Random fill probability when no `seed` is given. Default 0.28. |
+| `seed?` | `boolean[][]` | `—` | Explicit initial board. Padded/cropped to `cols` x `rows`. |
+| `seedNum?` | `number` | `7` | PRNG seed for the random board, reproducible. Default 7. |
+| `speedMs?` | `number` | `220` | Milliseconds per generation. Default 220. |
+| `animated?` | `boolean` | `true` | Start playing on mount. Default true. Reduced motion starts paused. |
+| `showControls?` | `boolean` | `true` | Show the playback controls. Default true. |
+| `corner?` | `string` | `—` | Character at each corner of the frame. Default "+". |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `GraphLifeProps`
+
+## Reduced motion
+
+Animation is disabled under `prefers-reduced-motion`.

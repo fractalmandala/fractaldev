@@ -1,0 +1,67 @@
+body {
+  background-color: #100e0b;
+}
+
+.aura-container {
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+/* Shared layer properties */
+.aura-layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+/* Layer 1 */
+.aura-layer-1 {
+  background: radial-gradient(circle at 25% 30%, rgba(180, 83, 9, 0.5) 0%, transparent 45%);
+  mix-blend-mode: screen;
+  filter: blur(175px);
+}
+
+/* Layer 2 */
+.aura-layer-2 {
+  background: radial-gradient(circle at 75% 25%, rgba(21, 128, 61, 0.4) 0%, transparent 40%);
+  mix-blend-mode: screen;
+  filter: blur(200px);
+}
+
+/* Layer 3 */
+.aura-layer-3 {
+  background: radial-gradient(circle at 50% 75%, rgba(120, 53, 15, 0.4) 0%, transparent 50%);
+  mix-blend-mode: multiply;
+  filter: blur(200px);
+}
+
+/* Layer 4 */
+.aura-layer-4 {
+  background: radial-gradient(circle at 20% 80%, rgba(234, 179, 8, 0.2) 0%, transparent 35%);
+  mix-blend-mode: overlay;
+  filter: blur(138px);
+}
+
+/* Desktop blur responsive overrides (md breakpoint ~768px) */
+@media (min-width: 768px) {
+  .aura-layer-1 {
+    filter: blur(252px);
+  }
+  .aura-layer-2,
+  .aura-layer-3 {
+    filter: blur(260px);
+  }
+  .aura-layer-4 {
+    filter: blur(198px);
+  }
+}
+
+/* Content wrapper */
+.aura-content {
+  position: relative;
+  z-index: 1;
+}

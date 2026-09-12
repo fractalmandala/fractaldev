@@ -1,0 +1,107 @@
+// ============================================================================
+// config — the builder knobs the Contract names. All !default: overridable at
+// compile time, never edited in place. The numbered filename is not a valid
+// Sass identifier, so a consumer MUST namespace the configuring load:
+//
+//   @use 'styles/01_config' as cfg with ($literal-max: 256)
+//   @use 'styles/index' as *
+//
+// Configure before anything else loads 01_config, or Sass rejects it.
+// ============================================================================
+
+// The responsive seam. Every loop-generated class takes -mob (below) and
+// -desk (at or above) this width.
+$breakpoint: 768px !default
+$responsive-modes: (mob: 'all and (max-width: #{$breakpoint - 1})', desk: 'all and (min-width: #{$breakpoint})') !default
+
+// Literal ladder: the discrete pixel values .gap-{N}, .radius-{N}, .w-{N}… emit.
+//
+// Fine at the bottom, where interfaces genuinely need 1px and 2px precision,
+// then multiples of $literal-step the rest of the way. A continuous 1…256
+// range emitted 7,302 rungs per band to serve maybe forty useful values;
+// nobody types .marg-left--193.
+$literal-fine: (0, 1, 2, 4, 6, 8, 12) !default
+$literal-step: 8 !default
+$literal-max: 512 !default
+
+// Space literals stop earlier than sizing ones. Gaps, paddings and margins are
+// 24 of the 28 classes emitted per rung (marg doubles for negatives), so they
+// dominate the output — and a 512px gap is meaningless where a 512px width is
+// not. Large spacing is the preset steps' job: --space-3xl is already ~120px.
+$literal-space-max: 64 !default
+
+// Radius stops early for the same reason: .radius-full already handles pills,
+// and the shape presets top out at --radius-lg (~24-32px). A 512px corner is
+// not a corner.
+$literal-radius-max: 64 !default
+
+// Named steps for grid stepping and the shell rails (not the responsive seam).
+$breakpoints: (sm: 640px, md: 768px, lg: 1024px, xl: 1280px) !default
+
+@font-face
+	font-family: 'Apfel Grotezk'
+	src: url('/fonts/apf400.woff2') format('woff2')
+	font-weight: 400
+	font-style: normal
+	font-display: swap
+
+@font-face
+	font-family: 'Apfel Grotezk'
+	src: url('/fonts/apf500.woff2') format('woff2')
+	font-weight: 500
+	font-style: normal
+	font-display: swap
+
+@font-face
+	font-family: 'Apfel Grotezk'
+	src: url('/fonts/apf700.woff2') format('woff2')
+	font-weight: 700
+	font-style: normal
+	font-display: swap
+
+// ============================================================================
+// base — element baseline. Builder infrastructure, not registry classes: the
+// registry is a list of classes; this only makes documents predictable so the
+// classes behave. Deliberately minimal — no typographic opinions beyond body.
+// ============================================================================
+
+*,
+*::before,
+*::after
+	box-sizing: border-box
+
+*
+	margin: 0
+
+body, html
+	font-family: var(--font-sans)
+	font-size: var(--text-sm)
+	line-height: 1.5
+	color: var(--text-primary)
+	background: var(--bg)
+	box-sizing: border-box
+
+img,
+video,
+svg
+	display: block
+	max-width: 100%
+
+button,
+input,
+select,
+textarea
+	font: inherit
+	color: inherit
+
+a
+	color: inherit
+
+p, li, ul, ol, h6, h5, h4, h3, h2, h1, a
+	margin: 0
+
+h4, h3, h2, h1
+	line-height: 1
+
+.bdr
+	border: 1px solid red

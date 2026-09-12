@@ -1,0 +1,34 @@
+{
+  "id": "daylight-newsprint-verdigris",
+  "name": "Daylight Newsprint Verdigris",
+  "version": "2.0.0",
+  "author": "amrit",
+  "description": "Teal accent on the coolest ground of the family. The quietest of the five \u2014 nothing in it raises its voice.",
+  "isDark": false,
+  "tags": [
+    "news",
+    "light"
+  ],
+  "colors": {
+    "bg": "#FBFCFC",
+    "bg-secondary": "#EFF1F1",
+    "bg-tertiary": "#E2E5E5",
+    "bg-hover": "#F0F1F1",
+    "bg-selected": "#E5E8E8",
+    "bg-active": "#DAE8E9",
+    "text": "#1E2122",
+    "text-muted": "#606363",
+    "text-faint": "#96999A",
+    "text-disabled": "#B9BCBC",
+    "border": "#E1E4E4",
+    "border-focus": "#0F6E75",
+    "primary": "#0F6E75",
+    "primary-hover": "#126066",
+    "link": "#0F6E75",
+    "link-hover": "#126066",
+    "success": "#3F6B3F",
+    "warning": "#8A6A12",
+    "error": "#B3202F",
+    "info": "#3A5A8C"
+  }
+}

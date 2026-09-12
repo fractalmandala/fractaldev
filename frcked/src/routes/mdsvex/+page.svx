@@ -1,0 +1,62 @@
+# mdsvex — `.svx`
+
+This page **is** a `.svx` file. mdsvex compiles it to a Svelte component, and
+`@fractalpop/mdsvex` highlights every fenced code block at build time. Nothing
+here runs client-side — the highlighting is baked into the HTML.
+
+The setup is one option in `svelte.config.js`:
+
+```ts
+import { fractalpopHighlighter } from '@fractalpop/mdsvex'
+
+mdsvex({ highlight: { highlighter: fractalpopHighlighter } })
+```
+
+## Indented Sass
+
+Fence meta `{2,3}` highlights those lines:
+
+```sass {2,3}
+$brand: hsl(212, 90%, 55%)
+.card
+  color: $brand
+  &:hover
+    background: darken($brand, 8%) !important
+```
+
+## TypeScript
+
+Regex literals and template interpolation are handled:
+
+```ts
+type User = { name: string }
+const greet = (u: User) => `Hi ${u.name}`
+const slug = /^[a-z]+$/i
+```
+
+## A Svelte component
+
+The `.svelte` composite colours `<script>`, markup, and `<style lang="sass">`:
+
+```svelte
+<script lang="ts">
+  let count = $state(0)
+</script>
+
+<button onclick={() => count++}>Count: {count}</button>
+
+<style lang="sass">
+  button
+    color: $brand
+</style>
+```
+
+Because mdsvex is a Svelte preprocessor, you can mix real components in too —
+this counter below the fences is live Svelte, not highlighted code.
+
+<script>
+  import '$lib/styles/fractalpop-demo.sass';
+  let clicks = $state(0)
+</script>
+
+<button class="live-btn" onclick={() => clicks++}>Clicked {clicks} times</button>

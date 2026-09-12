@@ -1,0 +1,29 @@
+{
+  "contractVersion": "1.0",
+  "status": "planned",
+  "source": {
+    "framework": "react",
+    "kind": "component",
+    "files": ["src/components/Button.tsx"],
+    "route": null,
+    "animationTier": "none"
+  },
+  "target": {
+    "kind": "component",
+    "files": ["src/lib/components/Button/Button.svelte"],
+    "route": null,
+    "publicApi": { "props": ["variant"], "bindings": [], "callbacks": ["onclick"], "snippets": ["children"] }
+  },
+  "dependencies": { "present": [], "required": [], "missing": [], "fallbacks": [] },
+  "dataFlow": {
+    "loadFile": "none",
+    "reason": "Presentational component has no route data.",
+    "serverData": [],
+    "actions": [],
+    "invalidations": [],
+    "serialization": "not-applicable"
+  },
+  "ssr": { "mode": "safe", "browserOnlyApis": [], "guards": [], "disabledReason": null },
+  "verification": [],
+  "gaps": []
+}

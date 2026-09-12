@@ -1,0 +1,46 @@
+<script lang="ts">
+	import { GraphWorkflow } from '$lib';
+</script>
+
+# GraphWorkflow
+
+## Import
+
+```svelte
+import { GraphWorkflow } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphWorkflow
+  title="example"
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `nodes` | `WorkflowNode[]` | `—` | — |
+| `edges?` | `WorkflowEdge[]` | `—` | — |
+| `path?` | `string[]` | `—` | — |
+| `animated?` | `boolean` | `true` | — |
+| `autoPlay?` | `boolean` | `false` | — |
+| `speedMs?` | `number` | `1200` | — |
+| `showControls?` | `boolean` | `true` | — |
+| `label?` | `string` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `WorkflowTone`
+- `WorkflowNode`
+- `WorkflowEdge`
+- `GraphWorkflowProps`
+
+## Reduced motion
+
+Animation is disabled under `prefers-reduced-motion`.

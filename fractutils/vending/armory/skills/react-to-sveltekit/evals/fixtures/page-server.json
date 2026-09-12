@@ -1,0 +1,31 @@
+{
+  "contractVersion": "1.0",
+  "status": "planned",
+  "source": {
+    "framework": "next",
+    "kind": "page",
+    "files": ["pages/dashboard/[id].tsx"],
+    "route": "/dashboard/[id]",
+    "animationTier": "none"
+  },
+  "target": {
+    "kind": "route",
+    "files": ["src/routes/dashboard/[id]/+page.server.ts", "src/routes/dashboard/[id]/+page.svelte"],
+    "route": { "path": "/dashboard/[id]", "params": ["id"], "searchParams": [] },
+    "publicApi": { "props": ["data"], "bindings": [], "callbacks": [], "snippets": [] }
+  },
+  "dependencies": { "present": [], "required": [], "missing": [], "fallbacks": [] },
+  "dataFlow": {
+    "loadFile": "+page.server.ts",
+    "reason": "The source loader reads authenticated database data.",
+    "serverData": ["dashboard"],
+    "actions": [],
+    "invalidations": [],
+    "serialization": "json-serializable"
+  },
+  "ssr": { "mode": "safe", "browserOnlyApis": [], "guards": [], "disabledReason": null },
+  "verification": [
+    { "command": "pnpm check", "cwd": ".", "purpose": "Validate route types.", "status": "planned", "evidence": "" }
+  ],
+  "gaps": []
+}

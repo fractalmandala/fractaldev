@@ -1,0 +1,8 @@
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+minimumReleaseAgeExclude:
+  - fractalstyler2@0.4.0 || 0.4.1 || 0.8.0
+  - fractalthemer@0.3.1
+patchedDependencies:
+  svelte@5.56.10: patches/svelte@5.56.10.patch

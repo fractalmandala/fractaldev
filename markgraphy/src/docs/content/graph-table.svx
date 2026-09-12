@@ -1,0 +1,36 @@
+<script lang="ts">
+	import { GraphTable } from '$lib';
+</script>
+
+# GraphTable
+
+## Import
+
+```svelte
+import { GraphTable } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphTable
+  title="example"
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `headers` | `string[]` | `—` | — |
+| `rows` | `Cell[][]` | `—` | — |
+| `footer?` | `Cell[]` | `—` | — |
+| `align?` | `('left' | 'right')[]` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `Cell`
+- `GraphTableProps`

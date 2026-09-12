@@ -1,0 +1,9 @@
+packages:
+  - 'packages/*'
+  - 'apps/*'
+allowBuilds:
+  '@parcel/watcher': true
+  '@swc/core': true
+  esbuild: true
+minimumReleaseAgeExclude:
+  - gpu-lexer@0.0.2

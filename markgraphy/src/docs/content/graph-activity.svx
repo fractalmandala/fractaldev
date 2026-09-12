@@ -1,0 +1,40 @@
+<script lang="ts">
+	import { GraphActivity } from '$lib';
+</script>
+
+# GraphActivity
+
+## Import
+
+```svelte
+import { GraphActivity } from 'markgraphy';
+```
+
+## Basic usage
+
+```svelte
+<GraphActivity
+  title="example"
+  weekStartsOn={0}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | `—` | — |
+| `days` | `ActivityDay[]` | `—` | — |
+| `weekStartsOn?` | `0 | 1` | `0` | — |
+| `max?` | `number` | `—` | — |
+| `legend?` | `boolean` | `true` | — |
+| `caption?` | `string | false` | `—` | — |
+| `glyphs?` | `Glyphs` | `—` | — |
+| `palette?` | `GraphPalette` | `—` | — |
+| `corner?` | `string` | `—` | — |
+| `class?` | `string` | `''` | — |
+
+## Exported types
+
+- `ActivityDay`
+- `GraphActivityProps`

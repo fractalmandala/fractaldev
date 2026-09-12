@@ -1,0 +1,32 @@
+[
+	{ "prompt": "add a button", "route": "component-build" },
+	{ "prompt": "add a collapsible accordion", "route": "component-build" },
+	{ "prompt": "build a card component", "route": "component-build" },
+	{ "prompt": "put a toggle here full css", "route": "component-build" },
+
+	{ "prompt": "convert this React component to SvelteKit", "route": "react-conversion" },
+	{ "prompt": "convert this Next page to SvelteKit", "route": "react-conversion" },
+	{ "prompt": "port this React accordion", "route": "react-conversion" },
+	{ "prompt": "migrate a Next.js page to svelte", "route": "react-conversion" },
+
+	{ "prompt": "add a SvelteKit form action", "route": "route-build" },
+	{ "prompt": "add a route at /docs", "route": "route-build" },
+	{ "prompt": "build a page with a load function", "route": "route-build" },
+
+	{ "prompt": "convert this CSS to SASS", "route": "style-work" },
+	{ "prompt": "add dark mode to the card", "route": "style-work" },
+
+	{ "prompt": "add motion to this card", "route": "motion" },
+	{ "prompt": "make the sidebar animate", "route": "motion" },
+
+	{ "prompt": "preview the styling of this component", "route": "visual-review" },
+
+	{ "prompt": "deploy this SvelteKit app", "route": "deployment" },
+	{ "prompt": "configure the adapter", "route": "deployment" },
+
+	{ "prompt": "fix keyboard navigation", "route": "accessibility" },
+	{ "prompt": "add aria labels to the menu", "route": "accessibility" },
+
+	{ "prompt": "what is a rune", "route": "unrouted" },
+	{ "prompt": "refactor the database layer", "route": "unrouted" }
+]
