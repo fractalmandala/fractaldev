@@ -35,7 +35,7 @@
       {/each}
       <a
         class="nav__gh"
-        href="https://github.com/fractalmandala/fractalpop"
+        href="https://github.com/fractalmandala/fractaldev/blob/main/fractalpop/README.md"
         target="_blank"
         rel="noreferrer"
         aria-label="fractalpop on GitHub"
@@ -71,7 +71,7 @@
   <footer class="footer">
     <div class="col">
 			<div class="row ycenter gap-sm weight-600 text-primary">
-				2026 | Amritanshu Pandey. Made with <div class="marg-bottom-md"><Heart/></div> for Sveltekit.
+				2026 | <a href="https://github.com/fractalmandala/fractaldev/blob/main/fractalpop/README.md">Amritanshu Pandey</a>. Made with <div class="marg-bottom-md"><Heart/></div> for Sveltekit.
 			</div>
       <p class="footer__credit text-muted">
         Inspired by the
