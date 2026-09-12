@@ -34,7 +34,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "fractalpop": "workspace:^"
+    "fractalpop": "^0.1.0"
   },
   "peerDependencies": {
     "svelte": "^5.0.0"

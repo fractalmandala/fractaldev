@@ -11,6 +11,8 @@ code into an HTML string without touching the DOM, so it runs in browsers,
 Node, edge runtimes, and at build or SSR time - the server and the client
 produce identical markup, which means no SvelteKit hydration mismatch.
 
+Built with 🩷 for Sveltekit. [Fastest](https://github.com/fractalmandala/fractaldev/blob/main/fractalpop/docs/BENCHMARK.md) in the land.
+
 These docs are for developers working **on** fractalpop (the monorepo) and
 developers **using** the packages. Each package has its own page:
 

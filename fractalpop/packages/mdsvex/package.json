@@ -28,7 +28,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "fractalpop": "workspace:^"
+    "fractalpop": "^0.1.0"
   },
   "devDependencies": {
     "bunchee": "^6.0.0",

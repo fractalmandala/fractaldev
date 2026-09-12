@@ -7,3 +7,4 @@ allowBuilds:
   esbuild: true
 minimumReleaseAgeExclude:
   - gpu-lexer@0.0.2
+  - fractalpop@0.1.0

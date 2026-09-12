@@ -28,7 +28,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "fractalpop": "workspace:^",
+    "fractalpop": "^0.1.0",
     "unist-util-map": "^4.0.0"
   },
   "devDependencies": {

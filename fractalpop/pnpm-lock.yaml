@@ -86,8 +86,8 @@ importers:
   packages/mdsvex:
     dependencies:
       fractalpop:
-        specifier: workspace:^
-        version: link:../core
+        specifier: ^0.1.0
+        version: 0.1.0(gpu-lexer@0.0.2)
     devDependencies:
       bunchee:
         specifier: ^6.0.0
@@ -108,8 +108,8 @@ importers:
   packages/remark:
     dependencies:
       fractalpop:
-        specifier: workspace:^
-        version: link:../core
+        specifier: ^0.1.0
+        version: 0.1.0(gpu-lexer@0.0.2)
       unist-util-map:
         specifier: ^4.0.0
         version: 4.0.0
@@ -133,8 +133,8 @@ importers:
   packages/svelte:
     dependencies:
       fractalpop:
-        specifier: workspace:^
-        version: link:../core
+        specifier: ^0.1.0
+        version: 0.1.0(gpu-lexer@0.0.2)
     devDependencies:
       '@sveltejs/package':
         specifier: ^2.3.0
@@ -1437,6 +1437,14 @@ packages:
   find-up@4.1.0:
     resolution: {integrity: sha512-PpOwAdQ/YlXQ2vj8a3h8IipDuYRi3wceVQQGYWxNINccq40Anw7BlsEXCMbt1Zt+OLA6Fq9suIpIWD0OsnISlw==}
     engines: {node: '>=8'}
+
+  fractalpop@0.1.0:
+    resolution: {integrity: sha512-+A2SAw7tmdpagxLcD8/1RxrjmgKXirniWUsvuipy8j5bGGcJKoN4KyZcarxXThxfrc7nhrjNha+bOyOtLVFpCg==}
+    peerDependencies:
+      gpu-lexer: '>=0.0.2'
+    peerDependenciesMeta:
+      gpu-lexer:
+        optional: true
 
   fs-extra@7.0.1:
     resolution: {integrity: sha512-YJDaCJZEnBmcbw13fvdAM9AwNOJwOzrE4pqMqBq5nFiEqXUqHwlK4B+3pUw6JNvfSPtX05xFHtYy/1ni01eGCw==}
@@ -3306,6 +3314,10 @@ snapshots:
     dependencies:
       locate-path: 5.0.0
       path-exists: 4.0.0
+
+  fractalpop@0.1.0(gpu-lexer@0.0.2):
+    optionalDependencies:
+      gpu-lexer: 0.0.2
 
   fs-extra@7.0.1:
     dependencies:

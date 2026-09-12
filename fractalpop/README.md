@@ -1,20 +1,21 @@
 # fractalpop
 
-Lightweight, **Svelte-first** syntax highlighting with first-class **indented Sass**. Returns HTML without a DOM, so it runs in browsers, Node, edge, and at build/SSR time - server and client emit identical markup (no SvelteKit hydration mismatch). Replicates the [Sugar High](https://github.com/huozhi/sugar-high) package. 
+Lightweight, **Svelte-first** syntax highlighting with first-class **indented Sass**. Returns HTML without a DOM, so it runs in browsers, Node, edge, and at build/SSR time - server and client emit identical markup (no SvelteKit hydration mismatch). Replicates the [Sugar High](https://github.com/huozhi/sugar-high) package, but faster!
 
-Built with 🩷 for Sveltekit.
+Built with 🩷 for Sveltekit. [Fastest](https://github.com/fractalmandala/fractaldev/blob/main/fractalpop/docs/BENCHMARK.md) in the land.
+
 
 Run the demo: `pnpm --filter @fractalpop/demo dev`.
-Developer documentation lives in [`docs/`](./docs/README.md) — an overview plus a page per package.
+Developer documentation lives in [docs](https://github.com/fractalmandala/fractalpop/tree/main/docs) — an overview plus a page per package.
 
 ## Packages
 
 | Package | npm | Status |
 | --- | --- | --- |
-| Core engine + languages | `fractalpop` | **0.1.0 - 32 languages** incl. indented **sass**, scss, the **`.svelte` composite** (script=TS + markup + `<style lang="sass">`), ts/js+jsx, css, html, markdown, diff + 22 general |
-| Svelte / SvelteKit | `@fractalpop/svelte` | **0.1.0** - `<Highlight>`, `<Code>`, `<Editor>`, `<FileTree>` + `use:fractalpop` action, SSR-verified |
-| mdsvex (`.svx`) | `@fractalpop/mdsvex` | **0.1.0** - highlighter hook, Svelte-char escaping, fence-meta lines (verified against real mdsvex) |
-| remark (`.md` + `.mdx`) | `@fractalpop/remark` | **0.1.0** - remark plugin, one plugin for md + mdx, fence-meta lines (verified through the remark pipeline) |
+| Core engine + languages | [fractalpop](https://www.npmjs.com/package/fractalpop) | **0.1.0 - 32 languages** incl. indented **sass**, scss, the **`.svelte` composite** (script=TS + markup + `<style lang="sass">`), ts/js+jsx, css, html, markdown, diff + 22 general |
+| Svelte / SvelteKit | [@fractalpop/svelte](https://www.npmjs.com/package/@fractalpop/svelte) | **0.1.0** - `<Highlight>`, `<Code>`, `<Editor>`, `<FileTree>` + `use:fractalpop` action, SSR-verified |
+| mdsvex (`.svx`) | [@fractalpop/mdsvex](https://www.npmjs.com/package/@fractalpop/mdsvex) | **0.1.0** - highlighter hook, Svelte-char escaping, fence-meta lines (verified against real mdsvex) |
+| remark (`.md` + `.mdx`) | [@fractalpop/remark](https://www.npmjs.com/package/@fractalpop/remark) | **0.1.0** - remark plugin, one plugin for md + mdx, fence-meta lines (verified through the remark pipeline) |
 
 ### Levels
 - **L1** (sugar-high parity + Svelte + mdsvex demonstrated): **done** - 32 languages; `<Highlight>` SSR-renders; real mdsvex compile runs the highlighter.
