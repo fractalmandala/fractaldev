@@ -8,3 +8,6 @@ allowBuilds:
 minimumReleaseAgeExclude:
   - gpu-lexer@0.0.2
   - fractalpop@0.1.0
+  - '@fractalpop/mdsvex@0.1.0'
+  - '@fractalpop/remark@0.1.0'
+  - '@fractalpop/svelte@0.1.0'

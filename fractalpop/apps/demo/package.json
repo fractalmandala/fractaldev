@@ -5,16 +5,17 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev --port 5178",
+    "prebuild": "pnpm --filter fractalpop --filter @fractalpop/svelte --filter @fractalpop/mdsvex --filter @fractalpop/remark run build && svelte-kit sync",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@fractalpop/svelte": "workspace:^",
-    "fractalpop": "workspace:^"
+    "@fractalpop/svelte": "^0.1.0",
+    "fractalpop": "^0.1.0"
   },
   "devDependencies": {
-    "@fractalpop/mdsvex": "workspace:^",
-    "@fractalpop/remark": "workspace:^",
+    "@fractalpop/mdsvex": "^0.1.0",
+    "@fractalpop/remark": "^0.1.0",
     "@sveltejs/adapter-auto": "^3.3.0",
     "@sveltejs/kit": "^2.8.0",
     "@sveltejs/vite-plugin-svelte": "^5.0.0",
