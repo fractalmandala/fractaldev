@@ -99,7 +99,7 @@ export function highlight(options: RemarkFractalpopOptions = {}) {
           ),
         )
         // preserve line breaks in the rendered output
-        tokens.push(h('span', { className: 'fp__token--line' }, [text('\n')]))
+        tokens.push(h('span', { className: 'fp__token--border' }, [text('\n')]))
         return h(
           'span',
           {

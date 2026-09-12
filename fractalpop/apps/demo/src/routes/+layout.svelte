@@ -2,12 +2,12 @@
   import '$lib/styles/globals.sass'
   import { page } from '$app/state'
 	import Menu from '$lib/icons/align-center.svelte'
+	import Heart from '$lib/icons/heart.svelte'
 
   let { children } = $props()
   let menuOpen = $state(false)
 
   const links = [
-    { href: '/', label: 'Index' },
     { href: '/theme', label: 'Themes' },
     { href: '/sveltekit', label: 'SvelteKit' },
     { href: '/registry', label: 'Registry' },
@@ -16,7 +16,7 @@
 </script>
 
 <div class="shell">
-  <header class="nav" class:nav-open={menuOpen}>
+  <header class="nav col" class:nav-open={menuOpen}>
     <a class="nav-logo" href="/">
       <img src="/images/fractalpop.png" alt="" />
       fractalpop
@@ -70,12 +70,10 @@
 
   <footer class="footer">
     <div class="col">
-      <p>
-        <b>FRACTALPOP</b> — fractalpop · @fractalpop/svelte · @fractalpop/mdsvex ·
-        @fractalpop/remark
-      </p>
-      <p>One engine, same output everywhere.</p>
-      <p class="footer__credit">
+			<div class="row ycenter gap-sm weight-600 text-primary">
+				2026 | Amritanshu Pandey. Made with <div class="marg-bottom-md"><Heart/></div> for Sveltekit.
+			</div>
+      <p class="footer__credit text-muted">
         Inspired by the
         <a href="https://sugar-high.vercel.app/" target="_blank" rel="noreferrer">sugar-high</a>
         project by huozhi.

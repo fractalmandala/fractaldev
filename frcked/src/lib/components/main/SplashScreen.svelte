@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { ProgressBar } from '$lib/components/partials';
 	import { onMount } from 'svelte';
-	import { splashScreenState, splashScreen } from './SplashScreen';
-	import { APP_NAME } from '$lib/utils';
+	import { splashScreenState, splashScreen } from '$lib/states/splashScreen';
+	import { APP_NAME } from '$lib/states/config.svelte';
 
 	let state = $derived($splashScreenState);
 

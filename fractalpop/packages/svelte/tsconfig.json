@@ -4,7 +4,8 @@
     "moduleResolution": "Bundler",
     "verbatimModuleSyntax": false,
     "isolatedModules": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "declarationMap": true
   },
   "include": ["src"]
 }

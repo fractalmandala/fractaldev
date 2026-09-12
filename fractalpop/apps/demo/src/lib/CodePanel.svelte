@@ -56,6 +56,6 @@
     {highlightLines}
     fontSize="13px"
     padding="20px"
-    style="--fp-line-highlight-color:var(--accent-soft)"
+    style="--fp-line-highlight-color:var(--state-hover)"
   />
 </div>

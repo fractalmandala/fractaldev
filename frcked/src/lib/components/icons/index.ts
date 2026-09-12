@@ -22,4 +22,4 @@ export type {
 	SocialIconName,
 	MediaIconName,
 	FileIconName
-} from './types';
+} from '$lib/data/iconTypes';

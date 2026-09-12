@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { presets, initPresets, toggleMode } from '$lib/presets/presets.svelte';
+	import { presets, initPresets, toggleMode } from '$lib/states/presets.svelte';
 
 	/**
 	 * `palettes` — when a theme is applied, swap to its light/dark twin instead

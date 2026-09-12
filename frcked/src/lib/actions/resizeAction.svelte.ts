@@ -141,6 +141,7 @@
  * ============================================================================
  */
 
+import { untrack } from 'svelte';
 import type { ActionReturn } from 'svelte/action';
 export type * from './types';
 import type {
@@ -322,6 +323,33 @@ export class Resizable {
 		return this.axis === 'y' ? this.maxHeight : this.maxWidth;
 	}
 
+	/** Alias for `isDragging` */
+	get dragging(): boolean {
+		return this.isDragging;
+	}
+	set dragging(val: boolean) {
+		this.isDragging = val;
+	}
+
+	/** Alias for `isCollapsed` */
+	get collapsed(): boolean {
+		return this.isCollapsed;
+	}
+	set collapsed(val: boolean) {
+		this.isCollapsed = val;
+	}
+
+	/** Configuration inspection helper */
+	get config() {
+		return {
+			axis: this.axis,
+			side: this.side,
+			step: this.step,
+			min: this.min,
+			max: this.max
+		};
+	}
+
 	/** Effective rendered width: returns 0 when collapsed, otherwise current width */
 	get currentWidth(): number {
 		return this.isCollapsed ? 0 : this.width;
@@ -492,14 +520,19 @@ export class Resizable {
 	 * Svelte 5 Attachment Factory for attaching this controller directly to a rail element:
 	 * `<div class="rail" {@attach sidebar.rail}></div>`
 	 */
-	rail(element: HTMLElement): void | (() => void) {
-		return resizeRail(this)(element);
+	/**
+	 * Dual Action & Attachment method for connecting this controller to a rail element:
+	 * - Svelte Action: `<div use:sidebar.rail></div>`
+	 * - Svelte 5 Attach: `<div {@attach sidebar.rail}></div>`
+	 */
+	rail(element: HTMLElement): ActionReturn & (() => void) {
+		return attachToNode(element, this);
 	}
 
 	/**
 	 * Alias for `.rail`
 	 */
-	handle(element: HTMLElement): void | (() => void) {
+	handle(element: HTMLElement): ActionReturn & (() => void) {
 		return this.rail(element);
 	}
 }
@@ -517,38 +550,26 @@ export function createResizable(options?: ResizableOptions): Resizable {
 }
 
 /* -------------------------------------------------------------------------- */
-/*               Standalone Resize Rail / Handle Attachment                   */
+/*                         Core Pointer Drag Engine                           */
 /* -------------------------------------------------------------------------- */
 
 /**
- * Modern Svelte 5 Attachment Factory for a Resize Rail or Handle.
- *
- * Can be attached to any rail or grip element. Works with either a `Resizable`
- * instance, or standalone with a `target` CSS selector / HTMLElement.
- *
- * Features:
- * - Uses Pointer Events with `setPointerCapture` to track outside the viewport & over iframes.
- * - Adds CSS `touch-action: none` and dynamic cursors (`col-resize`, `row-resize`, `nwse-resize`).
- * - Dispatches `'resizestart'`, `'resizing'`, and `'resized'` CustomEvents.
- * - Full ARIA separator accessibility with keyboard navigation.
- *
- * @example With a controller:
- * ```svelte
- * <div class="rail" {@attach resizeRail(sidebar)}></div>
- * ```
- *
- * @example Standalone with target element selector:
- * ```svelte
- * <aside id="sidebar">...</aside>
- * <div class="rail" {@attach resizeRail({ target: '#sidebar', axis: 'x', side: 'right' })}></div>
- * ```
+ * Attaches pointer drag listeners and keyboard accessibility to a DOM node.
+ * Uses window-level event tracking during active drag so that fast movements,
+ * gestures crossing iframe boundaries, and viewport exits never lose pointer tracking.
  */
-export function resizeRail(
+function attachToNode(
+	railElement: HTMLElement,
 	optionsOrStore?: Resizable | ResizeRailOptions
-): (railElement: HTMLElement) => void | (() => void) {
-	return (railElement: HTMLElement) => {
-		if (typeof window === 'undefined') return;
+): ActionReturn & (() => void) {
+	if (typeof window === 'undefined') {
+		const noop = () => {};
+		noop.destroy = noop;
+		noop.update = () => {};
+		return noop as ActionReturn & (() => void);
+	}
 
+	return untrack(() => {
 		let store: Resizable;
 		let targetEl: HTMLElement | null = null;
 		let applyStyles = true;
@@ -564,12 +585,13 @@ export function resizeRail(
 
 		const { axis, side, step, minWidth, maxWidth, minHeight, maxHeight } = store;
 
-		// Direction multiplier: on a right-side rail, moving pointer right (+dx) increases width
-		// On a left-side rail, moving pointer right (+dx) decreases width (-dx)
-		const signX = side === 'left' ? -1 : 1;
-		const signY = side === 'top' ? -1 : 1;
+		// Direction multipliers for all 8 sides:
+		// When side is left/top, pointer motion in positive direction (right/down) shrinks element
+		const signX =
+			side === 'left' || side === 'top-left' || side === 'bottom-left' ? -1 : 1;
+		const signY =
+			side === 'top' || side === 'top-left' || side === 'top-right' ? -1 : 1;
 
-		// Configure appropriate cursor and touch-action
 		if (applyStyles) {
 			if (!railElement.style.touchAction) railElement.style.touchAction = 'none';
 			if (!railElement.style.cursor) {
@@ -584,7 +606,7 @@ export function resizeRail(
 			}
 		}
 
-		// Apply WAI-ARIA attributes
+		// Apply WAI-ARIA separator attributes
 		railElement.setAttribute('role', 'separator');
 		railElement.setAttribute('tabindex', '0');
 		railElement.setAttribute(
@@ -594,6 +616,10 @@ export function resizeRail(
 		railElement.setAttribute('aria-valuenow', String(Math.round(store.current)));
 		railElement.setAttribute('aria-valuemin', String(store.min));
 		railElement.setAttribute('aria-valuemax', String(store.max));
+		railElement.setAttribute(
+			'aria-label',
+			`Resize ${axis === 'y' ? 'height' : axis === 'x' ? 'width' : 'panel'}`
+		);
 
 		let startX = 0;
 		let startY = 0;
@@ -610,54 +636,6 @@ export function resizeRail(
 					targetEl.style.height = `${h}px`;
 				}
 			}
-		}
-
-		function onPointerDown(event: PointerEvent) {
-			// Only react to primary mouse button or touch/pen
-			if (event.button !== 0) return;
-
-			activePointerId = event.pointerId;
-			startX = event.clientX;
-			startY = event.clientY;
-
-			// Read existing rendered dimensions from DOM if targeting directly
-			if (targetEl) {
-				const rect = targetEl.getBoundingClientRect();
-				startWidth = rect.width;
-				startHeight = rect.height;
-			} else {
-				startWidth = store.width;
-				startHeight = store.height;
-			}
-
-			store.isDragging = true;
-			railElement.classList.add('resizing');
-
-			// Pointer capture keeps events firing on rail even if pointer moves fast across screen
-			try {
-				railElement.setPointerCapture(activePointerId);
-			} catch {
-				// Unsupported in headless test environments
-			}
-
-			// Prevent accidental browser text selection during drag
-			event.preventDefault();
-
-			const detail: ResizableDetail = {
-				width: store.currentWidth,
-				height: store.currentHeight,
-				deltaX: 0,
-				deltaY: 0,
-				isDragging: true,
-				collapsed: store.isCollapsed,
-				axis,
-				side,
-				target: targetEl,
-				event
-			};
-
-			railElement.dispatchEvent(new CustomEvent('resizestart', { detail }));
-			targetEl?.dispatchEvent(new CustomEvent('resizestart', { detail }));
 		}
 
 		function onPointerMove(event: PointerEvent) {
@@ -703,8 +681,13 @@ export function resizeRail(
 		function onPointerUp(event: PointerEvent) {
 			if (event.pointerId !== activePointerId) return;
 
+			window.removeEventListener('pointermove', onPointerMove);
+			window.removeEventListener('pointerup', onPointerUp);
+			window.removeEventListener('pointercancel', onPointerUp);
+			document.documentElement.style.userSelect = '';
+
 			store.isDragging = false;
-			railElement.classList.remove('resizing');
+			railElement.classList.remove('resizing', 'dragging');
 			activePointerId = -1;
 
 			if (railElement.hasPointerCapture(event.pointerId)) {
@@ -730,6 +713,55 @@ export function resizeRail(
 
 			railElement.dispatchEvent(new CustomEvent('resized', { detail }));
 			targetEl?.dispatchEvent(new CustomEvent('resized', { detail }));
+		}
+
+		function onPointerDown(event: PointerEvent) {
+			if (event.button !== 0) return;
+
+			activePointerId = event.pointerId;
+			startX = event.clientX;
+			startY = event.clientY;
+
+			if (targetEl) {
+				const rect = targetEl.getBoundingClientRect();
+				startWidth = rect.width;
+				startHeight = rect.height;
+			} else {
+				startWidth = store.currentWidth || store.minWidth || store.min;
+				startHeight = store.currentHeight || store.minHeight || store.min;
+			}
+
+			store.isDragging = true;
+			railElement.classList.add('resizing', 'dragging');
+
+			try {
+				railElement.setPointerCapture(activePointerId);
+			} catch {
+				// Window listeners ensure tracking persists even if capture fails
+			}
+
+			document.documentElement.style.userSelect = 'none';
+			window.addEventListener('pointermove', onPointerMove, { passive: false });
+			window.addEventListener('pointerup', onPointerUp);
+			window.addEventListener('pointercancel', onPointerUp);
+
+			event.preventDefault();
+
+			const detail: ResizableDetail = {
+				width: store.currentWidth,
+				height: store.currentHeight,
+				deltaX: 0,
+				deltaY: 0,
+				isDragging: true,
+				collapsed: store.isCollapsed,
+				axis,
+				side,
+				target: targetEl,
+				event
+			};
+
+			railElement.dispatchEvent(new CustomEvent('resizestart', { detail }));
+			targetEl?.dispatchEvent(new CustomEvent('resizestart', { detail }));
 		}
 
 		function onKeyDown(event: KeyboardEvent) {
@@ -765,14 +797,12 @@ export function resizeRail(
 					}
 					break;
 				case 'Home':
-					// Home jumps to minimum size
 					if (axis === 'y') store.set(minHeight);
 					else store.set(minWidth);
 					updateTarget(store.currentWidth, store.currentHeight);
 					event.preventDefault();
 					break;
 				case 'End':
-					// End jumps to maximum size
 					if (axis === 'y') store.set(maxHeight);
 					else store.set(maxWidth);
 					updateTarget(store.currentWidth, store.currentHeight);
@@ -780,7 +810,6 @@ export function resizeRail(
 					break;
 				case 'Enter':
 				case ' ':
-					// Enter or Space toggles collapse and restore
 					store.toggle();
 					updateTarget(store.currentWidth, store.currentHeight);
 					event.preventDefault();
@@ -793,107 +822,152 @@ export function resizeRail(
 		}
 
 		function onDoubleClick() {
-			// Double-click resets back to configured initial dimensions
 			store.reset();
 			updateTarget(store.currentWidth, store.currentHeight);
 		}
 
 		railElement.addEventListener('pointerdown', onPointerDown);
-		railElement.addEventListener('pointermove', onPointerMove);
-		railElement.addEventListener('pointerup', onPointerUp);
-		railElement.addEventListener('pointercancel', onPointerUp);
 		railElement.addEventListener('keydown', onKeyDown);
 		railElement.addEventListener('dblclick', onDoubleClick);
 
-		return () => {
+		const cleanup = () => {
 			railElement.removeEventListener('pointerdown', onPointerDown);
-			railElement.removeEventListener('pointermove', onPointerMove);
-			railElement.removeEventListener('pointerup', onPointerUp);
-			railElement.removeEventListener('pointercancel', onPointerUp);
 			railElement.removeEventListener('keydown', onKeyDown);
 			railElement.removeEventListener('dblclick', onDoubleClick);
+			window.removeEventListener('pointermove', onPointerMove);
+			window.removeEventListener('pointerup', onPointerUp);
+			window.removeEventListener('pointercancel', onPointerUp);
+			document.documentElement.style.userSelect = '';
 		};
-	};
+
+		const actionObj = cleanup as unknown as ActionReturn & (() => void) & {
+			update: (newOpts?: any) => void;
+		};
+		actionObj.destroy = cleanup;
+		actionObj.update = () => {};
+		return actionObj;
+	});
+}
+
+/* -------------------------------------------------------------------------- */
+/*               Standalone Resize Rail / Handle Action & Attachment          */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Universal Svelte 5 Resize Rail / Handle.
+ * Can be used as a Svelte action or an attachment factory:
+ * - `<div use:resizeRail={sidebar}></div>`
+ * - `<div use:sidebar.rail></div>`
+ * - `<div {@attach sidebar.rail}></div>`
+ * - `<div {@attach resizeRail(sidebar)}></div>`
+ */
+export function resizeRail(
+	arg1?: HTMLElement | Resizable | ResizeRailOptions,
+	arg2?: Resizable | ResizeRailOptions
+): any {
+	if (typeof window !== 'undefined' && arg1 instanceof HTMLElement) {
+		return attachToNode(arg1, arg2);
+	}
+	return (railElement: HTMLElement) => attachToNode(railElement, arg1 as any);
 }
 
 /** Alias for `resizeRail` */
 export const resizeHandle = resizeRail;
 
-/* -------------------------------------------------------------------------- */
-/*             Element Resizable Attachment (Container Level)                 */
-/* -------------------------------------------------------------------------- */
-
 /**
- * Svelte 5 Attachment Factory to make an entire container resizable.
- *
- * @example
- * ```svelte
- * <aside {@attach resizable({ axis: 'x', side: 'right', min: 180, max: 480 })}>
- *   ...
- * </aside>
- * ```
+ * Universal Resizable helper:
+ * - When called with options: creates and returns a reactive `Resizable` instance.
+ * - When used as an action: `<div use:resizable={opts}>` makes element resizable.
  */
 export function resizable(
-	options: ResizableOptions = {}
-): (element: HTMLElement) => void | (() => void) {
-	return (element: HTMLElement) => {
+	arg1?: HTMLElement | ResizableOptions,
+	arg2?: ResizableOptions
+): any {
+	if (typeof window !== 'undefined' && arg1 instanceof HTMLElement) {
 		const opts: ResizeRailOptions = {
-			...options,
-			target: element
+			...arg2,
+			target: arg1
 		};
-		return resizeRail(opts)(element);
-	};
+		return attachToNode(arg1, opts);
+	}
+	if (arg1 instanceof Resizable) {
+		return arg1;
+	}
+	return new Resizable(arg1 as ResizableOptions | undefined);
 }
 
 /* -------------------------------------------------------------------------- */
 /*                   ResizeObserver Attachment (Measurement)                  */
 /* -------------------------------------------------------------------------- */
 
-/**
- * Modern Svelte 5 Attachment Factory powered by native `ResizeObserver`.
- * Observes element dimension changes without attaching interactive drag rails.
- *
- * @example
- * ```svelte
- * <div {@attach observeResize((detail) => console.log(detail.width, detail.height))}>
- * </div>
- * ```
- */
-export function observeResize(
+function setupObserver(
+	element: HTMLElement,
 	callback?: ResizeObserverCallback,
 	options?: ResizeObserverOptions
-): (element: HTMLElement) => void | (() => void) {
-	return (element: HTMLElement) => {
-		if (typeof window === 'undefined' || typeof ResizeObserver === 'undefined') {
-			return;
+): ActionReturn & (() => void) {
+	if (typeof window === 'undefined' || typeof ResizeObserver === 'undefined') {
+		const noop = () => {};
+		noop.destroy = noop;
+		noop.update = () => {};
+		return noop as ActionReturn & (() => void);
+	}
+	if (options?.enabled === false) {
+		const noop = () => {};
+		noop.destroy = noop;
+		noop.update = () => {};
+		return noop as ActionReturn & (() => void);
+	}
+
+	const ro = new ResizeObserver((entries) => {
+		for (const entry of entries) {
+			const borderBox = entry.borderBoxSize?.[0];
+			const contentBox = entry.contentRect;
+
+			const detail: ResizeObserverDetail = {
+				observer: ro,
+				entry,
+				width: contentBox.width,
+				height: contentBox.height,
+				borderBoxWidth: borderBox?.inlineSize,
+				borderBoxHeight: borderBox?.blockSize
+			};
+
+			callback?.(detail);
+			element.dispatchEvent(new CustomEvent<ResizeObserverDetail>('resized', { detail }));
 		}
-		if (options?.enabled === false) return;
+	});
 
-		const ro = new ResizeObserver((entries) => {
-			for (const entry of entries) {
-				const borderBox = entry.borderBoxSize?.[0];
-				const contentBox = entry.contentRect;
+	ro.observe(element, { box: options?.box ?? 'border-box' });
 
-				const detail: ResizeObserverDetail = {
-					observer: ro,
-					entry,
-					width: contentBox.width,
-					height: contentBox.height,
-					borderBoxWidth: borderBox?.inlineSize,
-					borderBoxHeight: borderBox?.blockSize
-				};
-
-				callback?.(detail);
-				element.dispatchEvent(new CustomEvent<ResizeObserverDetail>('resized', { detail }));
-			}
-		});
-
-		ro.observe(element, { box: options?.box ?? 'border-box' });
-
-		return () => {
-			ro.disconnect();
-		};
+	const cleanup = () => {
+		ro.disconnect();
 	};
+
+	const actionObj = cleanup as unknown as ActionReturn & (() => void) & {
+		update: (cb?: any) => void;
+	};
+	actionObj.destroy = cleanup;
+	actionObj.update = () => {};
+	return actionObj;
+}
+
+/**
+ * Universal Svelte 5 Resize Observer.
+ * Works both as a Svelte action (`use:observeResize={callback}`)
+ * and as an attachment factory (`{@attach observeResize(callback)}`).
+ */
+export function observeResize(
+	arg1?: HTMLElement | ResizeObserverCallback,
+	arg2?: ResizeObserverOptions | ResizeObserverCallback
+): any {
+	if (typeof window !== 'undefined' && arg1 instanceof HTMLElement) {
+		const cb = typeof arg2 === 'function' ? arg2 : undefined;
+		const opts = typeof arg2 === 'object' ? arg2 : undefined;
+		return setupObserver(arg1, cb, opts);
+	}
+	const cb = typeof arg1 === 'function' ? arg1 : undefined;
+	const opts = typeof arg2 === 'object' ? arg2 : undefined;
+	return (element: HTMLElement) => setupObserver(element, cb, opts);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -908,7 +982,7 @@ export function observeResize(
 export function resize(
 	callbackOrOptions?: ResizeObserverCallback | Resizable | ResizeRailOptions,
 	maybeOptions?: ResizeObserverOptions
-): (element: HTMLElement) => void | (() => void) {
+): (element: HTMLElement) => any {
 	if (typeof callbackOrOptions === 'function') {
 		return observeResize(callbackOrOptions, maybeOptions);
 	}
@@ -916,22 +990,26 @@ export function resize(
 }
 
 /**
- * Legacy Svelte 3/4 Action for backwards compatibility with `use:resizeAction`.
+ * Interactive Svelte Action for `use:resizeAction`.
+ * - When given a callback: acts as a ResizeObserver.
+ * - When given a Resizable instance or options: interactively resizes the target/element.
  */
 export function resizeAction(
 	node: HTMLElement,
-	params?: ResizeObserverCallback | ResizeObserverOptions | ResizableOptions
+	params?: ResizeObserverCallback | ResizeObserverOptions | ResizableOptions | Resizable
 ): ActionReturn {
 	let cleanup: (() => void) | void;
 
-	function setup(p?: ResizeObserverCallback | ResizeObserverOptions | ResizableOptions) {
+	function setup(p?: ResizeObserverCallback | ResizeObserverOptions | ResizableOptions | Resizable) {
 		cleanup?.();
 		if (typeof p === 'function') {
-			cleanup = observeResize(p)(node);
-		} else if (p && ('axis' in p || 'side' in p || 'min' in p || 'max' in p)) {
-			cleanup = resizeRail(p as ResizeRailOptions)(node);
+			cleanup = setupObserver(node, p);
+		} else if (p instanceof Resizable) {
+			cleanup = attachToNode(node, p);
+		} else if (p && ('axis' in p || 'side' in p || 'min' in p || 'max' in p || 'initial' in p)) {
+			cleanup = attachToNode(node, p as ResizeRailOptions);
 		} else {
-			cleanup = observeResize(undefined, p as ResizeObserverOptions)(node);
+			cleanup = setupObserver(node, undefined, p as ResizeObserverOptions);
 		}
 	}
 

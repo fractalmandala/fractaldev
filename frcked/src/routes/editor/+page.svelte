@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { FileViewer, generateDesignSpecimenHtml } from '$lib/components/editor';
 	import { sampleSpecimenHtml } from './sample-specimen';
-	import { SCHEMES, schemeById } from '$lib/demos/registry';
+	import { SCHEMES, schemeById } from '$lib/data/schemes';
 
 	let selectedSchemeId = $state('default');
 	let htmlSource = $state(sampleSpecimenHtml);

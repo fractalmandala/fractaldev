@@ -83,6 +83,7 @@ venv/
 .parcel-cache/
 dump/
 designokf/
+affedo/
 
 acrolls/.claude/
 acrolls/.qoder/
@@ -104,6 +105,9 @@ fractalstyler/.ok/
 fractalsvelte-ui/vibe_images/
 fractutils/.claude/
 fractutils/.vscode/
+
+frcked/
+reposveltekit/
 
 markgraphy/.chrome-tmp/
 markgraphy/.claude/

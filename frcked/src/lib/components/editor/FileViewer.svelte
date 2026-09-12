@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { onMount, setContext } from 'svelte';
 	import '$lib/styles/editor.sass';
-	import { EditorState } from './EditorState.svelte';
+	import { EditorState } from '$lib/states/editorState.svelte';
 	import ManualEditPanel from './ManualEditPanel.svelte';
-	import { createEditBridgeScript } from './bridge';
-	import { applySourcePatch } from './source-patches';
-	import type { IframeToHostMessage, ViewportMode, DrawStroke } from './types';
-	import type { Scheme } from '$lib/demos/scheme-types';
+	import { createEditBridgeScript } from '$lib/utilities/editorBridge';
+	import { applySourcePatch } from '$lib/utilities/sourcePatches';
+	import type { IframeToHostMessage, ViewportMode, DrawStroke } from '$lib/states/editorTypes';
+	import type { Scheme } from '$lib/data/schemeTypes';
 
 	let {
 		source = $bindable(''),

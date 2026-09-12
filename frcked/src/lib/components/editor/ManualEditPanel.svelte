@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { EditorState } from './EditorState.svelte';
+	import type { EditorState } from '$lib/states/editorState.svelte';
 	import { fade } from 'svelte/transition';
 
 	let {

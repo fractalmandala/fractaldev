@@ -12,6 +12,8 @@
     "test:size": "node scripts/bundle-size.mjs",
     "dev": "pnpm -r run dev",
     "clean": "pnpm -r run clean",
+    "benchmark": "node --expose-gc scripts/benchmark-large.mjs",
+    "benchmark:large": "node --expose-gc scripts/benchmark-large.mjs",
     "changeset": "changeset",
     "version": "changeset version",
     "release": "pnpm test && pnpm build && changeset publish"

@@ -2,8 +2,9 @@
 	import { page } from '$app/state';
 	import { slide } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
-	import { themeStore, transitionLink, APP_NAME, safeResolve } from '$lib/utils';
-	import { NavigationLogic, type NavigationState } from '$lib/data/Navigation.js';
+	import { themeStore, transitionLink, safeResolve } from '$lib/utilities';
+	import { APP_NAME } from '$lib/states/config.svelte';
+	import { NavigationLogic, type NavigationState } from '$lib/states/navigationState.svelte';
 	import { NavigationIcons, AccountIcons, ThemeIcons } from '$lib/components/icons';
 
 	const logic = new NavigationLogic(page.url.pathname);
@@ -21,17 +22,6 @@
 		const normalizePath = (p: string) => (p === '/' ? p : p.endsWith('/') ? p.slice(0, -1) : p);
 		return normalizePath(state.currentPath) === normalizePath(path);
 	}
-
-	// const api = new ApiClient();
-	// async function handleLogout() {
-	// 	try {
-	// 		await api.auth.logout();
-	// 		logoutUser();
-	// 		await navigateWithTransition('/');
-	// 	} catch (error) {
-	// 		console.error('Logout failed:', error);
-	// 	}
-	// }
 </script>
 
 <nav class="row ycenter xbetween wfull" in:slide>

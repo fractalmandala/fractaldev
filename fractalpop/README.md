@@ -65,6 +65,31 @@ Theme by setting the CSS variables the token types map to:
 .fp__line--highlighted { background: #ffffff10; }
 ```
 
+## Benchmarks
+
+fractalpop, Sugar High, PrismJS, and highlight.js highlighting the same generated TypeScript files:
+
+<!-- benchmark:start -->
+Measured 2026-09-12 with Node v24.19.0, darwin arm64, Apple M3 Pro.
+
+| TypeScript | fractalpop 0.1.0 | Sugar High 2.4.0 | PrismJS 1.30.0 | highlight.js 11.12.0 |
+| --- | ---: | ---: | ---: | ---: |
+| Minified (KiB) | 12.35 | 27.29 | 14.57 | 29.49 |
+| Gzip (KiB) | 5.28 | 10.09 | 5.57 | 11.28 |
+| 11 KiB | 1.87 | 1.91 | 1.42 | 2.39 |
+| 100 KiB | 19.49 | 19.61 | 14.05 | 23.57 |
+| 500 KiB | 98.13 | 100.04 | 90.45 | 117.98 |
+
+Median milliseconds per file; lower is better. 5 timed samples after warmup.
+Sizes are TypeScript-only browser bundles, minified with Bun; gzip uses level 9. Theme CSS is excluded.
+Loading and initialization are excluded. Each library highlights the same generated TypeScript
+into HTML using an explicit language. Grammars and HTML output differ; this is not a measure
+of highlighting quality or browser rendering speed. Results vary by machine and workload.
+<!-- benchmark:end -->
+
+Run `pnpm benchmark:large --write` to refresh this table and the demo comparison from the same measurement.
+See [benchmark methodology and options](./docs/BENCHMARK.md).
+
 ## Develop
 
 ```sh

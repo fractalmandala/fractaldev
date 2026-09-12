@@ -6,42 +6,75 @@
 
 // ── tokens ────────────────────────────────────────────────────────────────────
 :root
-	// colour roles
+	// Fractalgraphic Design System (Light Tokens from DESIGN.md)
 	--bg: #ffffff
-	--surface: #042f2e
-	--surface-2: #f9fafb
-	--ink: #111827
-	--body: #4b5563
-	--muted: #9ca3af
-	--line: #e5e7eb
-	--line-strong: #d1d5db
-	--accent: #fa3701
-	--theme-color: #fa3701
-	--accent-wash: rgba(250, 55, 1, 0.08)
-	--on-surface: #d8e3e1
-	--on-surface-dim: #6e8b88
+	--bg-surface: #f4f4f5
+	--bg-raised: #FaFaFa
+	--bg-panel: #e4e4e7
+	--bg-dialog: #d4d4d8
+	--bg-popover: #e4e4e7
+	--bg-terminal: #b1b1b1
+	--text-primary: #202122
+	--text-secondary: #5e5e5e
+	--text-muted: #a3a4a7
+	--text-inverse: #121212
+	--state-hover: #e4e4e7
+	--state-hover-subtle: #edebeb
+	--state-selected: #edebeb
+	--border: #dfdfdf
+	--border-strong: #a7a7a7
+	--border-subtle: #efefef
+	--border-blueprint: var(--theme-color)
+	--theme-color: var(--theme-5)
+	--theme-color-alt: var(--theme-4)
+	--color-alt: #047FB4
+	--color-alt2: #F12323
 
-	// rhythm — base 8
-	--s1: 8px
-	--s2: 16px
-	--s3: 24px
-	--s4: 40px
-	--s5: 80px
-	--card-pad: 24px
-	--gutter: 24px
-	--col: 1120px
+	--theme-1: #FF8A5C
+	--theme-2: #FF6E38
+	--theme-3: #FF5719
+	--theme-4: #FF4500
+	--theme-5: #FA3701
+	--theme-6: #DE2D00
+	--theme-7: #B82200
+	--theme-8: #911800
+	--theme-9: #6B0F00
+	--theme-10: #480800
+
+	// Fluid Typography Tokens
+	--font-sans: -apple-system, BlinkMacSystemFont, "Geist", "Inter", "Segoe UI", Roboto, sans-serif
+	--font-mono: "JetBrains Mono", "SF Mono", "Fira Code", ui-monospace, Menlo, Consolas, monospace
+
+	--text-xs: 0.675rem
+	--text-sm: 0.75rem
+	--text-md: 0.875rem
+	--text-bs: 1rem
+	--text-lg: 1.125rem
+	--text-xl: 1.25rem
+	--text-2xl: 1.5rem
+	--text-3xl: 1.875rem
+	--text-4xl: 2.25rem
+	--text-5xl: 2.75rem
+	--text-6xl: 3.75rem
+	--text-7xl: 5rem
+
+	// Fluid Spatial System
+	--space-xs: clamp(0.125rem, 0.0739rem + 0.2273vw, 0.25rem)
+	--space-sm: clamp(0.25rem, 0.1477rem + 0.4545vw, 0.5rem)
+	--space-md: clamp(0.5rem, 0.3977rem + 0.4545vw, 0.75rem)
+	--space-bs: clamp(0.75rem, 0.6477rem + 0.4545vw, 1rem)
+	--space-lg: clamp(1rem, 0.7955rem + 0.9091vw, 1.5rem)
+	--space-xl: clamp(1.5rem, 1.2955rem + 0.9091vw, 2rem)
+	--space-2xl: clamp(2rem, 1.5909rem + 1.8182vw, 3rem)
+	--space-3xl: clamp(3rem, 2.5909rem + 1.8182vw, 4rem)
+
+	// Layout Containers
+	--container-max-width: 1080px
+	--col: 1080px
 	--col-text: 680px
+	--gutter: var(--space-lg)
 
-	// geometry
-	--r-card: 8px
-	--r-control: 8px
-	--r-pill: 9999px
 
-	// type
-	--font-sans: Inter, 'Intet', -apple-system, 'Helvetica Neue', Arial, sans-serif
-	--font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', Menlo, Consolas, monospace
-
-	--ease: cubic-bezier(0.22, 0.61, 0.36, 1)
 	color-scheme: light
 
 *,
@@ -54,7 +87,7 @@ html, body
 
 body
 	background: var(--bg)
-	color: var(--text-primrary)
+	color: var(--text-primary)
 	font-family: var(--font-sans)
 	font-size: 16px
 	line-height: 1.6
@@ -77,7 +110,7 @@ a
 	text-decoration: none
 
 :focus-visible
-	outline: 2px solid var(--accent)
+	outline: 2px solid var(--theme-color)
 	outline-offset: 3px
 
 // ── mono metadata label ───────────────────────────────────────────────────────
@@ -88,10 +121,385 @@ a
 	line-height: 1.2
 	letter-spacing: 0.08em
 	text-transform: uppercase
-	color: var(--muted)
+	color: var(--text-muted)
 
+.label-accent,
 .label--accent
-	color: var(--accent)
+	color: var(--theme-color)
+
+// ── DESIGN.md Typography & System Classes ──────────────────────────────────────
+.sans
+	font-family: var(--font-sans)
+.mono
+	font-family: var(--font-mono)
+
+.text-xs
+	font-size: var(--text-xs)
+.text-sm
+	font-size: var(--text-sm)
+.text-md
+	font-size: var(--text-md)
+.text-bs
+	font-size: var(--text-bs)
+.text-lg
+	font-size: var(--text-lg)
+.text-xl
+	font-size: var(--text-xl)
+	font-weight: 600
+	letter-spacing: -0.015em
+.text-2xl
+	font-size: var(--text-2xl)
+	font-weight: 700
+	letter-spacing: -0.025em
+.text-3xl
+	font-size: var(--text-3xl)
+	font-weight: 700
+	letter-spacing: -0.030em
+.text-4xl
+	font-size: var(--text-4xl)
+	font-weight: 800
+	letter-spacing: -0.035em
+	line-height: 1.05
+
+.eyebrow
+	font-family: var(--font-mono)
+	font-size: var(--text-sm)
+	font-weight: 600
+	letter-spacing: 0.14em
+	text-transform: uppercase
+	color: var(--theme-color)
+
+.stage
+	font-family: var(--font-mono)
+	font-size: var(--text-sm)
+	font-weight: 600
+	letter-spacing: 0.12em
+	text-transform: uppercase
+	color: var(--theme-color)
+
+.metatext
+	font-family: var(--font-sans)
+	font-size: var(--text-2xl)
+	font-weight: 700
+	letter-spacing: -0.020em
+	line-height: 1.00
+	color: var(--theme-color)
+
+.metalabel
+	font-family: var(--font-mono)
+	font-size: var(--text-xs)
+	font-weight: 500
+	letter-spacing: 0.12em
+	text-transform: uppercase
+	color: var(--text-muted)
+
+.metatag
+	font-family: var(--font-mono)
+	font-size: var(--text-sm)
+	font-weight: 700
+	letter-spacing: 0.10em
+	text-transform: uppercase
+	color: var(--text-inverse)
+
+.code-block
+	font-family: var(--font-mono)
+	font-size: var(--text-md)
+	font-weight: 400
+	letter-spacing: -0.010em
+	line-height: 1.55
+
+.code-inline
+	font-family: var(--font-mono)
+	font-size: var(--text-sm)
+	font-weight: 400
+	line-height: 1.20
+	color: var(--text-primary)
+
+// ── DESIGN.md Structural Component Archetypes (Mobile-First Wrap) ─────────────
+.blueprint-box
+	position: relative
+	background: var(--bg-raised)
+	border: 1px dashed var(--border)
+	border-radius: 0
+	padding: var(--space-xl) var(--space-lg)
+
+	&::before, &::after
+		position: absolute
+		font-family: var(--font-mono)
+		font-size: 11px
+		line-height: 1
+		color: var(--theme-color)
+		pointer-events: none
+
+	&::before
+		content: "+"
+		top: -6px
+		left: -4px
+
+	&::after
+		content: "+"
+		bottom: -6px
+		right: -4px
+
+.blueprint-box-corner-tr
+	position: absolute
+	top: -6px
+	right: -4px
+	font-family: var(--font-mono)
+	font-size: 11px
+	line-height: 1
+	color: var(--theme-color)
+	pointer-events: none
+
+.blueprint-box-corner-bl
+	position: absolute
+	bottom: -6px
+	left: -4px
+	font-family: var(--font-mono)
+	font-size: 11px
+	line-height: 1
+	color: var(--theme-color)
+	pointer-events: none
+
+.blueprint-box-badge
+	display: inline-block
+	background: var(--theme-color)
+	color: var(--text-inverse)
+	font-family: var(--font-mono)
+	font-size: var(--text-xs)
+	font-weight: 700
+	letter-spacing: 0.10em
+	text-transform: uppercase
+	padding: 3px 8px
+	border-radius: 2px
+	margin-bottom: var(--space-md)
+
+.split-card
+	display: grid
+	grid-template-columns: 1fr
+	border: 1px solid var(--border-subtle)
+	background: var(--bg)
+	border-radius: 0
+
+@media (min-width: 768px)
+	.split-card
+		grid-template-columns: 1fr 1fr
+
+.split-card-pane-left
+	position: relative
+	padding: var(--space-xl) var(--space-lg)
+	border-top: 3px solid var(--theme-color)
+
+.split-card-pane-right
+	position: relative
+	padding: var(--space-xl) var(--space-lg)
+	border-top: 1px solid var(--border-subtle)
+
+@media (min-width: 768px)
+	.split-card-pane-right
+		border-top: 3px solid transparent
+		border-left: 1px solid var(--border-subtle)
+
+.split-card-list
+	list-style: none
+	margin: var(--space-md) 0 0 0
+	padding: 0
+	display: flex
+	flex-direction: column
+	gap: var(--space-sm)
+
+.split-card-item
+	display: flex
+	align-items: flex-start
+	gap: var(--space-xs)
+	font-size: var(--text-md)
+	line-height: 1.5
+	color: var(--text-secondary)
+
+.split-card-item-positive .split-card-marker
+	color: var(--theme-color)
+	font-family: var(--font-mono)
+	font-weight: 700
+
+.split-card-item-negative .split-card-marker
+	color: var(--text-muted)
+	font-family: var(--font-mono)
+	font-weight: 400
+
+.metric-strip
+	display: grid
+	grid-template-columns: repeat(2, minmax(0, 1fr))
+	border: 1px solid var(--border-subtle)
+	background: var(--bg-surface)
+	border-radius: 0
+
+@media (min-width: 640px)
+	.metric-strip
+		grid-template-columns: repeat(3, minmax(0, 1fr))
+
+@media (min-width: 900px)
+	.metric-strip
+		grid-template-columns: repeat(6, minmax(0, 1fr))
+
+.metric-strip-cell
+	padding: var(--space-md) var(--space-sm)
+	display: flex
+	flex-direction: column
+	gap: var(--space-xs)
+	border-right: 1px solid var(--border-subtle)
+	border-bottom: 1px solid var(--border-subtle)
+
+@media (min-width: 900px)
+	.metric-strip-cell
+		border-bottom: none
+
+	.metric-strip-cell:last-child
+		border-right: none
+
+.metric-strip-val
+	font-size: 1.75rem
+	font-weight: 700
+	line-height: 1.0
+	color: var(--theme-color)
+
+.metric-strip-label
+	font-family: var(--font-mono)
+	font-size: 0.625rem
+	font-weight: 500
+	letter-spacing: 0.12em
+	text-transform: uppercase
+	color: var(--text-muted)
+
+.benchmark-cards
+	display: grid
+	grid-template-columns: 1fr
+	border: 1px solid var(--border-subtle)
+	border-radius: 12px
+	background: var(--bg-surface)
+	overflow: hidden
+
+@media (min-width: 768px)
+	.benchmark-cards
+		grid-template-columns: repeat(3, minmax(0, 1fr))
+
+.benchmark-card
+	padding: var(--space-lg)
+	border-bottom: 1px solid var(--border-subtle)
+
+@media (min-width: 768px)
+	.benchmark-card
+		border-bottom: none
+		border-right: 1px solid var(--border-subtle)
+
+	.benchmark-card:last-child
+		border-right: none
+
+.benchmark-card-title
+	font-size: 0.9375rem
+	font-weight: 700
+	color: var(--text-primary)
+	margin-bottom: var(--space-md)
+
+.benchmark-row
+	display: flex
+	align-items: center
+	justify-content: space-between
+	gap: var(--space-md)
+	margin-bottom: var(--space-xs)
+
+.benchmark-row-track
+	flex: 1
+	height: 3px
+	background: var(--state-hover)
+	border-radius: 2px
+	overflow: hidden
+
+.benchmark-row-fill
+	height: 100%
+	border-radius: 2px
+
+.benchmark-row-fill-1
+	background: var(--theme-color)
+
+.benchmark-row-fill-2
+	background: var(--color-alt)
+
+.benchmark-row-fill-3
+	background: var(--color-alt2)
+
+.benchmark-row-fill-4
+	background: var(--theme-2)
+
+.benchmark-row-val
+	font-family: var(--font-mono)
+	font-size: 0.8125rem
+	font-weight: 700
+	color: var(--text-primary)
+	min-width: 4.5rem
+	text-align: right
+
+.benchmark-row-unit
+	font-weight: 400
+	color: var(--text-muted)
+
+.stage-row
+	display: grid
+	grid-template-columns: 1fr
+	padding: var(--space-xl) 0
+	border-bottom: 1px solid var(--border-subtle)
+	gap: var(--space-md)
+
+@media (min-width: 768px)
+	.stage-row
+		grid-template-columns: 100px 1.2fr 1fr
+		gap: var(--space-xl)
+
+.stage-row-number
+	font-family: var(--font-mono)
+	font-size: 0.75rem
+	font-weight: 600
+	letter-spacing: 0.12em
+	text-transform: uppercase
+	color: var(--theme-color)
+
+.stage-row-content
+	display: flex
+	flex-direction: column
+	gap: var(--space-xs)
+
+.stage-row-title
+	font-size: 1.375rem
+	font-weight: 700
+	letter-spacing: -0.02em
+	color: var(--text-primary)
+
+.stage-row-body
+	font-size: 0.9375rem
+	line-height: 1.6
+	color: var(--text-secondary)
+
+.stage-row-list
+	display: flex
+	flex-direction: column
+	gap: var(--space-xs)
+
+.stage-row-item
+	display: flex
+	justify-content: space-between
+	align-items: baseline
+	padding-bottom: var(--space-xs)
+	border-bottom: 1px dotted var(--border-subtle)
+	font-family: var(--font-mono)
+	font-size: 0.8125rem
+
+.stage-row-item-meta
+	color: var(--text-muted)
+
+.hairline-divider
+	border: none
+	border-top: 1px solid var(--border-subtle)
+	margin: 0
+	width: 100%
 
 // ── shell ─────────────────────────────────────────────────────────────────────
 .shell
@@ -119,12 +527,12 @@ a
 	display: flex
 	align-items: center
 	justify-content: space-between
-	gap: var(--s2)
+	gap: var(--space-md)
 	height: 56px
 	padding-inline: var(--gutter)
 	background: rgba(255, 255, 255, 0.86)
 	backdrop-filter: blur(10px)
-	border-bottom: 1px solid var(--line)
+	border-bottom: 1px solid var(--border)
 
 .nav-logo
 	display: inline-flex
@@ -133,7 +541,7 @@ a
 	font-size: 18px
 	font-weight: 700
 	letter-spacing: 0
-	color: var(--text-primrary)
+	color: var(--text-primary)
 
 .nav-logo img
 	width: 28px
@@ -147,21 +555,21 @@ a
 .nav__link
 	position: relative
 	padding: 6px 10px
-	border-radius: var(--r-control)
+	border-radius: 2px
 	font-family: var(--font-mono)
 	font-size: 12px
 	font-weight: 600
 	letter-spacing: 0.06em
 	text-transform: uppercase
-	color: var(--muted)
-	transition: color 0.18s var(--ease), background 0.18s var(--ease)
+	color: var(--text-muted)
+	transition: color 0.18s cubic-bezier(0.16, 1, 0.3, 1), background 0.18s cubic-bezier(0.16, 1, 0.3, 1)
 
 .nav__link:hover
-	color: var(--text-primrary)
-	background: var(--surface-2)
+	color: var(--text-primary)
+	background: var(--bg-surface)
 
 .nav__link[aria-current='page']
-	color: var(--text-primrary)
+	color: var(--text-primary)
 
 .nav__link[aria-current='page']::after
 	content: ''
@@ -170,17 +578,17 @@ a
 	right: 10px
 	bottom: 1px
 	height: 2px
-	background: var(--accent)
+	background: var(--theme-color)
 
 .nav__gh
 	display: inline-flex
-	margin-left: var(--s1)
+	margin-left: var(--space-sm)
 	padding: 6px
-	color: var(--muted)
-	transition: color 0.18s var(--ease)
+	color: var(--text-muted)
+	transition: color 0.18s cubic-bezier(0.16, 1, 0.3, 1)
 
 .nav__gh:hover
-	color: var(--text-primrary)
+	color: var(--text-primary)
 
 .nav__gh svg
 	width: 18px
@@ -191,7 +599,7 @@ a
 	background: none
 	border: none
 	padding: 4px
-	color: var(--text-primrary)
+	color: var(--text-primary)
 	cursor: pointer
 
 .nav__menu svg
@@ -201,31 +609,37 @@ a
 @media (max-width: 900px)
 	.nav__links
 		display: none
+		transition: 180ms ease
 	.nav__menu
 		display: inline-flex
 	.nav-open .nav__links
 		position: absolute
 		top: 56px
-		right: var(--gutter)
+		right: 0
 		display: flex
 		flex-direction: column
 		align-items: flex-end
 		gap: 2px
-		padding: var(--s2)
-		background: var(--bg)
-		border: 1px solid var(--line)
-		border-radius: var(--r-card)
+		padding: var(--space-md)
+		background: rgba(255,255,255,0.9)
+		backdrop-filter: blur(15px)
+		border-left: 1px solid var(--border)
+		height: calc(100vh - 56px)
+		width: 280px
+		transition: 180ms ease
+		.nav__link
+			font-size: 21px	
 
 // ── hero ──────────────────────────────────────────────────────────────────────
 .hero
-	padding-top: var(--s5)
-	padding-bottom: var(--s4)
+	padding-top: var(--space-3xl)
+	padding-bottom: var(--space-xl)
 
 .hero-meta
 	display: flex
 	flex-wrap: wrap
-	gap: var(--s2)
-	margin-bottom: var(--s3)
+	gap: var(--space-md)
+	margin-bottom: var(--space-bs)
 
 .hero-meta span::before
 	content: '[- '
@@ -238,53 +652,55 @@ a
 	font-weight: 600
 	line-height: 0.94
 	letter-spacing: -0.035em
-	color: var(--text-primrary)
+	color: var(--text-primary)
 
 .hero__tagline
-	margin-top: var(--s2)
+	margin-top: var(--space-md)
 	font-size: clamp(26px, 4.2vw, 38px)
 	font-weight: 500
 	line-height: 1.14
 	letter-spacing: -0.015em
-	color: var(--text-primrary)
+	color: var(--text-primary)
 
 .hero__tagline em
 	font-style: normal
-	color: var(--accent)
+	color: var(--theme-color)
 
 .hero__title
 	font-size: clamp(40px, 7vw, 64px)
-	font-weight: 500
-	line-height: 1.04
-	letter-spacing: 0
-	color: var(--text-primrary)
+	font-weight: 600
+	line-height: 1.2
+	letter-spacing: -1px
+	color: var(--text-primary)
 
 .hero__title em
 	font-style: normal
-	color: var(--accent)
+	color: var(--theme-color)
 
 .hero__sub
-	margin-top: var(--s3)
+	margin-top: var(--space-bs)
+	margin-bottom: var(--space-bs)
 	max-width: 52ch
-	color: var(--body)
+	color: var(--text-secondary)
+	font-size: var(--text-lg)
 
 // ── controls ──────────────────────────────────────────────────────────────────
 .btn
 	display: inline-flex
 	align-items: center
-	gap: var(--s1)
+	gap: var(--space-sm)
 	padding: 10px 16px
 	background: var(--bg)
-	border: 1px solid var(--line-strong)
-	border-radius: var(--r-control)
+	border: 1px solid var(--border-strong)
+	border-radius: 2px
 	font-family: var(--font-mono)
 	font-size: 13px
-	color: var(--text-primrary)
+	color: var(--text-primary)
 	cursor: pointer
-	transition: border-color 0.18s var(--ease), transform 0.18s var(--ease), box-shadow 0.18s var(--ease)
+	transition: border-color 0.18s cubic-bezier(0.16, 1, 0.3, 1), transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s cubic-bezier(0.16, 1, 0.3, 1)
 
 .btn:hover
-	border-color: var(--accent)
+	border-color: var(--theme-color)
 	transform: translateY(-1px)
 	box-shadow: 0 6px 16px -10px rgba(17, 24, 39, 0.5)
 
@@ -292,16 +708,16 @@ a
 	font-size: 11px
 	letter-spacing: 0.06em
 	text-transform: uppercase
-	color: var(--muted)
+	color: var(--text-muted)
 
 .btn.is-copied
-	border-color: var(--accent)
+	border-color: var(--theme-color)
 
 .btn.is-copied .btn__hint
-	color: var(--accent)
+	color: var(--theme-color)
 
 .install
-	margin-top: var(--s3)
+	margin-top: var(--space-bs)
 
 // ── architecture index ────────────────────────────────────────────────────────
 // Fixed column counts keep the index a complete rectangle at every width —
@@ -310,9 +726,9 @@ a
 	display: grid
 	grid-template-columns: repeat(4, 1fr)
 	gap: 0
-	margin-top: var(--s5)
-	border-top: 1px solid var(--line)
-	border-left: 1px solid var(--line)
+	margin-top: var(--space-3xl)
+	border-top: 1px solid var(--border)
+	border-left: 1px solid var(--border)
 
 @media (max-width: 900px)
 	.index
@@ -326,32 +742,32 @@ a
 	display: flex
 	align-items: baseline
 	gap: 10px
-	padding: var(--s3)
-	border-right: 1px solid var(--line)
-	border-bottom: 1px solid var(--line)
-	transition: background 0.18s var(--ease), color 0.18s var(--ease)
+	padding: var(--space-bs)
+	border-right: 1px solid var(--border)
+	border-bottom: 1px solid var(--border)
+	transition: background 0.18s cubic-bezier(0.16, 1, 0.3, 1), color 0.18s cubic-bezier(0.16, 1, 0.3, 1)
 
 .index__item:hover
-	background: var(--surface-2)
+	background: var(--bg-surface)
 
 .index__item:hover .index__n
-	color: var(--accent)
+	color: var(--theme-color)
 
 .index__n
 	font-family: var(--font-mono)
 	font-size: 12px
 	font-weight: 600
-	color: var(--muted)
-	transition: color 0.18s var(--ease)
+	color: var(--text-muted)
+	transition: color 0.18s cubic-bezier(0.16, 1, 0.3, 1)
 
 .index__label
 	font-size: 15px
-	color: var(--text-primrary)
+	color: var(--text-primary)
 
 // ── sections ──────────────────────────────────────────────────────────────────
 .section
-	padding-block: var(--s5)
-	border-top: 1px solid var(--line)
+	padding-block: var(--space-3xl)
+	border-top: 1px solid var(--border)
 
 .section:first-of-type
 	border-top: none
@@ -359,50 +775,50 @@ a
 .section__head
 	display: flex
 	align-items: baseline
-	gap: var(--s2)
-	margin-bottom: var(--s4)
+	gap: var(--space-md)
+	margin-bottom: var(--space-xl)
 
 .section__title
 	font-size: 28px
 	font-weight: 500
 	letter-spacing: -0.01em
-	color: var(--text-primrary)
+	color: var(--text-primary)
 
 .block + .block
-	margin-top: var(--s4)
+	margin-top: var(--space-xl)
 
 .block__title
 	font-size: 18px
 	font-weight: 500
-	color: var(--text-primrary)
-	margin-bottom: var(--s1)
+	color: var(--text-primary)
+	margin-bottom: var(--space-sm)
 
 .block__title .dim
-	color: var(--muted)
+	color: var(--text-muted)
 
 .lede
 	max-width: var(--col-text)
-	color: var(--body)
-	margin-bottom: var(--s2)
+	color: var(--text-secondary)
+	margin-bottom: var(--space-md)
 
 .lede b
-	color: var(--text-primrary)
+	color: var(--text-primary)
 	font-weight: 500
 
 .lede a
-	color: var(--accent)
-	border-bottom: 1px solid var(--accent-wash)
+	color: var(--theme-color)
+	border-bottom: 1px solid var(--border-subtle)
 
 .lede a:hover
-	border-bottom-color: var(--accent)
+	border-bottom-color: var(--theme-color)
 
 .lede code,
 .prose :not(pre) > code
 	font-family: var(--font-mono)
 	font-size: 0.85em
-	color: var(--text-primrary)
-	background: var(--surface-2)
-	border: 1px solid var(--line)
+	color: var(--text-primary)
+	background: var(--bg-surface)
+	border: 1px solid var(--border)
 	border-radius: 4px
 	padding: 1px 5px
 
@@ -411,13 +827,13 @@ a
 // mono label voice — the panel reads as a spec sheet, not a floating card.
 .panel
 	position: relative
-	border: 1px solid var(--line)
-	border-radius: var(--r-card)
+	border: 1px solid var(--border)
+	border-radius: 0
 	overflow: hidden
 	--fp-font-family: var(--font-mono)
 
 .panel + .panel
-	margin-top: var(--s2)
+	margin-top: var(--space-md)
 
 // The package's header is scoped-styled; these ride on top of it. The extra
 // `.panel` ancestor wins the specificity tie against the component's own rule.
@@ -446,7 +862,7 @@ a
 	color: currentColor
 	opacity: 0.4
 	cursor: pointer
-	transition: opacity 0.18s var(--ease)
+	transition: opacity 0.18s cubic-bezier(0.16, 1, 0.3, 1)
 
 .panel__copy:hover
 	opacity: 1
@@ -458,8 +874,8 @@ a
 .pair
 	display: grid
 	grid-template-columns: 1fr 1fr
-	border: 1px solid var(--line)
-	border-radius: var(--r-card)
+	border: 1px solid var(--border)
+	border-radius: 0
 	overflow: hidden
 
 .pair .panel
@@ -468,35 +884,33 @@ a
 
 .pair .panel + .panel
 	margin-top: 0
-	border-left: 1px solid var(--line)
+	border-left: 1px solid var(--border)
 
 @media (max-width: 720px)
 	.pair
 		grid-template-columns: 1fr
 	.pair .panel + .panel
 		border-left: none
-		border-top: 1px solid var(--line)
+		border-top: 1px solid var(--border)
 
 // ── the focal object: playground on the deep surface ──────────────────────────
 .stage
-	margin-top: var(--s4)
-	padding: var(--s4) var(--s3)
-	background: var(--surface)
-	border-radius: var(--r-card)
+	margin-top: var(--space-xl)
+	border-radius: 0
 
 .stage__bar
 	display: flex
 	align-items: center
 	justify-content: space-between
 	flex-wrap: wrap
-	gap: var(--s2)
-	margin-bottom: var(--s3)
+	gap: var(--space-md)
+	margin-bottom: var(--space-bs)
 
 .stage .label
-	color: var(--on-surface-dim)
+	color: var(--text-muted)
 
 .frame
-	border-radius: var(--r-card)
+	border-radius: 0
 	overflow: hidden
 	--fp-font-family: var(--font-mono)
 
@@ -513,44 +927,53 @@ a
 	width: 18px
 	height: 18px
 	padding: 0
-	border: 1px solid rgba(255, 255, 255, 0.22)
-	border-radius: var(--r-pill)
+	border: none
+	border-radius: 9999px
 	cursor: pointer
-	transition: transform 0.18s var(--ease), border-color 0.18s var(--ease)
+	transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.18s cubic-bezier(0.16, 1, 0.3, 1)
 
-.swatch__dot
-	width: 7px
-	height: 7px
-	border-radius: var(--r-pill)
+.swatch-1
+	width: 6px
+	height: 18px
+
+.swatch-2
+	width: 6px
+	height: 18px
+
+.swatch-3
+	width: 6px
+	height: 18px
 
 .swatch:hover
-	transform: translateY(-2px)
+	transform: scale(1.1)
 
 .swatch[aria-pressed='true']
-	border-color: var(--accent)
+	border-color: var(--theme-color)
 	box-shadow: 0 0 0 2px rgba(250, 55, 1, 0.3)
 
-.swatch--mode
+.swatch-mode
+	height: 18px
+	width: 30px
 	background: linear-gradient(90deg, #ffffff 50%, #042f2e 50%)
-	margin-left: var(--s1)
+	margin-left: var(--space-sm)
 
 // light context (themes / sveltekit pages put the bar on white)
 .themebar--light .swatch
-	border-color: var(--line-strong)
+	border-color: var(--border-strong)
 
 .themebar-row
 	display: flex
 	align-items: center
 	flex-wrap: wrap
-	gap: var(--s2)
-	margin-bottom: var(--s2)
+	gap: var(--space-md)
+	margin-bottom: var(--space-md)
 
 .controls
 	display: flex
 	align-items: center
 	flex-wrap: wrap
-	gap: var(--s1)
-	margin-top: var(--s3)
+	gap: var(--space-sm)
+	margin-top: var(--space-bs)
 
 .control
 	display: inline-flex
@@ -558,25 +981,25 @@ a
 	gap: 6px
 	padding: 7px 12px
 	background: transparent
-	border: 1px solid rgba(255, 255, 255, 0.16)
-	border-radius: var(--r-control)
+	border: 1px solid var(--border-strong)
+	border-radius: 2px
 	font-family: var(--font-mono)
 	font-size: 12px
-	color: var(--on-surface)
+	color: var(--text-primary)
 	cursor: pointer
-	transition: border-color 0.18s var(--ease), color 0.18s var(--ease)
+	transition: border-color 0.18s cubic-bezier(0.16, 1, 0.3, 1), color 0.18s cubic-bezier(0.16, 1, 0.3, 1)
 
 .control:hover
-	border-color: var(--accent)
-	color: #fff
+	border-color: var(--theme-color)
+	color: var(--theme-color)
 
 .control:disabled
 	opacity: 0.45
 	cursor: default
 
 .control--ok
-	border-color: var(--accent)
-	color: var(--accent)
+	border-color: var(--theme-color)
+	color: var(--theme-color)
 
 .control svg
 	width: 14px
@@ -595,63 +1018,63 @@ a
 
 // light-context controls
 .controls--light .control
-	border-color: var(--line-strong)
-	color: var(--body)
+	border-color: var(--border-strong)
+	color: var(--text-secondary)
 
 .controls--light .control:hover
-	border-color: var(--accent)
-	color: var(--text-primrary)
+	border-color: var(--theme-color)
+	color: var(--text-primary)
 
 // language tabs
 .tabs
 	display: flex
 	flex-wrap: wrap
 	gap: 4px
-	margin-bottom: var(--s2)
+	margin-bottom: var(--space-md)
 
 .tab
 	padding: 6px 12px
 	background: none
-	border: 1px solid var(--line)
-	border-radius: var(--r-control)
+	border: 1px solid var(--border)
+	border-radius: 2px
 	font-family: var(--font-mono)
 	font-size: 12px
-	color: var(--muted)
+	color: var(--text-muted)
 	cursor: pointer
-	transition: border-color 0.18s var(--ease), color 0.18s var(--ease)
+	transition: border-color 0.18s cubic-bezier(0.16, 1, 0.3, 1), color 0.18s cubic-bezier(0.16, 1, 0.3, 1)
 
 .tab:hover
-	color: var(--text-primrary)
+	color: var(--text-primary)
 
 .tab.is-active
-	border-color: var(--accent)
-	color: var(--accent)
+	border-color: var(--theme-color)
+	color: var(--theme-color)
 
 // ── tables ────────────────────────────────────────────────────────────────────
 .details
-	margin-top: var(--s3)
-	border-top: 1px solid var(--line)
+	margin-top: var(--space-bs)
+	border-top: 1px solid var(--border)
 
 .details > summary
 	list-style: none
 	cursor: pointer
 	display: flex
 	align-items: center
-	gap: var(--s1)
+	gap: var(--space-sm)
 	padding: 14px 0
 	font-family: var(--font-mono)
 	font-size: 12px
 	font-weight: 600
 	letter-spacing: 0.08em
 	text-transform: uppercase
-	color: var(--text-primrary)
+	color: var(--text-primary)
 
 .details > summary::-webkit-details-marker
 	display: none
 
 .details > summary::before
 	content: '+'
-	color: var(--accent)
+	color: var(--theme-color)
 	font-size: 14px
 
 .details[open] > summary::before
@@ -659,24 +1082,24 @@ a
 
 .details > summary small
 	font-weight: 400
-	color: var(--muted)
+	color: var(--text-muted)
 
 .table
 	width: 100%
-	padding-bottom: var(--s2)
+	padding-bottom: var(--space-md)
 
 .table__head,
 .table__row
 	display: grid
 	grid-template-columns: 12rem 1fr
 	align-items: center
-	gap: var(--s2)
+	gap: var(--space-md)
 	width: 100%
 	padding: 10px 0
 	text-align: left
 	background: none
 	border: none
-	border-top: 1px solid var(--line)
+	border-top: 1px solid var(--border)
 	font: inherit
 	font-size: 14px
 
@@ -686,26 +1109,26 @@ a
 	font-weight: 600
 	letter-spacing: 0.08em
 	text-transform: uppercase
-	color: var(--muted)
+	color: var(--text-muted)
 
 .table__row
-	color: var(--body)
-	transition: background 0.15s var(--ease), padding-left 0.15s var(--ease)
+	color: var(--text-secondary)
+	transition: background 0.15s cubic-bezier(0.16, 1, 0.3, 1), padding-left 0.15s cubic-bezier(0.16, 1, 0.3, 1)
 
 button.table__row
 	cursor: pointer
 
 button.table__row:hover
-	background: var(--surface-2)
-	padding-left: var(--s1)
+	background: var(--bg-surface)
+	padding-left: var(--space-sm)
 
 .table__row code
 	font-family: var(--font-mono)
 	font-size: 13px
-	color: var(--text-primrary)
+	color: var(--text-primary)
 
 .table__row code.dim
-	color: var(--muted)
+	color: var(--text-muted)
 
 .table--props .table__head,
 .table--props .table__row
@@ -722,26 +1145,26 @@ button.table__row:hover
 	display: grid
 	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr))
 	gap: 0
-	margin-top: var(--s3)
-	border-top: 1px solid var(--line)
-	border-left: 1px solid var(--line)
+	margin-top: var(--space-bs)
+	border-top: 1px solid var(--border)
+	border-left: 1px solid var(--border)
 
 .map__row
 	display: flex
 	align-items: center
-	gap: var(--s1)
-	padding: 12px var(--s2)
-	border-right: 1px solid var(--line)
-	border-bottom: 1px solid var(--line)
+	gap: var(--space-sm)
+	padding: 12px var(--space-md)
+	border-right: 1px solid var(--border)
+	border-bottom: 1px solid var(--border)
 	font-family: var(--font-mono)
 	font-size: 12px
 
 .map__k
 	flex: 1
-	color: var(--body)
+	color: var(--text-secondary)
 
 .map__arrow
-	color: var(--line-strong)
+	color: var(--border-strong)
 
 .map__v
 	font-weight: 600
@@ -751,15 +1174,15 @@ button.table__row:hover
 	display: grid
 	grid-template-columns: 240px 1fr
 	align-items: stretch
-	border: 1px solid var(--line)
-	border-radius: var(--r-card)
+	border: 1px solid var(--border)
+	border-radius: 0
 	overflow: hidden
 
 // The code cell must fill the row, or its themed background stops short of the
 // tree's full height and leaves a bare strip under the last line.
 .tree > :last-child
 	display: flex
-	border-left: 1px solid var(--line)
+	border-left: 1px solid var(--border)
 	overflow: auto
 	min-width: 0
 
@@ -772,52 +1195,53 @@ button.table__row:hover
 		grid-template-columns: 1fr
 	.tree > :last-child
 		border-left: none
-		border-top: 1px solid var(--line)
+		border-top: 1px solid var(--border)
 
 // ── prose pages ───────────────────────────────────────────────────────────────
 .prose
-	padding-block: var(--s5)
-	max-width: calc(var(--col-text) + var(--gutter) * 2)
+	padding-block: var(--space-3xl)
+	width: 100%
+	max-width: var(--col)
 
 .prose h1
 	font-size: clamp(36px, 6vw, 56px)
 	font-weight: 500
 	line-height: 1.04
-	color: var(--text-primrary)
-	margin-bottom: var(--s4)
+	color: var(--text-primary)
+	margin-bottom: var(--space-xl)
 
 .prose h2
 	font-size: 22px
 	font-weight: 500
-	color: var(--text-primrary)
-	margin: var(--s5) 0 var(--s2)
-	padding-top: var(--s3)
-	border-top: 1px solid var(--line)
+	color: var(--text-primary)
+	margin: var(--space-3xl) 0 var(--space-md)
+	padding-top: var(--space-bs)
+	border-top: 1px solid var(--border)
 
 .prose h3
 	font-size: 17px
 	font-weight: 500
-	color: var(--text-primrary)
-	margin: var(--s4) 0 var(--s1)
+	color: var(--text-primary)
+	margin: var(--space-xl) 0 var(--space-sm)
 
 .prose p
-	color: var(--body)
-	margin-bottom: var(--s2)
+	color: var(--text-secondary)
+	margin-bottom: var(--space-md)
 
 .prose p b
-	color: var(--text-primrary)
+	color: var(--text-primary)
 	font-weight: 500
 
 .prose a
-	color: var(--accent)
-	border-bottom: 1px solid var(--accent-wash)
+	color: var(--theme-color)
+	border-bottom: 1px solid var(--border-subtle)
 
 .prose pre
-	background: var(--surface-2)
-	border: 1px solid var(--line)
-	border-radius: var(--r-card)
-	padding: var(--card-pad)
-	margin: var(--s3) 0
+	background: var(--bg-surface)
+	border: 1px solid var(--border)
+	border-radius: 0
+	padding: var(--space-lg)
+	margin: var(--space-bs) 0
 	overflow-x: auto
 
 .prose pre code
@@ -825,7 +1249,7 @@ button.table__row:hover
 	font-family: var(--font-mono)
 	font-size: 13px
 	line-height: 1.7
-	color: var(--fp-identifier, var(--text-primrary))
+	color: var(--fp-identifier, var(--text-primary))
 	white-space: pre
 
 // Highlighted fences emit one `.fp__line` block per line, each still carrying the
@@ -856,34 +1280,34 @@ button.table__row:hover
 
 .prose .fp__line--highlighted,
 .prose .fp__line[data-highlight]
-	background: var(--accent-wash)
-	box-shadow: inset 2px 0 0 var(--accent)
-	margin-inline: calc(var(--card-pad) * -1)
-	padding-inline: var(--card-pad)
+	background: var(--state-hover-subtle)
+	box-shadow: inset 2px 0 0 var(--theme-color)
+	margin-inline: calc(var(--space-lg) * -1)
+	padding-inline: var(--space-lg)
 
 .prose .live-btn
-	margin-top: var(--s1)
+	margin-top: var(--space-sm)
 	padding: 9px 14px
 	background: var(--bg)
-	border: 1px solid var(--line-strong)
-	border-radius: var(--r-control)
+	border: 1px solid var(--border-strong)
+	border-radius: 2px
 	font-family: var(--font-mono)
 	font-size: 12px
-	color: var(--text-primrary)
+	color: var(--text-primary)
 	cursor: pointer
-	transition: border-color 0.18s var(--ease), transform 0.18s var(--ease)
+	transition: border-color 0.18s cubic-bezier(0.16, 1, 0.3, 1), transform 0.18s cubic-bezier(0.16, 1, 0.3, 1)
 
 .prose .live-btn:hover:not(:disabled)
-	border-color: var(--accent)
-	color: var(--accent)
+	border-color: var(--theme-color)
+	color: var(--theme-color)
 	transform: translateY(-1px)
 
 .prose .live-btn:disabled
-	color: var(--muted)
+	color: var(--text-muted)
 	cursor: default
 
 .prose .source
-	margin-top: var(--s4)
+	margin-top: var(--space-xl)
 
 .prose .source summary
 	cursor: pointer
@@ -891,37 +1315,85 @@ button.table__row:hover
 	font-size: 12px
 	letter-spacing: 0.06em
 	text-transform: uppercase
-	color: var(--muted)
+	color: var(--text-muted)
+
+.inspector-panel
+	margin-top: var(--space-xl)
+	margin-bottom: var(--space-xl)
+
+.inspector-summary
+	display: inline-flex
+	align-items: center
+	gap: var(--space-xs)
+	cursor: pointer
+	font-family: var(--font-mono)
+	font-size: var(--text-xs)
+	font-weight: 600
+	letter-spacing: 0.08em
+	text-transform: uppercase
+	color: var(--text-secondary)
+	padding: 0.4rem 0.6rem
+	border-radius: 2px
+	transition: color 0.15s ease, background-color 0.15s ease
+	user-select: none
+
+	&:hover
+		color: var(--theme-color)
+		background: var(--bg-surface)
+
+.inspector-badge
+	background: var(--bg-panel)
+	color: var(--theme-color)
+	font-size: 0.625rem
+	font-weight: 700
+	letter-spacing: 0.10em
+	padding: 2px 6px
+	border-radius: 2px
+	border: 1px solid var(--border-strong)
+
+.inspector-body
+	margin-top: var(--space-sm)
+	background: var(--bg-surface)
+
+	pre
+		margin: 0
+		padding: var(--space-md)
+		background: var(--bg)
+		border: 1px solid var(--border-subtle)
+		border-radius: 0
+		font-family: var(--font-mono)
+		font-size: var(--text-sm)
+		line-height: 1.6
+		overflow-x: auto
 
 // ── footer ────────────────────────────────────────────────────────────────────
 .footer
-	padding-block: var(--s4)
-	border-top: 1px solid var(--line)
+	padding-block: var(--space-xl)
+	border-top: 1px solid var(--border)
 	font-family: var(--font-mono)
 	font-size: 12px
-	line-height: 1.7
-	color: var(--muted)
+	line-height: 1.2
 
 .footer b
-	color: var(--text-primrary)
+	color: var(--text-primary)
 	font-weight: 600
 
 .footer__credit
-	margin-top: var(--s2)
+	margin-top: var(--space-md)
 
 .footer__credit a
-	color: var(--accent)
-	border-bottom: 1px solid var(--accent-wash)
+	color: var(--theme-color)
+	border-bottom: 1px solid var(--border-subtle)
 
 .footer__credit a:hover
-	border-bottom-color: var(--accent)
+	border-bottom-color: var(--theme-color)
 
 // prose helper for the remark output block
 .remark-out
-	padding: var(--s3)
-	border: 1px dashed var(--line-strong)
-	border-radius: var(--r-card)
-	margin: var(--s3) 0
+	padding: var(--space-bs)
+	border: 1px dashed var(--border-strong)
+	border-radius: 0
+	margin: var(--space-bs) 0
 
 .remark-out > :first-child
 	margin-top: 0
@@ -934,7 +1406,7 @@ button.table__row:hover
 .reveal
 	opacity: 0
 	transform: translateY(14px)
-	transition: opacity 0.6s var(--ease), transform 0.6s var(--ease)
+	transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)
 	transition-delay: var(--reveal-delay, 0ms)
 
 .reveal.is-in
@@ -945,12 +1417,12 @@ button.table__row:hover
 .screenshot-preview
 	position: fixed
 	z-index: 999
-	border-radius: var(--r-card)
+	border-radius: 0
 	box-shadow: 0 24px 48px -24px rgba(4, 47, 46, 0.5)
 	pointer-events: none
 	object-fit: cover
 	opacity: 1
-	transition: all 0.55s var(--ease)
+	transition: all 0.55s cubic-bezier(0.16, 1, 0.3, 1)
 
 .screenshot-preview--minimized
 	left: var(--gutter) !important
@@ -973,3 +1445,13 @@ button.table__row:hover
 	color: var(--theme-color)
 .weight-600
 	font-weight: 600
+
+.bdr
+	border: 1px solid red
+
+.row
+	display: flex
+	align-items: center
+
+.text-muted
+	color: var(--text-muted)

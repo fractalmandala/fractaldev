@@ -2,9 +2,11 @@
   import { Code } from '@fractalpop/svelte'
   import CodePanel from '$lib/CodePanel.svelte'
   import ThemeBar from '$lib/components/ThemeBar.svelte'
+  import BenchmarkSection from '$lib/components/BenchmarkSection.svelte'
   import { reveal } from '$lib/actions/reveal'
   import { themes, type Mode } from '$lib/themes'
   import { samples } from '$lib/samples'
+	import Candy from '$lib/icons/candy.svelte'
 
   // ---- playground state ----
   // `mode` switches the *preview* palette only; the page itself is light.
@@ -163,6 +165,34 @@ mdsvex({ highlight: { highlighter: fractalpopHighlighter } })`
       document.getElementById('core')?.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }
   }
+
+  interface EngineData {
+    name: string
+    color: string
+    minified: number
+    gzip: number
+    largeMs: number
+  }
+
+  const engines: EngineData[] = [
+    { name: 'fractalpop', color: '#ff6352', minified: 12.35, gzip: 5.28, largeMs: 98.13 },
+    { name: 'Sugar High', color: '#f59e0b', minified: 27.29, gzip: 10.09, largeMs: 100.04 },
+    { name: 'PrismJS', color: '#ba68c8', minified: 14.57, gzip: 5.57, largeMs: 90.45 },
+    { name: 'highlight.js', color: '#7986cb', minified: 29.49, gzip: 11.28, largeMs: 117.98 },
+  ]
+
+  const maxMinified = Math.max(...engines.map((e) => e.minified))
+  const maxGzip = Math.max(...engines.map((e) => e.gzip))
+  const maxLargeMs = Math.max(...engines.map((e) => e.largeMs))
+
+  let copiedtwice = $state(false)
+  async function copyInstalltwice() {
+    try {
+      await navigator.clipboard.writeText('npm install fractalpop gpu-lexer')
+      copied = true
+      setTimeout(() => (copied = false), 1500)
+    } catch {}
+  }
 </script>
 
 <svelte:head>
@@ -179,9 +209,11 @@ mdsvex({ highlight: { highlighter: fractalpopHighlighter } })`
     <span>v0</span>
     <span>32 languages</span>
   </div>
-  <h1 class="hero__wordmark" use:reveal={40}>fractal<span class="text-theme weight-600">pop</span></h1>
+  <div class="row ycenter gap-sm wfull">
+		<Candy/><h1 class="hero__wordmark" use:reveal={40}>fractal<span class="text-theme weight-600"><i>pop</i></span></h1>
+	</div>
   <p class="hero__tagline measure" use:reveal={80}>
-    Fast syntax highlighting for <em>SvelteKit</em>.
+    fast syntax highlighting for <em>SvelteKit</em>.
   </p>
   <p class="hero__sub" use:reveal={120}>
     One engine behind components, markdown, and plain strings. SSR-safe and identical on
@@ -203,7 +235,7 @@ mdsvex({ highlight: { highlighter: fractalpopHighlighter } })`
   <nav class="index" aria-label="Architecture index">
     {#each architecture as [n, label, href], i}
       <a class="index__item" {href} use:reveal={i * 45}>
-        <span class="index__n">{n}/</span>
+        <span class="index__n text-theme">{n}/</span>
         <span class="index__label">{label}</span>
       </a>
     {/each}
@@ -345,3 +377,141 @@ mdsvex({ highlight: { highlighter: fractalpopHighlighter } })`
     <CodePanel title="svelte.config.js" code={mdsvexCode} lang="js" theme={docTheme} />
   </div>
 </section>
+
+<!--05 - BENCHMARK -->
+<section class="col section" id="benchmark" data-bench>
+  <!-- WebGPU experimental block -->
+
+  <div class="section__head">
+    <span class="label label--accent">05 /</span>
+    <h2 class="section__title">Benchmarks and WebGPU Experimental</h2>
+  </div>
+   <p class="webgpu-desc">
+      Async, language-agnostic highlighting with <code>gpu-lexer</code> and <code>fractalpop/gpu</code>.
+      See the <a href="/sveltekit">components and Sveltekit integration.</a>
+    </p>
+	<div class="block">
+   <div class="bench-legend">
+      {#each engines as engine}
+        <div class="legend-item">
+          <span class="legend-dot" style="background-color: {engine.color}"></span>
+          <span class="legend-name">{engine.name}</span>
+        </div>
+      {/each}
+    </div>
+
+    <div class="benchmark-cards">
+      <!-- Card 1: Minified bundle -->
+      <div class="benchmark-card">
+        <h4 class="benchmark-card-title">Minified bundle</h4>
+        <div class="benchmark-rows">
+          {#each engines as engine}
+            <div class="benchmark-row">
+              <div class="benchmark-row-track">
+                <div
+                  class="benchmark-row-fill"
+                  style="width: {(engine.minified / maxMinified) * 100}%; background-color: {engine.color};"
+                ></div>
+              </div>
+              <span class="benchmark-row-val">{engine.minified.toFixed(2)} <span class="benchmark-row-unit">KiB</span></span>
+            </div>
+          {/each}
+        </div>
+      </div>
+
+      <!-- Card 2: Gzip bundle -->
+      <div class="benchmark-card">
+        <h4 class="benchmark-card-title">Gzip bundle</h4>
+        <div class="benchmark-rows">
+          {#each engines as engine}
+            <div class="benchmark-row">
+              <div class="benchmark-row-track">
+                <div
+                  class="benchmark-row-fill"
+                  style="width: {(engine.gzip / maxGzip) * 100}%; background-color: {engine.color};"
+                ></div>
+              </div>
+              <span class="benchmark-row-val">{engine.gzip.toFixed(2)} <span class="benchmark-row-unit">KiB</span></span>
+            </div>
+          {/each}
+        </div>
+      </div>
+
+      <!-- Card 3: 500 KiB file runtime -->
+      <div class="benchmark-card">
+        <h4 class="benchmark-card-title">500 KiB file</h4>
+        <div class="benchmark-rows">
+          {#each engines as engine}
+            <div class="benchmark-row">
+              <div class="benchmark-row-track">
+                <div
+                  class="benchmark-row-fill"
+                  style="width: {(engine.largeMs / maxLargeMs) * 100}%; background-color: {engine.color};"
+                ></div>
+              </div>
+              <span class="benchmark-row-val">{engine.largeMs.toFixed(2)} <span class="benchmark-row-unit">ms</span></span>
+            </div>
+          {/each}
+        </div>
+      </div>
+    </div>
+
+    <p class="bench-footer">
+      Measured with Node v24 on Apple Silicon. Median milliseconds per file; lower is better. Browser bundles minified with Bun.
+    </p>
+	</div>
+</section>
+
+<style>
+  .webgpu-desc {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0 0 1.25rem;
+  }
+
+  .webgpu-desc code {
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    padding: 0.15em 0.35em;
+    border-radius: 2px;
+    color: var(--text-primary);
+  }
+
+  .webgpu-desc a {
+    color: var(--theme-color);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .bench-legend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.88rem;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .legend-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 2px;
+  }
+
+  .bench-footer {
+    margin-top: 1.25rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+</style>
+
+

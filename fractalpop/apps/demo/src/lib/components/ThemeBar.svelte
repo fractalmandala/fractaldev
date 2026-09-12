@@ -21,15 +21,17 @@
       aria-pressed={i === index}
       aria-label={t.name}
       title={t.name}
-      style="background:{p.background}"
+      style="background:{p.property}"
       onclick={() => (index = i)}
     >
-      <span class="swatch__dot" style="background:{p.keyword}"></span>
+			<span class="swatch-1" style="background:{p.keyword}"></span>
+      <span class="swatch-2" style="background:{p.entity}"></span>
+			<span class="swatch-3" style="background:{p.property}"></span>
     </button>
   {/each}
 
   <button
-    class="swatch swatch--mode"
+    class="swatch-mode"
     aria-label="Toggle the preview between light and dark"
     title="Light / dark preview"
     onclick={() => (mode = mode === 'dark' ? 'light' : 'dark')}

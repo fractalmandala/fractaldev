@@ -2,7 +2,7 @@
 	import { slide } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 	import { NavigationIcons } from '$lib/components/icons';
-	import { scrollToElementSmooth, animations } from '$lib/utils';
+	import { scrollToElementSmooth, animations } from '$lib/utilities';
 	import { untrack } from 'svelte';
 
 	let {

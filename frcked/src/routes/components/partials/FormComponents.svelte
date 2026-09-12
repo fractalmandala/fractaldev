@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Button, Card, FormField, FileUpload, FormValidator } from '$lib/components/partials';
-	import { successToast, errorToast } from '$lib/utils';
+	import { successToast, errorToast } from '$lib/states/toast.svelte';
 
 	// Demo form data
 	let basicFormData = $state({

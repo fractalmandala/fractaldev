@@ -8,7 +8,7 @@
 		ProgressBar,
 		Button
 	} from '$lib/components/partials';
-	import { infoToast } from '$lib/utils';
+	import { infoToast } from '$lib/states/toast.svelte';
 	import { NavigationIcons, ActionIcons, StatusIcons } from '$lib/components/icons';
 
 	// Progress bar states for realistic animations

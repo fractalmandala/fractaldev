@@ -64,6 +64,7 @@ export interface Toast {
 	type: ToastType;
 	duration: number; // in milliseconds (0 = persistent until dismissed)
 	dismissible: boolean;
+	class?: string;
 	action?: ToastAction;
 	onDismiss?: () => void;
 	createdAt: number;
@@ -73,6 +74,7 @@ export interface ToastOptions {
 	type?: ToastType;
 	duration?: number;
 	dismissible?: boolean;
+	class?: string;
 	action?: ToastAction;
 	onDismiss?: () => void;
 }
@@ -114,6 +116,7 @@ export class ToastManager {
 			type: options.type ?? 'info',
 			duration,
 			dismissible: options.dismissible ?? true,
+			class: options.class,
 			action: options.action,
 			onDismiss: options.onDismiss,
 			createdAt: Date.now()
@@ -197,4 +200,40 @@ export const toast = new ToastManager(5);
  */
 export function createToastManager(maxToasts = 5): ToastManager {
 	return new ToastManager(maxToasts);
+}
+
+/**
+ * Backward-compatible helper bindings and aliases.
+ */
+export const toastState = {
+	get toasts() { return toast.toasts; },
+	get maxToasts() { return toast.maxToasts; },
+	set maxToasts(val: number) { toast.maxToasts = val; }
+};
+
+export const dismiss = (id: string) => toast.dismiss(id);
+export const dismissToast = (id: string) => toast.dismiss(id);
+export const dismissAllToasts = () => toast.clear();
+export const addToast = (message: string, options?: ToastOptions) => toast.add(message, options);
+export const successToast = (message: string, options?: Omit<ToastOptions, 'type'>) => toast.success(message, options);
+export const errorToast = (message: string, options?: Omit<ToastOptions, 'type'>) => toast.error(message, options);
+export const warningToast = (message: string, options?: Omit<ToastOptions, 'type'>) => toast.warning(message, options);
+export const infoToast = (message: string, options?: Omit<ToastOptions, 'type'>) => toast.info(message, options);
+
+export async function promiseToast<T>(
+	promise: Promise<T>,
+	messages: { loading: string; success: string; error: string },
+	options?: Omit<ToastOptions, 'type'>
+): Promise<T> {
+	const id = toast.info(messages.loading, { ...options, duration: 0 });
+	try {
+		const result = await promise;
+		toast.dismiss(id);
+		toast.success(messages.success, options);
+		return result;
+	} catch (err) {
+		toast.dismiss(id);
+		toast.error(messages.error, options);
+		throw err;
+	}
 }

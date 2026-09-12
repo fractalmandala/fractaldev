@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { SCHEMES } from '$lib/demos/registry';
-	import { playground, SCENES, cssVars, fontStack } from '$lib/demos/playground.svelte';
-	import SchemeScene from '$lib/demos/components/SchemeScene.svelte';
-	import PaletteEditor from '$lib/demos/components/PaletteEditor.svelte';
-	import { APP_NAME } from '$lib/utils';
+	import { SCHEMES } from '$lib/data/schemes';
+	import { playground, SCENES, cssVars, fontStack } from '$lib/states/playground.svelte';
+	import SchemeScene from '$lib/components/demos/SchemeScene.svelte';
+	import PaletteEditor from '$lib/components/demos/PaletteEditor.svelte';
+	import { APP_NAME } from '$lib/states/config.svelte';
 
 	/**
 	 * The Demos Ground — every design scheme in `lib/demos/designs/` rendered

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Code, Editor, FileTree, type TreeItem } from '@fractalpop/svelte'
-  import CodePanel from '$lib/CodePanel.svelte'
+  import CodePanel from '$lib/components/ui/CodePanel.svelte'
   import { themes } from '$lib/data/fpopthemes'
   import '$lib/styles/fractalpop-demo.sass'
   import folderIcon from '$lib/icons/folder.svg?raw'

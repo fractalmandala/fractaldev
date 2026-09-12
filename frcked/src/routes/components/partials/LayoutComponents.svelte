@@ -7,7 +7,7 @@
 		Window,
 		ChromeDivider
 	} from '$lib/components/partials';
-	import { infoToast } from '$lib/utils';
+	import { infoToast } from '$lib/states/toast.svelte';
 	import { ThemeIcons } from '$lib/components/icons';
 	import { Modal } from '$lib/components/main';
 

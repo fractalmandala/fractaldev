@@ -1,6 +1,6 @@
 .resize-rail-vertical
-	width: 1px
-	background: var(--border)
+	width: 4px
+	background: var(--border, #1e293b)
 	cursor: col-resize
 	position: relative
 	flex-shrink: 0
@@ -9,18 +9,82 @@
 	justify-content: center
 	transition: background 0.15s ease
 	user-select: none
+	touch-action: none
+
+	&::after
+		content: ''
+		position: absolute
+		inset: 0 -4px
+		z-index: 10
+
 .resize-rail-vertical:hover,
 .resize-rail-vertical.dragging
 	background: #38bdf8
+
 .rail-knurling
-	width: 1px
+	width: 2px
 	height: 24px
-	background: var(--border)
+	background: var(--border, #475569)
 	border-radius: 1px
+
 .resize-rail-vertical:hover .rail-knurling,
 .resize-rail-vertical.dragging .rail-knurling
 	background: white
 
+.resize-rail-horizontal
+	height: 4px
+	background: var(--border, #1e293b)
+	cursor: row-resize
+	position: relative
+	flex-shrink: 0
+	display: flex
+	align-items: center
+	justify-content: center
+	transition: background 0.15s ease
+	user-select: none
+	touch-action: none
+
+	&::after
+		content: ''
+		position: absolute
+		inset: -4px 0
+		z-index: 10
+
+.resize-rail-horizontal:hover,
+.resize-rail-horizontal.dragging
+	background: #38bdf8
+
+.rail-knurling-horizontal
+	height: 2px
+	width: 24px
+	background: var(--border, #475569)
+	border-radius: 1px
+
+.resize-rail-horizontal:hover .rail-knurling-horizontal,
+.resize-rail-horizontal.dragging .rail-knurling-horizontal
+	background: white
+
+.corner-handle
+	position: absolute
+	right: 0
+	bottom: 0
+	width: 16px
+	height: 16px
+	cursor: nwse-resize
+	display: flex
+	align-items: center
+	justify-content: center
+	user-select: none
+	touch-action: none
+	color: var(--text-muted)
+
+	&:hover,
+	&.dragging
+		color: var(--theme-color)
+
 .fk-sidebar
-	height: calc(100vh - var(--header-height) - var(--footer-height))
+	height: calc(100vh - var(--frk-header-height, 0px) - var(--footer-height, 0px))
 	overflow-y: scroll
+	flex-shrink: 0
+	position: sticky
+	top: var(--frk-header-height)

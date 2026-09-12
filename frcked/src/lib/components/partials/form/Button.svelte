@@ -7,7 +7,7 @@
 		ThemeIcons,
 		SocialIcons
 	} from '$lib/components/icons';
-	import { transitionLink } from '$lib/utils';
+	import { transitionLink } from '$lib/utilities';
 
 	let {
 		variant = 'primary',

@@ -4,8 +4,24 @@
     {
       "name": "fractalpop-demo",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["--dir", "fractalpop/apps/demo", "dev"],
+      "runtimeArgs": [
+        "--dir",
+        "fractalpop/apps/demo",
+        "dev"
+      ],
       "port": 5178
+    },
+    {
+      "name": "frcked-preview",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "--dir",
+        "frcked",
+        "preview",
+        "--port",
+        "4188"
+      ],
+      "port": 4188
     }
   ]
 }

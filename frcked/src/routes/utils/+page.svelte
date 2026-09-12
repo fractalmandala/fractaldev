@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { staggeredAnimation, singleElementAnimation, staggerPresets } from '$lib/utils';
+	import { staggeredAnimation, singleElementAnimation, staggerPresets } from '$lib/utilities';
 	import { Button, Card, LoadingSpinner } from '$lib/components/partials';
 	import { ThemeIcons, NavigationIcons } from '$lib/components/icons';
 

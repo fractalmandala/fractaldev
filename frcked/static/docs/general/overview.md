@@ -1,6 +1,6 @@
 # Svelte GUI Overview
 
-A complete app shell, component library and utility toolkit for building modern SvelteKit applications with optional Pocketbase backend.
+A complete app shell, component library and utility toolkit for building modern SvelteKit applications.
 
 ## What is Svelte GUI?
 
@@ -10,7 +10,7 @@ Svelte GUI provides everything you need to build modern web applications:
 - **Design System** - Consistent styling with Tailwind CSS
 - **Utilities** - Toast notifications, form validation, theme management
 - **TypeScript Support** - Full type safety throughout
-- **PocketBase Integration** - Optional full-stack backend support
+- **Installable PWA** - Offline-ready app shell
 
 ## Library Structure
 
@@ -36,7 +36,6 @@ src/lib/
 
 - **Svelte 5** - Components with runes
 - **SvelteKit** - Routing framework
-- **Pocketbase** - Optional backend
 - **TypeScript** - Type safety & IDE support
 - **Tailwind CSS 4** - Utility-first styling
 - **Vite** - Build tool and dev server

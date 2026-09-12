@@ -1,13 +1,14 @@
 <script lang="ts">
-	import '$lib/styles/index.sass';
+	import '$lib/styles/fractalpop-demo.sass'
 	import '$fractalstyler/index.sass';
-	import '$lib/styles/fractalpop-demo.sass';
+	import '$lib/styles/index.sass';;
 	import { fade } from 'svelte/transition';
 	import AppHeader from '$lib/components/ui/AppHeader.svelte';
-	import { Footer, SplashScreen, splashScreenState } from '$lib/components/main';
+	import { Footer, SplashScreen } from '$lib/components/main';
+	import { splashScreenState } from '$lib/states/splashScreen';
 	import { Toast } from '$lib/components/partials';
-	import { Mouse, ScrollToTop, Seo } from '$lib/utils';
-	import Aura from '$lib/components/ui/AuraBackground.svelte'
+	import { Mouse, ScrollToTop, Seo } from '$lib/components/ui';
+	import Aura from '$lib/components/ui/AuraBackground.svelte';
 	let { children } = $props();
 	let splashState = $derived($splashScreenState);
 </script>

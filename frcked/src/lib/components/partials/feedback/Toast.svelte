@@ -3,7 +3,7 @@
 	import { slide } from 'svelte/transition';
 	import { quintOut, backOut } from 'svelte/easing';
 	import { StatusIcons, NavigationIcons } from '$lib/components/icons';
-	import { toastState, dismiss } from '$lib/utils';
+	import { toastState, dismiss } from '$lib/states/toast.svelte';
 
 	const toasts = $derived(toastState.toasts);
 

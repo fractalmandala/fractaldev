@@ -1,6 +1,7 @@
 import { remark } from 'remark'
 import html from 'remark-html'
 import remarkFractalpop from '@fractalpop/remark'
+import { highlight } from 'fractalpop'
 
 // A normal Markdown string — the kind you'd load from a CMS or a content file.
 // Everything below is turned into highlighted HTML at load time by a real
@@ -31,5 +32,6 @@ export async function load() {
     .use(remarkFractalpop)
     .use(html, { sanitize: false })
     .process(markdown)
-  return { html: String(file), source: markdown }
+  const sourceHtml = highlight(markdown, { lang: 'markdown' })
+  return { html: String(file), source: markdown, sourceHtml }
 }

@@ -1,0 +1,179 @@
+{
+  "measuredAt": "2026-09-12T17:06:21.353Z",
+  "runtime": "v24.19.0",
+  "platform": "darwin arm64",
+  "cpu": "Apple M3 Pro",
+  "engines": [
+    {
+      "id": "fractalpop",
+      "label": "fractalpop",
+      "version": "0.1.0"
+    },
+    {
+      "id": "sugar-high",
+      "label": "Sugar High",
+      "version": "2.4.0"
+    },
+    {
+      "id": "prismjs",
+      "label": "PrismJS",
+      "version": "1.30.0"
+    },
+    {
+      "id": "highlight.js",
+      "label": "highlight.js",
+      "version": "11.12.0"
+    }
+  ],
+  "bundles": {
+    "bundler": "Bun 1.3.14",
+    "results": [
+      {
+        "engine": "fractalpop",
+        "label": "fractalpop",
+        "minified": 12647,
+        "gzip": 5404
+      },
+      {
+        "engine": "sugar-high",
+        "label": "Sugar High",
+        "minified": 27940,
+        "gzip": 10331
+      },
+      {
+        "engine": "prismjs",
+        "label": "PrismJS",
+        "minified": 14921,
+        "gzip": 5706
+      },
+      {
+        "engine": "highlight.js",
+        "label": "highlight.js",
+        "minified": 30194,
+        "gzip": 11555
+      }
+    ],
+    "gpuResults": [
+      {
+        "engine": "fractalpop/gpu",
+        "minified": 62008,
+        "gzip": 34182
+      },
+      {
+        "engine": "sugar-high/gpu",
+        "minified": 62246,
+        "gzip": 34304
+      }
+    ]
+  },
+  "results": [
+    {
+      "engine": "fractalpop",
+      "targetKiB": 11,
+      "sourceBytes": 11397,
+      "iterations": 373,
+      "runs": 5,
+      "milliseconds": 1.8682351420911525,
+      "mibPerSecond": 5.817804161373452
+    },
+    {
+      "engine": "sugar-high",
+      "targetKiB": 11,
+      "sourceBytes": 11397,
+      "iterations": 373,
+      "runs": 5,
+      "milliseconds": 1.9058884048257374,
+      "mibPerSecond": 5.7028660002136
+    },
+    {
+      "engine": "prismjs",
+      "targetKiB": 11,
+      "sourceBytes": 11397,
+      "iterations": 373,
+      "runs": 5,
+      "milliseconds": 1.4181758257372656,
+      "mibPerSecond": 7.664089308835569
+    },
+    {
+      "engine": "highlight.js",
+      "targetKiB": 11,
+      "sourceBytes": 11397,
+      "iterations": 373,
+      "runs": 5,
+      "milliseconds": 2.3912210670241287,
+      "mibPerSecond": 4.545387431538699
+    },
+    {
+      "engine": "fractalpop",
+      "targetKiB": 100,
+      "sourceBytes": 102496,
+      "iterations": 41,
+      "runs": 5,
+      "milliseconds": 19.486773365853658,
+      "mibPerSecond": 5.016110204558381
+    },
+    {
+      "engine": "sugar-high",
+      "targetKiB": 100,
+      "sourceBytes": 102496,
+      "iterations": 41,
+      "runs": 5,
+      "milliseconds": 19.609529487804878,
+      "mibPerSecond": 4.9847092351279585
+    },
+    {
+      "engine": "prismjs",
+      "targetKiB": 100,
+      "sourceBytes": 102496,
+      "iterations": 41,
+      "runs": 5,
+      "milliseconds": 14.045549780487807,
+      "mibPerSecond": 6.959343298200193
+    },
+    {
+      "engine": "highlight.js",
+      "targetKiB": 100,
+      "sourceBytes": 102496,
+      "iterations": 41,
+      "runs": 5,
+      "milliseconds": 23.570920731707318,
+      "mibPerSecond": 4.146965824838817
+    },
+    {
+      "engine": "fractalpop",
+      "targetKiB": 500,
+      "sourceBytes": 512458,
+      "iterations": 9,
+      "runs": 5,
+      "milliseconds": 98.13340733333334,
+      "mibPerSecond": 4.980139242254858
+    },
+    {
+      "engine": "sugar-high",
+      "targetKiB": 500,
+      "sourceBytes": 512458,
+      "iterations": 9,
+      "runs": 5,
+      "milliseconds": 100.041088,
+      "mibPerSecond": 4.885173108442344
+    },
+    {
+      "engine": "prismjs",
+      "targetKiB": 500,
+      "sourceBytes": 512458,
+      "iterations": 9,
+      "runs": 5,
+      "milliseconds": 90.44647688888888,
+      "mibPerSecond": 5.40339490986798
+    },
+    {
+      "engine": "highlight.js",
+      "targetKiB": 500,
+      "sourceBytes": 512458,
+      "iterations": 9,
+      "runs": 5,
+      "milliseconds": 117.9837871111111,
+      "mibPerSecond": 4.14224737824922
+    }
+  ]
+}

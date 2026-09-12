@@ -4,7 +4,9 @@
   "description": "Svelte / SvelteKit components and actions for fractalpop syntax highlighting",
   "type": "module",
   "license": "MIT",
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.css"
+  ],
   "svelte": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -15,12 +17,18 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "!dist/**/*.test.*",
+    "!dist/**/*.spec.*",
+    "src",
+    "!src/**/*.test.*",
+    "!src/**/*.spec.*"
   ],
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
+    "prepack": "svelte-package -i src -o dist",
     "build": "svelte-package -i src -o dist",
     "test": "vitest run",
     "clean": "rm -rf dist"

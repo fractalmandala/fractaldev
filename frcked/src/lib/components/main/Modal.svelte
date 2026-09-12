@@ -3,7 +3,7 @@
 	import { fade, fly } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 	import type { Snippet } from 'svelte';
-	import { ModalLogic, type ModalState } from './Modal.js';
+	import { ModalLogic, type ModalState } from '$lib/states/modal';
 
 	interface Props {
 		open?: boolean;

@@ -1,7 +1,7 @@
 <script lang="ts" generics="T extends { id: string | number }">
 	import { Card } from '$lib/components/partials';
 	import { NavigationIcons } from '$lib/components/icons';
-	import { transitionLink } from '$lib/utils';
+	import { transitionLink } from '$lib/utilities';
 
 	interface EmptyState {
 		message: string;

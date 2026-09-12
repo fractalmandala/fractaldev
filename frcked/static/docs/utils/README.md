@@ -28,7 +28,7 @@ Reactive authentication state management tracking user login status and user dat
 
 ## Configuration
 
-Centralized app configuration with PocketBase instance management and API URL handling.
+Centralized app configuration.
 
 ## Validation
 

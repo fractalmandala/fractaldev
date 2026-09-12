@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { HTMLInputAttributes } from 'svelte/elements';
-	import { FormValidator, type ValidationRule } from '$lib/utils/validation.js';
+	import { FormValidator, type ValidationRule } from '$lib/utilities/validation.js';
 
 	interface Option {
 		value: string | number;

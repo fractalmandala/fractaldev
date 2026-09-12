@@ -7,9 +7,9 @@
 		copyText,
 		SAMPLE,
 		SAMPLE_ACCORDION
-	} from '$lib/untw/state.svelte.js';
-	import { summaryText, tokenLines } from '$lib/untw/decode.js';
-	import { say } from '$lib/stores/store.svelte.js';
+	} from '$lib/states/untwState.svelte.js';
+	import { summaryText, tokenLines } from '$lib/utilities/untw/decode.js';
+	import { say } from '$lib/states/store.svelte.js';
 
 	onMount(() => {
 		// textarea comes prefilled with SAMPLE — decode immediately so first

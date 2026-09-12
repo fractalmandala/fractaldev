@@ -3,7 +3,7 @@
 	import { Modal } from '$lib/components/main';
 	import { NavigationIcons } from '$lib/components/icons';
 	import { Button } from '$lib/components/partials';
-	import { disableUserScroll } from '$lib/utils';
+	import { disableUserScroll } from '$lib/utilities';
 	import type { LoadedDocSection, DocHeader } from '../types';
 
 	interface SearchResult {

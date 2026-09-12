@@ -1,12 +1,19 @@
 /// <reference types="@sveltejs/kit" />
-import { build, files, version } from '$service-worker';
+import { build, files, prerendered, version } from '$service-worker';
 
 // Create a unique cache name for this deployment
 const CACHE = `cache-${version}`;
 
+// `files` and `prerendered` can overlap (e.g. static/docs/*.md is both a static
+// file and something the prerender crawler followed). `cache.addAll()` rejects
+// with InvalidStateError on duplicate URLs, which would silently fail the whole
+// install, so dedupe before caching.
 const ASSETS = [
-	...build, // the app itself
-	...files // everything in `static`
+	...new Set([
+		...build, // the app itself
+		...files, // everything in `static`
+		...prerendered // prerendered pages, so navigation works offline
+	])
 ];
 
 self.addEventListener('install', (event) => {

@@ -85,10 +85,18 @@ const file = await remark()
 
 </div>
 
-<details class="source">
-<summary>The Markdown source behind that block</summary>
+<details class="source inspector-panel">
+<summary class="inspector-summary">
+  <span class="inspector-badge">INSPECTOR</span>
+  <span>The Markdown source behind that block</span>
+</summary>
 
-<pre>{data.source}</pre>
+<div class="blueprint-box inspector-body">
+  <span class="blueprint-box-corner-tr">+</span>
+  <span class="blueprint-box-corner-bl">+</span>
+  <div class="blueprint-box-badge">RAW INPUT PAYLOAD (MARKDOWN)</div>
+  <pre class="fp fp-lang--markdown"><code>{@html data.sourceHtml ?? data.source}</code></pre>
+</div>
 
 </details>
 

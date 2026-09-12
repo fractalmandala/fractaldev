@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { settingsService, type SettingsData, updateUISettings } from './Settings.js';
+	import { settingsService, type SettingsData, updateUISettings } from '$lib/states/settings';
 	import { LoadingSpinner, SettingsForm } from '$lib/components/partials';
-	import { toast } from '$lib/utils';
+	import { toast } from '$lib/states/toast.svelte';
 
 	let settings: SettingsData | null = $state(null);
 	let loading = $state(true);

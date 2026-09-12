@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { FormValidator as Validator, type ValidationRule } from '$lib/utils/validation.js';
+	import { FormValidator as Validator, type ValidationRule } from '$lib/utilities/validation.js';
 
 	interface FieldConfig {
 		type: string;

@@ -72,15 +72,6 @@
 		"sectionOrder": 6
 	},
 	{
-		"id": "api-documentation",
-		"title": "API Documentation",
-		"icon": "🔌",
-		"file": "api/README.md",
-		"category": "technical",
-		"categoryOrder": 3,
-		"sectionOrder": 1
-	},
-	{
 		"id": "utilities",
 		"title": "Utilities & Helpers",
 		"icon": "🛠️",

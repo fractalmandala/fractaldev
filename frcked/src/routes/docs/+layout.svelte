@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { APP_NAME } from '$lib/utils';
-	import ResizeDemo from '$lib/actions/ResizeDemo.svelte';
+	import { APP_NAME } from '$lib/states/config.svelte';
+	import ResizeDemo from '$lib/components/ui/ResizeDemo.svelte';
 
 	let { children } = $props();
 
@@ -16,10 +16,5 @@
 	{@render children()}
 </main>
 
-<style lang="sass">
 
-.doc-shell
-	border-top: 1px solid var(--border)
-
-</style>
 

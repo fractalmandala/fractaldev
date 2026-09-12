@@ -2,7 +2,7 @@
 	import { slide } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 	import { FileIcons, NavigationIcons } from '$lib/components/icons';
-	import { disableUserScroll } from '$lib/utils';
+	import { disableUserScroll } from '$lib/utilities';
 	import type { LoadedDocSection, DocHeader } from '../types';
 
 	interface Props {

@@ -2,7 +2,7 @@
 	import { SvelteSet } from 'svelte/reactivity';
 	import { slide } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
-	import { scrollToElementSmooth, animations } from '$lib/utils';
+	import { scrollToElementSmooth, animations } from '$lib/utilities';
 
 	export interface AccordionSection {
 		id: string;

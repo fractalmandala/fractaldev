@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { NavigationIcons } from '$lib/components/icons';
-	import { disableUserScroll } from '$lib/utils';
+	import { disableUserScroll } from '$lib/utilities';
 	import type { LoadedDocSection } from '../types';
 
 	interface Props {

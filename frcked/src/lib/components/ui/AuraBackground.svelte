@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { themeState } from '$lib/stores/theme.svelte.js';
+	import { themeState } from '$lib/states/theme.svelte.js';
 
 	function patternStyleToCss(style: Record<string, string | number | undefined> | undefined): string {
 		if (!style) return '';
