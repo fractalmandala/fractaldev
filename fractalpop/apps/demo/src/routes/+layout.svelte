@@ -12,6 +12,7 @@
     { href: '/sveltekit', label: 'SvelteKit' },
     { href: '/registry', label: 'Registry' },
     { href: '/markdown', label: 'Markdown' },
+    { href: '/benchmarks', label: 'Benchmarks' },
   ]
 </script>
 

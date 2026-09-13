@@ -392,13 +392,16 @@ mdsvex({ highlight: { highlighter: fractalpopHighlighter } })`
       See the <a href="/sveltekit">components and Sveltekit integration.</a>
     </p>
 	<div class="block">
-   <div class="bench-legend">
-      {#each engines as engine}
-        <div class="legend-item">
-          <span class="legend-dot" style="background-color: {engine.color}"></span>
-          <span class="legend-name">{engine.name}</span>
-        </div>
-      {/each}
+    <div class="row between ycenter wrap gap-sm bench-controls-row">
+      <div class="bench-legend">
+        {#each engines as engine}
+          <div class="legend-item">
+            <span class="legend-dot" style="background-color: {engine.color}"></span>
+            <span class="legend-name">{engine.name}</span>
+          </div>
+        {/each}
+      </div>
+      <a href="/benchmarks" class="bench-report-link">see full report &rarr;</a>
     </div>
 
     <div class="benchmark-cards">
@@ -459,6 +462,7 @@ mdsvex({ highlight: { highlighter: fractalpopHighlighter } })`
 
     <p class="bench-footer">
       Measured with Node v24 on Apple Silicon. Median milliseconds per file; lower is better. Browser bundles minified with Bun.
+      <a href="/benchmarks" class="bench-footer-link">See full report &rarr;</a>
     </p>
 	</div>
 </section>
@@ -512,6 +516,26 @@ mdsvex({ highlight: { highlighter: fractalpopHighlighter } })`
     margin-top: 1.25rem;
     font-size: 0.8rem;
     color: var(--text-muted);
+  }
+
+  .bench-controls-row {
+    margin-bottom: 1.5rem;
+  }
+
+  .bench-report-link,
+  .bench-footer-link {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--theme-color);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: opacity 0.15s ease;
+  }
+
+  .bench-report-link:hover,
+  .bench-footer-link:hover {
+    opacity: 0.8;
   }
 </style>
 

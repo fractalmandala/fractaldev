@@ -1241,6 +1241,40 @@ button.table__row:hover
 	color: var(--theme-color)
 	border-bottom: 1px solid var(--border-subtle)
 
+.prose table
+	width: 100%
+	border-collapse: collapse
+	margin: var(--space-xl) 0
+	font-size: var(--text-sm)
+	border: 1px solid var(--border)
+	background: var(--bg)
+
+.prose th,
+.prose td
+	padding: var(--space-sm) var(--space-md)
+	border: 1px solid var(--border)
+	text-align: left
+
+.prose th
+	background: var(--bg-surface)
+	font-family: var(--font-mono)
+	font-weight: 600
+	color: var(--text-primary)
+	font-size: var(--text-xs)
+	letter-spacing: 0.04em
+	text-transform: uppercase
+
+.prose td
+	color: var(--text-secondary)
+
+.prose tr:hover td
+	background: var(--state-hover-subtle)
+
+.prose hr
+	border: none
+	border-top: 1px solid var(--border)
+	margin: var(--space-3xl) 0
+
 .prose pre
 	background: var(--bg-surface)
 	border: 1px solid var(--border)
