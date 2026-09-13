@@ -211,18 +211,18 @@ canonicalizeLang('tsx') // 'typescript'
 
 ## Benchmarks
 
-fractalpop, Sugar High, PrismJS, and highlight.js highlighting the same generated TypeScript files:
+fractalpop, Sugar High, PrismJS, highlight.js, and Shiki highlighting the same generated TypeScript files:
 
 <!-- benchmark:start -->
-Measured 2026-09-12 with Node v24.19.0, darwin arm64, Apple M3 Pro.
+Measured 2026-09-13 with Node v24.19.0, darwin arm64, Apple M3 Pro.
 
-| TypeScript | fractalpop 0.1.0 | Sugar High 2.4.0 | PrismJS 1.30.0 | highlight.js 11.12.0 |
-| --- | ---: | ---: | ---: | ---: |
-| Minified (KiB) | 12.35 | 27.29 | 14.57 | 29.49 |
-| Gzip (KiB) | 5.28 | 10.09 | 5.57 | 11.28 |
-| 11 KiB | 1.87 | 1.91 | 1.42 | 2.39 |
-| 100 KiB | 19.49 | 19.61 | 14.05 | 23.57 |
-| 500 KiB | 98.13 | 100.04 | 90.45 | 117.98 |
+| TypeScript | fractalpop 0.1.0 | Sugar High 2.4.0 | PrismJS 1.30.0 | highlight.js 11.12.0 | Shiki 4.4.3 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Minified (KiB) | 12.35 | 27.29 | 14.57 | 29.49 | 364.20 |
+| Gzip (KiB) | 5.28 | 10.09 | 5.57 | 11.28 | 72.79 |
+| 11 KiB | 1.96 | 1.97 | 1.47 | 2.55 | 18.55 |
+| 100 KiB | 19.75 | 20.50 | 14.68 | 24.11 | 163.34 |
+| 500 KiB | 97.70 | 101.81 | 100.31 | 127.61 | 858.15 |
 
 Median milliseconds per file; lower is better. 5 timed samples after warmup.
 Sizes are TypeScript-only browser bundles, minified with Bun; gzip uses level 9. Theme CSS is excluded.

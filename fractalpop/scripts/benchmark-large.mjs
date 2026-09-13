@@ -14,6 +14,7 @@ const engines = [
   { id: 'sugar-high', label: 'Sugar High', version: '2.4.0' },
   { id: 'prismjs', label: 'PrismJS', version: '1.30.0' },
   { id: 'highlight.js', label: 'highlight.js', version: '11.12.0' },
+  { id: 'shiki', label: 'Shiki', version: '4.4.3' },
 ]
 
 function positiveNumber(value, fallback) {
@@ -97,6 +98,15 @@ async function loadHighlighter(engine) {
     return source => hljs.highlight(source, { language: 'typescript', ignoreIllegals: true }).value
   }
 
+  if (engine === 'shiki') {
+    const { createHighlighter } = await import(comparisonModule('shiki', 'dist', 'index.mjs'))
+    const highlighter = await createHighlighter({
+      langs: ['typescript'],
+      themes: ['nord'],
+    })
+    return source => highlighter.codeToHtml(source, { lang: 'typescript', theme: 'nord' })
+  }
+
   throw new Error(`Unknown highlighter: ${engine}`)
 }
 
@@ -160,7 +170,7 @@ function formatSize(bytes) {
 function installComparisons() {
   const directory = mkdtempSync(join(tmpdir(), 'fp-benchmark-'))
   const pnpm = process.platform === 'win32' ? 'pnpm.cmd' : 'pnpm'
-  process.stderr.write('Installing temporary benchmark comparisons (sugar-high, prismjs, highlight.js)...\n')
+  process.stderr.write('Installing temporary benchmark comparisons (sugar-high, prismjs, highlight.js, shiki)...\n')
 
   try {
     execFileSync(
@@ -176,6 +186,7 @@ function installComparisons() {
         'sugar-high@2.4.0',
         'prismjs@1.30.0',
         'highlight.js@11.12.0',
+        'shiki@4.4.3',
         'gpu-lexer@0.0.2',
       ],
       { stdio: ['ignore', 'pipe', 'pipe'] },
@@ -213,6 +224,23 @@ async function measureBundles(directory) {
       import typescript from 'highlight.js/lib/languages/typescript'
       hljs.registerLanguage('typescript', typescript)
       export const run = source => hljs.highlight(source, { language: 'typescript', ignoreIllegals: true }).value
+    `,
+    shiki: `
+      import { createHighlighterCore } from 'shiki/core'
+      import { createJavaScriptRegexEngine } from 'shiki/engine/javascript'
+      import ts from 'shiki/langs/typescript.mjs'
+      import nord from 'shiki/themes/nord.mjs'
+
+      let highlighterPromise
+      export const run = async source => {
+        highlighterPromise ??= createHighlighterCore({
+          langs: [ts],
+          themes: [nord],
+          engine: createJavaScriptRegexEngine(),
+        })
+        const highlighter = await highlighterPromise
+        return highlighter.codeToHtml(source, { lang: 'typescript', theme: 'nord' })
+      }
     `,
   }
 

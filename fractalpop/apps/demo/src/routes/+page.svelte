@@ -175,10 +175,11 @@ mdsvex({ highlight: { highlighter: fractalpopHighlighter } })`
   }
 
   const engines: EngineData[] = [
-    { name: 'fractalpop', color: '#ff6352', minified: 12.35, gzip: 5.28, largeMs: 98.13 },
-    { name: 'Sugar High', color: '#f59e0b', minified: 27.29, gzip: 10.09, largeMs: 100.04 },
-    { name: 'PrismJS', color: '#ba68c8', minified: 14.57, gzip: 5.57, largeMs: 90.45 },
-    { name: 'highlight.js', color: '#7986cb', minified: 29.49, gzip: 11.28, largeMs: 117.98 },
+    { name: 'fractalpop', color: '#ff6352', minified: 12.35, gzip: 5.28, largeMs: 97.70 },
+    { name: 'Sugar High', color: '#f59e0b', minified: 27.29, gzip: 10.09, largeMs: 101.81 },
+    { name: 'PrismJS', color: '#ba68c8', minified: 14.57, gzip: 5.57, largeMs: 100.31 },
+    { name: 'highlight.js', color: '#7986cb', minified: 29.49, gzip: 11.28, largeMs: 127.61 },
+    { name: 'Shiki', color: 'var(--color-alt3)', minified: 364.20, gzip: 72.79, largeMs: 858.15 },
   ]
 
   const maxMinified = Math.max(...engines.map((e) => e.minified))

@@ -8,7 +8,7 @@ Run the benchmark suite from the repository root:
 pnpm benchmark:large
 ```
 
-The runner installs pinned comparison versions (`sugar-high`, `prismjs`, `highlight.js`, and `gpu-lexer`) into an isolated temporary folder and cleans it up when finished. These libraries are never added to your project's `package.json`.
+The runner installs pinned comparison versions (`sugar-high`, `prismjs`, `highlight.js`, `shiki`, and `gpu-lexer`) into an isolated temporary folder and cleans it up when finished. These libraries are never added to your project's `package.json`.
 
 ---
 
@@ -37,13 +37,13 @@ Bundles are built using **Bun** (`bun build --bundle --minify --target=browser`)
 
 Measured with Node v24.19.0, darwin arm64, Apple Silicon:
 
-| TypeScript | fractalpop 0.1.0 | Sugar High 2.4.0 | PrismJS 1.30.0 | highlight.js 11.12.0 |
-| :--- | :---: | :---: | :---: | :---: |
-| **Minified (KiB)** | **12.35** | 27.29 | 14.57 | 29.49 |
-| **Gzip (KiB)** | **5.28** | 10.09 | 5.57 | 11.28 |
-| **11 KiB file** | **1.99 ms** | 2.22 ms | 1.62 ms | 2.70 ms |
-| **100 KiB file** | **21.11 ms** | 21.37 ms | 14.86 ms | 23.14 ms |
-| **500 KiB file** | **94.96 ms** | 101.41 ms | 90.75 ms | 117.64 ms |
+| TypeScript | fractalpop 0.1.0 | Sugar High 2.4.0 | PrismJS 1.30.0 | highlight.js 11.12.0 | Shiki 4.4.3 |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Minified (KiB)** | **12.35** | 27.29 | 14.57 | 29.49 | 364.20 |
+| **Gzip (KiB)** | **5.28** | 10.09 | 5.57 | 11.28 | 72.79 |
+| **11 KiB file** | **1.96 ms** | 1.97 ms | 1.47 ms | 2.55 ms | 18.55 ms |
+| **100 KiB file** | **19.75 ms** | 20.50 ms | 14.68 ms | 24.11 ms | 163.34 ms |
+| **500 KiB file** | **97.70 ms** | 101.81 ms | 100.31 ms | 127.61 ms | 858.15 ms |
 
 *Lower is better. Median milliseconds per file; 5 timed samples after warmup.*
 

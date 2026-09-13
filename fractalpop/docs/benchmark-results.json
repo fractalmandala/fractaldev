@@ -1,5 +1,5 @@
 {
-  "measuredAt": "2026-09-12T17:06:21.353Z",
+  "measuredAt": "2026-09-13T09:53:52.143Z",
   "runtime": "v24.19.0",
   "platform": "darwin arm64",
   "cpu": "Apple M3 Pro",
@@ -23,6 +23,11 @@
       "id": "highlight.js",
       "label": "highlight.js",
       "version": "11.12.0"
+    },
+    {
+      "id": "shiki",
+      "label": "Shiki",
+      "version": "4.4.3"
     }
   ],
   "bundles": {
@@ -51,6 +56,12 @@
         "label": "highlight.js",
         "minified": 30194,
         "gzip": 11555
+      },
+      {
+        "engine": "shiki",
+        "label": "Shiki",
+        "minified": 372939,
+        "gzip": 74542
       }
     ],
     "gpuResults": [
@@ -73,8 +84,8 @@
       "sourceBytes": 11397,
       "iterations": 373,
       "runs": 5,
-      "milliseconds": 1.8682351420911525,
-      "mibPerSecond": 5.817804161373452
+      "milliseconds": 1.9550228981233242,
+      "mibPerSecond": 5.559539069601427
     },
     {
       "engine": "sugar-high",
@@ -82,8 +93,8 @@
       "sourceBytes": 11397,
       "iterations": 373,
       "runs": 5,
-      "milliseconds": 1.9058884048257374,
-      "mibPerSecond": 5.7028660002136
+      "milliseconds": 1.9730843378016085,
+      "mibPerSecond": 5.508647540222328
     },
     {
       "engine": "prismjs",
@@ -91,8 +102,8 @@
       "sourceBytes": 11397,
       "iterations": 373,
       "runs": 5,
-      "milliseconds": 1.4181758257372656,
-      "mibPerSecond": 7.664089308835569
+      "milliseconds": 1.4697017426273455,
+      "mibPerSecond": 7.395395860830763
     },
     {
       "engine": "highlight.js",
@@ -100,8 +111,17 @@
       "sourceBytes": 11397,
       "iterations": 373,
       "runs": 5,
-      "milliseconds": 2.3912210670241287,
-      "mibPerSecond": 4.545387431538699
+      "milliseconds": 2.5464586675603216,
+      "mibPerSecond": 4.268290831712296
+    },
+    {
+      "engine": "shiki",
+      "targetKiB": 11,
+      "sourceBytes": 11397,
+      "iterations": 373,
+      "runs": 5,
+      "milliseconds": 18.548817694369973,
+      "mibPerSecond": 0.5859686780673385
     },
     {
       "engine": "fractalpop",
@@ -109,8 +129,8 @@
       "sourceBytes": 102496,
       "iterations": 41,
       "runs": 5,
-      "milliseconds": 19.486773365853658,
-      "mibPerSecond": 5.016110204558381
+      "milliseconds": 19.752039634146342,
+      "mibPerSecond": 4.948744764839043
     },
     {
       "engine": "sugar-high",
@@ -118,8 +138,8 @@
       "sourceBytes": 102496,
       "iterations": 41,
       "runs": 5,
-      "milliseconds": 19.609529487804878,
-      "mibPerSecond": 4.9847092351279585
+      "milliseconds": 20.50381504878049,
+      "mibPerSecond": 4.767298305306786
     },
     {
       "engine": "prismjs",
@@ -127,8 +147,8 @@
       "sourceBytes": 102496,
       "iterations": 41,
       "runs": 5,
-      "milliseconds": 14.045549780487807,
-      "mibPerSecond": 6.959343298200193
+      "milliseconds": 14.677211390243903,
+      "mibPerSecond": 6.659834769386029
     },
     {
       "engine": "highlight.js",
@@ -136,8 +156,17 @@
       "sourceBytes": 102496,
       "iterations": 41,
       "runs": 5,
-      "milliseconds": 23.570920731707318,
-      "mibPerSecond": 4.146965824838817
+      "milliseconds": 24.11180285365854,
+      "mibPerSecond": 4.053940027945422
+    },
+    {
+      "engine": "shiki",
+      "targetKiB": 100,
+      "sourceBytes": 102496,
+      "iterations": 41,
+      "runs": 5,
+      "milliseconds": 163.34275,
+      "mibPerSecond": 0.5984214342808297
     },
     {
       "engine": "fractalpop",
@@ -145,8 +174,8 @@
       "sourceBytes": 512458,
       "iterations": 9,
       "runs": 5,
-      "milliseconds": 98.13340733333334,
-      "mibPerSecond": 4.980139242254858
+      "milliseconds": 97.69517122222221,
+      "mibPerSecond": 5.002478901697732
     },
     {
       "engine": "sugar-high",
@@ -154,8 +183,8 @@
       "sourceBytes": 512458,
       "iterations": 9,
       "runs": 5,
-      "milliseconds": 100.041088,
-      "mibPerSecond": 4.885173108442344
+      "milliseconds": 101.80571288888889,
+      "mibPerSecond": 4.800497132909453
     },
     {
       "engine": "prismjs",
@@ -163,8 +192,8 @@
       "sourceBytes": 512458,
       "iterations": 9,
       "runs": 5,
-      "milliseconds": 90.44647688888888,
-      "mibPerSecond": 5.40339490986798
+      "milliseconds": 100.30833333333334,
+      "mibPerSecond": 4.872157841690595
     },
     {
       "engine": "highlight.js",
@@ -172,8 +201,17 @@
       "sourceBytes": 512458,
       "iterations": 9,
       "runs": 5,
-      "milliseconds": 117.9837871111111,
-      "mibPerSecond": 4.14224737824922
+      "milliseconds": 127.61299533333334,
+      "mibPerSecond": 3.82968859527473
+    },
+    {
+      "engine": "shiki",
+      "targetKiB": 500,
+      "sourceBytes": 512458,
+      "iterations": 9,
+      "runs": 5,
+      "milliseconds": 858.1492361111111,
+      "mibPerSecond": 0.5695023805552115
     }
   ]
 }
