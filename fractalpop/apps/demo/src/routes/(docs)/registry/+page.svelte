@@ -93,8 +93,16 @@ setDefaults({ rust: rustConfig, python: pythonConfig })`
 // async — tokenizes via the optional gpu-lexer peer
 const html = await highlight(code, { lang: 'typescript' })`
 </script>
-
-<h1>Registry</h1>
+<div class="page-header">
+  <div class="page-eyebrow">
+    <span class="label label--accent">ARCHITECTURE /</span>
+    <span class="badge-tag">MUTABLE REGISTRY</span>
+  </div>
+  <h1 class="page-title">Registry</h1>
+  <p class="page-sub">
+    Tree-shake grammars down to what you actually use, import bundled defaults dynamically on demand, or register custom grammars at runtime.
+  </p>
+</div>
 <p>
   The default <code>fractalpop</code> entry ships a <b>mutable language registry</b>
   seeded with just TypeScript + plaintext, so unused grammars tree-shake away. You

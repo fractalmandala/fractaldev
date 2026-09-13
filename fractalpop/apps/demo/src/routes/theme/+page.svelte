@@ -56,13 +56,13 @@ $brand: hsl(212, 90%, 55%)
 
 <svelte:head><title>Themes — fractalpop</title></svelte:head>
 
-<section class="col hero">
-   <div class="hero-meta label" use:reveal>
-    <span>color</span>
-    <span>science</span>
+<section class="page-header" use:reveal>
+  <div class="page-eyebrow">
+    <span class="label label--accent">THEMES /</span>
+    <span class="badge-tag">COLOR SCIENCE</span>
   </div>
-  <h1 class="hero__title measure" use:reveal={60}>Snappy Quick, <br><span class="text-theme">Lexical</span> Labelling.</h1>
-  <p class="hero__sub" use:reveal={120}>
+  <h1 class="page-title">Themes</h1>
+  <p class="page-sub">
     Every token maps to one CSS variable — <code>--fp-&lt;type&gt;</code> — and one class,
     <code>.fp__token--&lt;type&gt;</code>. A theme is a block of declarations you drop in.
   </p>

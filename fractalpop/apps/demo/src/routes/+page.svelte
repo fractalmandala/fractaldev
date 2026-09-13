@@ -389,7 +389,7 @@ mdsvex({ highlight: { highlighter: fractalpopHighlighter } })`
   </div>
    <p class="webgpu-desc">
       Async, language-agnostic highlighting with <code>gpu-lexer</code> and <code>fractalpop/gpu</code>.
-      See the <a href="/sveltekit">components and Sveltekit integration.</a>
+      See the <a href="/sveltekit">components and SvelteKit integration.</a>
     </p>
 	<div class="block">
     <div class="row between ycenter wrap gap-sm bench-controls-row">
@@ -401,7 +401,6 @@ mdsvex({ highlight: { highlighter: fractalpopHighlighter } })`
           </div>
         {/each}
       </div>
-      <a href="/benchmarks" class="bench-report-link">see full report &rarr;</a>
     </div>
 
     <div class="benchmark-cards">
@@ -461,7 +460,7 @@ mdsvex({ highlight: { highlighter: fractalpopHighlighter } })`
     </div>
 
     <p class="bench-footer">
-      Measured with Node v24 on Apple Silicon. Median milliseconds per file; lower is better. Browser bundles minified with Bun.
+      Measured with Node v24 on Apple Silicon. Median milliseconds per file; lower is better. Browser bundles minified with Bun.<br>
       <a href="/benchmarks" class="bench-footer-link">See full report &rarr;</a>
     </p>
 	</div>
@@ -522,18 +521,13 @@ mdsvex({ highlight: { highlighter: fractalpopHighlighter } })`
     margin-bottom: 1.5rem;
   }
 
-  .bench-report-link,
   .bench-footer-link {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
     font-weight: 600;
     color: var(--theme-color);
     text-decoration: underline;
-    text-underline-offset: 3px;
     transition: opacity 0.15s ease;
   }
 
-  .bench-report-link:hover,
   .bench-footer-link:hover {
     opacity: 0.8;
   }

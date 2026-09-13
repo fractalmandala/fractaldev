@@ -2,12 +2,18 @@
   let { data } = $props()
 </script>
 
-# Markdown
+<div class="page-header">
+  <div class="page-eyebrow">
+    <span class="label label--accent">INTEGRATION /</span>
+    <span class="badge-tag">MDSVEX & REMARK</span>
+  </div>
+  <h1 class="page-title">Markdown</h1>
+  <p class="page-sub">
+    Compile markdown at build time with mdsvex or highlight anywhere via remark. Code fences are processed into lightweight HTML tokens with zero client hydration cost.
+  </p>
+</div>
 
-This page **is** a `.md` file. mdsvex compiles it to a Svelte component and
-`@fractalpop/mdsvex` highlights every fenced block at build time — nothing here
-runs client-side. Further down, `@fractalpop/remark` produces the same tokens
-outside Svelte altogether.
+This page **is** a native `.md` file. mdsvex compiles it directly to a Svelte component and `@fractalpop/mdsvex` highlights every fenced block at build time — nothing here runs client-side. Further down, `@fractalpop/remark` produces the same tokens outside Svelte altogether.
 
 ## Setup
 

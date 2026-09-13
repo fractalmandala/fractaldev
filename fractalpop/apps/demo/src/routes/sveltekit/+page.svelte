@@ -132,25 +132,24 @@
   </div>
 {/snippet}
 
-<section class="col hero">
-  <div class="hero__meta label" use:reveal>
-    <span>06 · components</span>
-    <span>SSR-safe</span>
-    <span>zero hydration cost</span>
+<section class="page-header" use:reveal>
+  <div class="page-eyebrow">
+    <span class="label label--accent">COMPONENTS /</span>
+    <span class="badge-tag">SSR-SAFE & ZERO HYDRATION</span>
   </div>
-  <h1 class="hero__title measure" use:reveal={60}>Editor, Code, FileTree.</h1>
-  <p class="hero__sub" use:reveal={120}>
-    Present, edit, and browse highlighted code. All three produce identical server and
-    client markup, so nothing is re-rendered on hydration.
+  <h1 class="page-title">SvelteKit</h1>
+  <p class="page-sub">
+    Present, edit, and browse highlighted code with Editor, Code, and FileTree components. All three produce identical server and client markup, so nothing is re-rendered on hydration.
   </p>
-  <button
-    class="btn install"
-    onclick={() => navigator.clipboard?.writeText('npm install @fractalpop/svelte')}
-    use:reveal={180}
-  >
-    npm install @fractalpop/svelte
-    <span class="btn__hint">copy</span>
-  </button>
+  <div style="margin-top: var(--space-md);">
+    <button
+      class="btn install"
+      onclick={() => navigator.clipboard?.writeText('npm install @fractalpop/svelte')}
+    >
+      npm install @fractalpop/svelte
+      <span class="btn__hint">copy</span>
+    </button>
+  </div>
 </section>
 
 <section class="col section">

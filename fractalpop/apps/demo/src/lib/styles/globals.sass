@@ -15,7 +15,7 @@
 	--bg-popover: #e4e4e7
 	--bg-terminal: #b1b1b1
 	--text-primary: #202122
-	--text-secondary: #5e5e5e
+	--text-secondary: #8b8888
 	--text-muted: #a3a4a7
 	--text-inverse: #121212
 	--state-hover: #e4e4e7
@@ -481,7 +481,7 @@ a
 .stage-row-body
 	font-size: 0.9375rem
 	line-height: 1.6
-	color: var(--text-secondary)
+	color: var(--text-primary)
 
 .stage-row-list
 	display: flex
@@ -803,7 +803,7 @@ a
 
 .lede
 	max-width: var(--col-text)
-	color: var(--text-secondary)
+	color: var(--text-primary)
 	margin-bottom: var(--space-md)
 
 .lede b
@@ -1229,13 +1229,61 @@ button.table__row:hover
 	color: var(--text-primary)
 	margin: var(--space-xl) 0 var(--space-sm)
 
-.prose p
+// ── standardized page headers ────────────────────────────────────────────────
+.page-header
+	margin-bottom: var(--space-2xl)
+
+.page-eyebrow
+	display: flex
+	align-items: center
+	gap: var(--space-sm)
+	margin-bottom: var(--space-sm)
+
+.badge-tag
+	font-family: var(--font-mono)
+	font-size: var(--text-xs)
+	font-weight: 700
+	text-transform: uppercase
+	letter-spacing: 0.08em
+	background: var(--bg-surface)
+	border: 1px solid var(--border)
+	padding: 2px 8px
+	border-radius: 2px
 	color: var(--text-secondary)
+
+.page-title
+	font-size: clamp(32px, 5vw, 48px)
+	font-weight: 700
+	line-height: 1.05
+	letter-spacing: -0.02em
+	color: var(--text-primary)
+	margin: 0 0 var(--space-md)
+
+.page-sub
+	font-size: var(--text-lg)
+	line-height: 1.6
+	color: var(--text-secondary)
+	max-width: 48rem
+	margin: 0
+
+.prose p
+	color: var(--text-primary)
 	margin-bottom: var(--space-md)
+
+.prose ul,
+.prose ol
+	color: var(--text-primary)
+	padding-left: var(--space-lg)
+	margin-bottom: var(--space-md)
+
+.prose li
+	color: var(--text-primary)
+	line-height: 1.6
+	margin-bottom: var(--space-xs)
 
 .prose p b
 	color: var(--text-primary)
-	font-weight: 500
+	font-weight: 600
 
 .prose a
 	color: var(--theme-color)
@@ -1265,7 +1313,7 @@ button.table__row:hover
 	text-transform: uppercase
 
 .prose td
-	color: var(--text-secondary)
+	color: var(--text-primary)
 
 .prose tr:hover td
 	background: var(--state-hover-subtle)
@@ -1274,6 +1322,84 @@ button.table__row:hover
 	border: none
 	border-top: 1px solid var(--border)
 	margin: var(--space-3xl) 0
+
+// ── json snapshot frame ──────────────────────────────────────────────────────
+.json-frame
+	margin-top: var(--space-lg)
+	background: var(--bg)
+	border: 1px solid var(--border)
+	position: relative
+	padding: 0
+	overflow: hidden
+
+.json-topbar
+	display: flex
+	align-items: center
+	justify-content: space-between
+	flex-wrap: wrap
+	gap: var(--space-sm)
+	padding: var(--space-sm) var(--space-md)
+	background: var(--bg-surface)
+	border-bottom: 1px solid var(--border)
+
+.json-meta
+	display: flex
+	align-items: center
+	gap: var(--space-sm)
+	font-family: var(--font-mono)
+	font-size: var(--text-xs)
+
+.json-file-icon
+	width: 14px
+	height: 14px
+	color: var(--theme-color)
+
+.json-filename
+	font-weight: 600
+	color: var(--text-primary)
+
+.json-badge
+	background: var(--bg)
+	border: 1px solid var(--border)
+	padding: 1px 6px
+	border-radius: 2px
+	color: var(--text-muted)
+
+.json-copy-action
+	display: inline-flex
+	align-items: center
+	gap: 0.35rem
+	font-family: var(--font-mono)
+	font-size: var(--text-xs)
+	font-weight: 600
+	color: var(--text-primary)
+	background: var(--bg)
+	border: 1px solid var(--border)
+	border-radius: 2px
+	padding: 4px 10px
+	cursor: pointer
+	transition: background 0.15s ease, border-color 0.15s ease
+
+.json-copy-action:hover
+	background: var(--state-hover)
+	border-color: var(--border-strong)
+
+.check-icon
+	width: 13px
+	height: 13px
+	color: #16a34a
+
+.copied-label
+	color: #16a34a
+
+.json-scroll-pane
+	max-height: 520px
+	overflow-y: auto
+
+.json-scroll-pane .panel
+	margin: 0
+	border: none
+	background: transparent
 
 .prose pre
 	background: var(--bg-surface)
