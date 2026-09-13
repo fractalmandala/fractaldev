@@ -115,7 +115,9 @@ export function highlight(options: RemarkFractalpopOptions = {}) {
         { className: `fp-lang--${outputLang}`, 'data-fp-language': outputLang },
         children,
       )
-      return h('pre', { className: `fp-lang--${outputLang}` }, [codeEl])
+      // `fp` is the canonical highlight root class — mdsvex emits `fp fp-lang--x`.
+      // Keeping both packages' output identical lets one `pre.fp` selector style either.
+      return h('pre', { className: `fp fp-lang--${outputLang}` }, [codeEl])
     })
 }
 

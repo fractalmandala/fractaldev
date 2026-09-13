@@ -36,3 +36,68 @@ a.link
 img, video, svg
 	max-width: 100%
 	height: auto
+// Blog index (example surface — uses Acrolls docs tokens when inside DocsShell)
+.blog-index
+	list-style: none
+	margin: 0
+	padding: 0
+	display: flex
+	flex-direction: column
+	gap: 1.25rem
+.blog-index__item
+	margin: 0
+	padding-block: 0.75rem
+	border-bottom: 1px solid color-mix(in oklab, currentColor 12%, transparent)
+.blog-index__link
+	display: flex
+	flex-direction: column
+	gap: 0.25rem
+	text-decoration: none
+	color: inherit
+	&:hover .blog-index__title
+		text-decoration: underline
+.blog-index__date
+	font-size: 0.875rem
+	opacity: 0.7
+.blog-index__title
+	font-size: 1.125rem
+	font-weight: 600
+.blog-index__desc
+	opacity: 0.8
+.blog-index__tags
+	list-style: none
+	display: flex
+	flex-wrap: wrap
+	gap: 0.5rem
+	margin: 0.5rem 0 0
+	padding: 0
+	font-size: 0.75rem
+	opacity: 0.7
+	li
+		padding: 0.15rem 0.5rem
+		border: 1px solid color-mix(in oklab, currentColor 18%, transparent)
+		border-radius: 999px
+.blog-index__feeds
+	margin-top: 2rem
+	font-size: 0.875rem
+.blog-meta
+	margin: 0 0 1.25rem
+	font-size: 0.875rem
+	opacity: 0.75
+
+.version-bar
+	margin: 0 0 1rem
+
+.blog-tag-index
+	list-style: none
+	display: flex
+	flex-wrap: wrap
+	gap: 0.5rem
+	margin: 0
+	padding: 0
+.blog-tag-index__item
+	margin: 0
+.blog-tag-index__count
+	opacity: 0.65
+	margin-inline-start: 0.35rem
+	font-variant-numeric: tabular-nums

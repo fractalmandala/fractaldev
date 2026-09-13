@@ -21,7 +21,7 @@ export interface Theme {
 export const themes: Theme[] = [
   {
     name: 'Taffy',
-    light: { background: '#f6f6f6', foreground: '#354150', class: '#8d85ff', identifier: '#354150', sign: '#8996a3', property: '#4e8fdf', entity: '#665ac7', jsxliterals: '#bf7db6', string: '#00a99a', keyword: '#f47067', comment: '#a19595' },
+    light: { background: '#ffffff', foreground: '#354150', class: '#6157f5', identifier: '#354150', sign: '#8996a3', property: '#2d68b1', entity: '#665ac7', jsxliterals: '#af52a3', string: '#03a093', keyword: '#c64138', comment: '#a19595' },
     dark: { background: '#25272d', foreground: '#d4d4d4', class: '#7eb5ff', identifier: '#d4d4d4', sign: '#8b949e', property: '#79c0ff', entity: '#b7adff', jsxliterals: '#d2a8ff', string: '#88bbb6', keyword: '#ffada8', comment: '#8b8b8b' },
   },
   {
@@ -59,7 +59,18 @@ export const themes: Theme[] = [
     light: { background: '#f6f6f6', foreground: '#404040', class: '#404040', identifier: '#404040', sign: '#404040', property: '#404040', entity: '#404040', jsxliterals: '#404040', string: '#808080', keyword: '#606060', comment: '#999999' },
     dark: { background: '#252525', foreground: '#909090', class: '#909090', identifier: '#909090', sign: '#909090', property: '#909090', entity: '#909090', jsxliterals: '#909090', string: '#808080', keyword: '#b0b0b0', comment: '#a0a0a0' },
   },
+  {
+    name: 'Sveltekit',
+    light: { background: '#FFFFFF', foreground: '#313131', class: '#DE2D00', identifier: '#414141', sign: '#FF4500', property: '#787676', entity: '#313131', jsxliterals: '#FA3701', string: '#FA3701', keyword: '#FA3701', comment: '#6e6d6d' },
+    dark: { background: '#212121', foreground: '#c7c6c6', class: '#DE2D00', identifier: '#7a7878', sign: '#FF4500', property: '#e1dfdf', entity: '#fff8f8', jsxliterals: '#FA3701', string: '#FA3701', keyword: '#FA3701', comment: '#6e6d6d' },
+  },
 ]
+
+/** Index of the palette the demo opens on. */
+export const defaultThemeIndex = Math.max(
+  0,
+  themes.findIndex((t) => t.name === 'Sveltekit'),
+)
 
 export type Mode = 'light' | 'dark'
 

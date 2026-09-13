@@ -59,3 +59,17 @@ export {
   getLanguageConfig,
   allLanguages,
 } from './lang-registry.js'
+export {
+  themeStyle,
+  themeCss,
+  paletteVars,
+  sveltekit,
+  sveltekitLight,
+  sveltekitDark,
+  vscode,
+  vscodeLight,
+  vscodeDark,
+  themes,
+} from './theme.js'
+export type { Theme, ThemePalette, ThemeToken } from './theme.js'
+

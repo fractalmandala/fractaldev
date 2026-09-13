@@ -1,8 +1,3 @@
----
-title: '@fractalpop/svelte'
-description: Svelte 5 components and actions for fractalpop syntax highlighting.
-type: docs
----
 # @fractalpop/svelte
 
 `@fractalpop/svelte` brings fractalpop into Svelte and SvelteKit. It ships four

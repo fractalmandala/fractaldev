@@ -4,9 +4,19 @@ Lightweight, **Svelte-first** syntax highlighting with first-class **indented Sa
 
 Built with 🩷 for Sveltekit. [Fastest](https://github.com/fractalmandala/fractaldev/blob/main/fractalpop/docs/BENCHMARK.md) in the land.
 
-
 Run the demo: `pnpm --filter @fractalpop/demo dev`.
+
+## Documentation
+
 Developer documentation lives in [docs](https://github.com/fractalmandala/fractalpop/tree/main/docs) — an overview plus a page per package.
+
+1. [Introduction](https://github.com/fractalmandala/fractalpop/tree/main/docs/README.md)
+2. [Core Package](https://github.com/fractalmandala/fractalpop/tree/main/docs/fractalpop-core.md)
+3. [Sveltekit](https://github.com/fractalmandala/fractalpop/tree/main/docs/svelte.md)
+4. [Components and Themeing](https://github.com/fractalmandala/fractalpop/tree/main/docs/components-and-themes.md)
+5. [Mdsvex](https://github.com/fractalmandala/fractalpop/tree/main/docs/mdsvex.md)
+6. [Remark](https://github.com/fractalmandala/fractalpop/tree/main/docs/remark.md)
+7. [Benchmarks](https://github.com/fractalmandala/fractalpop/tree/main/docs/benchmark.md)
 
 ## Packages
 

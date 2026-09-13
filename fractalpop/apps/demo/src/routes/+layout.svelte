@@ -10,14 +10,12 @@
   const links = [
     { href: '/theme', label: 'Themes' },
     { href: '/sveltekit', label: 'SvelteKit' },
-    { href: '/registry', label: 'Registry' },
-    { href: '/markdown', label: 'Markdown' },
-    { href: '/benchmarks', label: 'Benchmarks' },
+    { href: '/registry', label: 'Registry' }
   ]
 </script>
 
 <div class="shell">
-  <header class="nav col" class:nav-open={menuOpen}>
+  <header class="nav content-clamp" class:nav-open={menuOpen}>
     <a class="nav-logo" href="/">
       <img src="/images/fractalpop.png" alt="" />
       fractalpop
@@ -65,14 +63,14 @@
     </button>
   </header>
 
-  <main class="main">
+  <main class="main content-clamp">
     {@render children()}
   </main>
 
-  <footer class="footer">
+  <footer class="footer content-clamp">
     <div class="col">
 			<div class="row ycenter gap-sm weight-600 text-primary">
-				2026 | <a href="https://github.com/fractalmandala/fractaldev/blob/main/fractalpop/README.md">Amritanshu Pandey</a>. Made with <div class="marg-bottom-md"><Heart/></div> for Sveltekit.
+				2026 | <a href="https://github.com/fractalmandala/fractaldev/blob/main/fractalpop/README.md"> Amritanshu Pandey</a>. Made with <div class="marg-bottom-md"><Heart/></div> for Sveltekit.
 			</div>
       <p class="footer__credit text-muted">
         Inspired by the

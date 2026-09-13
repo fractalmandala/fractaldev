@@ -27,7 +27,7 @@
 		/**
 		 * Render the built-in light/dark `ThemeToggle`. Defaults to true; set false when the host
 		 * already owns theme switching (e.g. a fractalthemer picker in the site header), so two
-		 * controls never compete to write `data-theme` / inline tokens on `<html>`.
+		 * controls never compete to write theme hooks / inline tokens on `<html>`.
 		 */
 		showThemeToggle?: boolean;
 		/** Called by the nav toggle. When omitted, toggles the drawer directly. */

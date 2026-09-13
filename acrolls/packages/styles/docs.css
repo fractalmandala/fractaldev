@@ -1,12 +1,12 @@
 .acrolls-docs-root {
-  --acrolls-docs-background: var(--background, Canvas);
-  --acrolls-docs-foreground: var(--foreground, CanvasText);
-  --acrolls-docs-muted: var(--muted, color-mix(in oklab, currentColor 8%, transparent));
-  --acrolls-docs-muted-foreground: var(--muted-foreground, color-mix(in oklab, currentColor 55%, transparent));
-  --acrolls-docs-border: var(--border, color-mix(in oklab, currentColor 14%, transparent));
-  --acrolls-docs-accent: var(--primary, var(--theme-color, currentColor));
-  --acrolls-docs-accent-foreground: var(--primary-foreground, var(--text-inverse, Canvas));
-  --acrolls-docs-radius: var(--radius, 0.5rem);
+  --acrolls-docs-background: var(--acrolls-ui-background, var(--background, Canvas));
+  --acrolls-docs-foreground: var(--acrolls-ui-foreground, var(--foreground, CanvasText));
+  --acrolls-docs-muted: var(--acrolls-ui-muted, var(--muted, color-mix(in oklab, currentColor 8%, transparent)));
+  --acrolls-docs-muted-foreground: var(--acrolls-ui-muted-foreground, var(--muted-foreground, color-mix(in oklab, currentColor 55%, transparent)));
+  --acrolls-docs-border: var(--acrolls-ui-input, var(--border, color-mix(in oklab, currentColor 14%, transparent)));
+  --acrolls-docs-accent: var(--acrolls-ui-primary, var(--primary, var(--theme-color, currentColor)));
+  --acrolls-docs-accent-foreground: var(--acrolls-ui-primary-foreground, var(--primary-foreground, var(--text-inverse, Canvas)));
+  --acrolls-docs-radius: var(--acrolls-radius, var(--radius, 0.5rem));
   --acrolls-docs-content-width: 42rem;
   --acrolls-docs-header-height: 4rem;
   --acrolls-docs-drawer-top: 4rem;
@@ -22,13 +22,13 @@
 }
 
 .acrolls-docs-sidebar:not(.acrolls-docs-root *) {
-  --acrolls-docs-background: var(--background, Canvas);
-  --acrolls-docs-foreground: var(--foreground, CanvasText);
-  --acrolls-docs-muted: var(--muted, color-mix(in oklab, currentColor 8%, transparent));
-  --acrolls-docs-muted-foreground: var(--muted-foreground, color-mix(in oklab, currentColor 55%, transparent));
-  --acrolls-docs-border: var(--border, color-mix(in oklab, currentColor 14%, transparent));
-  --acrolls-docs-accent: var(--primary, var(--theme-color, currentColor));
-  --acrolls-docs-radius: var(--radius, 0.5rem);
+  --acrolls-docs-background: var(--acrolls-ui-background, var(--background, Canvas));
+  --acrolls-docs-foreground: var(--acrolls-ui-foreground, var(--foreground, CanvasText));
+  --acrolls-docs-muted: var(--acrolls-ui-muted, var(--muted, color-mix(in oklab, currentColor 8%, transparent)));
+  --acrolls-docs-muted-foreground: var(--acrolls-ui-muted-foreground, var(--muted-foreground, color-mix(in oklab, currentColor 55%, transparent)));
+  --acrolls-docs-border: var(--acrolls-ui-input, var(--border, color-mix(in oklab, currentColor 14%, transparent)));
+  --acrolls-docs-accent: var(--acrolls-ui-primary, var(--primary, var(--theme-color, currentColor)));
+  --acrolls-docs-radius: var(--acrolls-radius, var(--radius, 0.5rem));
 }
 
 .acrolls-docs-skip {
@@ -328,7 +328,7 @@
   flex-direction: column;
   gap: 1px;
 }
-.acrolls-docs-nav-list.is-nested {
+.acrolls-docs-nav-list.acrolls-is-nested {
   margin-inline-start: 0.5rem;
   padding-inline-start: 0.6rem;
   border-inline-start: 1px solid color-mix(in oklab, var(--acrolls-docs-border) 80%, transparent);
@@ -341,7 +341,7 @@
 .acrolls-docs-nav-group {
   margin: 0;
 }
-.acrolls-docs-nav-group.is-active-branch > .acrolls-docs-nav-summary {
+.acrolls-docs-nav-group.acrolls-is-active-branch > .acrolls-docs-nav-summary {
   color: var(--acrolls-docs-foreground);
 }
 
@@ -378,7 +378,7 @@
 .acrolls-docs-nav-group-title:hover {
   color: var(--acrolls-docs-accent);
 }
-.acrolls-docs-nav-group-title.is-active {
+.acrolls-docs-nav-group-title.acrolls-is-active {
   color: var(--acrolls-docs-accent);
   font-weight: 600;
 }
@@ -1101,7 +1101,7 @@ details[data-acrolls-dropdown][open] .acrolls-docs-chevron {
   flex: 1;
 }
 
-.visually-hidden {
+.acrolls-visually-hidden {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -1118,4 +1118,71 @@ details[data-acrolls-dropdown][open] .acrolls-docs-chevron {
     transition: none !important;
     animation: none !important;
   }
+}
+.acrolls-docs-version-switcher, .acrolls-docs-locale-switcher {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.acrolls-docs-version-list, .acrolls-docs-locale-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+}
+
+.acrolls-docs-version-link, .acrolls-docs-locale-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--acrolls-docs-border, currentColor) 80%, transparent);
+  color: inherit;
+  text-decoration: none;
+  font-size: 0.8125rem;
+}
+.acrolls-docs-version-link:hover, .acrolls-docs-locale-link:hover {
+  border-color: var(--acrolls-docs-accent, currentColor);
+}
+.acrolls-docs-version-link.acrolls-is-active, .acrolls-docs-locale-link.acrolls-is-active {
+  background: color-mix(in oklab, var(--acrolls-docs-accent, currentColor) 14%, transparent);
+  border-color: var(--acrolls-docs-accent, currentColor);
+  font-weight: 600;
+}
+
+.acrolls-docs-version-badge {
+  font-size: 0.7rem;
+  opacity: 0.75;
+}
+
+.acrolls-post-tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+}
+
+.acrolls-post-tag {
+  margin: 0;
+}
+
+.acrolls-post-tag-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--acrolls-docs-border, currentColor) 80%, transparent);
+  color: inherit;
+  text-decoration: none;
+  font-size: 0.75rem;
+}
+.acrolls-post-tag-link:hover {
+  border-color: var(--acrolls-docs-accent, currentColor);
+  color: var(--acrolls-docs-accent, currentColor);
 }

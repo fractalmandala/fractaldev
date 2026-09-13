@@ -85,6 +85,6 @@ You can use Svelte components directly in `.svx` content.
 ## Cards
 
 <Cards columns={2}>
-  <Card href="/docs/guides/install" title="Installation" description="Get started with Acrolls in a SvelteKit host." />
+  <Card href="/docs/getting-started/introduction" title="Installation" description="Get started with Acrolls in a SvelteKit host." />
   <Card title="Plain card" description="A card without an href renders as a container, not a link." />
 </Cards>

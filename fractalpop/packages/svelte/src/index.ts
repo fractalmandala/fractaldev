@@ -4,8 +4,19 @@ export { default as Code } from './Code.svelte'
 export { default as Editor, indentCode } from './Editor.svelte'
 export { default as FileTree } from './FileTree.svelte'
 export { fractalpop } from './action.js'
-export { themeStyle } from './theme.js'
-export type { Theme, ThemePalette } from './theme.js'
+export {
+  themeStyle,
+  themeCss,
+  sveltekit,
+  sveltekitLight,
+  sveltekitDark,
+  vscode,
+  vscodeLight,
+  vscodeDark,
+  themes,
+} from './theme.js'
+export type { Theme, ThemePalette, ThemeToken } from './theme.js'
 export type { TreeItem } from './file-tree/model.js'
 export { highlight } from 'fractalpop/full'
 export type { HighlightOptions } from 'fractalpop/full'
+

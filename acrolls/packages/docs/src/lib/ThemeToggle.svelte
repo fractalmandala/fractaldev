@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	// Light/dark toggle. Persists to localStorage and sets `data-theme` on
-	// <html>, which the Acrolls scheme + fractalthemer respond to — so the whole
-	// docs chrome (and prose) re-themes through the token bridge.
+	// Light/dark toggle. Persists to localStorage and sets `data-acrolls-theme`
+	// on <html>, which the Acrolls scheme responds to — so the whole docs chrome
+	// (and prose) re-themes through the token bridge. Host theme systems
+	// (fractalthemer's `data-theme`/`data-mode`) are still *read* by the scheme,
+	// but Acrolls never writes those shared hooks.
 	type Props = {
 		initial?: 'light' | 'dark' | 'system';
 		storageKey?: string;
@@ -27,7 +29,7 @@
 			document.createTextNode('*,*::before,*::after{transition:none!important}')
 		);
 		document.head.appendChild(style);
-		document.documentElement.dataset.theme = next;
+		document.documentElement.dataset.acrollsTheme = next;
 		try {
 			localStorage.setItem(storageKey, next);
 		} catch {
@@ -56,7 +58,7 @@
 					? sys
 					: initial;
 		theme = resolved;
-		document.documentElement.dataset.theme = resolved;
+		document.documentElement.dataset.acrollsTheme = resolved;
 	});
 </script>
 

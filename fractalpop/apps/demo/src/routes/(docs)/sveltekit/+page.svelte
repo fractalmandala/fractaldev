@@ -3,7 +3,7 @@
   import CodePanel from '$lib/CodePanel.svelte'
   import ThemeBar from '$lib/components/ThemeBar.svelte'
   import { reveal } from '$lib/actions/reveal'
-  import { themes, type Mode } from '$lib/themes'
+  import { themes, defaultThemeIndex, type Mode } from '$lib/themes'
   import folderIcon from '$lib/icons/folder.svg?raw'
   import svelteIcon from '$lib/icons/svelte.svg?raw'
   import sassIcon from '$lib/icons/sass.svg?raw'
@@ -22,7 +22,7 @@
   }
 
   // One theme selection shared by every live demo on the page.
-  let themeIndex = $state(0)
+  let themeIndex = $state(defaultThemeIndex)
   let mode = $state<Mode>('light')
   const theme = $derived(mode === 'dark' ? themes[themeIndex].dark : themes[themeIndex].light)
   const docTheme = themes[0].light
@@ -132,31 +132,32 @@
   </div>
 {/snippet}
 
-<div class="page-header" use:reveal>
-  <div class="page-eyebrow">
-    <span class="label label--accent">COMPONENTS /</span>
-    <span class="badge-tag">SSR-SAFE & ZERO HYDRATION</span>
-  </div>
+<div class="hero" use:reveal>
+	<div class="hero-meta mono">
+    <span class="text-sm mono text-muted">COMPONENTS /</span>
+    <span class="text-sm mono text-muted">SSR-SAFE & ZERO HYDRATION</span>
+	</div>
   <h1 class="page-title">SvelteKit</h1>
   <p class="page-sub">
     Present, edit, and browse highlighted code with Editor, Code, and FileTree components. All three produce identical server and client markup, so nothing is re-rendered on hydration.
   </p>
-  <div style="margin-top: var(--space-md);">
+  <div>
     <button
-      class="btn install"
+      class="button outline shadow"
       onclick={() => navigator.clipboard?.writeText('npm install @fractalpop/svelte')}
     >
-      npm install @fractalpop/svelte
+			<span class="text-theme mono">[ </span>npm install @fractalpop/svelte<span class="text-theme mono"> ]</span>
       <span class="btn__hint">copy</span>
     </button>
   </div>
 </div>
 
-<section class="section">
-  <div class="section__head">
-    <span class="label label--accent">01 /</span>
-    <h2 class="section__title">&lt;Editor /&gt;</h2>
+<section class="content-section">
+  <div class="section-head">
+    <span class="label">01 /</span>
+    <h2 class="label-head">Editor Component</h2>
   </div>
+	<div class="block">
   <p class="lede">
     A controlled, highlighted editor with line numbers and Tab-to-indent. Type in it — the
     highlight updates live.
@@ -168,13 +169,15 @@
   <div class="panel" use:reveal>
     <Editor bind:value={editorValue} lang="js" title="playground.js" {theme} fontSize="13px" padding="20px" />
   </div>
+	</div>
 </section>
 
-<section class="section">
-  <div class="section__head">
-    <span class="label label--accent">02 /</span>
-    <h2 class="section__title">&lt;FileTree /&gt;</h2>
+<section class="content-section">
+  <div class="section-head">
+    <span class="label">02 /</span>
+    <h2 class="label-head">File Tree Component</h2>
   </div>
+	<div class="block">
   <p class="lede">
     An accessible tree (arrow keys, type-ahead) that infers folders from flat paths.
     Compose it with <b>&lt;Code&gt;</b> to browse files.
@@ -193,13 +196,15 @@
       />
     </div>
   </div>
+	</div>
 </section>
 
-<section class="section">
-  <div class="section__head">
-    <span class="label label--accent">03 /</span>
-    <h2 class="section__title">&lt;Code /&gt;</h2>
+<section class="content-section">
+  <div class="section-head">
+    <span class="label">03 /</span>
+    <h2 class="label-head">Code Component</h2>
   </div>
+	<div class="block">
   <p class="lede">
     Read-only presentation with optional line numbers and marked lines. Line 3 is
     highlighted here.
@@ -222,7 +227,7 @@
       padding="20px"
     />
   </div>
-
+	</div>
   <details class="details">
     <summary>API details</summary>
     <h3 class="block__title">&lt;Code /&gt;</h3>
@@ -243,21 +248,23 @@
   </details>
 </section>
 
-<section class="section">
-  <div class="section__head">
-    <span class="label label--accent">04 /</span>
-    <h2 class="section__title">mdsvex &amp; remark</h2>
+<section class="content-section">
+  <div class="section-head">
+    <span class="label">04 /</span>
+    <h2 class="label-head">Mdsvex and Remark</h2>
   </div>
+	<div class="block">
   <p class="lede">
     The same engine outside components: <code>@fractalpop/mdsvex</code> for
     <code>.svx</code> and <code>.md</code>, <code>@fractalpop/remark</code> for markdown
     anywhere else — identical tokens everywhere.
-    <a href="/markdown">See both on one page →</a>
+Read detailed documentation at <a target="_blank" rel="noreferrer" style="color: var(--theme-color)" href="https://github.com/fractalmandala/fractaldev/blob/main/fractalpop/docs/mdsvex.md">Github</a>
   </p>
   <CodePanel
     title="svelte.config.js"
-    code={`import { fractalpopHighlighter } from '@fractalpop/mdsvex'\n\nmdsvex({ highlight: { highlighter: fractalpopHighlighter } })`}
+    code={`import { fractalpopHighlighter } from '@fractalpop/mdsvex'\nmdsvex({ highlight: { highlighter: fractalpopHighlighter } })`}
     lang="js"
     theme={docTheme}
   />
+	</div>
 </section>

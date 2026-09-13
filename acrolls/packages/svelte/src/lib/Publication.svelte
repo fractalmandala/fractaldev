@@ -34,7 +34,7 @@
 <article
 	bind:this={root}
 	class={['acrolls', className].filter(Boolean).join(' ')}
-	data-theme={theme === 'auto' ? undefined : theme}
+	data-acrolls-theme={theme === 'auto' ? undefined : theme}
 	{...rest}
 >
 	{@render children?.()}

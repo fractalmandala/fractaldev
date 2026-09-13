@@ -54,17 +54,21 @@ function decorateLines(
   meta: ReturnType<typeof parseFenceMeta>
 ): string {
   // codeHtml is inner HTML of <code>…</code>
-  // Prefer operating on Shiki's existing span.line rows when present.
-  // Match Shiki line spans whether class is first or later in the attribute list
-  if (/\bclass="[^"]*\bline\b/.test(codeHtml) || /class='[^']*\bline\b/.test(codeHtml)) {
+  // Prefer operating on Shiki's existing line spans when present: Shiki emits
+  // `class="line"` natively and our transformer adds `acrolls-line` alongside,
+  // so match either token. This keeps decoration working even if Shiki changes
+  // its native token in a future version.
+  if (/\bclass="[^"]*\b(?:line|acrolls-line)\b/.test(codeHtml) || /class='[^']*\b(?:line|acrolls-line)\b/.test(codeHtml)) {
     let n = 0;
     const hasFocus = meta.focus.size > 0;
     return codeHtml.replace(/<span\b([^>]*)>/g, (full, attrs: string) => {
-      if (!/\bclass=(["'])[^"']*\bline\b/.test(attrs) && !/\bclass="[^"]*\bline\b/.test(attrs)) {
+      if (!/\bclass=(["'])[^"']*\b(?:line|acrolls-line)\b/.test(attrs) && !/\bclass="[^"]*\b(?:line|acrolls-line)\b/.test(attrs)) {
         return full;
       }
       n += 1;
-      let next = attrs;
+      // Rename Shiki's native `line` token to `acrolls-line` (single rename
+      // point) and keep every other class untouched.
+      let next = attrs.replace(/\bline\b/g, 'acrolls-line').replace(/acrolls-acrolls-line/g, 'acrolls-line');
       if (!/\bdata-line=/.test(next)) next += ` data-line="${n}"`;
       if (meta.highlight.has(n) && !/\bdata-highlighted\b/.test(next)) {
         next += ' data-highlighted=""';
@@ -86,7 +90,7 @@ function decorateLines(
   return lines
     .map((line, idx) => {
       const n = idx + 1;
-      const attrs: string[] = [`class="line"`, `data-line="${n}"`];
+      const attrs: string[] = [`class="acrolls-line"`, `data-line="${n}"`];
       if (meta.highlight.has(n)) attrs.push('data-highlighted=""');
       if (hasFocus) attrs.push(`data-focused="${meta.focus.has(n) ? 'true' : 'false'}"`);
       if (meta.add.has(n)) attrs.push('data-diff="add"');
@@ -133,22 +137,21 @@ export function createAcrollsHighlighter(options: HighlightOptions = {}) {
           dark: 'github-dark'
         },
         defaultColor: false,
-        // Ensure one span per line for decoration hooks
+        // Ensure one span per acrolls-line for decoration hooks
         transformers: [
           {
             name: 'acrolls-lines',
             line(node, line) {
               node.properties = node.properties ?? {};
-              const className = node.properties.class;
-              if (Array.isArray(className)) {
-                if (!className.includes('line')) className.push('line');
-              } else if (typeof className === 'string') {
-                if (!className.split(/\s+/).includes('line')) {
-                  node.properties.class = `${className} line`.trim();
-                }
-              } else {
-                node.properties.class = 'line';
-              }
+              const existing = node.properties.class;
+              const classes = Array.isArray(existing)
+                ? existing.map(String)
+                : typeof existing === 'string'
+                  ? existing.split(/\s+/).filter(Boolean)
+                  : [];
+              const withoutLine = classes.filter((c) => c !== 'line');
+              if (!withoutLine.includes('acrolls-line')) withoutLine.push('acrolls-line');
+              node.properties.class = withoutLine.join(' ');
               node.properties['data-line'] = String(line);
             }
           }
@@ -158,7 +161,7 @@ export function createAcrollsHighlighter(options: HighlightOptions = {}) {
       if (options.strict) throw err;
       preHtml = `<pre class="shiki"><code>${escapeHtml(code)
         .split('\n')
-        .map((l, i) => `<span class="line" data-line="${i + 1}">${l || ' '}</span>`)
+        .map((l, i) => `<span class="acrolls-line" data-line="${i + 1}">${l || ' '}</span>`)
         .join('\n')}</code></pre>`;
     }
 

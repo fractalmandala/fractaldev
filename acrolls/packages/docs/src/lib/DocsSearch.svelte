@@ -263,7 +263,7 @@
 			{:else if !query.trim()}
 				<p data-acrolls-search-message>Type to search across every page.</p>
 			{/if}
-			<p class="visually-hidden" role="status" aria-live="polite">{liveMessage}</p>
+			<p class="acrolls-visually-hidden" role="status" aria-live="polite">{liveMessage}</p>
 		</div>
 	</div>
 

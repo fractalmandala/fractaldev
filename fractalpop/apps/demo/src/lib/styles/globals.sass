@@ -122,10 +122,13 @@ a
 	line-height: 1.2
 	letter-spacing: 0.08em
 	text-transform: uppercase
-	color: var(--text-muted)
+	color: var(--theme-color)
 
-.label-accent,
-.label--accent
+.label-head
+	font-size: var(--text-3xl)
+	text-transform: capitalize
+
+.label-accent
 	color: var(--theme-color)
 
 // ── DESIGN.md Typography & System Classes ──────────────────────────────────────
@@ -228,7 +231,6 @@ a
 	border: 1px dashed var(--border)
 	border-radius: 0
 	padding: var(--space-xl) var(--space-lg)
-
 	&::before, &::after
 		position: absolute
 		font-family: var(--font-mono)
@@ -379,23 +381,16 @@ a
 .benchmark-cards
 	display: grid
 	grid-template-columns: 1fr
-	border: 1px solid var(--border-subtle)
-	border-radius: 12px
-	background: var(--bg-surface)
 	overflow: hidden
+	gap: var(--space-3xl)
 
 @media (min-width: 768px)
 	.benchmark-cards
 		grid-template-columns: repeat(3, minmax(0, 1fr))
 
-.benchmark-card
-	padding: var(--space-lg)
-	border-bottom: 1px solid var(--border-subtle)
-
 @media (min-width: 768px)
 	.benchmark-card
 		border-bottom: none
-		border-right: 1px solid var(--border-subtle)
 
 	.benchmark-card:last-child
 		border-right: none
@@ -517,9 +512,9 @@ a
 	display: flex
 	flex-direction: column
 
-.col
+.content-clamp
 	width: 100%
-	max-width: var(--col)
+	max-width: var(--container-max-width)
 	margin-inline: auto
 	padding-inline: var(--gutter)
 
@@ -657,24 +652,23 @@ a
 
 // The product name is the loudest thing on the page; the positioning line sits
 // under it at display scale but a step quieter.
-.hero__wordmark
+.hero-wordmark
 	font-size: clamp(56px, 11vw, 104px)
 	font-weight: 600
 	line-height: 0.94
 	letter-spacing: -0.035em
 	color: var(--text-primary)
 
-.hero__tagline
+.hero-tagline
 	margin-top: var(--space-md)
 	font-size: clamp(26px, 4.2vw, 38px)
-	font-weight: 500
+	font-weight:600
 	line-height: 1.14
 	letter-spacing: -0.015em
 	color: var(--text-primary)
-
-.hero__tagline em
-	font-style: normal
-	color: var(--theme-color)
+	em
+		font-style: normal
+		color: var(--theme-color)
 
 .hero__title
 	font-size: clamp(40px, 7vw, 64px)
@@ -687,11 +681,11 @@ a
 	font-style: normal
 	color: var(--theme-color)
 
-.hero__sub
+.hero-sub
 	margin-top: var(--space-bs)
 	margin-bottom: var(--space-bs)
-	max-width: 52ch
-	color: var(--text-secondary)
+	max-width: 70ch
+	color: var(--text-primary)
 	font-size: var(--text-lg)
 
 // ── controls ──────────────────────────────────────────────────────────────────
@@ -708,6 +702,24 @@ a
 	color: var(--text-primary)
 	cursor: pointer
 	transition: border-color 0.18s cubic-bezier(0.16, 1, 0.3, 1), transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s cubic-bezier(0.16, 1, 0.3, 1)
+
+.button
+	cursor: pointer
+	font-size: var(--text-sm)
+	&.shadow
+		box-shadow: 0 6px 16px -10px rgba(17, 24, 39, 0.5)
+		&:hover
+			box-shadow: none
+	&.outline
+		font-family: var(--font-mono)
+		background: var(--bg)
+		border: 1px solid var(--border-strong)
+		color: var(--text-primary)
+		padding: var(--space-bs) var(--space-xl)
+		transition: border-color 0.18s cubic-bezier(0.16, 1, 0.3, 1), transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s cubic-bezier(0.16, 1, 0.3, 1)
+		&:hover
+			border-color: var(--theme-color)
+
 
 .btn:hover
 	border-color: var(--theme-color)
@@ -736,7 +748,7 @@ a
 	display: grid
 	grid-template-columns: repeat(4, 1fr)
 	gap: 0
-	margin-top: var(--space-3xl)
+	margin-top: var(--space-2xl)
 	border-top: 1px solid var(--border)
 	border-left: 1px solid var(--border)
 
@@ -748,7 +760,7 @@ a
 	.index
 		grid-template-columns: 1fr
 
-.index__item
+.index-item
 	display: flex
 	align-items: baseline
 	gap: 10px
@@ -756,40 +768,41 @@ a
 	border-right: 1px solid var(--border)
 	border-bottom: 1px solid var(--border)
 	transition: background 0.18s cubic-bezier(0.16, 1, 0.3, 1), color 0.18s cubic-bezier(0.16, 1, 0.3, 1)
+	&:hover
+		background: var(--bg-surface)
+		.index-n
+			color: var(--theme-color)
 
-.index__item:hover
-	background: var(--bg-surface)
-
-.index__item:hover .index__n
-	color: var(--theme-color)
-
-.index__n
+.index-n
 	font-family: var(--font-mono)
 	font-size: 12px
 	font-weight: 600
 	color: var(--text-muted)
 	transition: color 0.18s cubic-bezier(0.16, 1, 0.3, 1)
 
-.index__label
+.index-label
 	font-size: 15px
 	color: var(--text-primary)
 
 // ── sections ──────────────────────────────────────────────────────────────────
+
+.content-section
+	border-top: 1px solid var(--border)
+	padding-block: var(--space-3xl)
+
 .section
 	padding-block: var(--space-3xl)
-	border-top: 1px solid var(--border)
 
 .section:first-of-type
 	border-top: none
 
-.section__head
+.section-head
 	display: flex
 	align-items: baseline
 	gap: var(--space-md)
 	margin-bottom: var(--space-xl)
 
-.section__title,
-.prose .section__title
+.label-accent
 	font-size: 28px
 	font-weight: 500
 	letter-spacing: -0.01em
@@ -801,21 +814,22 @@ a
 .block + .block
 	margin-top: var(--space-xl)
 
-.block__title,
-.prose .block__title
-	font-size: 18px
-	font-weight: 500
+.block-title
+	font-size: var(--text-xl)
+	text-transform: capitalize
+	font-weight: 800
 	color: var(--text-primary)
 	margin-bottom: var(--space-sm)
 	border: none
 
-.block__title .dim
+.block-title .dim
 	color: var(--text-muted)
 
 .lede
-	max-width: var(--col-text)
+	max-width: 80ch
 	color: var(--text-primary)
 	margin-bottom: var(--space-md)
+	line-height: 1.65
 
 .lede b
 	color: var(--text-primary)
@@ -827,16 +841,6 @@ a
 
 .lede a:hover
 	border-bottom-color: var(--theme-color)
-
-.lede code,
-.prose :not(pre) > code
-	font-family: var(--font-mono)
-	font-size: 0.85em
-	color: var(--text-primary)
-	background: var(--bg-surface)
-	border: 1px solid var(--border)
-	border-radius: 4px
-	padding: 1px 5px
 
 // ── code panels ───────────────────────────────────────────────────────────────
 // Hairline geometry, one radius, no ambient glow. The filename sits left in the
@@ -890,7 +894,6 @@ a
 .pair
 	display: grid
 	grid-template-columns: 1fr 1fr
-	border: 1px solid var(--border)
 	border-radius: 0
 	overflow: hidden
 
@@ -900,35 +903,33 @@ a
 
 .pair .panel + .panel
 	margin-top: 0
-	border-left: 1px solid var(--border)
 
 @media (max-width: 720px)
 	.pair
 		grid-template-columns: 1fr
-	.pair .panel + .panel
-		border-left: none
-		border-top: 1px solid var(--border)
 
 // ── the focal object: playground on the deep surface ──────────────────────────
 .stage
 	margin-top: var(--space-xl)
-	border-radius: 0
+	border-radius: 4px
+	padding: var(--space-xl)
 
-.stage__bar
+.stage-bar
 	display: flex
 	align-items: center
 	justify-content: space-between
 	flex-wrap: wrap
 	gap: var(--space-md)
-	margin-bottom: var(--space-bs)
+	padding-bottom: var(--space-xs)
 
-.stage .label
-	color: var(--text-muted)
+.stage
+	.label
+		color: var(--text-secondary)
 
 .frame
 	border-radius: 0
 	overflow: hidden
-	--fp-font-family: var(--font-mono)
+	font-family: var(--font-mono)
 
 .themebar
 	display: flex
@@ -936,46 +937,54 @@ a
 	flex-wrap: wrap
 	gap: 6px
 
-.swatch
+button.swatch, .swatch
 	display: inline-flex
 	align-items: center
 	justify-content: center
-	width: 18px
-	height: 18px
+	width: 20px
+	height: 20px
 	padding: 0
-	border: none
-	border-radius: 9999px
+	border: 1px solid transparent
 	cursor: pointer
 	transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.18s cubic-bezier(0.16, 1, 0.3, 1)
-
-.swatch-1
-	width: 6px
-	height: 18px
-
-.swatch-2
-	width: 6px
-	height: 18px
-
-.swatch-3
-	width: 6px
-	height: 18px
-
-.swatch:hover
-	transform: scale(1.1)
-
-.swatch[aria-pressed='true']
-	border-color: var(--theme-color)
-	box-shadow: 0 0 0 2px rgba(250, 55, 1, 0.3)
+	background: none
+	&.active
+		border: 1px solid var(--text-primary)
+	.swatch-1
+		width: 6px
+		height: 18px
+	.swatch-2
+		width: 6px
+		height: 18px
+	.swatch-3
+		width: 6px
+		height: 18px
+	&:hover
+		transform: scale(1.1)
 
 .swatch-mode
-	height: 18px
-	width: 30px
-	background: linear-gradient(90deg, #ffffff 50%, #042f2e 50%)
-	margin-left: var(--space-sm)
+	height: 12px
+	cursor: pointer
+	&.black-box
+		background: #121212
+		width: 12px
+	&.white-box
+		background: #d7d7d7
+		width: 12px
+	&.active
+		width: 16px
+		height: 16px
 
-// light context (themes / sveltekit pages put the bar on white)
-.themebar--light .swatch
-	border-color: var(--border-strong)
+button.k-toggle-button
+	display: flex
+	align-items: center
+	background: none
+	border: 1px solid transparent
+	padding-block: 0
+	padding-inline: 1px
+	width: 32px
+	max-width: 32px
+	height: 20px
 
 .themebar-row
 	display: flex
@@ -994,26 +1003,24 @@ a
 .control
 	display: inline-flex
 	align-items: center
-	gap: 6px
-	padding: 7px 12px
+	gap: var(--space-xs)
+	padding: var(--space-sm) var(--space-md)
 	background: transparent
 	border: 1px solid var(--border-strong)
-	border-radius: 2px
+	border-radius: 4px
 	font-family: var(--font-mono)
 	font-size: 12px
 	color: var(--text-primary)
 	cursor: pointer
 	transition: border-color 0.18s cubic-bezier(0.16, 1, 0.3, 1), color 0.18s cubic-bezier(0.16, 1, 0.3, 1)
+	&:hover
+		border-color: var(--theme-color)
+		color: var(--theme-color)
+	&:disabled
+		opacity: 0.45
+		cursor: default
 
-.control:hover
-	border-color: var(--theme-color)
-	color: var(--theme-color)
-
-.control:disabled
-	opacity: 0.45
-	cursor: default
-
-.control--ok
+.control-ok
 	border-color: var(--theme-color)
 	color: var(--theme-color)
 
@@ -1051,16 +1058,17 @@ a
 .tab
 	padding: 6px 12px
 	background: none
-	border: 1px solid var(--border)
+	border: 1px solid var(--border-strong)
 	border-radius: 2px
 	font-family: var(--font-mono)
 	font-size: 12px
-	color: var(--text-muted)
+	color: var(--text-primary)
 	cursor: pointer
 	transition: border-color 0.18s cubic-bezier(0.16, 1, 0.3, 1), color 0.18s cubic-bezier(0.16, 1, 0.3, 1)
 
 .tab:hover
-	color: var(--text-primary)
+	color: var(--theme-color)
+	border: 1px solid var(--theme-color)
 
 .tab.is-active
 	border-color: var(--theme-color)
@@ -1069,7 +1077,6 @@ a
 // ── tables ────────────────────────────────────────────────────────────────────
 .details
 	margin-top: var(--space-bs)
-	border-top: 1px solid var(--border)
 
 .details > summary
 	list-style: none
@@ -1213,32 +1220,6 @@ button.table__row:hover
 		border-left: none
 		border-top: 1px solid var(--border)
 
-// ── prose pages ───────────────────────────────────────────────────────────────
-.prose
-	padding-block: var(--space-3xl)
-	width: 100%
-	max-width: var(--col)
-
-.prose h1
-	font-size: clamp(36px, 6vw, 56px)
-	font-weight: 500
-	line-height: 1.04
-	color: var(--text-primary)
-	margin-bottom: var(--space-xl)
-
-.prose h2
-	font-size: 22px
-	font-weight: 500
-	color: var(--text-primary)
-	margin: var(--space-3xl) 0 var(--space-md)
-	padding-top: var(--space-bs)
-	border-top: 1px solid var(--border)
-
-.prose h3
-	font-size: 17px
-	font-weight: 500
-	color: var(--text-primary)
-	margin: var(--space-xl) 0 var(--space-sm)
 
 // ── standardized page headers ────────────────────────────────────────────────
 .page-header
@@ -1264,56 +1245,33 @@ button.table__row:hover
 
 .page-title
 	font-size: clamp(32px, 5vw, 48px)
-	font-weight: 700
+	font-weight: 800
 	line-height: 1.05
 	letter-spacing: -0.02em
 	color: var(--text-primary)
 	margin: 0 0 var(--space-md)
 
-.page-sub,
-.prose .page-sub,
-.prose p.page-sub
-	font-size: var(--text-lg)
+.page-sub
+	font-size: var(--text-bs)
 	line-height: 1.6
-	color: var(--text-secondary) !important
-	max-width: 48rem
+	color: var(--text-secondary)
 	margin: 0 0 var(--space-xl)
+	max-width: 80ch
 
-.page-sub strong,
-.page-sub b,
-.prose p.page-sub strong,
-.prose p.page-sub b
-	color: var(--text-primary)
-	font-weight: 600
-
-.page-sub code,
-.prose p.page-sub code
+.page-sub code
 	color: var(--text-primary)
 
-.prose p
-	color: var(--text-primary)
-	margin-bottom: var(--space-md)
-
-.prose ul,
-.prose ol
+ul, ol
 	color: var(--text-primary)
 	padding-left: var(--space-lg)
 	margin-bottom: var(--space-md)
 
-.prose li
+li
 	color: var(--text-primary)
 	line-height: 1.6
 	margin-bottom: var(--space-xs)
 
-.prose p b
-	color: var(--text-primary)
-	font-weight: 600
-
-.prose a
-	color: var(--theme-color)
-	border-bottom: 1px solid var(--border-subtle)
-
-.prose table
+table
 	width: 100%
 	border-collapse: collapse
 	margin: var(--space-xl) 0
@@ -1321,13 +1279,13 @@ button.table__row:hover
 	border: 1px solid var(--border)
 	background: var(--bg)
 
-.prose th,
-.prose td
+th,
+td
 	padding: var(--space-sm) var(--space-md)
 	border: 1px solid var(--border)
 	text-align: left
 
-.prose th
+th
 	background: var(--bg-surface)
 	font-family: var(--font-mono)
 	font-weight: 600
@@ -1336,13 +1294,13 @@ button.table__row:hover
 	letter-spacing: 0.04em
 	text-transform: uppercase
 
-.prose td
+td
 	color: var(--text-primary)
 
-.prose tr:hover td
+tr:hover td
 	background: var(--state-hover-subtle)
 
-.prose hr
+hr
 	border: none
 	border-top: 1px solid var(--border)
 	margin: var(--space-3xl) 0
@@ -1425,15 +1383,12 @@ button.table__row:hover
 	border: none
 	background: transparent
 
-.prose pre
-	background: var(--bg-surface)
-	border: 1px solid var(--border)
-	border-radius: 0
+pre
 	padding: var(--space-lg)
 	margin: var(--space-bs) 0
 	overflow-x: auto
 
-.prose pre code
+pre code
 	display: block
 	font-family: var(--font-mono)
 	font-size: 13px
@@ -1441,40 +1396,55 @@ button.table__row:hover
 	color: var(--fp-identifier, var(--text-primary))
 	white-space: pre
 
+// Raw doc fences — mdsvex emits `<pre class="fp fp-lang--x">`, but `@fractalpop/remark`
+// emits `<pre class="fp-lang--x">` with no `fp`, so match either marker. Component
+// panels use `.fp-code__pre` and must stay transparent for the palette to show through.
+pre.fp,
+pre[class*='fp-lang--']
+	background: var(--bg-surface)
+	border: 1px solid var(--border)
+
 // Highlighted fences emit one `.fp__line` block per line, each still carrying the
 // source newline. Neutralising white-space on the container stops that newline
 // doubling the leading; the line itself keeps `pre` so indentation survives.
 // Gated on `:has()` because some blocks hold raw text with no line spans — those
 // still need `white-space: pre` or their newlines collapse away entirely.
-.prose pre.fp:has(.fp__line),
-.prose pre.fp:has(.fp__line) code
+pre.fp:has(.fp__line),
+pre.fp:has(.fp__line) code
 	white-space: normal
 
-// Token colours for prose code — the light reference palette.
-.prose
-	--fp-identifier: #111827
-	--fp-keyword: #fa3701
+:root
+	--fp-identifier: #38393a
+	--fp-keyword: #d6493f
 	--fp-string: #0f766e
-	--fp-class: #6d28d9
-	--fp-property: #1d4ed8
-	--fp-entity: #7c3aed
-	--fp-jsxliterals: #a21caf
-	--fp-sign: #6b7280
-	--fp-comment: #9ca3af
+	--fp-class: #5a4fea
+	--fp-property: #4e8fdf
+	--fp-entity: #665ac7
+	--fp-jsxliterals: #982c8a
+	--fp-sign: #9fa0a2
+	--fp-comment: #7a7878
 
-.prose .fp__line
+
+.fp__line
 	display: block
 	min-height: 1lh
 	white-space: pre
 
-.prose .fp__line--highlighted,
-.prose .fp__line[data-highlight]
+.fp__line--highlighted,
+.fp__line[data-highlight]
 	background: var(--state-hover-subtle)
 	box-shadow: inset 2px 0 0 var(--theme-color)
+
+// Raw fences pad the `<pre>`, so the marked line bleeds by exactly that padding to
+// reach the frame edge. Margin and padding are both `--space-lg`, so they cancel
+// and the text stays put. Component panels need no bleed: their `<pre>` has no
+// horizontal padding, so the plain rule above already spans the full width.
+:is(pre.fp, pre[class*='fp-lang--']) .fp__line--highlighted,
+:is(pre.fp, pre[class*='fp-lang--']) .fp__line[data-highlight]
 	margin-inline: calc(var(--space-lg) * -1)
 	padding-inline: var(--space-lg)
 
-.prose .live-btn
+.live-btn
 	margin-top: var(--space-sm)
 	padding: 9px 14px
 	background: var(--bg)
@@ -1486,19 +1456,19 @@ button.table__row:hover
 	cursor: pointer
 	transition: border-color 0.18s cubic-bezier(0.16, 1, 0.3, 1), transform 0.18s cubic-bezier(0.16, 1, 0.3, 1)
 
-.prose .live-btn:hover:not(:disabled)
+.live-btn:hover:not(:disabled)
 	border-color: var(--theme-color)
 	color: var(--theme-color)
 	transform: translateY(-1px)
 
-.prose .live-btn:disabled
+.live-btn:disabled
 	color: var(--text-muted)
 	cursor: default
 
-.prose .source
+.source
 	margin-top: var(--space-xl)
 
-.prose .source summary
+.source summary
 	cursor: pointer
 	font-family: var(--font-mono)
 	font-size: 12px
@@ -1644,3 +1614,17 @@ button.table__row:hover
 
 .text-muted
 	color: var(--text-muted)
+
+.tt-u
+	text-transform: uppercase
+.tt-c
+	text-transform: capitalize
+
+.pad-bottom-3xl
+	padding-bottom: var(--space-3xl)
+
+.marg-y-2xl
+	margin-block: var(--space-2xl)
+
+.border
+	border: 1px solid var(--border)

@@ -142,41 +142,57 @@ const html = await highlight(code, { lang: 'typescript' })`
   const defaultsHtml = highlight(defaultsCode, { lang: 'typescript' })
   const gpuHtml = highlight(gpuCode, { lang: 'typescript' })
 </script>
-<div class="page-header">
-  <div class="page-eyebrow">
-    <span class="label label--accent">ARCHITECTURE /</span>
-    <span class="badge-tag">MUTABLE REGISTRY</span>
+
+
+<div class="hero">
+  <div class="hero-meta mono">
+    <span class="text-sm mono text-muted">ARCHITECTURE /</span>
+    <span class="text-sm mono text-muted">MUTABLE REGISTRY</span>
   </div>
   <h1 class="page-title">Registry</h1>
   <p class="page-sub">
     Tree-shake grammars down to what you actually use, import bundled defaults dynamically on demand, or register custom grammars at runtime.
   </p>
 </div>
-<p>
+
+<div class="content-section">
+	<div class="block">
+<p class="lede">
   The default <code>fractalpop</code> entry ships a <b>mutable language registry</b>
   seeded with just TypeScript + plaintext, so unused grammars tree-shake away. You
   grow it at runtime — the panels on this page run the real calls live.
 </p>
-<p>
+<p class="lede">
   Registered right now ({registered.length}):
   {#each registered as id, i}<code>{id}</code>{i < registered.length - 1 ? ' ' : ''}{/each}
 </p>
 {#if registered.length > 2}
-  <p>
-    <button class="live-btn" onclick={resetToMinimal} type="button">Reset to minimal (TypeScript only)</button>
-  </p>
+  <p class="lede">
+    <button class="button shadow outline" onclick={resetToMinimal} type="button">
+			<span class="text-theme mono">[ </span>Reset to minimal (TypeScript only)<span class="text-theme mono"> ]</span>
+		</button>
+	</p>
 {/if}
-<p>
+<p class="lede">
   One registry is shared per app: every entry point re-exports the same core, so a
   registration made through <code>fractalpop/full</code> is visible to
   <code>fractalpop</code> importers too. This site renders through
   <code>@fractalpop/svelte</code> → <code>fractalpop/full</code>, so if you arrived
   here from another page, all 32 languages are already registered.
 </p>
+	</div>
+</div>
 
-<h2>Entry points</h2>
-<p>Four ways in, depending on how much you want shipped and registered:</p>
-<pre class="fp fp-lang--ts"><code>{@html entriesHtml}</code></pre>
+<div class="content-section">
+	<div class="section-head">
+		<span class="label">01 /</span>
+		<h2 class="label-head">Entry points</h2>
+	</div>
+	<div class="block">
+		<p>Four ways in, depending on how much you want shipped and registered:</p>
+		<pre class="fp fp-lang--ts"><code>{@html entriesHtml}</code></pre>
+	</div>
+</div>
 
 <h2>Grow the default entry</h2>
 {#if pyReady}

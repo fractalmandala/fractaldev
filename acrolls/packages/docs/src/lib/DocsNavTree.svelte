@@ -34,13 +34,13 @@
 	}
 </script>
 
-<ul class="acrolls-docs-nav-list" class:is-nested={depth > 0} role="list" data-depth={depth}>
+<ul class="acrolls-docs-nav-list" class:acrolls-is-nested={depth > 0} role="list" data-depth={depth}>
 	{#each nodes as node (node.id ?? node.href ?? node.title)}
 		<li class="acrolls-docs-nav-item">
 			{#if node.children?.length}
 				<details
 					class="acrolls-docs-nav-group"
-					class:is-active-branch={nodeContainsPath(node, pathname)}
+					class:acrolls-is-active-branch={nodeContainsPath(node, pathname)}
 					open={isOpen(node)}
 					ontoggle={(e) => node.id && handleToggle(e, node.id)}
 				>
@@ -48,7 +48,7 @@
 						{#if node.href}
 							<a
 								class="acrolls-docs-nav-group-title"
-								class:is-active={isActive(node)}
+								class:acrolls-is-active={isActive(node)}
 								href={node.href}
 								aria-current={isActive(node) ? 'page' : undefined}
 								onclick={(e) => e.stopPropagation()}
@@ -77,7 +77,7 @@
 			{:else if node.href}
 				<a
 					class="acrolls-docs-nav-link"
-					class:is-active={isActive(node)}
+					class:acrolls-is-active={isActive(node)}
 					href={node.href}
 					aria-current={isActive(node) ? 'page' : undefined}
 				>

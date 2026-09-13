@@ -2,15 +2,14 @@
   import { Code } from '@fractalpop/svelte'
   import CodePanel from '$lib/CodePanel.svelte'
   import ThemeBar from '$lib/components/ThemeBar.svelte'
-  import BenchmarkSection from '$lib/components/BenchmarkSection.svelte'
   import { reveal } from '$lib/actions/reveal'
-  import { themes, type Mode } from '$lib/themes'
+  import { themes, defaultThemeIndex, type Mode } from '$lib/themes'
   import { samples } from '$lib/samples'
 	import Candy from '$lib/icons/candy.svelte'
 
   // ---- playground state ----
   // `mode` switches the *preview* palette only; the page itself is light.
-  let themeIndex = $state(0)
+  let themeIndex = $state(defaultThemeIndex)
   let mode = $state<Mode>('dark')
   let sampleIndex = $state(0)
   let copied = $state(false)
@@ -96,19 +95,19 @@
     ['04', 'Components', '/sveltekit'],
     ['05', 'Themes', '/theme'],
     ['06', 'Registry', '/registry'],
-    ['07', 'Markdown', '/markdown'],
+    ['07', 'Benchmarks', '#benchmark'],
     ['08', 'Rules', '#rules'],
   ]
 
   // ---- doc snippets ----
   const lightCss = `:root {
-  --fp-class: #8d85ff;
-  --fp-identifier: #354150;
-  --fp-sign: #8996a3;
+  --fp-class: #5a4fea;
+  --fp-identifier: #38393a;
+  --fp-sign: #9fa0a2;
   --fp-string: #00a99a;
-  --fp-keyword: #f47067;
-  --fp-comment: #a19595;
-  --fp-jsxliterals: #bf7db6;
+  --fp-keyword: #d6493f;
+  --fp-comment: #7a7878;
+  --fp-jsxliterals: #982c8a;
   --fp-entity: #665ac7;
   --fp-property: #4e8fdf;
 }`
@@ -205,57 +204,62 @@ mdsvex({ highlight: { highlighter: fractalpopHighlighter } })`
 </svelte:head>
 
 <!-- HERO -->
-<section class="col hero">
-  <div class="hero-meta label" use:reveal>
-    <span>v0</span>
-    <span>32 languages</span>
+<section class="hero pad-bottom-3xl">
+  <div class="hero-meta mono" use:reveal>
+    <span class="text-muted">v0</span>
+    <span class="text-muted">32 languages</span>
   </div>
   <div class="row ycenter gap-sm wfull">
-		<Candy/><h1 class="hero__wordmark" use:reveal={40}>fractal<span class="text-theme weight-600"><i>pop</i></span></h1>
+		<Candy/><h1 class="hero-wordmark" use:reveal={40}>fractal<span class="text-theme weight-600"><i>pop</i></span></h1>
 	</div>
-  <p class="hero__tagline measure" use:reveal={80}>
+  <p class="hero-tagline" use:reveal={80}>
     fast syntax highlighting for <em>SvelteKit</em>.
   </p>
-  <p class="hero__sub" use:reveal={120}>
+  <p class="hero-sub" use:reveal={120}>
     One engine behind components, markdown, and plain strings. SSR-safe and identical on
     both sides, so highlighted code costs nothing to hydrate — and themes are CSS
     variables, with no runtime to ship.
   </p>
   <button
-    class="btn install"
+    class="button outline shadow"
     class:is-copied={installCopied}
     onclick={copyInstall}
     title="Copy"
     use:reveal={180}
   >
-    {install}
-    <span class="btn__hint">{installCopied ? 'copied' : 'copy'}</span>
+    <span class="text-theme mono">[ </span>{install}<span class="text-theme mono"> ]</span>
+    <span class="text-xs text-theme tt-u">{installCopied ? 'copied' : 'copy'}</span>
   </button>
 
   <!-- ARCHITECTURE INDEX -->
   <nav class="index" aria-label="Architecture index">
     {#each architecture as [n, label, href], i}
-      <a class="index__item" {href} use:reveal={i * 45}>
-        <span class="index__n text-theme">{n}/</span>
-        <span class="index__label">{label}</span>
+      <a class="index-item" {href} use:reveal={i * 45}>
+        <span class="index-n text-theme">{n}/</span>
+        <span class="index-label">{label}</span>
       </a>
     {/each}
   </nav>
+
+	<div class="block" style="margin-top: 2rem">
+		<p>Read detailed documentation at <a style="color: var(--theme-color)" href="https://github.com/fractalmandala/fractaldev/blob/main/fractalpop/docs/README.md">Github</a>.</p>
+	</div>
 </section>
 
-<!-- 01 — THE FOCAL OBJECT -->
-<section class="col section" id="core">
-  <div class="section__head">
-    <span class="label label--accent">01 /</span>
-    <h2 class="section__title">Core logic</h2>
+<!-- 01 — Core Logic -->
+<section class="content-section" id="core">
+  <div class="section-head">
+    <span class="label">01 /</span>
+    <h2 class="label-head tt-c">Core logic</h2>
   </div>
   <p class="lede">
-    Every block below is rendered by the real engine. Pick a palette, pick a language, and
-    read the output — there is no second code path.
+    Fractalpop is <b>not a semantic</b> highlighter. It splits the code into parts, whitespaces, indentation, line-breaks and labels each part. These parts are then colored differently. Thus it can be language-agnostic - a single classifier for all languages. Regular highlighters like Prism and Shiki are included in the benchmarks, but it’s not quite fair to compare to them as they are semantic highlighters. Fractalpop is for rapid, asthetic highlighting. Not true grammar awareness. 
   </p>
-
+	<p class="lede">
+		The idea is taken from the <a href="https://gpu-lexer.vercel.app/" target="_blank" rel="noreferrer">gpu-lexer</a> utility by Shu Ding.
+	</p>
   <div class="stage" use:reveal>
-    <div class="stage__bar">
+    <div class="stage-bar">
       <span class="label">{theme.name} · {mode}</span>
       <ThemeBar bind:index={themeIndex} bind:mode />
     </div>
@@ -276,7 +280,7 @@ mdsvex({ highlight: { highlighter: fractalpopHighlighter } })`
           {#each samples as s, i}<option value={i}>{s.label}</option>{/each}
         </select>
       </label>
-      <button class="control" class:control--ok={copied} onclick={copyCode}>
+      <button class="control" class:control-ok={copied} onclick={copyCode}>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2" /><path d="M5 15V5a2 2 0 0 1 2-2h10" /></svg>
         {copied ? 'Copied' : 'Copy'}
       </button>
@@ -289,46 +293,40 @@ mdsvex({ highlight: { highlighter: fractalpopHighlighter } })`
 </section>
 
 <!-- 02 — TOKEN PALETTES -->
-<section class="col section" id="basics">
-  <div class="section__head">
-    <span class="label label--accent">02 /</span>
-    <h2 class="section__title">Token palettes</h2>
+<section class="content-section" id="basics">
+  <div class="section-head">
+    <span class="label">02 /</span>
+    <h2 class="label-head">Token palettes</h2>
   </div>
-
   <div class="block">
-    <h3 class="block__title">Light <span class="dim">&amp; dark</span></h3>
-    <p class="lede">Match light and dark token palettes for your theme.</p>
+    <p class="lede">Light and Dark - match token palettes for your theme.</p>
     <div class="pair" use:reveal>
       <CodePanel title="light.css" code={lightCss} lang="css" theme={themes[0].light} copy={false} />
       <CodePanel title="dark.css" code={darkCss} lang="css" theme={themes[0].dark} />
     </div>
   </div>
-
   <div class="block">
-    <h3 class="block__title">Line highlighting</h3>
     <p class="lede">
-      Each line is a <code>.fp__line</code>, so target lines with CSS selectors or a custom
-      line class.
+      <span class="text-theme weight-600">Line Highlighting:</span> Each line is a <code>.fp__line</code>, so you can target them.
     </p>
     <CodePanel title="lines.css" code={lineCss} lang="css" theme={docTheme} highlightLines={[[1, 2]]} />
   </div>
 </section>
 
 <!-- 03 — LANGUAGES -->
-<section class="col section" id="languages">
-  <div class="section__head">
-    <span class="label label--accent">03 /</span>
-    <h2 class="section__title">Languages</h2>
+<section class="content-section" id="languages">
+  <div class="section-head">
+    <span class="label">03 /</span>
+    <h2 class="label-head">Languages</h2>
   </div>
   <p class="lede">
-    <code>fractalpop/full</code> registers <b>32 languages</b> up front — no extra grammars
+    <code>fractalpop/full</code> registers <b>32 languages</b> up front, no extra grammars
     or setup. The default <code>fractalpop</code> entry stays tiny with TypeScript and
     plaintext only; grow it with <code>registerLanguage()</code> or
     <code>importDefaults()</code>. Use <code>lang()</code> to resolve filenames, extensions
     and aliases to a canonical name.
   </p>
   <CodePanel title="languages.ts" code={langCode} lang="ts" theme={docTheme} highlightLines={[1]} />
-
   <details class="details">
     <summary>All languages <small>{languageLabels.length}</small></summary>
     <div class="table">
@@ -342,15 +340,14 @@ mdsvex({ highlight: { highlighter: fractalpopHighlighter } })`
   </details>
 </section>
 
-<!-- 04 — COMPONENTS -->
-<section class="col section" id="rules">
-  <div class="section__head">
-    <span class="label label--accent">04 /</span>
-    <h2 class="section__title">Rules of engagement</h2>
+<!-- 04 — engagement -->
+<section class="content-section" id="rules">
+  <div class="section-head">
+    <span class="label">04 /</span>
+    <h2 class="label-head">Rules of engagement</h2>
   </div>
-
   <div class="block">
-    <h3 class="block__title">Function over form</h3>
+    <h3 class="block-title">Function over form</h3>
     <p class="lede">
       <code>@fractalpop/svelte</code> ships <b>&lt;Highlight&gt;</b>, <b>&lt;Code&gt;</b>,
       <b>&lt;Editor&gt;</b> and <b>&lt;FileTree&gt;</b> — every code block on this site is
@@ -360,49 +357,43 @@ mdsvex({ highlight: { highlighter: fractalpopHighlighter } })`
   </div>
 
   <div class="block">
-    <h3 class="block__title">Scalable by default</h3>
+    <h3 class="block-title">Scalable by Default</h3>
     <p class="lede">
-      Set token colours with scoped CSS variables, then use <code>cx</code> for emphasis —
-      Tailwind-friendly, no selectors needed. <a href="/theme">Copy a theme →</a>
+      Set token colours with scoped CSS variables, use the themes you have and like, with <code>cx</code> for emphasis -
+      Tailwind-friendly, no selectors needed.
     </p>
     <CodePanel title="theme.ts" code={themeCode} lang="ts" theme={docTheme} />
   </div>
-
   <div class="block">
-    <h3 class="block__title">Same tokens outside components</h3>
+    <h3 class="block-title">Same tokens outside components</h3>
     <p class="lede">
       <code>@fractalpop/mdsvex</code> highlights fences in <code>.svx</code>;
       <code>@fractalpop/remark</code> does the same for <code>.md</code> and
-      <code>.mdx</code>. <a href="/markdown">See both on one page →</a>
+      <code>.mdx</code>. <a target="_blank" rel="noreferrer" href="https://github.com/fractalmandala/fractaldev/blob/main/fractalpop/docs/mdsvex.md">Read more on Github.</a>
     </p>
     <CodePanel title="svelte.config.js" code={mdsvexCode} lang="js" theme={docTheme} />
   </div>
 </section>
 
 <!--05 - BENCHMARK -->
-<section class="col section" id="benchmark" data-bench>
-  <!-- WebGPU experimental block -->
-
-  <div class="section__head">
-    <span class="label label--accent">05 /</span>
-    <h2 class="section__title">Benchmarks and WebGPU Experimental</h2>
+<section class="content-section" id="benchmark" data-bench>
+  <div class="section-head">
+    <span class="label">05 /</span>
+    <h2 class="label-head">Benchmarks and WebGPU Experimental</h2>
   </div>
-   <p class="webgpu-desc">
-      Async, language-agnostic highlighting with <code>gpu-lexer</code> and <code>fractalpop/gpu</code>.
-      See the <a href="/sveltekit">components and SvelteKit integration.</a>
-    </p>
 	<div class="block">
-    <div class="row between ycenter wrap gap-sm bench-controls-row">
-      <div class="bench-legend">
-        {#each engines as engine}
+   <p class="lede">
+      Async, language-agnostic highlighting, with or without <code>gpu-lexer</code>. <b><italic>For fast and easy aesthetics, not real grammar awareness.</italic></b> Keep that in mind when looking at performance against a highlighter like Shiki.
+  </p>
+  <div class="box marg-y-2xl">
+    <div class="bench-legend">
+      {#each engines as engine}
           <div class="legend-item">
             <span class="legend-dot" style="background-color: {engine.color}"></span>
             <span class="legend-name">{engine.name}</span>
           </div>
         {/each}
       </div>
-    </div>
-
     <div class="benchmark-cards">
       <!-- Card 1: Minified bundle -->
       <div class="benchmark-card">
@@ -421,7 +412,6 @@ mdsvex({ highlight: { highlighter: fractalpopHighlighter } })`
           {/each}
         </div>
       </div>
-
       <!-- Card 2: Gzip bundle -->
       <div class="benchmark-card">
         <h4 class="benchmark-card-title">Gzip bundle</h4>
@@ -439,7 +429,6 @@ mdsvex({ highlight: { highlighter: fractalpopHighlighter } })`
           {/each}
         </div>
       </div>
-
       <!-- Card 3: 500 KiB file runtime -->
       <div class="benchmark-card">
         <h4 class="benchmark-card-title">500 KiB file</h4>
@@ -458,37 +447,15 @@ mdsvex({ highlight: { highlighter: fractalpopHighlighter } })`
         </div>
       </div>
     </div>
-
-    <p class="bench-footer">
+    <p class="bench-footer lede">
       Measured with Node v24 on Apple Silicon. Median milliseconds per file; lower is better. Browser bundles minified with Bun.<br>
-      <a href="/benchmarks" class="bench-footer-link">See full report &rarr;</a>
+      <a target="_blank" rel="noreferrer" href="https://github.com/fractalmandala/fractaldev/blob/main/fractalpop/docs/BENCHMARK.md">See full report.</a>
     </p>
+    </div>
 	</div>
 </section>
 
 <style>
-  .webgpu-desc {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin: 0 0 1.25rem;
-  }
-
-  .webgpu-desc code {
-    font-family: var(--font-mono);
-    font-size: 0.88em;
-    background: var(--bg-surface);
-    border: 1px solid var(--border);
-    padding: 0.15em 0.35em;
-    border-radius: 2px;
-    color: var(--text-primary);
-  }
-
-  .webgpu-desc a {
-    color: var(--theme-color);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
 
   .bench-legend {
     display: flex;
@@ -517,20 +484,6 @@ mdsvex({ highlight: { highlighter: fractalpopHighlighter } })`
     color: var(--text-muted);
   }
 
-  .bench-controls-row {
-    margin-bottom: 1.5rem;
-  }
-
-  .bench-footer-link {
-    font-weight: 600;
-    color: var(--theme-color);
-    text-decoration: underline;
-    transition: opacity 0.15s ease;
-  }
-
-  .bench-footer-link:hover {
-    opacity: 0.8;
-  }
 </style>
 
 

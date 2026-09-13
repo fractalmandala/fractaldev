@@ -22,7 +22,7 @@
 
 <div class="page-header">
   <div class="page-eyebrow">
-    <span class="label label--accent">REPORT /</span>
+    <span class="label label-accent">REPORT /</span>
     <span class="badge-tag">REPRODUCIBLE BENCHMARK</span>
   </div>
   <h1 class="page-title">Benchmarks</h1>

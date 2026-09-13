@@ -2,9 +2,9 @@
   import CodePanel from '$lib/CodePanel.svelte'
   import ThemeBar from '$lib/components/ThemeBar.svelte'
   import { reveal } from '$lib/actions/reveal'
-  import { themes, paletteVars, cssFor, type Mode } from '$lib/themes'
+  import { themes, defaultThemeIndex, paletteVars, cssFor, type Mode } from '$lib/themes'
 
-  let themeIndex = $state(0)
+  let themeIndex = $state(defaultThemeIndex)
   let mode = $state<Mode>('dark')
   const theme = $derived(themes[themeIndex])
   const palette = $derived(mode === 'dark' ? theme.dark : theme.light)
@@ -56,27 +56,26 @@ $brand: hsl(212, 90%, 55%)
 
 <svelte:head><title>Themes — fractalpop</title></svelte:head>
 
-<div class="page-header" use:reveal>
-  <div class="page-eyebrow">
-    <span class="label label--accent">THEMES /</span>
-    <span class="badge-tag">COLOR SCIENCE</span>
+<div class="hero" use:reveal>
+  <div class="hero-meta mono">
+    <span class="text-sm mono text-muted">THEMES</span>
+    <span class="text-sm mono text-muted">COLOR SCIENCE</span>
   </div>
   <h1 class="page-title">Themes</h1>
   <p class="page-sub">
     Every token maps to one CSS variable — <code>--fp-&lt;type&gt;</code> — and one class,
     <code>.fp__token--&lt;type&gt;</code>. A theme is a block of declarations you drop in.
   </p>
+<p class="page-sub">Read detailed documentation at <a target="_blank" rel="noreferrer" style="color: var(--theme-color)" href="https://github.com/fractalmandala/fractaldev/blob/main/fractalpop/docs/components-and-themes.md">Github</a>.</p>
 </div>
 
-<section class="section">
-  <div class="section__head">
-    <span class="label label--accent">01 /</span>
-    <h2 class="section__title">Comfortable by default</h2>
+<section class="content-section">
+  <div class="section-head">
+    <span class="label">01 /</span>
+    <h2 class="label-head">Comfortable by default</h2>
   </div>
-  <p class="lede">Pick a swatch to explore another palette.</p>
-
   <div class="stage" use:reveal>
-    <div class="stage__bar">
+    <div class="stage-bar">
       <span class="label">{theme.name} · {mode}</span>
       <ThemeBar bind:index={themeIndex} bind:mode />
     </div>
@@ -86,12 +85,11 @@ $brand: hsl(212, 90%, 55%)
   </div>
 </section>
 
-<section class="section">
-  <div class="section__head">
-    <span class="label label--accent">02 /</span>
-    <h2 class="section__title">Copy the CSS</h2>
+<section class="content-section">
+  <div class="section-head">
+    <span class="label">02 /</span>
+    <h2 class="label-head">Copy the CSS</h2>
   </div>
-
   <div class="block">
     <p class="lede">
       Set the light palette on <code>:root</code>, and the dark palette under
@@ -102,9 +100,8 @@ $brand: hsl(212, 90%, 55%)
       <CodePanel title="dark.css" code={darkCss} lang="css" theme={theme.dark} />
     </div>
   </div>
-
   <div class="block">
-    <h3 class="block__title">Tailwind</h3>
+    <h3 class="block-title">Tailwind</h3>
     <p class="lede">
       Prefer utilities? Point the variables at your Tailwind colours, then use
       <code>cx</code> for per-token emphasis.
@@ -113,11 +110,12 @@ $brand: hsl(212, 90%, 55%)
   </div>
 </section>
 
-<section class="section">
-  <div class="section__head">
-    <span class="label label--accent">03 /</span>
-    <h2 class="section__title">Indented Sass</h2>
+<section class="content-section">
+  <div class="section-head">
+    <span class="label">03 /</span>
+    <h2 class="label-head">Indented Sass</h2>
   </div>
+	<div class="block">
   <p class="lede">
     fractalpop's headline feature: brace-less, semicolon-less Sass, coloured by
     indentation. The same theme variables style it — here is how Sass constructs map to
@@ -133,4 +131,5 @@ $brand: hsl(212, 90%, 55%)
       </div>
     {/each}
   </div>
+	</div>
 </section>

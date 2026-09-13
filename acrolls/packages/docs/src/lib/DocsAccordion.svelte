@@ -42,7 +42,7 @@
 
 <details
 	class="acrolls-docs-nav-group"
-	class:is-active-branch={hasActive}
+	class:acrolls-is-active-branch={hasActive}
 	open={isOpen}
 	ontoggle={handleToggle}
 >
@@ -50,7 +50,7 @@
 		{#if section.href}
 			<a
 				class="acrolls-docs-nav-group-title"
-				class:is-active={titleActive}
+				class:acrolls-is-active={titleActive}
 				href={section.href}
 				aria-current={titleActive ? 'page' : undefined}
 				onclick={(event) => event.stopPropagation()}

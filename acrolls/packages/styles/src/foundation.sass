@@ -2,13 +2,13 @@
 	--acrolls-font-body: var(--font-body, inherit)
 	--acrolls-font-heading: var(--font-heading, inherit)
 	--acrolls-font-code: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace)
-	--acrolls-background: var(--background, transparent)
-	--acrolls-foreground: var(--foreground, currentColor)
-	--acrolls-muted: var(--muted-foreground, color-mix(in oklab, currentColor 62%, transparent))
-	--acrolls-border: var(--border, color-mix(in oklab, currentColor 16%, transparent))
-	--acrolls-accent: var(--accent, currentColor)
-	--acrolls-surface: var(--card, color-mix(in oklab, currentColor 4%, transparent))
-	--acrolls-surface-strong: var(--muted, color-mix(in oklab, currentColor 8%, transparent))
+	--acrolls-background: var(--acrolls-ui-background, var(--background, transparent))
+	--acrolls-foreground: var(--acrolls-ui-foreground, var(--foreground, currentColor))
+	--acrolls-muted: var(--acrolls-ui-muted-foreground, var(--muted-foreground, color-mix(in oklab, currentColor 62%, transparent)))
+	--acrolls-border: var(--acrolls-ui-input, var(--border, color-mix(in oklab, currentColor 16%, transparent)))
+	--acrolls-accent: var(--acrolls-ui-accent, var(--accent, currentColor))
+	--acrolls-surface: var(--acrolls-ui-card, var(--card, color-mix(in oklab, currentColor 4%, transparent)))
+	--acrolls-surface-strong: var(--acrolls-ui-muted, var(--muted, color-mix(in oklab, currentColor 8%, transparent)))
 	--acrolls-selection: color-mix(in oklab, var(--acrolls-accent) 22%, transparent)
 	--acrolls-content-width: 100%
 	--acrolls-wide-width: 100%
@@ -34,9 +34,9 @@
 	box-sizing: border-box
 .acrolls ::selection
 	background: var(--acrolls-selection)
-.acrolls[data-theme='dark']
+.acrolls[data-acrolls-theme='dark']
 	color-scheme: dark
-.acrolls[data-theme='light']
+.acrolls[data-acrolls-theme='light']
 	color-scheme: light
 .acrolls :is(h1, h2, h3, h4, h5, h6)
 	font-family: var(--acrolls-font-heading)
@@ -114,19 +114,19 @@
 .acrolls .acrolls-code-frame[data-wrap='true'] pre, .acrolls .acrolls-code-frame[data-wrap='true'] code
 	white-space: pre-wrap
 	word-break: break-word
-.acrolls .acrolls-code-frame .line
+.acrolls .acrolls-code-frame .acrolls-line
 	display: inline-block
 	width: 100%
 	min-height: 1.2em
-.acrolls .acrolls-code-frame .line[data-highlighted]
+.acrolls .acrolls-code-frame .acrolls-line[data-highlighted]
 	background: color-mix(in oklab, var(--acrolls-accent) 12%, transparent)
-.acrolls .acrolls-code-frame .line[data-focused='false']
+.acrolls .acrolls-code-frame .acrolls-line[data-focused='false']
 	opacity: 0.4
-.acrolls .acrolls-code-frame .line[data-diff='add']
+.acrolls .acrolls-code-frame .acrolls-line[data-diff='add']
 	background: color-mix(in oklab, #16a34a 14%, transparent)
-.acrolls .acrolls-code-frame .line[data-diff='remove']
+.acrolls .acrolls-code-frame .acrolls-line[data-diff='remove']
 	background: color-mix(in oklab, #dc2626 14%, transparent)
-.acrolls .acrolls-code-frame[data-line-numbers='true'] .line::before
+.acrolls .acrolls-code-frame[data-line-numbers='true'] .acrolls-line::before
 	content: attr(data-line)
 	display: inline-block
 	width: 2.5em
@@ -135,15 +135,15 @@
 	color: var(--acrolls-muted)
 	user-select: none
 // Dark-mode resolution for the dual-theme code vars above. The selector set mirrors
-// _scheme.sass: root data-mode/data-theme (built-in ThemeToggle + fractalthemer), a .dark
-// ancestor, an element-scoped .acrolls[data-theme='dark'], and the system preference.
-[data-mode='dark'] .acrolls .acrolls-code-frame pre, [data-theme='dark'] .acrolls .acrolls-code-frame pre, .dark .acrolls .acrolls-code-frame pre, .acrolls[data-theme='dark'] .acrolls-code-frame pre
+// _scheme.sass: root data-acrolls-theme (built-in ThemeToggle), data-mode/data-theme
+// (fractalthemer-driven hosts), a .dark ancestor, an element-scoped .acrolls[data-acrolls-theme='dark'], and the system preference.
+[data-acrolls-theme='dark'] .acrolls .acrolls-code-frame pre, [data-mode='dark'] .acrolls .acrolls-code-frame pre, [data-theme='dark'] .acrolls .acrolls-code-frame pre, .dark .acrolls .acrolls-code-frame pre, .acrolls[data-acrolls-theme='dark'] .acrolls-code-frame pre
 	background: var(--shiki-dark-bg)
 	color: var(--shiki-dark)
-[data-mode='dark'] .acrolls .acrolls-code-frame pre span, [data-theme='dark'] .acrolls .acrolls-code-frame pre span, .dark .acrolls .acrolls-code-frame pre span, .acrolls[data-theme='dark'] .acrolls-code-frame pre span
+[data-acrolls-theme='dark'] .acrolls .acrolls-code-frame pre span, [data-mode='dark'] .acrolls .acrolls-code-frame pre span, [data-theme='dark'] .acrolls .acrolls-code-frame pre span, .dark .acrolls .acrolls-code-frame pre span, .acrolls[data-acrolls-theme='dark'] .acrolls-code-frame pre span
 	color: var(--shiki-dark)
 @media (prefers-color-scheme: dark)
-	:root:not(:where([data-mode='light'], [data-theme='light'], .light)) .acrolls .acrolls-code-frame pre
+	:root:not(:where([data-acrolls-theme='light'], [data-mode='light'], [data-theme='light'], .light)) .acrolls .acrolls-code-frame pre
 		background: var(--shiki-dark-bg)
 		color: var(--shiki-dark)
 		span

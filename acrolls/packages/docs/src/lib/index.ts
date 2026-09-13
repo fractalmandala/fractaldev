@@ -90,6 +90,51 @@ export type {
 	DocsRobotsOptions
 } from './seo.js';
 
+
+// Versioning
+export {
+	listDocsVersions,
+	defaultDocsVersion,
+	resolveDocsVersion,
+	versionedHref,
+	alternateVersionHrefs
+} from './versions.js';
+export type { DocsVersion, DocsVersionsConfig, ResolvedDocsVersion } from './versions.js';
+
+// i18n
+export {
+	defaultDocsLocale,
+	resolveDocsLocale,
+	localizedHref,
+	alternateLocaleHrefs
+} from './i18n.js';
+export type { DocsLocale, DocsLocalesConfig, ResolvedDocsLocale } from './i18n.js';
+
+export { default as DocsVersionSwitcher } from './DocsVersionSwitcher.svelte';
+export { default as DocsLocaleSwitcher } from './DocsLocaleSwitcher.svelte';
+
+// Content negotiation
+export { preferDocsRepresentation, negotiateDocsPage } from './negotiate.js';
+export type { DocsNegotiateKind, DocsNegotiateResult } from './negotiate.js';
+
+
+// Blog tags
+export {
+	tagsOfPost,
+	tagSlug,
+	tagHref,
+	listTags,
+	postsForTag,
+	resolveTag
+} from './tags.js';
+export type { DocsTag, DocsTagsOptions } from './tags.js';
+export { default as PostTags } from './PostTags.svelte';
+
+// Blog feeds (RSS / Atom / JSON Feed)
+export { listPosts, isPost, postDateOf, docsRss, docsAtom, docsJsonFeed } from './feeds.js';
+export type { DocsPostListOptions } from './posts.js';
+export type { DocsPost, DocsFeedOptions } from './feeds.js';
+
 // AI static tier (P18)
 export { docsLlmsTxt, docsLlmsFullTxt, docsPageMarkdown, isAiExcluded } from './ai.js';
 export type { DocsRawSources, DocsAiOptions } from './ai.js';

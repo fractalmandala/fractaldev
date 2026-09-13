@@ -23,11 +23,13 @@ developers **using** the packages. Each package has its own page:
 | [`@fractalpop/mdsvex`](./mdsvex.md) | `packages/mdsvex` | Highlighter hook for mdsvex (`.svx`). |
 | [`@fractalpop/remark`](./remark.md) | `packages/remark` | remark plugin for `.md` and `.mdx`. |
 
-## Guides
+1. [Core Package](https://github.com/fractalmandala/fractalpop/tree/main/docs/fractalpop-core.md)
+2. [Sveltekit](https://github.com/fractalmandala/fractalpop/tree/main/docs/svelte.md)
+3. [Components and Themeing](https://github.com/fractalmandala/fractalpop/tree/main/docs/components-and-themes.md)
+4. [Mdsvex](https://github.com/fractalmandala/fractalpop/tree/main/docs/mdsvex.md)
+5. [Remark](https://github.com/fractalmandala/fractalpop/tree/main/docs/remark.md)
+6. [Benchmarks](https://github.com/fractalmandala/fractalpop/tree/main/docs/benchmark.md)
 
-- [Building SvelteKit packages and libraries](./building-sveltekit-libraries.md)
-  — architecture, monorepo setup, build tools, Svelte 5 component patterns,
-  testing, publishing, and the gotchas this project hit.
 
 ## How highlighting works
 

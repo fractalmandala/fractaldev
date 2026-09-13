@@ -2,6 +2,6 @@
   let { children } = $props()
 </script>
 
-<article class="col prose">
+<article class="prose">
   {@render children()}
 </article>

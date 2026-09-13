@@ -13,6 +13,8 @@
 		</div>
 		<nav class="row gap8 ycenter">
 			<a class="blank text-sm fw500" href="/docs">Docs</a>
+			<a class="blank text-sm fw500" href="/blog">Blog</a>
+			<a class="blank text-sm fw500" href="/versions">Versions</a>
 			<ThemePicker />
 		</nav>
 	</header>

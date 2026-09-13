@@ -1,9 +1,3 @@
----
-title: '@fractalpop/mdsvex'
-description: mdsvex highlighter hook for fractalpop — highlights fenced code in .svx files.
-type: docs
----
-
 # @fractalpop/mdsvex
 
 `@fractalpop/mdsvex` highlights fenced code in `.svx` files. It plugs into

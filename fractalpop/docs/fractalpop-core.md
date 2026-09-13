@@ -1,9 +1,3 @@
----
-title: fractalpop (core)
-description: The fractalpop engine — zero-DOM syntax highlighting with a tree-shakeable language registry.
-type: docs
----
-
 # fractalpop (core)
 
 `fractalpop` is the engine. It highlights a string of source code and returns

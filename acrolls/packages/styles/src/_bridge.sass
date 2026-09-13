@@ -1,11 +1,14 @@
 // Acrolls shadcn-name bridge.
 //
-// Maps the fractalthemer-shaped tokens (--bg, --text-primary, --theme-color, …)
-// onto the shadcn-style names (--background, --card, --muted, --accent, …) that
-// the Acrolls surfaces (foundation/default/docs) consume. Every SEMANTIC token
-// maps through a runtime var() so the active scheme/theme drives it; the second
-// argument is an Open Color static fallback for when neither the scheme baseline
-// nor fractalthemer is present.
+// Maps the Acrolls scheme tokens (--acrolls-scheme-*, …) onto the `--acrolls-ui-*`
+// names that the Acrolls surfaces (foundation/default/docs) consume. Every token
+// Acrolls DEFINES is prefixed — `:root` stays clean for sibling projects.
+// Every SEMANTIC token reads the shared host token first
+// (`--bg`, `--text-primary`, `--theme-color`, …), so a host theme (e.g. a
+// fractalthemer `.theme-*` class, which sets the bare tokens after this
+// baseline) still wins wherever it sets them; the second argument is the
+// Acrolls scheme value and the third is an Open Color static fallback for when
+// neither a host theme nor the scheme baseline is present.
 //
 // The chart palette is a deliberate exception: a fixed categorical data-viz
 // palette kept stable across themes so series colors and legends stay consistent.
@@ -14,40 +17,41 @@
 
 :root
 	// Base Surfaces
-	--background: var(--bg, #{$oc-gray-0})
-	--foreground: var(--text-primary, #{$oc-gray-9})
+	--acrolls-ui-background: var(--bg, var(--acrolls-scheme-bg, #{$oc-gray-0}))
+	--acrolls-ui-foreground: var(--text-primary, var(--acrolls-scheme-text-primary, #{$oc-gray-9}))
 
 	// Elevation Surfaces / Containers
-	--card: var(--bg-surface, #{$oc-gray-0})
-	--card-foreground: var(--text-primary, #{$oc-gray-9})
-	--popover: var(--bg-raised, #{$oc-gray-0})
-	--popover-foreground: var(--text-primary, #{$oc-gray-9})
+	--acrolls-ui-card: var(--bg-surface, var(--acrolls-scheme-bg-surface, #{$oc-gray-0}))
+	--acrolls-ui-card-foreground: var(--text-primary, var(--acrolls-scheme-text-primary, #{$oc-gray-9}))
+	--acrolls-ui-popover: var(--bg-raised, var(--acrolls-scheme-bg-raised, #{$oc-gray-0}))
+	--acrolls-ui-popover-foreground: var(--text-primary, var(--acrolls-scheme-text-primary, #{$oc-gray-9}))
 
 	// Main Action / Primary Brand
-	--primary: var(--theme-color, #{$oc-indigo-6})
-	--primary-foreground: var(--text-inverse, #{$oc-gray-0})
+	--acrolls-ui-primary: var(--theme-color, var(--acrolls-scheme-theme-color, #{$oc-indigo-6}))
+	--acrolls-ui-primary-foreground: var(--text-inverse, var(--acrolls-scheme-text-inverse, #{$oc-gray-0}))
 
 	// Secondary Actions
-	--secondary: var(--bg-panel, #{$oc-gray-2})
-	--secondary-foreground: var(--text-secondary, #{$oc-gray-9})
+	--acrolls-ui-secondary: var(--bg-panel, var(--acrolls-scheme-bg-panel, #{$oc-gray-2}))
+	--acrolls-ui-secondary-foreground: var(--text-secondary, var(--acrolls-scheme-text-secondary, #{$oc-gray-9}))
 
 	// Muted Content / Backgrounds
-	--muted: var(--bg-panel, #{$oc-gray-1})
-	--muted-foreground: var(--text-muted, #{$oc-gray-6})
+	--acrolls-ui-muted: var(--bg-panel, var(--acrolls-scheme-bg-panel, #{$oc-gray-1}))
+	--acrolls-ui-muted-foreground: var(--text-muted, var(--acrolls-scheme-text-muted, #{$oc-gray-6}))
 
 	// Interactive / Selection States
-	--accent: var(--state-hover, #{$oc-gray-2})
-	--accent-foreground: var(--text-primary, #{$oc-gray-9})
+	--acrolls-ui-accent: var(--state-hover, var(--acrolls-scheme-state-hover, #{$oc-gray-2}))
+	--acrolls-ui-accent-foreground: var(--text-primary, var(--acrolls-scheme-text-primary, #{$oc-gray-9}))
 
 	// Destructive / Error States
-	--destructive: var(--feedback-error, #{$oc-red-6})
-	--destructive-foreground: var(--text-inverse, #{$oc-gray-0})
+	--acrolls-ui-destructive: var(--feedback-error, var(--acrolls-scheme-feedback-error, #{$oc-red-6}))
+	--acrolls-ui-destructive-foreground: var(--text-inverse, var(--acrolls-scheme-text-inverse, #{$oc-gray-0}))
 
-	--input: var(--border, #{$oc-gray-3})
+	// Borders / Inputs
+	--acrolls-ui-input: var(--border, var(--acrolls-scheme-border, #{$oc-gray-3}))
 
 	// Data Visualizations / Charts — fixed categorical palette (theme-independent).
-	--chart-1: #{$oc-blue-6}
-	--chart-2: #{$oc-teal-6}
-	--chart-3: #{$oc-orange-6}
-	--chart-4: #{$oc-grape-6}
-	--chart-5: #{$oc-yellow-6}
+	--acrolls-ui-chart-1: #{$oc-blue-6}
+	--acrolls-ui-chart-2: #{$oc-teal-6}
+	--acrolls-ui-chart-3: #{$oc-orange-6}
+	--acrolls-ui-chart-4: #{$oc-grape-6}
+	--acrolls-ui-chart-5: #{$oc-yellow-6}

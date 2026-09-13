@@ -1,9 +1,3 @@
----
-title: '@fractalpop/remark'
-description: remark plugin for fractalpop — highlights fenced code in Markdown and MDX.
-type: docs
----
-
 # @fractalpop/remark
 
 `@fractalpop/remark` is a remark plugin that highlights fenced code in Markdown

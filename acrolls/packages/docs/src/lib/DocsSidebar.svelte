@@ -100,7 +100,7 @@
 
 	{#if filterable}
 		<label class="acrolls-docs-sidebar-filter">
-			<span class="visually-hidden">Filter navigation</span>
+			<span class="acrolls-visually-hidden">Filter navigation</span>
 			<input type="search" placeholder="Filter pages…" bind:value={query} autocomplete="off" />
 		</label>
 	{/if}

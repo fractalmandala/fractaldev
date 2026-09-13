@@ -4,7 +4,7 @@
 
 <div class="page-header">
   <div class="page-eyebrow">
-    <span class="label label--accent">INTEGRATION /</span>
+    <span class="label label-accent">INTEGRATION /</span>
     <span class="badge-tag">MDSVEX & REMARK</span>
   </div>
   <h1 class="page-title">Markdown</h1>
