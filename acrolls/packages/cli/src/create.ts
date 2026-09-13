@@ -45,6 +45,12 @@ export type CreateOptions = {
 	packageManager?: PackageManager;
 	/** Range for the `acrolls` dependency; defaults to the running CLI version. */
 	acrollsVersion?: string;
+	/** Also scaffold the blog genre. */
+	blog?: boolean;
+	/** Public blog base href when `blog` is set. */
+	blogHref?: string;
+	/** Absolute site origin for feed/SEO URLs. */
+	siteOrigin?: string;
 	/** Scaffold into a non-empty directory, overwriting colliding files. */
 	force?: boolean;
 	/** Report the tree without writing anything. */
@@ -104,7 +110,10 @@ export async function generateScaffold(opts: CreateOptions): Promise<CreateResul
 		baseHref,
 		mode: opts.mode ?? 'default',
 		packageManager,
-		acrollsVersion: opts.acrollsVersion ?? VERSION
+		acrollsVersion: opts.acrollsVersion ?? VERSION,
+		blog: opts.blog,
+		blogHref: opts.blogHref,
+		siteOrigin: opts.siteOrigin
 	};
 	const files = scaffoldFiles(scaffoldOpts);
 
@@ -140,7 +149,7 @@ export async function cmdCreate(args: Args): Promise<number> {
 	const dir = args._[1];
 	if (!dir) {
 		console.error(
-			'Usage: acrolls create <dir> [--name <pkg>] [--title <name>] [--base-href <path>] [--mode foundation|default] [--package-manager npm|pnpm|yarn|bun] [--force] [--dry-run]'
+			'Usage: acrolls create <dir> [--name <pkg>] [--title <name>] [--base-href <path>] [--mode foundation|default] [--package-manager npm|pnpm|yarn|bun] [--with-blog] [--blog-href <path>] [--site <origin>] [--force] [--dry-run]'
 		);
 		return 2;
 	}
@@ -166,6 +175,9 @@ export async function cmdCreate(args: Args): Promise<number> {
 		baseHref: args.flags['base-href'] !== undefined ? String(args.flags['base-href']) : undefined,
 		mode: modeFlag as 'foundation' | 'default' | undefined,
 		packageManager: pmFlag as PackageManager | undefined,
+		blog: Boolean(args.flags['with-blog']),
+		blogHref: args.flags['blog-href'] !== undefined ? String(args.flags['blog-href']) : undefined,
+		siteOrigin: args.flags.site !== undefined ? String(args.flags.site) : undefined,
 		force: Boolean(args.flags.force),
 		dryRun
 	});

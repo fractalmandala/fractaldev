@@ -1,6 +1,6 @@
 {
   "name": "@fractalpop/svelte",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Svelte / SvelteKit components and actions for fractalpop syntax highlighting",
   "type": "module",
   "license": "MIT",
@@ -34,7 +34,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "fractalpop": "^0.1.0"
+    "fractalpop": "workspace:^"
   },
   "peerDependencies": {
     "svelte": "^5.0.0"

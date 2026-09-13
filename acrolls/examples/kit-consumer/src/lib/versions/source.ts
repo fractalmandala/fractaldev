@@ -1,18 +1,18 @@
 import type { Component } from 'svelte';
 import { content, markdownGlob, mergeLoaders } from 'acrolls/content';
 import { defineDocsConfig } from 'acrolls/docs';
-import type { DocsVersionsConfig } from 'acrolls/docs';
+import { defineVersions } from 'acrolls/docs';
 
 type Article = Component;
 
-export const versionsConfig = {
+export const versionsConfig = defineVersions({
 	baseHref: '/versions',
 	defaultVersion: 'v1',
 	versions: [
 		{ id: 'v1', label: '1.x' },
 		{ id: 'v2', label: '2.x', badge: 'next' }
 	]
-} as const satisfies DocsVersionsConfig;
+});
 
 export const versionedDocs = content({
 	loader: mergeLoaders<Article>([

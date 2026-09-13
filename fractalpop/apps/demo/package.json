@@ -10,12 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@fractalpop/svelte": "^0.1.0",
-    "fractalpop": "^0.1.0"
+    "@fractalpop/svelte": "workspace:^",
+    "fractalpop": "workspace:^"
   },
   "devDependencies": {
-    "@fractalpop/mdsvex": "^0.1.0",
-    "@fractalpop/remark": "^0.1.0",
+    "@fractalpop/mdsvex": "workspace:^",
+    "@fractalpop/remark": "workspace:^",
     "@sveltejs/adapter-vercel": "^6.3.4",
     "@sveltejs/kit": "^2.8.0",
     "@sveltejs/vite-plugin-svelte": "^5.0.0",

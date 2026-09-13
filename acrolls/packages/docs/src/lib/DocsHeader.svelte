@@ -30,6 +30,8 @@
 		 * controls never compete to write theme hooks / inline tokens on `<html>`.
 		 */
 		showThemeToggle?: boolean;
+		/** Optional snippet rendered left of the header actions — e.g. a version or locale switcher. */
+		contextSwitcher?: Snippet;
 		/** Called by the nav toggle. When omitted, toggles the drawer directly. */
 		onToggleNav?: () => void;
 		brand?: Snippet;
@@ -49,6 +51,7 @@
 		navOpen,
 		defaultTheme = 'system',
 		showThemeToggle = true,
+		contextSwitcher,
 		onToggleNav,
 		brand,
 		actions
@@ -110,6 +113,10 @@
 
 	{#if showSearch}
 		<DocsSearch bundlePath={bundlePath} placeholder={searchPlaceholder} />
+	{/if}
+
+	{#if contextSwitcher}
+		{@render contextSwitcher()}
 	{/if}
 
 	<div class="acrolls-docs-header-actions">

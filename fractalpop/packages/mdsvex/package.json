@@ -1,6 +1,6 @@
 {
   "name": "@fractalpop/mdsvex",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "mdsvex highlighter for fractalpop — highlights code fences in .svx files",
   "type": "module",
   "license": "MIT",
@@ -28,7 +28,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "fractalpop": "^0.1.0"
+    "fractalpop": "workspace:^"
   },
   "devDependencies": {
     "bunchee": "^6.0.0",

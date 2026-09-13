@@ -21,18 +21,18 @@ importers:
   apps/demo:
     dependencies:
       '@fractalpop/svelte':
-        specifier: ^0.1.0
-        version: 0.1.0(gpu-lexer@0.0.2)(svelte@5.57.0)
+        specifier: workspace:^
+        version: link:../../packages/svelte
       fractalpop:
-        specifier: ^0.1.0
-        version: 0.1.0(gpu-lexer@0.0.2)
+        specifier: workspace:^
+        version: link:../../packages/core
     devDependencies:
       '@fractalpop/mdsvex':
-        specifier: ^0.1.0
-        version: 0.1.0(gpu-lexer@0.0.2)(mdsvex@0.12.8(svelte@5.57.0))(svelte@5.57.0)
+        specifier: workspace:^
+        version: link:../../packages/mdsvex
       '@fractalpop/remark':
-        specifier: ^0.1.0
-        version: 0.1.0(gpu-lexer@0.0.2)
+        specifier: workspace:^
+        version: link:../../packages/remark
       '@sveltejs/adapter-vercel':
         specifier: ^6.3.4
         version: 6.3.4(@sveltejs/kit@2.70.3(@sveltejs/vite-plugin-svelte@5.1.1(svelte@5.57.0)(vite@6.4.3(sass@1.104.0)))(svelte@5.57.0)(typescript@5.9.3)(vite@6.4.3(sass@1.104.0)))(rollup@4.63.1)
@@ -89,8 +89,8 @@ importers:
   packages/mdsvex:
     dependencies:
       fractalpop:
-        specifier: ^0.1.0
-        version: 0.1.0(gpu-lexer@0.0.2)
+        specifier: workspace:^
+        version: link:../core
     devDependencies:
       bunchee:
         specifier: ^6.0.0
@@ -111,8 +111,8 @@ importers:
   packages/remark:
     dependencies:
       fractalpop:
-        specifier: ^0.1.0
-        version: 0.1.0(gpu-lexer@0.0.2)
+        specifier: workspace:^
+        version: link:../core
       unist-util-map:
         specifier: ^4.0.0
         version: 4.0.0
@@ -136,8 +136,8 @@ importers:
   packages/svelte:
     dependencies:
       fractalpop:
-        specifier: ^0.1.0
-        version: 0.1.0(gpu-lexer@0.0.2)
+        specifier: workspace:^
+        version: link:../core
     devDependencies:
       '@sveltejs/package':
         specifier: ^2.3.0
@@ -541,25 +541,6 @@ packages:
 
   '@fastify/deepmerge@1.3.0':
     resolution: {integrity: sha512-J8TOSBq3SoZbDhM9+R/u77hP93gz/rajSA+K2kGyijPpORPWUXHUpTaleoj+92As0S9uPRP7Oi8IqMf0u+ro6A==}
-
-  '@fractalpop/mdsvex@0.1.0':
-    resolution: {integrity: sha512-DmSGti1dGd/J4j8kRBBdsi8ZinRjn2PuTYy7XeX9MPwB0cDOsmXoYYFPIe1FmqUPOHdjA1QUTsLB0wZ/2O09dQ==}
-    peerDependencies:
-      mdsvex: '>=0.11'
-      svelte: ^5.0.0
-    peerDependenciesMeta:
-      mdsvex:
-        optional: true
-      svelte:
-        optional: true
-
-  '@fractalpop/remark@0.1.0':
-    resolution: {integrity: sha512-0U1OHdfV6PgdfiUVPxUUGSWZEwKN+OV9ceOU/l6rEtn9+UCc00KiFAaswkCKPnzf36XPKUGJJUBIeMSxNKd5Zg==}
-
-  '@fractalpop/svelte@0.1.0':
-    resolution: {integrity: sha512-ESWM5iJGHOsBrQM0JVlafDjhI/CtFt8fNl1LvtzWrUZbTBxfmqeya/fAyfYOpW6z4KxI8zOtsmwmEQVL1+D/Dw==}
-    peerDependencies:
-      svelte: ^5.0.0
 
   '@inquirer/external-editor@1.0.3':
     resolution: {integrity: sha512-RWbSrDiYmO4LbejWY7ttpxczuwQyZLBUyygsA9Nsv95hpzUWwnNTVQmAq3xuh7vNwCp07UTmE5i11XAEExx4RA==}
@@ -1516,14 +1497,6 @@ packages:
   find-up@4.1.0:
     resolution: {integrity: sha512-PpOwAdQ/YlXQ2vj8a3h8IipDuYRi3wceVQQGYWxNINccq40Anw7BlsEXCMbt1Zt+OLA6Fq9suIpIWD0OsnISlw==}
     engines: {node: '>=8'}
-
-  fractalpop@0.1.0:
-    resolution: {integrity: sha512-+A2SAw7tmdpagxLcD8/1RxrjmgKXirniWUsvuipy8j5bGGcJKoN4KyZcarxXThxfrc7nhrjNha+bOyOtLVFpCg==}
-    peerDependencies:
-      gpu-lexer: '>=0.0.2'
-    peerDependenciesMeta:
-      gpu-lexer:
-        optional: true
 
   fs-extra@7.0.1:
     resolution: {integrity: sha512-YJDaCJZEnBmcbw13fvdAM9AwNOJwOzrE4pqMqBq5nFiEqXUqHwlK4B+3pUw6JNvfSPtX05xFHtYy/1ni01eGCw==}
@@ -2724,29 +2697,6 @@ snapshots:
 
   '@fastify/deepmerge@1.3.0': {}
 
-  '@fractalpop/mdsvex@0.1.0(gpu-lexer@0.0.2)(mdsvex@0.12.8(svelte@5.57.0))(svelte@5.57.0)':
-    dependencies:
-      fractalpop: 0.1.0(gpu-lexer@0.0.2)
-    optionalDependencies:
-      mdsvex: 0.12.8(svelte@5.57.0)
-      svelte: 5.57.0
-    transitivePeerDependencies:
-      - gpu-lexer
-
-  '@fractalpop/remark@0.1.0(gpu-lexer@0.0.2)':
-    dependencies:
-      fractalpop: 0.1.0(gpu-lexer@0.0.2)
-      unist-util-map: 4.0.0
-    transitivePeerDependencies:
-      - gpu-lexer
-
-  '@fractalpop/svelte@0.1.0(gpu-lexer@0.0.2)(svelte@5.57.0)':
-    dependencies:
-      fractalpop: 0.1.0(gpu-lexer@0.0.2)
-      svelte: 5.57.0
-    transitivePeerDependencies:
-      - gpu-lexer
-
   '@inquirer/external-editor@1.0.3':
     dependencies:
       chardet: 2.2.0
@@ -3592,10 +3542,6 @@ snapshots:
     dependencies:
       locate-path: 5.0.0
       path-exists: 4.0.0
-
-  fractalpop@0.1.0(gpu-lexer@0.0.2):
-    optionalDependencies:
-      gpu-lexer: 0.0.2
 
   fs-extra@7.0.1:
     dependencies:

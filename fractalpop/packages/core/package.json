@@ -1,6 +1,6 @@
 {
   "name": "fractalpop",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Lightweight, Svelte-first syntax highlighting with first-class indented Sass. Returns HTML without a DOM.",
   "type": "module",
   "sideEffects": [

@@ -11,24 +11,24 @@ code into an HTML string without touching the DOM, so it runs in browsers,
 Node, edge runtimes, and at build or SSR time - the server and the client
 produce identical markup, which means no SvelteKit hydration mismatch.
 
-Built with 🩷 for Sveltekit. [Fastest](https://github.com/fractalmandala/fractaldev/blob/main/fractalpop/docs/BENCHMARK.md) in the land.
+Built with 🩷 for Sveltekit. [Fastest](./BENCHMARK.md) in the land.
 
 These docs are for developers working **on** fractalpop (the monorepo) and
 developers **using** the packages. Each package has its own page:
 
 | Package | Path | What it does |
 | --- | --- | --- |
-| [`fractalpop`](./core.md) | `packages/core` | The engine and 32 language presets. `highlight()` returns HTML. |
+| [`fractalpop`](./fractalpop-core.md) | `packages/core` | The engine and 32 language presets. `highlight()` returns HTML. |
 | [`@fractalpop/svelte`](./svelte.md) | `packages/svelte` | `Highlight`, `Code`, `Editor`, `FileTree` components + the `fractalpop` action. |
 | [`@fractalpop/mdsvex`](./mdsvex.md) | `packages/mdsvex` | Highlighter hook for mdsvex (`.svx`). |
 | [`@fractalpop/remark`](./remark.md) | `packages/remark` | remark plugin for `.md` and `.mdx`. |
 
-1. [Core Package](https://github.com/fractalmandala/fractalpop/tree/main/docs/fractalpop-core.md)
-2. [Sveltekit](https://github.com/fractalmandala/fractalpop/tree/main/docs/svelte.md)
-3. [Components and Themeing](https://github.com/fractalmandala/fractalpop/tree/main/docs/components-and-themes.md)
-4. [Mdsvex](https://github.com/fractalmandala/fractalpop/tree/main/docs/mdsvex.md)
-5. [Remark](https://github.com/fractalmandala/fractalpop/tree/main/docs/remark.md)
-6. [Benchmarks](https://github.com/fractalmandala/fractalpop/tree/main/docs/benchmark.md)
+1. [Core Package](./fractalpop-core.md)
+2. [Sveltekit](./svelte.md)
+3. [Components and Theming](./components-and-themes.md)
+4. [Mdsvex](./mdsvex.md)
+5. [Remark](./remark.md)
+6. [Benchmarks](./BENCHMARK.md)
 
 
 ## How highlighting works
@@ -51,7 +51,7 @@ source ──tokenize──▶ [ [type, value], … ] ──assemble──▶ { 
 
 Tokens carry a type from a small, fixed list. That list is the theming
 contract: each type maps to one CSS variable, `--fp-<type>`, and one class,
-`fp__token--<type>`. See [the core docs](./core.md#theming) for the full set.
+`fp__token--<type>`. See [the core docs](./fractalpop-core.md#theming) for the full set.
 
 ## Repository layout
 
@@ -132,7 +132,7 @@ pnpm --filter @fractalpop/remark test
 
 Languages live in `packages/core/src/lang/`. A language is either a keyword
 config or a custom tokenizer. See
-[Adding a language](./core.md#adding-a-language) for the full procedure.
+[Adding a language](./fractalpop-core.md#adding-a-language) for the full procedure.
 
 ## Publishing
 
@@ -171,7 +171,7 @@ any package whose version is already on the registry, so it is safe to re-run.
 
 ## Next steps
 
-- Use the engine directly: [`fractalpop`](./core.md)
+- Use the engine directly: [`fractalpop`](./fractalpop-core.md)
 - Highlight in a Svelte app: [`@fractalpop/svelte`](./svelte.md)
 - Highlight Markdown or MDX: [`@fractalpop/remark`](./remark.md)
 - Highlight `.svx`: [`@fractalpop/mdsvex`](./mdsvex.md)

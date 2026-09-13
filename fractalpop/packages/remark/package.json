@@ -1,6 +1,6 @@
 {
   "name": "@fractalpop/remark",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "remark plugin for fractalpop — highlights fenced code in .md and .mdx",
   "type": "module",
   "license": "MIT",
@@ -28,7 +28,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "fractalpop": "^0.1.0",
+    "fractalpop": "workspace:^",
     "unist-util-map": "^4.0.0"
   },
   "devDependencies": {

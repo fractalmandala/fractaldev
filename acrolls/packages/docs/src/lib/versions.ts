@@ -42,6 +42,15 @@ function ensureLeading(value: string): string {
 	return value.startsWith('/') ? value : `/${value}`;
 }
 
+/**
+ * Type-safe, validated version config for hosts. Throws at module load when `defaultVersion`
+ * is not one of `versions`, so a typo fails the build instead of silently picking the first.
+ */
+export function defineVersions<const T extends DocsVersionsConfig>(config: T): T {
+	defaultDocsVersion(config);
+	return config;
+}
+
 export function listDocsVersions(config: DocsVersionsConfig): readonly DocsVersion[] {
 	return config.versions;
 }

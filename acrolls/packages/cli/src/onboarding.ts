@@ -82,7 +82,14 @@ export async function buildOnboardingPlan(options: OnboardingOptions): Promise<O
 	const layoutFile = host.layout ?? 'src/routes/+layout.svelte';
 	const routeDirectory = baseHref === '/' ? 'src/routes' : `src/routes${baseHref}`;
 	const docsLayoutFile = `${routeDirectory}/+layout.svelte`;
+	// SvelteKit's canonical home for `preprocess` is svelte.config.js, while Acrolls' docs also
+	// describe merging into vite.config.ts. Accept the preprocessor in either file (both are read
+	// for detection), so hosts that follow the standard layout are not reported incomplete.
 	const configSource = await readOptional(resolve(root, configFile));
+	const viteConfigSource = host.viteConfig ? await readOptional(resolve(root, host.viteConfig)) : '';
+	const svelteConfigSource = host.svelteConfig ? await readOptional(resolve(root, host.svelteConfig)) : '';
+	const configSources = [configSource, viteConfigSource, svelteConfigSource];
+	const configHas = (needle: string) => configSources.some((source) => source.includes(needle));
 	const layoutSource = await readOptional(resolve(root, layoutFile));
 	const docsLayoutSource = await readOptional(resolve(root, docsLayoutFile));
 	const hostDeps = 'deps' in host ? (host.deps as Record<string, string>) : {};
@@ -145,8 +152,8 @@ export async function buildOnboardingPlan(options: OnboardingOptions): Promise<O
 		documentPageSource.includes('docs.get') &&
 		documentPageResolvesBody &&
 		(documentPageSource.includes('Publication') ||
-			configSource.includes('PublicationLayout') ||
-			configSource.includes('createAcrollsSvelteKitMdsvexPreprocessor'));
+			configHas('PublicationLayout') ||
+			configHas('createAcrollsSvelteKitMdsvexPreprocessor'));
 	const routesReady =
 		rootRouteLoadSource.includes('loader()') &&
 		rootRouteSource.includes('DocumentPage') &&
@@ -192,12 +199,12 @@ export async function buildOnboardingPlan(options: OnboardingOptions): Promise<O
 			verify:
 				'The exported SvelteKit config keeps extensions: [\'.svelte\', \'.md\', \'.svx\'] and its preprocess includes vitePreprocess() plus createAcrollsMdsvexPreprocessor() (or the acrolls/sveltekit wrapper).',
 			completed:
-				(configSource.includes('createAcrollsMdsvexPreprocessor') ||
-					configSource.includes('createAcrollsSvelteKitMdsvexPreprocessor')) &&
-				configSource.includes('preprocess') &&
-				configSource.includes('.svelte') &&
-				configSource.includes('.md') &&
-				configSource.includes('.svx')
+				(configHas('createAcrollsMdsvexPreprocessor') ||
+					configHas('createAcrollsSvelteKitMdsvexPreprocessor')) &&
+				configHas('preprocess') &&
+				configHas('.svelte') &&
+				configHas('.md') &&
+				configHas('.svx')
 		},
 		{
 			id: 'styles',

@@ -93,6 +93,7 @@ export type {
 
 // Versioning
 export {
+	defineVersions,
 	listDocsVersions,
 	defaultDocsVersion,
 	resolveDocsVersion,
@@ -103,6 +104,7 @@ export type { DocsVersion, DocsVersionsConfig, ResolvedDocsVersion } from './ver
 
 // i18n
 export {
+	defineLocales,
 	defaultDocsLocale,
 	resolveDocsLocale,
 	localizedHref,

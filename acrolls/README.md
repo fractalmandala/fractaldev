@@ -32,8 +32,10 @@ pnpm exec acrolls onboard --docs-dir docs --base-href /docs
 | [Integrate SvelteKit](./docs/integrate-sveltekit.md) | Config + route patterns |
 | [Content authoring](./docs/content-authoring.md) | Markdown / SVX / fences |
 | [Docs shell](./docs/docs-shell.md) | Sidebar, TOC, nav, persistence |
+| [Blog](./docs/blog.md) | Posts, tags, RSS/Atom/JSON Feed, Markdown negotiation |
+| [Versioning](./docs/versioning.md) | Multiple doc versions from one source |
 | [Styles](./docs/styles.md) | foundation / default / tokens |
-| [CLI reference](./docs/cli.md) | create · onboard · validate · studio · integrate · search-index · api-ref |
+| [CLI reference](./docs/cli.md) | create · onboard · validate · studio · integrate · search-index · api-ref · mcp |
 | [Troubleshooting](./docs/troubleshooting.md) | Common failures |
 | [Checklist](./docs/checklist.md) | Printable integration list |
 | [Release](./docs/release.md) | Publish order and package-only registry test |

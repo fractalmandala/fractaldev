@@ -18,6 +18,8 @@
  *   - adapter-static + root `prerender` so the build emits `build/` and `search-index` works.
  */
 
+import { blogScaffoldFiles } from './scaffold-blog.js';
+
 export type PackageManager = 'npm' | 'pnpm' | 'yarn' | 'bun';
 
 export type ScaffoldOptions = {
@@ -33,6 +35,12 @@ export type ScaffoldOptions = {
 	packageManager: PackageManager;
 	/** Range for the `acrolls` dependency, kept in sync with the running CLI version. */
 	acrollsVersion: string;
+	/** Absolute site origin for feed/SEO URLs, e.g. `https://example.com` (optional). */
+	siteOrigin?: string;
+	/** Also scaffold the blog genre (index, posts, tags, feeds, `.md` negotiation). */
+	blog?: boolean;
+	/** Public blog base href when `blog` is set. Default `/blog`. */
+	blogHref?: string;
 };
 
 export type ScaffoldFile = { path: string; contents: string };
@@ -148,6 +156,12 @@ export function scaffoldFiles(opts: ScaffoldOptions): ScaffoldFile[] {
 				},
 				dependencies: {
 					acrolls: `^${opts.acrollsVersion}`
+				},
+				// pnpm 10+ refuses to run dependency build scripts until they are approved, and a
+				// blocked esbuild postinstall makes the first `pnpm build` fail. Pre-approve the
+				// toolchain so a fresh clone builds with no extra step. Ignored by npm/yarn/bun.
+				pnpm: {
+					onlyBuiltDependencies: ['esbuild']
 				},
 				devDependencies: {
 					'@sveltejs/adapter-static': '^3.0.10',
@@ -592,6 +606,31 @@ Every document body is already wrapped in \`Publication\`, which enhances fenced
 callouts, and Mermaid diagrams authored in plain Markdown.
 `
 	);
+
+	// pnpm 10 reads `pnpm.onlyBuiltDependencies` from package.json; pnpm 11 moved the setting
+	// to pnpm-workspace.yaml and warns on the package.json field. Emit both for pnpm hosts so
+	// a fresh install approves esbuild's postinstall and the first build succeeds.
+	if (opts.packageManager === 'pnpm') {
+		add(
+			'pnpm-workspace.yaml',
+			`# pnpm 11+ reads build-script approval here; esbuild's postinstall must run for Vite builds.
+allowBuilds:
+  esbuild: true
+`
+		);
+	}
+
+	// --- Blog genre (optional) -------------------------------------------
+	if (opts.blog) {
+		files.push(
+			...blogScaffoldFiles({
+				href: opts.blogHref ?? '/blog',
+				title: opts.title,
+				site: opts.siteOrigin,
+				contentDir: 'src/content-blog'
+			})
+		);
+	}
 
 	// --- Scaffold README --------------------------------------------------
 	add(

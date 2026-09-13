@@ -33,6 +33,15 @@ function ensureLeading(value: string): string {
 	return value.startsWith('/') ? value : `/${value}`;
 }
 
+/**
+ * Type-safe, validated locale config. Throws at module load when `defaultLocale` is not one of
+ * `locales`, so a typo fails the build instead of silently picking the first.
+ */
+export function defineLocales<const T extends DocsLocalesConfig>(config: T): T {
+	defaultDocsLocale(config);
+	return config;
+}
+
 export function defaultDocsLocale(config: DocsLocalesConfig): DocsLocale {
 	const id = config.defaultLocale ?? config.locales[0]?.id;
 	const found = config.locales.find((l) => l.id === id);

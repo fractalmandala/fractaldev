@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
 	alternateVersionHrefs,
+	defineVersions,
 	defaultDocsVersion,
 	resolveDocsVersion,
 	versionedHref
@@ -46,5 +47,15 @@ describe('versionedHref / alternateVersionHrefs', () => {
 
 	it('defaultDocsVersion picks the configured default', () => {
 		expect(defaultDocsVersion(config).id).toBe('v1');
+	});
+});
+
+describe('defineVersions', () => {
+	it('returns the config and rejects an unknown default', () => {
+		const ok = { baseHref: '/docs', defaultVersion: 'v1', versions: [{ id: 'v1', label: '1' }] };
+		expect(defineVersions(ok)).toBe(ok);
+		expect(() =>
+			defineVersions({ baseHref: '/docs', defaultVersion: 'v9', versions: [{ id: 'v1', label: '1' }] })
+		).toThrow(/v9/);
 	});
 });

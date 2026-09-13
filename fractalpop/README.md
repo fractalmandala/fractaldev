@@ -2,21 +2,22 @@
 
 Lightweight, **Svelte-first** syntax highlighting with first-class **indented Sass**. Returns HTML without a DOM, so it runs in browsers, Node, edge, and at build/SSR time - server and client emit identical markup (no SvelteKit hydration mismatch). Replicates the [Sugar High](https://github.com/huozhi/sugar-high) package, but faster!
 
-Built with 🩷 for Sveltekit. [Fastest](https://github.com/fractalmandala/fractaldev/blob/main/fractalpop/docs/BENCHMARK.md) in the land.
+Built with 🩷 for Sveltekit. [Fastest](docs/BENCHMARK.md) in the land.
 
 Run the demo: `pnpm --filter @fractalpop/demo dev`.
 
 ## Documentation
 
-Developer documentation lives in [docs](https://github.com/fractalmandala/fractalpop/tree/main/docs) — an overview plus a page per package.
+Developer documentation lives in [docs](docs/) — an overview plus a page per package.
 
-1. [Introduction](https://github.com/fractalmandala/fractalpop/tree/main/docs/README.md)
-2. [Core Package](https://github.com/fractalmandala/fractalpop/tree/main/docs/fractalpop-core.md)
-3. [Sveltekit](https://github.com/fractalmandala/fractalpop/tree/main/docs/svelte.md)
-4. [Components and Themeing](https://github.com/fractalmandala/fractalpop/tree/main/docs/components-and-themes.md)
-5. [Mdsvex](https://github.com/fractalmandala/fractalpop/tree/main/docs/mdsvex.md)
-6. [Remark](https://github.com/fractalmandala/fractalpop/tree/main/docs/remark.md)
-7. [Benchmarks](https://github.com/fractalmandala/fractalpop/tree/main/docs/benchmark.md)
+1. [Introduction](docs/README.md)
+2. [Core Package](docs/fractalpop-core.md)
+3. [Sveltekit](docs/svelte.md)
+4. [Components and Theming](docs/components-and-themes.md)
+5. [Mdsvex](docs/mdsvex.md)
+6. [Remark](docs/remark.md)
+7. [Benchmarks](docs/BENCHMARK.md)
+
 
 ## Packages
 

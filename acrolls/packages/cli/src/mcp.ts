@@ -51,22 +51,64 @@ type ServerConfig = {
 
 // ---------------------------------------------------------------- frontmatter
 
+/**
+ * Parse the small YAML subset Acrolls frontmatter uses: scalars, inline lists
+ * (`[a, b]`), and block lists (`key:` then `- item` lines). Values stay strings;
+ * callers coerce. This intentionally avoids a YAML dependency so the MCP server
+ * stays dependency-free.
+ */
 function parseFrontmatter(text: string): { data: Record<string, unknown>; body: string } {
 	if (!text.startsWith('---')) return { data: {}, body: text };
 	const end = text.indexOf('\n---', 3);
 	if (end === -1) return { data: {}, body: text };
-	const raw = text.slice(3, end).trim();
+	const raw = text.slice(3, end);
 	const body = text.slice(end + 4).trimStart();
 	const data: Record<string, unknown> = {};
+	let currentListKey: string | null = null;
+
 	for (const line of raw.split('\n')) {
+		const itemMatch = line.match(/^\s*-\s+(.*)$/);
+		if (itemMatch && currentListKey) {
+			const list = (data[currentListKey] as string[]) ?? [];
+			list.push(stripQuotes(itemMatch[1]!.trim()));
+			data[currentListKey] = list;
+			continue;
+		}
 		const eq = line.indexOf(':');
-		if (eq === -1) continue;
+		if (eq === -1) {
+			currentListKey = null;
+			continue;
+		}
 		const key = line.slice(0, eq).trim();
 		if (!key) continue;
 		const value = line.slice(eq + 1).trim();
-		data[key] = value.replace(/^["']|["']$/g, '');
+		if (!value) {
+			// `key:` may open a block list on the following lines.
+			data[key] = [];
+			currentListKey = key;
+			continue;
+		}
+		currentListKey = null;
+		if (value.startsWith('[') && value.endsWith(']')) {
+			data[key] = value
+				.slice(1, -1)
+				.split(',')
+				.map((v) => stripQuotes(v.trim()))
+				.filter(Boolean);
+		} else {
+			data[key] = stripQuotes(value);
+		}
+	}
+
+	// A `key:` with no list items is an empty scalar, not a list.
+	for (const [key, value] of Object.entries(data)) {
+		if (Array.isArray(value) && value.length === 0) data[key] = '';
 	}
 	return { data, body };
+}
+
+function stripQuotes(value: string): string {
+	return value.replace(/^["']|["']$/g, '');
 }
 
 function stringArray(value: unknown): string[] {
@@ -157,7 +199,7 @@ async function listSitePages(config: ServerConfig): Promise<MimePage[]> {
 	}
 
 	// llms links are absolute URLs; keep only same-site pages under the prefix.
-	const pages: MimePage[] = [];
+	const pagePaths: string[] = [];
 	for (const rawPath of paths) {
 		let path = rawPath;
 		if (/^https?:\/\//.test(path)) {
@@ -167,7 +209,14 @@ async function listSitePages(config: ServerConfig): Promise<MimePage[]> {
 				continue;
 			}
 		}
+		path = path.replace(/\/+$/, '') || '/';
 		if (prefix && !path.startsWith(prefix)) continue;
+		if (!pagePaths.includes(path)) pagePaths.push(path);
+	}
+
+	// Preferred: a per-page Markdown endpoint (`{path}.md`) — full frontmatter fidelity.
+	const pages: MimePage[] = [];
+	for (const path of pagePaths) {
 		const markdown = await fetchText(`${base}${path}.md`);
 		if (markdown === null) continue;
 		const { data } = parseFrontmatter(markdown);
@@ -177,6 +226,40 @@ async function listSitePages(config: ServerConfig): Promise<MimePage[]> {
 			description: typeof data.description === 'string' ? data.description : undefined,
 			date: typeof data.date === 'string' ? data.date : undefined,
 			tags: stringArray(data.tags),
+			mimeType: 'text/markdown'
+		});
+	}
+	if (pages.length) return pages;
+
+	// Fallback: most Acrolls sites ship the static AI tier (llms-full.txt) but not a `.md`
+	// route per page. That file concatenates every page as `# Title` / `Source: <url>` blocks,
+	// which is enough to rebuild the corpus for agent reads.
+	return await pagesFromLlmsFull(base, prefix);
+}
+
+/** Split an `llms-full.txt` document into per-page entries. */
+async function pagesFromLlmsFull(base: string, prefix: string): Promise<MimePage[]> {
+	const full = await fetchText(`${base}/llms-full.txt`);
+	if (!full) return [];
+	const pages: MimePage[] = [];
+	// Sections are separated by a `---` rule; each carries an H1 and a `Source:` line.
+	for (const chunk of full.split(/\n---\n/)) {
+		const sourceMatch = chunk.match(/^Source:\s*(\S+)\s*$/m);
+		const titleMatch = chunk.match(/^#\s+(.+)$/m);
+		if (!titleMatch) continue;
+		let path = '';
+		if (sourceMatch?.[1]) {
+			const raw = sourceMatch[1];
+			path = /^https?:\/\//.test(raw) ? new URL(raw).pathname : raw;
+		}
+		path = path.replace(/\/+$/, '');
+		if (!path) continue;
+		if (prefix && !path.startsWith(prefix)) continue;
+		if (pages.some((p) => p.path === path)) continue;
+		pages.push({
+			path,
+			title: titleMatch[1]!.trim(),
+			tags: [],
 			mimeType: 'text/markdown'
 		});
 	}
@@ -201,7 +284,24 @@ async function readPageBody(page: MimePage, config: ServerConfig): Promise<strin
 		return null;
 	}
 	const base = (config.baseUrl ?? '').replace(/\/+$/, '');
-	return fetchText(`${base}${page.path}.md`);
+	const direct = await fetchText(`${base}${page.path}.md`);
+	if (direct !== null) return direct;
+
+	// Fallback: recover the section for this page from llms-full.txt.
+	const full = await fetchText(`${base}/llms-full.txt`);
+	if (!full) return null;
+	for (const chunk of full.split(/\n---\n/)) {
+		const sourceMatch = chunk.match(/^Source:\s*(\S+)\s*$/m);
+		if (!sourceMatch?.[1]) continue;
+		const raw = sourceMatch[1];
+		const path = (/^https?:\/\//.test(raw) ? new URL(raw).pathname : raw).replace(/\/+$/, '');
+		if (path === page.path) {
+			// Drop the metadata preamble; keep the prose.
+			const body = chunk.replace(/^#[^\n]*\n/, '').replace(/^Source:[^\n]*\n?/m, '').trim();
+			return body;
+		}
+	}
+	return null;
 }
 
 // ---------------------------------------------------------------- MCP protocol
@@ -245,7 +345,8 @@ export async function handleMcpMessage(
 	}
 	if (req.jsonrpc !== '2.0') return error(req.id ?? null, -32600, 'Invalid Request');
 
-	const { id, method, params = {} } = req;
+	const id = req.id ?? null;
+	const { method, params = {} } = req;
 
 	switch (method) {
 		case 'initialize':
@@ -304,8 +405,21 @@ function stripFrontmatter(text: string): string {
 	return body.trim();
 }
 
-function tools(pages: MimePage[]) {
-	const pathEnum = { type: 'string', description: 'Page path from list_pages (e.g. /docs/guides/install)' };
+type McpTool = {
+	name: string;
+	description: string;
+	inputSchema: {
+		type: 'object';
+		properties: Record<string, unknown>;
+		required: string[];
+	};
+};
+
+function tools(pages: MimePage[]): McpTool[] {
+	const pagePath = {
+		type: 'string',
+		description: `Page path from list_pages (e.g. ${pages[0]?.path ?? '/docs/guides/install'})`
+	};
 	return [
 		{
 			name: 'list_pages',
@@ -315,7 +429,7 @@ function tools(pages: MimePage[]) {
 		{
 			name: 'read_page',
 			description: 'Read the raw Markdown of one page by path.',
-			inputSchema: { type: 'object', properties: { path }, required: ['path'] }
+			inputSchema: { type: 'object', properties: { path: pagePath }, required: ['path'] }
 		},
 		{
 			name: 'search_pages',
@@ -327,17 +441,15 @@ function tools(pages: MimePage[]) {
 				},
 				required: ['query']
 			}
-		}
-	].concat(statefulTools(pages));
-}
-
-function statefulTools(pages: MimePage[]) {
-	// Path completions are surfaced as an info tool so agents can discover valid paths.
-	return [
+		},
 		{
 			name: 'page_paths',
 			description: 'Return all known page paths as a plain list (for tool input).',
-			inputSchema: { type: 'object', properties: { prefix: { type: 'string' } }, required: [] }
+			inputSchema: {
+				type: 'object',
+				properties: { prefix: { type: 'string', description: 'Only paths starting with this prefix' } },
+				required: []
+			}
 		}
 	];
 }

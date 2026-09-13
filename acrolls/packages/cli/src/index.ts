@@ -8,6 +8,7 @@ import { cmdStudio } from './studio.js';
 import { cmdDocsInit } from './docs-init.js';
 import { cmdSearchIndex } from './search-index.js';
 import { cmdApiRef } from './api-ref.js';
+import { resolveMcpConfig, runMcpStdio } from './mcp.js';
 import { cmdCreate } from './create.js';
 import {
   formatValidationDiagnostic,
@@ -25,7 +26,7 @@ function help() {
 Usage:
   acrolls                        Show project state
   acrolls --cwd <path> <command> Run against a host without changing directories
-  acrolls create <dir> [--name <pkg>] [--title <name>] [--base-href <path>] [--mode foundation|default] [--package-manager npm|pnpm|yarn|bun] [--force] [--dry-run]
+  acrolls create <dir> [--name <pkg>] [--title <name>] [--base-href <path>] [--mode foundation|default] [--package-manager npm|pnpm|yarn|bun] [--with-blog] [--blog-href <path>] [--site <origin>] [--force] [--dry-run]
   acrolls init [--content-dir <path>] [--dry-run]
   acrolls docs init [--docs-dir <path>] [--dry-run]
   acrolls integrate [--dry-run] [--mode foundation|default] [--style css|sass] [--yes]
@@ -34,6 +35,8 @@ Usage:
   acrolls studio <file.md|file.svx> [--port <n>] [--no-open] [--mode foundation|default]
   acrolls search-index [--site <dir>] [--output <dir>] [--glob <pattern>] [--bundle-path <path>] [--verbose]
   acrolls api-ref <spec|dir> [--out <dir>] [--format openapi|asyncapi|graphql] [--slug <name>] [--dry-run]
+  acrolls mcp [--content <dir>] [--url <site>] [--path-prefix <prefix>]
+    (stdio MCP server: exposes the corpus to agents as resources + tools)
   acrolls --help
   acrolls --version
 `);
@@ -121,6 +124,20 @@ async function cmdStatus() {
   return 0;
 }
 
+
+async function cmdMcp(args: ReturnType<typeof parseArgs>) {
+  let config;
+  try {
+    config = resolveMcpConfig(args.flags);
+  } catch (err) {
+    console.error(err instanceof Error ? err.message : err);
+    return 2;
+  }
+  // MCP servers speak JSON-RPC on stdio; nothing else may be written to stdout.
+  await runMcpStdio(config);
+  return 0;
+}
+
 async function main() {
   const args = parseArgs(process.argv.slice(2));
   if (args.flags.help || args.flags.h) {
@@ -162,6 +179,7 @@ async function main() {
     else if (cmd === 'studio') code = await cmdStudio(args);
     else if (cmd === 'search-index') code = await cmdSearchIndex(args);
     else if (cmd === 'api-ref') code = await cmdApiRef(args);
+    else if (cmd === 'mcp') code = await cmdMcp(args);
     else {
       console.error(`Unknown command: ${cmd}`);
       help();

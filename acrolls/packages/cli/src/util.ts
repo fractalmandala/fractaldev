@@ -58,6 +58,10 @@ const VALUE_FLAGS = new Set([
 	'slug',
 	'name',
 	'title',
+	'content',
+	'url',
+	'path-prefix',
+	'blog-href',
 	'package-manager'
 ]);
 

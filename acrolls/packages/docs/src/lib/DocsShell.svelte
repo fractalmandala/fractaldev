@@ -4,6 +4,8 @@
 	import type { DocsCrumb, DocsNav, DocsPagerLink, DocsTocItem } from './types.js';
 	import { buildDocsCrumbs, docsPager, withNavIds } from './nav.js';
 	import DocsHeader from './DocsHeader.svelte';
+import DocsVersionSwitcher from './DocsVersionSwitcher.svelte';
+import { alternateVersionHrefs, type DocsVersion } from './versions.js';
 	import DocsSidebar from './DocsSidebar.svelte';
 	import DocsBreadcrumbs from './DocsBreadcrumbs.svelte';
 	import DocsPager from './DocsPager.svelte';
@@ -53,6 +55,14 @@
 		defaultTheme?: 'light' | 'dark' | 'system';
 		/** Hide the built-in theme toggle when the host already has its own (see `DocsHeader`). */
 		showThemeToggle?: boolean;
+		/**
+		 * Optional docs versions. When set, a `DocsVersionSwitcher` renders in the header and links
+		 * each version at the equivalent page (`alternateVersionHrefs`). The host still owns the
+		 * versioned routes and content roots.
+		 */
+		versions?: readonly DocsVersion[];
+		/** Base href the version segment sits under. Defaults to `nav.baseHref`. */
+		versionsBaseHref?: string;
 
 		// Page furniture
 		showPageActions?: boolean;
@@ -93,6 +103,8 @@
 		searchPlaceholder,
 		defaultTheme = 'system',
 		showThemeToggle = true,
+		versions,
+		versionsBaseHref,
 		showPageActions = true,
 		editUrl,
 		markdown,
@@ -106,6 +118,16 @@
 	}: Props = $props();
 
 	const nav = $derived(withNavIds(navIn));
+
+	// Version switcher: when the host passes versions, link each one at the equivalent page.
+	const versionItems = $derived(
+		versions?.length
+			? alternateVersionHrefs(pathname, {
+					versions,
+					baseHref: versionsBaseHref ?? nav.baseHref
+				})
+			: []
+	);
 
 	const resolvedCrumbs = $derived(
 		crumbs ?? buildDocsCrumbs(nav, pathname, { homeHref, homeLabel })
@@ -174,7 +196,11 @@
 	data-full-bleed={fullBleed || undefined}
 	bind:this={rootEl}
 >
-	<a class="acrolls-docs-skip" href="#acrolls-content">Skip to content</a>
+	{#snippet versionSwitcher()}
+	<DocsVersionSwitcher items={versionItems} />
+{/snippet}
+
+<a class="acrolls-docs-skip" href="#acrolls-content">Skip to content</a>
 
 	<DocsHeader
 		siteName={brandName}
@@ -190,6 +216,7 @@
 		{showThemeToggle}
 		{brand}
 		actions={header}
+		contextSwitcher={versionItems.length ? versionSwitcher : undefined}
 		onToggleNav={() => (navOpen = !navOpen)}
 	/>
 
