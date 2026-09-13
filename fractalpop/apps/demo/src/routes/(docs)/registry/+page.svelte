@@ -9,7 +9,10 @@
     getRegisteredLanguages,
     importDefaults,
     registerLanguage,
+    setDefaults,
   } from 'fractalpop'
+  import { config as typescriptConfig } from 'fractalpop/lang/typescript'
+  import { config as plaintextConfig } from 'fractalpop/lang/plaintext'
 
   // ---- live: importDefaults ----
   const pyCode = `def fib(n):
@@ -18,15 +21,32 @@
     return fib(n - 1) + fib(n - 2)`
 
   let registered = $state(getRegisteredLanguages().map((l) => l.id))
-  let pyHtml = $state(highlight(pyCode, { lang: 'python' }))
-  let pyResolved = $state<string | undefined>(lang('py'))
-  let pyReady = $derived(registered.includes('python'))
+
+  function syncRegistered() {
+    registered = getRegisteredLanguages().map((l) => l.id)
+  }
+
+  function resetToMinimal() {
+    setDefaults({
+      typescript: typescriptConfig,
+      plaintext: plaintextConfig,
+    })
+    syncRegistered()
+  }
 
   async function loadPython() {
     await importDefaults(['python'])
-    registered = getRegisteredLanguages().map((l) => l.id)
-    pyHtml = highlight(pyCode, { lang: 'python' })
-    pyResolved = lang('py')
+    syncRegistered()
+  }
+
+  async function togglePython() {
+    if (pyReady) {
+      const hadLedger = ledgerReady
+      resetToMinimal()
+      if (hadLedger) addLedger()
+    } else {
+      await loadPython()
+    }
   }
 
   // ---- live: registerLanguage (works in any registry state) ----
@@ -35,9 +55,6 @@ account assets:checking
 commodity $
 alias food
 payee Grocery Store`
-
-  let ledgerHtml = $state(highlight(ledgerCode, { lang: 'journal' }))
-  let ledgerReady = $derived(registered.includes('ledger'))
 
   function addLedger() {
     registerLanguage(
@@ -48,10 +65,36 @@ payee Grocery Store`
         onCommentEnd: (_prev, curr) => (curr === '\n' ? 1 : 0),
       },
     )
-    registered = getRegisteredLanguages().map((l) => l.id)
-    // highlight via the alias, to prove aliases resolve
-    ledgerHtml = highlight(ledgerCode, { lang: 'journal' })
+    syncRegistered()
   }
+
+  function toggleLedger() {
+    if (ledgerReady) {
+      const hadPython = pyReady
+      resetToMinimal()
+      if (hadPython) {
+        importDefaults(['python']).then(() => syncRegistered())
+      }
+    } else {
+      addLedger()
+    }
+  }
+
+  let pyReady = $derived(registered.includes('python'))
+  let ledgerReady = $derived(registered.includes('ledger'))
+
+  let pyHtml = $derived.by(() => {
+    void registered
+    return highlight(pyCode, { lang: 'python' })
+  })
+  let pyResolved = $derived.by(() => {
+    void registered
+    return lang('py')
+  })
+  let ledgerHtml = $derived.by(() => {
+    void registered
+    return highlight(ledgerCode, { lang: 'journal' })
+  })
 
   // ---- static snippets (plain text; the live panels above run the real calls) ----
   const entriesCode = `import { highlight } from 'fractalpop'        // tiny — TypeScript + plaintext
@@ -90,8 +133,14 @@ setDefaults({ rust: rustConfig, python: pythonConfig })`
 
   const gpuCode = `import { highlight } from 'fractalpop/gpu'
 
-// async — tokenizes via the optional gpu-lexer peer
+  // async — tokenizes via the optional gpu-lexer peer
 const html = await highlight(code, { lang: 'typescript' })`
+
+  const entriesHtml = highlight(entriesCode, { lang: 'typescript' })
+  const importHtml = highlight(importCode, { lang: 'typescript' })
+  const registerHtml = highlight(registerCode, { lang: 'typescript' })
+  const defaultsHtml = highlight(defaultsCode, { lang: 'typescript' })
+  const gpuHtml = highlight(gpuCode, { lang: 'typescript' })
 </script>
 <div class="page-header">
   <div class="page-eyebrow">
@@ -109,9 +158,14 @@ const html = await highlight(code, { lang: 'typescript' })`
   grow it at runtime — the panels on this page run the real calls live.
 </p>
 <p>
-  Registered right now:
+  Registered right now ({registered.length}):
   {#each registered as id, i}<code>{id}</code>{i < registered.length - 1 ? ' ' : ''}{/each}
 </p>
+{#if registered.length > 2}
+  <p>
+    <button class="live-btn" onclick={resetToMinimal} type="button">Reset to minimal (TypeScript only)</button>
+  </p>
+{/if}
 <p>
   One registry is shared per app: every entry point re-exports the same core, so a
   registration made through <code>fractalpop/full</code> is visible to
@@ -122,14 +176,12 @@ const html = await highlight(code, { lang: 'typescript' })`
 
 <h2>Entry points</h2>
 <p>Four ways in, depending on how much you want shipped and registered:</p>
-<pre class="fp fp-lang--ts"><code>{entriesCode}</code></pre>
+<pre class="fp fp-lang--ts"><code>{@html entriesHtml}</code></pre>
 
 <h2>Grow the default entry</h2>
 {#if pyReady}
   <p>
-    Python is <b>already registered</b> in this session — <code>fractalpop/full</code>
-    ran on another page of this site. Open <code>/registry</code> directly in a fresh
-    tab to run the snippet below against a minimal registry yourself.
+    Python is <b>registered</b> in this session — <code>def</code> is highlighted as a keyword:
   </p>
 {:else}
   <p>
@@ -142,10 +194,10 @@ const html = await highlight(code, { lang: 'typescript' })`
 <p>
   <code>lang('py')</code> → <code>{pyResolved ?? 'undefined'}</code>
 </p>
-<button class="live-btn" onclick={loadPython} disabled={pyReady}>
-  {pyReady ? 'python registered' : "await importDefaults(['python'])"}
+<button class="live-btn" onclick={togglePython} type="button">
+  {pyReady ? 'Unregister Python (toggle off)' : "await importDefaults(['python'])"}
 </button>
-<pre class="fp fp-lang--ts"><code>{importCode}</code></pre>
+<pre class="fp fp-lang--ts"><code>{@html importHtml}</code></pre>
 
 <h2>Register your own language</h2>
 <p>
@@ -154,10 +206,10 @@ const html = await highlight(code, { lang: 'typescript' })`
   (TypeScript fallback) and lights up when you register:
 </p>
 <pre class="fp fp-lang--ledger"><code>{@html ledgerHtml}</code></pre>
-<button class="live-btn" onclick={addLedger} disabled={ledgerReady}>
-  {ledgerReady ? 'ledger registered' : 'registerLanguage(ledger, …)'}
+<button class="live-btn" onclick={toggleLedger} type="button">
+  {ledgerReady ? 'Unregister ledger (toggle off)' : 'registerLanguage(ledger, …)'}
 </button>
-<pre class="fp fp-lang--ts"><code>{registerCode}</code></pre>
+<pre class="fp fp-lang--ts"><code>{@html registerHtml}</code></pre>
 
 <h2>Replace the whole set</h2>
 <p>
@@ -166,7 +218,7 @@ const html = await highlight(code, { lang: 'typescript' })`
   button here: on this site it would strip the 32 languages the other pages use until
   reload.)
 </p>
-<pre class="fp fp-lang--ts"><code>{defaultsCode}</code></pre>
+<pre class="fp fp-lang--ts"><code>{@html defaultsHtml}</code></pre>
 
 <h2>WebGPU</h2>
 <p>
@@ -174,4 +226,4 @@ const html = await highlight(code, { lang: 'typescript' })`
   <code>gpu-lexer</code> peer (<code>npm i gpu-lexer</code>) and renders the same
   token markup as the CPU path:
 </p>
-<pre class="fp fp-lang--ts"><code>{gpuCode}</code></pre>
+<pre class="fp fp-lang--ts"><code>{@html gpuHtml}</code></pre>
