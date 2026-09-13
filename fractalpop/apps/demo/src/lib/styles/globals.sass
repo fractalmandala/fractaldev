@@ -15,7 +15,7 @@
 	--bg-popover: #e4e4e7
 	--bg-terminal: #b1b1b1
 	--text-primary: #202122
-	--text-secondary: #8b8888
+	--text-secondary: #717171
 	--text-muted: #a3a4a7
 	--text-inverse: #121212
 	--state-hover: #e4e4e7
@@ -177,6 +177,11 @@ a
 	letter-spacing: 0.12em
 	text-transform: uppercase
 	color: var(--theme-color)
+	code
+		text-transform: none
+		font-weight: 400
+		font-size: var(--text-md)
+		padding-bottom: var(--space-xl)
 
 .metatext
 	font-family: var(--font-sans)
@@ -783,20 +788,26 @@ a
 	gap: var(--space-md)
 	margin-bottom: var(--space-xl)
 
-.section__title
+.section__title,
+.prose .section__title
 	font-size: 28px
 	font-weight: 500
 	letter-spacing: -0.01em
 	color: var(--text-primary)
+	margin: 0
+	padding: 0
+	border: none
 
 .block + .block
 	margin-top: var(--space-xl)
 
-.block__title
+.block__title,
+.prose .block__title
 	font-size: 18px
 	font-weight: 500
 	color: var(--text-primary)
 	margin-bottom: var(--space-sm)
+	border: none
 
 .block__title .dim
 	color: var(--text-muted)
@@ -1259,12 +1270,25 @@ button.table__row:hover
 	color: var(--text-primary)
 	margin: 0 0 var(--space-md)
 
-.page-sub
+.page-sub,
+.prose .page-sub,
+.prose p.page-sub
 	font-size: var(--text-lg)
 	line-height: 1.6
-	color: var(--text-secondary)
+	color: var(--text-secondary) !important
 	max-width: 48rem
-	margin: 0
+	margin: 0 0 var(--space-xl)
+
+.page-sub strong,
+.page-sub b,
+.prose p.page-sub strong,
+.prose p.page-sub b
+	color: var(--text-primary)
+	font-weight: 600
+
+.page-sub code,
+.prose p.page-sub code
+	color: var(--text-primary)
 
 .prose p
 	color: var(--text-primary)

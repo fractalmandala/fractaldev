@@ -132,7 +132,7 @@
   </div>
 {/snippet}
 
-<section class="page-header" use:reveal>
+<div class="page-header" use:reveal>
   <div class="page-eyebrow">
     <span class="label label--accent">COMPONENTS /</span>
     <span class="badge-tag">SSR-SAFE & ZERO HYDRATION</span>
@@ -150,9 +150,9 @@
       <span class="btn__hint">copy</span>
     </button>
   </div>
-</section>
+</div>
 
-<section class="col section">
+<section class="section">
   <div class="section__head">
     <span class="label label--accent">01 /</span>
     <h2 class="section__title">&lt;Editor /&gt;</h2>
@@ -170,7 +170,7 @@
   </div>
 </section>
 
-<section class="col section">
+<section class="section">
   <div class="section__head">
     <span class="label label--accent">02 /</span>
     <h2 class="section__title">&lt;FileTree /&gt;</h2>
@@ -195,7 +195,7 @@
   </div>
 </section>
 
-<section class="col section">
+<section class="section">
   <div class="section__head">
     <span class="label label--accent">03 /</span>
     <h2 class="section__title">&lt;Code /&gt;</h2>
@@ -243,7 +243,7 @@
   </details>
 </section>
 
-<section class="col section">
+<section class="section">
   <div class="section__head">
     <span class="label label--accent">04 /</span>
     <h2 class="section__title">mdsvex &amp; remark</h2>

@@ -56,7 +56,7 @@ $brand: hsl(212, 90%, 55%)
 
 <svelte:head><title>Themes — fractalpop</title></svelte:head>
 
-<section class="page-header" use:reveal>
+<div class="page-header" use:reveal>
   <div class="page-eyebrow">
     <span class="label label--accent">THEMES /</span>
     <span class="badge-tag">COLOR SCIENCE</span>
@@ -66,9 +66,9 @@ $brand: hsl(212, 90%, 55%)
     Every token maps to one CSS variable — <code>--fp-&lt;type&gt;</code> — and one class,
     <code>.fp__token--&lt;type&gt;</code>. A theme is a block of declarations you drop in.
   </p>
-</section>
+</div>
 
-<section class="col section">
+<section class="section">
   <div class="section__head">
     <span class="label label--accent">01 /</span>
     <h2 class="section__title">Comfortable by default</h2>
@@ -86,7 +86,7 @@ $brand: hsl(212, 90%, 55%)
   </div>
 </section>
 
-<section class="col section">
+<section class="section">
   <div class="section__head">
     <span class="label label--accent">02 /</span>
     <h2 class="section__title">Copy the CSS</h2>
@@ -113,7 +113,7 @@ $brand: hsl(212, 90%, 55%)
   </div>
 </section>
 
-<section class="col section">
+<section class="section">
   <div class="section__head">
     <span class="label label--accent">03 /</span>
     <h2 class="section__title">Indented Sass</h2>
