@@ -13,7 +13,6 @@
 		scopePreset
 	} from '$lib/states/presets.svelte';
 	import { tbfSun, tbfMoon } from 'fractalicons/tablerfill';
-	import ModeToggle from '$lib/components/ui/ModeToggle.svelte'
 	import { Icon } from 'fractalicons';
 	const dark = $derived(presets.mode === 'dark');
 	let isDark = $state(false);

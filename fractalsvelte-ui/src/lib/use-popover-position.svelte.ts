@@ -81,5 +81,9 @@ export function usePopoverPortalPosition<
 		};
 	});
 
-	return layout;
+	return {
+		get current() {
+			return layout;
+		}
+	};
 }

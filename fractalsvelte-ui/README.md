@@ -39,7 +39,7 @@ The supported subpaths are `fractalsvelte/components`, `fractalsvelte/styles`, `
 
 ## Publish
 
-Version `0.5.0` is prepared for npm publication. From this directory, run the checks and inspect the packed files before publishing:
+Version `0.5.0` is prepared for npm publication under the `@fractaldev` scope. From this directory, run the checks and inspect the packed files before publishing:
 
 ```sh
 pnpm verify
@@ -47,10 +47,10 @@ pnpm build
 npm pack --dry-run
 npm login
 npm whoami
-npm publish
+npm publish --access public
 ```
 
-The package is unscoped, so `npm publish` publishes it publicly by default. This repository intentionally does not run `npm login` or `npm publish` for you. Choose and add the project license before publishing if your organization requires one.
+The package is published as `@fractaldev/fractalsvelte-ui`, so `npm publish --access public` is required for a scoped public package. This repository intentionally does not run `npm login` or `npm publish` for you. Choose and add the project license before publishing if your organization requires one.
 
 ## Library
 

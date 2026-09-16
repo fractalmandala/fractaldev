@@ -84,6 +84,14 @@ venv/
 dump/
 designokf/
 affedo/
+kinetics/
+kinetics-main/
+uiautomation/
+freewrite-main/
+
+shard/
+penner/
+.qoder
 
 .pi/
 acrolls/.claude/

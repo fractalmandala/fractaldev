@@ -9,9 +9,12 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const packageJson = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
 const tempRoot = mkdtempSync(join(tmpdir(), 'fractalsvelte-consumer-'));
 
+// pnpm pack uses the npm-safe tarball name: @scope/name → scope-name-version.tgz
+const tarballName = `${packageJson.name.replace(/^\//, '').replace(/\//g, '-')}-${packageJson.version}.tgz`;
+
 try {
 	execFileSync('pnpm', ['pack', '--pack-destination', tempRoot, '--silent'], { cwd: root, stdio: 'pipe' });
-	const archive = join(tempRoot, `${packageJson.name}-${packageJson.version}.tgz`);
+	const archive = join(tempRoot, tarballName);
 	if (!existsSync(archive)) throw new Error(`Packed archive not found: ${archive}`);
 	execFileSync('tar', ['-xzf', archive, '-C', tempRoot]);
 	const packageRoot = join(tempRoot, 'package');

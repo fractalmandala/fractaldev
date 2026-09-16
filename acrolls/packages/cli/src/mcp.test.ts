@@ -2,7 +2,7 @@ import { describe, expect, it, beforeAll } from 'vitest';
 import { mkdtemp, mkdir, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { handleMcpMessage, resolveMcpConfig } from './mcp.js';
+import { handleMcpMessage, resolveMcpConfig, splitLlmsFullForTest } from './mcp.js';
 
 let root: string;
 
@@ -90,5 +90,41 @@ describe('acrolls mcp', () => {
 	it('rejects ambiguous or missing mcp config', () => {
 		expect(() => resolveMcpConfig({})).toThrow(/--content|--url/);
 		expect(() => resolveMcpConfig({ content: 'docs', url: 'https://x.dev' })).toThrow(/not both/);
+	});
+});
+
+describe('site mode (--url) corpus recovery', () => {
+	it('splits llms-full.txt into pages even when bodies contain frontmatter dashes', () => {
+		const full = [
+			'# Sample docs',
+			'',
+			'> Corpus',
+			'',
+			'',
+			'---',
+			'',
+			'# First',
+			'Source: https://example.com/docs/first',
+			'',
+			'---',
+			'title: First',
+			'---',
+			'',
+			'Body one with --- inside.',
+			'',
+			'# Second',
+			'Source: https://example.com/blog/second',
+			'',
+			'Body two.'
+		].join('\n');
+		const sections = splitLlmsFullForTest(full);
+		expect(sections.map((s) => s.path)).toEqual([
+			'/docs/first',
+			'/blog/second'
+		]);
+		// The first body must survive the frontmatter `---` lines.
+		expect(sections[0].body).toContain('Body one with --- inside.');
+		expect(sections[0].body).not.toContain('Body two.');
+		expect(sections[1].body).toContain('Body two.');
 	});
 });

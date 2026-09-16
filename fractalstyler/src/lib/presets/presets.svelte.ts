@@ -53,9 +53,6 @@ export const presets = $state<
 onPresetChange((axis, value) => {
 	presets[axis] = value;
 });
-onModeChange((mode) => {
-	presets.mode = mode;
-});
 
 function sync(): void {
 	for (const axis of Object.keys(presetAxes) as PresetAxis[]) presets[axis] = presetState[axis];
@@ -70,6 +67,11 @@ export function initPresets(): void {
 export function setPreset(axis: PresetAxis, value: string): void {
 	coreSet(axis, value);
 }
+
+onModeChange((mode) => {
+	presets.mode = mode;
+});
+
 
 export function setMode(mode: Mode | null): void {
 	coreSetMode(mode);

@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "config",
+      "Shell(node -v)",
+      "Shell(npm:*)",
+      "Shell(pnpm:*)",
+      "Shell(node --test test/*.test.js 2 >& 1)",
+      "Shell(cd /Users/amrit/fractalmandala/commandcode && node --test test/*.test.js 2>&1 | grep -E \"^(✔|✖|# (pass|fail|tests))\" ; echo \"=== DIAGNOSTIC ===\"; node <<'EOF' const fs = require('fs'); const { indexTheme, buildRippleEdits, applyEditsToText } = require('./src/themeIndex'); const themePath = '/Users/amrit/fractalmandala/fractaldev/daylight-bone-signal-color-theme.json'; const text = fs.readFileSync(themePath, 'utf8'); const { occurrences } = indexTheme(text); console.log('total occurrences:', occurrences.length); const fb = occurrences.find(o => o.pathString === 'colors.focusBorder'); console.log('focusBorder occurrence:', JSON.stringify(fb)); console.log('slice of text :', JSON.stringify(text.slice(fb.start, fb.end))); const edits = buildRippleEdits(occurrences, '#F0873A', '#00A3FF'); console.log('ripple edit count :', edits.length); console.log('first 3 edits :', JSON.stringify(edits.slice(0,3))); const out = applyEditsToText(text, edits); const parsed = JSON.parse(out); console.log('focusBorder after :', JSON.stringify(parsed.colors.focusBorder)); console.log('selection.background:', JSON.stringify(parsed.colors['selection.background'])); EOF)",
+      "Shell(cd /Users/amrit/fractalmandala/commandcode && node --test test/*.test.js 2>&1 | tail -12; echo \"=== REAL THEME RIPPLE CHECK ===\"; node <<'EOF' const fs = require('fs'); const { indexTheme, buildPalette, buildRippleEdits, applyEditsToText } = require('./src/themeIndex'); const text = fs.readFileSync('/Users/amrit/fractalmandala/fractaldev/daylight-bone-signal-color-theme.json', 'utf8'); const { occurrences } = indexTheme(text); const palette = buildPalette(occurrences); console.log('color literals indexed :', occurrences.length); console.log('distinct base colors :', palette.length); console.log('\\ntop 8 palette entries driving the theme:'); for (const entry of palette.slice(0, 8)) { console.log(` ${entry.base} ${String(entry.uses).padStart(3)} uses ${entry.alphaCount} alpha variants`); } const out = applyEditsToText(text, buildRippleEdits(occurrences, '#F0873A', '#00A3FF')); const parsed = JSON.parse(out); const original = JSON.parse(text); console.log('\\nripple #F0873A -> #00A3FF'); console.log(' focusBorder :', original.colors.focusBorder, '->', parsed.colors.focusBorder); console.log(' selection.background :', original.colors['selection.background'], '->', parsed.colors['selection.background']); console.log(' unchanged foreground :', parsed.colors.foreground === original.colors.foreground); console.log(' type preserved :', parsed.type); console.log(' tokenColors rules :', parsed.tokenColors.length, '(was', original.tokenColors.length + ')'); console.log(' comment rule intact :', JSON.stringify(parsed.semanticTokenColors.comment)); console.log(' line count identical :', out.split('\\n').length === text.split('\\n').length); EOF)",
+      "Shell(cd /Users/amrit/fractalmandala/commandcode && node --test test/*.test.js 2>&1 | grep -E \"^(✔|✖)\" | sort -u; echo \"=== ROLE ASSIGNMENT ON REAL THEME ===\"; node <<'EOF' const fs = require('fs'); const { indexTheme, buildPalette } = require('./src/themeIndex'); const { assignRoles, buildContrastReport } = require('./src/palette'); const text = fs.readFileSync('/Users/amrit/fractalmandala/fractaldev/daylight-bone-signal-color-theme.json', 'utf8'); const { occurrences } = indexTheme(text); const roles = assignRoles(buildPalette(occurrences)); const seen = new Map(); for (const e of roles) { if (!seen.has(e.role)) seen.set(e.role, []); seen.get(e.role).push(`${e.base}(${e.uses})`); } for (const [role, list] of [...seen.entries()].sort()) { console.log(`${role.padEnd(12)} ${list.slice(0, 4).join(' ')}`); } console.log('\\ncontrast:', JSON.stringify(buildContrastReport(roles), null, 2)); EOF)",
+      "Shell(for:*)",
+      "Shell(do:*)",
+      "Shell(done:*)",
+      "Shell(cd /Users/amrit/fractalmandala/commandcode && ls -A && echo \"--- node_modules ---\" && ls node_modules 2>/dev/null | head -5 || echo \"(no node_modules)\" && echo \"--- npm ls ---\" && npm ls --depth=0 2>&1 | head -10 && echo \"--- npm config ---\" && npm config get prefix && npm config get global-style 2>/dev/null; echo \"--- parent interference ---\"; ls /Users/amrit/fractalmandala/node_modules 2>/dev/null | head -3 || echo \"(no parent node_modules)\"; ls /Users/amrit/fractalmandala/package.json 2>/dev/null || echo \"(no parent package.json)\")",
+      "Shell(cd /Users/amrit/fractalmandala/commandcode && echo \"NODE_ENV=$NODE_ENV\" && echo \"omit=$(npm config get omit)\" && echo \"production=$(npm config get production)\" && echo \"--- user npmrc ---\" && cat ~/.npmrc 2>/dev/null || echo \"(none)\"; echo \"--- retry with dev ---\"; npm install --include=dev --no-audit --no-fund 2>&1 | tail -6; echo \"--- result ---\"; ls node_modules/.bin 2>/dev/null | head -10 || echo \"(still no .bin)\")",
+      "Shell(node --check test/extension.smoke.test.js)",
+      "Shell(rm:*)",
+      "Shell(echo \"=== listeners on 5173 ===\"; lsof -nP -iTCP:5173 -sTCP:LISTEN 2>/dev/null || echo \"(nothing listening on 5173)\"; echo; echo \"=== all sockets on 5173 (incl. established) ===\"; lsof -nP -iTCP:5173 2>/dev/null || true; echo; echo \"=== details ===\"; for pid in $(lsof -nP -iTCP:5173 -sTCP:LISTEN -t 2>/dev/null | sort -u); do echo \"--- pid $pid ---\"; ps -p \"$pid\" -o pid,ppid,etime,command | cat; done)",
+      "Shell(lsof:*)",
+      "Shell(sed:*)",
+      "Shell(ps:*)",
+      "Shell(echo:*)",
+      "Shell(awk:*)",
+      "Shell(grep:*)"
+    ],
+    "deny": [],
+    "defaultMode": "default"
+  }
+}

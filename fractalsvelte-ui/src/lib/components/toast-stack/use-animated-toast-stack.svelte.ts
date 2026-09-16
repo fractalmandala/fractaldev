@@ -103,7 +103,9 @@ export function useAnimatedToastStack(options: UseAnimatedToastStackOptions = {}
 	});
 
 	return {
-		toasts,
+		get toasts() {
+			return toasts;
+		},
 		showToast,
 		updateToast,
 		dismissToast,

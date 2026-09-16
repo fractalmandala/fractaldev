@@ -237,31 +237,43 @@ async function listSitePages(config: ServerConfig): Promise<MimePage[]> {
 	return await pagesFromLlmsFull(base, prefix);
 }
 
-/** Split an `llms-full.txt` document into per-page entries. */
+/**
+ * Split an `llms-full.txt` document into per-page entries.
+ *
+ * Acrolls writes each page as `# <title>` / `Source: <url>` followed by the raw Markdown — and
+ * that Markdown can itself contain `---` frontmatter, so a `\n---\n` split truncates bodies.
+ * Scan for the header pairs instead and slice between consecutive pairs.
+ */
+function splitLlmsFull(full: string): Array<{ title: string; path: string; body: string }> {
+	const header = /(?:^|\n)#[ \t]+([^\n]+)\nSource:[ \t]*(\S+)[ \t]*\n/g;
+	const marks: Array<{ title: string; path: string; start: number }> = [];
+	for (const match of full.matchAll(header)) {
+		const raw = match[2]!;
+		let path: string;
+		try {
+			path = (/^https?:\/\//.test(raw) ? new URL(raw).pathname : raw).replace(/\/+$/, '');
+		} catch {
+			continue;
+		}
+		marks.push({ title: match[1]!.trim(), path, start: match.index! + match[0].length });
+	}
+	return marks.map((mark, index) => ({
+		title: mark.title,
+		path: mark.path,
+		body: full.slice(mark.start, index + 1 < marks.length ? marks[index + 1]!.start : undefined).trim()
+	}));
+}
+
+/** Per-page entries recovered from `llms-full.txt`; used when no `.md` route exists. */
 async function pagesFromLlmsFull(base: string, prefix: string): Promise<MimePage[]> {
 	const full = await fetchText(`${base}/llms-full.txt`);
 	if (!full) return [];
 	const pages: MimePage[] = [];
-	// Sections are separated by a `---` rule; each carries an H1 and a `Source:` line.
-	for (const chunk of full.split(/\n---\n/)) {
-		const sourceMatch = chunk.match(/^Source:\s*(\S+)\s*$/m);
-		const titleMatch = chunk.match(/^#\s+(.+)$/m);
-		if (!titleMatch) continue;
-		let path = '';
-		if (sourceMatch?.[1]) {
-			const raw = sourceMatch[1];
-			path = /^https?:\/\//.test(raw) ? new URL(raw).pathname : raw;
-		}
-		path = path.replace(/\/+$/, '');
-		if (!path) continue;
-		if (prefix && !path.startsWith(prefix)) continue;
-		if (pages.some((p) => p.path === path)) continue;
-		pages.push({
-			path,
-			title: titleMatch[1]!.trim(),
-			tags: [],
-			mimeType: 'text/markdown'
-		});
+	for (const entry of splitLlmsFull(full)) {
+		if (!entry.path) continue;
+		if (prefix && !entry.path.startsWith(prefix)) continue;
+		if (pages.some((p) => p.path === entry.path)) continue;
+		pages.push({ path: entry.path, title: entry.title, tags: [], mimeType: 'text/markdown' });
 	}
 	return pages;
 }
@@ -290,17 +302,10 @@ async function readPageBody(page: MimePage, config: ServerConfig): Promise<strin
 	// Fallback: recover the section for this page from llms-full.txt.
 	const full = await fetchText(`${base}/llms-full.txt`);
 	if (!full) return null;
-	for (const chunk of full.split(/\n---\n/)) {
-		const sourceMatch = chunk.match(/^Source:\s*(\S+)\s*$/m);
-		if (!sourceMatch?.[1]) continue;
-		const raw = sourceMatch[1];
-		const path = (/^https?:\/\//.test(raw) ? new URL(raw).pathname : raw).replace(/\/+$/, '');
-		if (path === page.path) {
-			// Drop the metadata preamble; keep the prose.
-			const body = chunk.replace(/^#[^\n]*\n/, '').replace(/^Source:[^\n]*\n?/m, '').trim();
-			return body;
-		}
-	}
+	const entry = splitLlmsFull(full).find((section) => section.path === page.path);
+	if (!entry) return null;
+	// Strip the raw-frontmatter preamble the site concatenated in; keep the prose.
+	return entry.body.replace(/^---\n[\s\S]*?\n---\n?/, '').trim();
 	return null;
 }
 
@@ -544,3 +549,6 @@ function resolveLocal(p: string): string {
 export function _flushStateForTest(state: { pages: MimePage[] | null }): void {
 	state.pages = null;
 }
+
+/** Test seam for the llms-full.txt section splitter. */
+export const splitLlmsFullForTest = splitLlmsFull;
