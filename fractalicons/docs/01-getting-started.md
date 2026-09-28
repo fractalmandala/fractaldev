@@ -78,6 +78,14 @@ Keyline is one 24×24 drawing in four families, 1,000 icons each. The file name 
 
 `klHeart`, `klfHeart`, `kldHeart`, and `klsHeart` are the same heart. The plate and the keyline both use `currentColor`. Prefixes for every family are in [Naming, Aliases, Props](./02-naming-aliases-props.md).
 
+## Upgrading to 0.4.0
+
+V0.4.0 adds 4 new icon packs from the Keyline icons set. To upgrade:
+
+```
+pnpm add fractalicons@0.4.0
+```
+
 ## Migrating 0.2.x → 0.3.0
 
 - **Per-icon deep imports are gone.** Each family is now a single module, so `fractalicons/lucide/activity` no longer resolves. Import from the family subpath instead: `import { luActivity } from 'fractalicons/lucide'`.

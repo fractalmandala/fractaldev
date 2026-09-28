@@ -1,5 +1,5 @@
 {
-	"name": "@fractaldev/fractalicons",
+	"name": "fractalicons",
 	"version": "0.4.0",
 	"description": "A comprehensive, tree-shakeable icon library for Svelte 5 — 31,000+ icons across 29 families with ergonomic short-prefix imports.",
 	"license": "MIT",
