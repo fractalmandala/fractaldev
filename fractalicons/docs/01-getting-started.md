@@ -10,11 +10,11 @@ type: fractalicons
 ## Installation
 
 ```sh
-pnpm add @fractaldev/fractalicons
+pnpm add fractalicons
 # or
-npm install @fractaldev/fractalicons
+npm install fractalicons
 # or
-yarn add @fractaldev/fractalicons
+yarn add fractalicons
 ```
 
 ## Quick Start

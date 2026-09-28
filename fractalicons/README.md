@@ -1,6 +1,6 @@
 # fractalicons
 
-![npm version](https://img.shields.io/npm/v/@fractaldev/fractalicons.svg)
+![npm version](https://img.shields.io/npm/v/fractalicons.svg)
 
 ![license](https://img.shields.io/npm/l/fractalicons.svg)
 
@@ -26,11 +26,11 @@ I built this to be able to sample and use multiple icon families through a singl
 ## Installation
 
 ```sh
-pnpm add @fractaldev/fractalicons
+pnpm add fractalicons
 # or
-npm install @fractaldev/fractalicons
+npm install fractalicons
 # or
-yarn add @fractaldev/fractalicons
+yarn add fractalicons
 ```
 
 ## Quick Start
