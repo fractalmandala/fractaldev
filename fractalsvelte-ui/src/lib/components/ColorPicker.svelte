@@ -26,6 +26,8 @@
 		class: className
 	}: Props = $props();
 
+	const rootClass = $derived(['colorpicker', className].filter(Boolean).join(' '));
+
 	let internal = $state(untrack(() => defaultValue));
 	const controlled = $derived(value !== undefined);
 	// Narrowed inline so `current` is a string, not string | undefined.
@@ -192,7 +194,7 @@
 	const isActive = (sw: string) => sw.toLowerCase() === current.toLowerCase();
 </script>
 
-<div class={className} id={id} data-slot="colorpicker" data-disabled={disabled || undefined}>
+<div class={rootClass} id={id} data-slot="colorpicker" data-disabled={disabled || undefined}>
 	<div
 		bind:this={areaEl}
 		data-slot="colorpicker-area"
@@ -268,3 +270,119 @@
 		</div>
 	{/if}
 </div>
+
+<style lang="sass">
+.colorpicker
+	display: flex
+	flex-direction: column
+	gap: var(--space-xs)
+	width: 230px
+	padding: var(--space-sm)
+	background: var(--bg-surface)
+	border: 1px solid var(--border)
+	border-radius: var(--radius-lg)
+	box-shadow: var(--shadow-sm)
+
+	&[data-disabled]
+		opacity: 0.5
+		pointer-events: none
+
+	[data-slot='colorpicker-area']
+		position: relative
+		width: 100%
+		height: 140px
+		border-radius: var(--radius-md)
+		overflow: hidden
+		cursor: crosshair
+		touch-action: none
+
+	[data-slot='colorpicker-area-thumb']
+		position: absolute
+		width: 14px
+		height: 14px
+		border-radius: var(--radius-full)
+		border: 2px solid #fff
+		box-shadow: 0 0 2px rgba(0, 0, 0, 0.7), inset 0 0 1px rgba(0, 0, 0, 0.5)
+		transform: translate(-50%, -50%)
+		pointer-events: none
+
+	[data-slot='colorpicker-hue']
+		position: relative
+		width: 100%
+		height: 12px
+		border-radius: var(--radius-full)
+
+	[data-slot='colorpicker-hue-track']
+		position: absolute
+		inset: 0
+		border-radius: var(--radius-full)
+		background: linear-gradient(to right, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%)
+
+	[data-slot='colorpicker-hue-thumb']
+		position: absolute
+		top: 50%
+		width: 14px
+		height: 14px
+		border-radius: var(--radius-full)
+		border: 2px solid #fff
+		box-shadow: 0 0 2px rgba(0, 0, 0, 0.7)
+		transform: translate(-50%, -50%)
+		pointer-events: none
+
+	[data-slot='colorpicker-hue-input']
+		position: absolute
+		inset: 0
+		width: 100%
+		height: 100%
+		opacity: 0
+		cursor: pointer
+		margin: 0
+
+	[data-slot='colorpicker-row']
+		display: flex
+		align-items: center
+		gap: var(--space-xs)
+
+	[data-slot='colorpicker-preview']
+		flex-shrink: 0
+		width: 28px
+		height: 28px
+		border-radius: var(--radius-sm)
+		border: 1px solid var(--border)
+
+	[data-slot='colorpicker-hex']
+		flex: 1
+		height: 28px
+		padding: 0 var(--space-xs)
+		font-family: var(--font-mono)
+		font-size: var(--text-xs)
+		background: var(--bg-input)
+		color: var(--text-primary)
+		border: 1px solid var(--border)
+		border-radius: var(--radius-sm)
+		&:focus-visible
+			outline: none
+			border-color: var(--theme-color)
+			box-shadow: 0 0 0 2px var(--ring)
+
+	[data-slot='colorpicker-swatches']
+		display: flex
+		flex-wrap: wrap
+		gap: 6px
+		margin-top: 2px
+
+	[data-slot='colorpicker-swatch']
+		width: 20px
+		height: 20px
+		border-radius: var(--radius-sm)
+		border: 1px solid var(--border)
+		cursor: pointer
+		padding: 0
+		transition: transform var(--motion-fast) ease
+		&:hover
+			transform: scale(1.15)
+		&[data-active]
+			outline: 2px solid var(--theme-color)
+			outline-offset: 1px
+</style>
+

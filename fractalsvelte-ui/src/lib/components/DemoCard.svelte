@@ -1,44 +1,105 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
+	import DemoSurface from './DemoSurface.svelte';
+	import SegmentedControl, { type SegmentOption } from './SegmentedControl.svelte';
 
+	export type DemoOption<T extends string = string> = {
+		value: T;
+		label: string;
+		code?: string;
+	};
+
+	/**
+	 * A single-variation example card: a variation selector, the live surface and
+	 * the code for the selected variation. For components whose docs page wants a
+	 * multi-prop playground, use `Playground` instead.
+	 */
 	type Props = {
 		title: string;
 		description?: string;
-		code: string;
-		children?: Snippet;
+		code?: string;
+		options?: Array<DemoOption | string>;
+		selected?: string;
+		onSelect?: (value: string) => void;
+		children?: Snippet<[selected: string]>;
+		class?: string;
+		styleProps?: { selector?: string } | boolean;
 	};
 
-	let { title, description, code, children }: Props = $props();
+	let {
+		title,
+		description,
+		code = '',
+		options,
+		selected = $bindable(''),
+		onSelect,
+		children,
+		class: className = '',
+		styleProps = false
+	}: Props = $props();
 
-	let copied = $state(false);
-	let resetTimer: ReturnType<typeof setTimeout> | undefined;
+	const rootClass = $derived(['demo-card', className].filter(Boolean).join(' '));
 
-	async function copyCode() {
-		try {
-			await navigator.clipboard.writeText(code);
-			copied = true;
-			clearTimeout(resetTimer);
-			resetTimer = setTimeout(() => (copied = false), 2000);
-		} catch {
-			// Clipboard unavailable — nothing further to do.
+	const normalizedOptions = $derived<SegmentOption[]>(
+		(options ?? []).map((opt) =>
+			typeof opt === 'string'
+				? { value: opt, label: opt.charAt(0).toUpperCase() + opt.slice(1) }
+				: { value: opt.value, label: opt.label }
+		)
+	);
+
+	let internalSelected = $state<string>('');
+
+	const currentSelected = $derived(
+		internalSelected || selected || (options && options.length > 0 ? (typeof options[0] === 'string' ? options[0] : options[0].value) : '')
+	);
+
+	const activeCode = $derived.by(() => {
+		if (options && options.length > 0) {
+			const match = options.find((opt) => (typeof opt === 'string' ? opt : opt.value) === currentSelected);
+			if (match && typeof match !== 'string' && match.code) {
+				return match.code;
+			}
 		}
+		return code;
+	});
+
+	function handleSelect(val: string) {
+		internalSelected = val;
+		selected = val;
+		onSelect?.(val);
 	}
 </script>
 
-<figure class="demo-card">
-	<figcaption class="demo-card__meta">
-		<div class="demo-card__info">
-			<strong class="demo-card__title">{title}</strong>
+{#snippet preview()}
+	{@render children?.(currentSelected)}
+{/snippet}
+
+<figure class={rootClass}>
+	<figcaption class="box gap-xs">
+		<div class="box gap-3xs grow">
 			{#if description}
-				<p class="muted text-sm">{description}</p>
+				<p class="text-secondary text-sm">{description}</p>
 			{/if}
 		</div>
-		<button type="button" class="playground__copy-btn" class:copied onclick={copyCode}>
-			{#if copied}✓ Copied!{:else}📋 Copy{/if}
-		</button>
+		{#if normalizedOptions.length > 0}
+			<div class="row shrink-0">
+				<SegmentedControl
+					options={normalizedOptions}
+					value={currentSelected}
+					onValueChange={handleSelect}
+					label="{title} variation selector"
+				/>
+			</div>
+		{/if}
 	</figcaption>
-	<div class="demo-card__preview">
-		{@render children?.()}
-	</div>
-	<pre class="playground__code-content"><code>{code}</code></pre>
+	<DemoSurface code={activeCode} {styleProps} children={preview} />
 </figure>
+
+<style lang="sass">
+.demo-card
+	display: flex
+	flex-direction: column
+	overflow: hidden
+	gap: var(--space-md)
+</style>

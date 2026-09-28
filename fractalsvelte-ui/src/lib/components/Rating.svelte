@@ -19,6 +19,7 @@
 		ariaLabel?: string;
 		onValueChange?: (value: number) => void;
 		class?: string;
+		[key: string]: unknown;
 	}
 
 	let {
@@ -29,21 +30,21 @@
 		readonly = false,
 		ariaLabel = 'Rating',
 		onValueChange,
-		class: className
+		class: className = '',
+		...rest
 	}: Props = $props();
 
 	const reduce = useReducedMotion();
 
 	let internal = $state(untrack(() => defaultValue));
 	const controlled = $derived(value !== undefined);
-	// Narrowed inline so `current` is a number, not number | undefined.
 	const current = $derived(value === undefined ? internal : value);
 	let hovered = $state<number | null>(null);
 	let rootEl = $state<HTMLDivElement | null>(null);
 
 	const interactive = $derived(!disabled && !readonly);
-	// Hover previews the pending value; otherwise the committed one shows.
 	const visual = $derived(hovered ?? current);
+	const rootClass = $derived(`rating-root ${className}`.trim());
 
 	function select(next: number) {
 		if (!interactive) return;
@@ -55,8 +56,6 @@
 		rootEl?.querySelector<HTMLElement>(`[data-value='${n}']`)?.focus();
 	}
 
-	// Roving-tabindex radiogroup: arrows step, Home/End bound, focus follows
-	// the selection. Fractional (controlled) values snap to whole stars.
 	function onKeydown(event: KeyboardEvent) {
 		if (!interactive) return;
 		switch (event.key) {
@@ -94,7 +93,7 @@
 
 <div
 	bind:this={rootEl}
-	class={className}
+	class={rootClass}
 	data-slot="rating"
 	role="radiogroup"
 	tabindex="-1"
@@ -103,6 +102,7 @@
 	data-readonly={readonly || undefined}
 	onkeydown={onKeydown}
 	onmouseleave={() => (hovered = null)}
+	{...rest}
 >
 	{#each Array.from({ length: max }, (_, i) => i + 1) as n (n)}
 		{@const star = visual >= n ? 'full' : visual > n - 1 ? 'half' : 'empty'}
@@ -132,3 +132,47 @@
 		</motion.button>
 	{/each}
 </div>
+
+<style lang="sass">
+
+.rating-root
+	display: inline-flex
+	align-items: center
+	gap: 2px
+	padding: 2px
+
+	&:focus-visible
+		outline: none
+
+	&[data-readonly='true'] [data-slot='rating-star']
+		cursor: default
+		pointer-events: none
+
+	[data-slot='rating-star']
+		display: inline-flex
+		align-items: center
+		justify-content: center
+		width: 28px
+		height: 28px
+		border: 0
+		background: transparent
+		padding: 0
+		color: var(--border-strong)
+		cursor: pointer
+		border-radius: var(--radius-sm)
+		transition: color var(--motionin1)
+
+		&:focus-visible
+			outline: 2px solid var(--ring)
+			outline-offset: 1px
+
+		&[data-active='true']
+			color: #f59e0b
+
+		&:hover:not(:disabled)
+			color: #fbbf24
+
+		&:disabled
+			cursor: not-allowed
+			opacity: 0.5
+</style>

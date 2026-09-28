@@ -11,10 +11,10 @@ const packageJson = JSON.parse(read('package.json'));
 if (!packageJson.devDependencies?.shiki) fail('package.json must declare Shiki as a documentation dependency.');
 const shiki = read('src/lib/docs/shiki.server.ts');
 const markdown = read('src/lib/docs/markdown.server.ts');
-const componentLoader = read('src/routes/components/[slug]/+page.server.ts');
+const componentLoader = read('src/routes/components/[category]/[slug]/+page.server.ts');
 const guideLoader = read('src/routes/guides/[slug]/+page.server.ts');
-const componentPage = read('src/routes/components/[slug]/+page.svelte');
-const docsStyles = read('src/lib/styles/_11_own.sass');
+const componentPage = read('src/routes/components/[category]/[slug]/+page.svelte');
+const docsStyles = read('src/lib/styles/kit/_klib.sass');
 
 for (const [source, checks] of [
 	[shiki, [['createHighlighter', 'server highlighter factory'], ['defaultColor: false', 'paired light/dark token output'], ["light: 'github-light'", 'light syntax theme'], ["dark: 'github-dark'", 'dark syntax theme']]],

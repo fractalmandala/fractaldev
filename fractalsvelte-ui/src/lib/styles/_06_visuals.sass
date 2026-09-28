@@ -11,20 +11,22 @@
 @use '01_config' as *
 
 // --- Bare backgrounds (one declaration each) ----------------------------------
-.bg
+.bg-app
 	background: var(--bg)
 .surface
 	background: var(--bg-surface)
 .raised
 	background: var(--bg-raised)
+.sunken
+	background: var(--bg-sunken)
 .panel
 	background: var(--bg-panel)
 .footer
-	background: var(--bg-footer)
+	background: var(--bg-sunken)
 .canvas
-	background: var(--bg-canvas)
+	background: var(--bg-button-soft)
 .terminal
-	background: var(--bg-terminal)
+	background: var(--bg-sidebar)
 
 // --- Ink ----------------------------------------------------------------------
 .text-primary
@@ -63,32 +65,66 @@
 	border: 1px solid var(--border)
 .border-subtle
 	border: 1px solid var(--border-subtle)
-.border-top
+.border-strong
+	border: 1px solid var(--border-strong)
+.bt
 	border-top: 1px solid var(--border)
-.border-right
+.br
 	border-right: 1px solid var(--border)
-.border-bottom
+.bb
 	border-bottom: 1px solid var(--border)
-.border-left
+.bl
 	border-left: 1px solid var(--border)
-
+.bt-str
+	border-top: 1px solid var(--border-strong)
+.br-str
+	border-right: 1px solid var(--border-strong)
+.bb-str
+	border-bottom: 1px solid var(--border-strong)
+.bl-str
+	border-left: 1px solid var(--border-strong)
+.bt-sub
+	border-top: 1px solid var(--border-subtle)
+.br-sub
+	border-right: 1px solid var(--border-subtle)
+.bb-sub
+	border-bottom: 1px solid var(--border-subtle)
+.bl-sub
+	border-left: 1px solid var(--border-subtle)
 // --- Typography -----------------------------------------------------------------
 .text-xs
 	font-size: var(--text-xs)
+	line-height: 1.5
 .text-sm
 	font-size: var(--text-sm)
+	line-height: 1.5
 .text-md
 	font-size: var(--text-md)
+	line-height: 1.5
+.text-bs
+	font-size: var(--text-bs)
+	line-height: 1.6
 .text-lg
 	font-size: var(--text-lg)
+	line-height: 1.5
 .text-xl
 	font-size: var(--text-xl)
+	line-height: 1.4
 .text-2xl
 	font-size: var(--text-2xl)
+	line-height: 1.4
 .text-3xl
 	font-size: var(--text-3xl)
+	line-height: 1.4
 .text-4xl
 	font-size: var(--text-4xl)
+	line-height: 1.1
+.text-5xl
+	font-size: var(--text-5xl)
+	line-height: 1.1
+.text-6xl
+	font-size: var(--text-6xl)
+	line-height: 1.1
 
 .weight-400
 	font-weight: 400
@@ -99,12 +135,38 @@
 .weight-700
 	font-weight: 700
 
+.lh11
+	line-height: 1.1
+.lh12
+	line-height: 1.2
+.lh13
+	line-height: 1.3
+
+.ls-tight-bs
+	letter-spacing: -0.01rem
+.ls-tight-lg
+	letter-spacing: -0.02rem
+.ls-tight-xl
+	letter-spacing: -0.03rem
+.ls-tight-2xl
+	letter-spacing: -0.1rem
+.ls-wide-bs
+	letter-spacing: 0.01rem
+.ls-wide-lg
+	letter-spacing: 0.02rem
+.ls-wide-xl
+	letter-spacing: 0.03rem
+
 .mono
 	font-family: var(--font-mono)
 .tt-u
 	text-transform: uppercase
 .tt-c
 	text-transform: capitalize
+.ta-c
+	text-align: center
+.ta-l
+	text-align: left
 
 .truncate
 	overflow: hidden
@@ -135,13 +197,6 @@
 	color: var(--text-muted)
 
 // --- Compositions (plain classes over the vocabulary, yours to restyle) ----------
-.card
-	display: flex
-	gap: calc(var(--space-sm) * var(--gap-scale, 1))
-	padding: calc(var(--space-md) * var(--pad-scale, 1))
-	background: var(--bg-surface)
-	border: 1px solid var(--border)
-	border-radius: var(--radius-md)
 
 .field
 	display: flex
@@ -234,3 +289,8 @@
 	box-shadow: var(--shadow-md)
 .shadow-lg
 	box-shadow: var(--shadow-lg)
+
+.press-shadow
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)
+	&:hover
+		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0), 0 2px 4px -1px rgba(0, 0, 0, 0)

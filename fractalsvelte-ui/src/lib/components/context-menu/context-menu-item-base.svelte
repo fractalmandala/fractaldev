@@ -4,6 +4,7 @@
 	import { SPRING_LAYOUT } from '../../ease.js';
 	import { getContextMenuContext } from './context-menu-context.js';
 	import type { ContextMenuItemProps } from './context-menu.types.js';
+	import type { MenuItemRole } from '#lib/data/componentTypes.ts';
 
 	let {
 		children,
@@ -17,7 +18,7 @@
 		role = 'menuitem',
 		ariaChecked
 	}: ContextMenuItemProps & {
-		role?: 'menuitem' | 'menuitemcheckbox' | 'menuitemradio';
+		role?: MenuItemRole;
 		ariaChecked?: boolean;
 	} = $props();
 
@@ -67,3 +68,43 @@
 	{/if}
 	{@render children()}
 </button>
+
+<style lang="sass">
+[data-slot="context-menu-item"]
+	position: relative
+	isolation: isolate
+	display: flex
+	width: 100%
+	align-items: center
+	gap: var(--space-xs)
+	padding: var(--space-2xs) var(--space-xs)
+	border: 0
+	border-radius: var(--radius-4)
+	background: none
+	text-align: left
+	font: inherit
+	font-size: var(--text-xs)
+	color: var(--text-primary)
+	cursor: pointer
+	outline: none
+
+	&[data-tone="destructive"]
+		color: var(--danger, var(--warning))
+
+	&[data-inset="true"]
+		padding-left: 2rem
+
+	&:disabled
+		pointer-events: none
+		opacity: 0.4
+
+:global([data-slot="context-menu-item-active"])
+	position: absolute
+	inset: 0
+	z-index: -1
+	border-radius: var(--radius-4)
+	background: color-mix(in srgb, var(--text-primary) 6.5%, transparent)
+
+	&[data-tone="destructive"]
+		background: color-mix(in srgb, var(--danger, var(--warning)) 10%, transparent)
+</style>

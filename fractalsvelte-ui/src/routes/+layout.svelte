@@ -1,150 +1,119 @@
 <script lang="ts">
 	import '#lib/styles/index.sass';
-	import { components, categories } from '#lib/docs/catalogue.ts';
-	import { guides } from '#lib/docs/guides.ts';
+	import type { Snippet } from 'svelte';
 	import { page } from '$app/state';
 	import { MotionConfig } from '@humanspeak/svelte-motion';
+	import Menu from '#lib/icons/menu.svelte';
+	import ModeToggle from '#lib/mode/ModeToggle.svelte';
+	import { mode, modeScript } from '#lib/mode/mode.svelte.ts';
+	import DocsNav from '#lib/docs/DocsNav.svelte';
+	import Github from '#lib/icons/github.svelte';
 
-	let openSidebarSection = $state<string | null>(null);
 	let mobileNavOpen = $state(false);
-	let tocOpen = $state(false);
-	let { children } = $props();
-	type TocItem = { id: string; label: string; level: 2 | 3 };
+	let { children }: { children: Snippet } = $props();
+	const store = mode();
+	const dark = $derived(store.resolved === 'dark');
 
-	function slugify(value: string) {
-		return value.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-	}
-
-	let tocItems = $derived.by((): TocItem[] => {
-		const pathname = page.url.pathname;
-		const componentMatch = pathname.match(/^\/components\/([^/]+)/);
-		if (componentMatch) return [
-			{ id: 'preview-heading', label: 'Live preview', level: 2 },
-			{ id: 'usage-heading', label: 'Usage', level: 2 },
-			{ id: 'props-heading', label: 'Props', level: 2 },
-			{ id: 'styling-heading', label: 'Styling contract', level: 2 }
-		];
-		const guideMatch = pathname.match(/^\/guides\/([^/]+)/);
-		const guide = guideMatch ? guides.find((item) => item.slug === guideMatch[1]) : undefined;
-		return (guide?.markdown.match(/^#{2,3}\s+.+$/gm) ?? []).map((heading) => {
-			const match = heading.match(/^(#{2,3})\s+(.+)$/);
-			const label = match?.[2] ?? heading;
-			return { id: slugify(label), label, level: (match?.[1].length ?? 2) as 2 | 3 };
-		});
+	// Close drawer when changing routes
+	$effect(() => {
+		const _ = page.url.pathname;
+		mobileNavOpen = false;
 	});
 
-	function toggleSidebarSection(section: string) {
-		openSidebarSection = openSidebarSection === section ? null : section;
-	}
+	// Handle Escape key for mobile nav
+	$effect(() => {
+		if (!mobileNavOpen) return;
 
-	function sidebarSectionId(section: string) {
-		return `sidebar-section-${section.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
-	}
+		function handleKeydown(e: KeyboardEvent) {
+			if (e.key === 'Escape') {
+				mobileNavOpen = false;
+			}
+		}
 
-	function sectionIsCurrent(section: string) {
-		if (section === 'docs') return page.url.pathname.startsWith('/guides');
-		return components.some((component) => component.category === section && page.url.pathname === `/components/${component.slug}`);
-	}
+		window.addEventListener('keydown', handleKeydown);
+		return () => {
+			window.removeEventListener('keydown', handleKeydown);
+		};
+	});
 
 	function closeMobileNav() {
 		mobileNavOpen = false;
 	}
-
-	function closeToc() {
-		tocOpen = false;
-	}
 </script>
 
 <svelte:head>
+	{@html `<script>${modeScript()}<\/script>`}
 	<title>Fractalsvelte UI — Svelte components</title>
-	<meta name="description" content="A considered SvelteKit component library documented in its own interface." />
+	<meta
+		name="description"
+		content="A considered SvelteKit component library documented in its own interface."
+	/>
 </svelte:head>
 
 <MotionConfig reducedMotion="user">
 	<div class="app-shell">
-		<header class="app-header row ycenter xbetween px-m">
-			<a class="row ycenter gap-2xs" href="/">
-				<img class="logomotif" src="/images/logomotif.png" alt="motif"/>
-				<img class="logotype" src="/images/logotype-d.png" alt="logotype"/>
-
+		<header class="app-header">
+			<a class="row ycenter gap-xs xleft" href="/">
+				<img class="logomotif" src="/images/logomotif.png" alt="motif" />
+				{#if dark}
+				<img class="logotype" src="/images/logotype2-w.png" alt="logotype" />
+				{:else}
+				<img class="logotype" src="/images/logotype2-d.png" alt="logotype" />
+				{/if}
 			</a>
-			<div class="app-header__actions row ycenter gap-xs">
-				<nav class="row ycenter gap-s" aria-label="Primary navigation">
-					<a class="navtree-link" href="/">Introduction</a>
-					<a class="navtree-link" href="/components/button">Components</a>
-					<a class="navtree-link" href="/guides">Guides</a>
+
+			<div class="row ycenter gap-bs">
+				<nav class="primary-nav row ycenter gap-bs" aria-label="Primary navigation">
+					<a class="text-md" href="/components">Components</a>
+					<a class="text-md" href="/gradient-builder">Gradient Builder</a>
 				</nav>
-				<details class="mobile-nav" bind:open={mobileNavOpen}>
-					<summary class="mobile-nav__trigger button ghost sm">Menu</summary>
-					<div class="mobile-nav__panel">
-						<a href="/" onclick={closeMobileNav}>Introduction</a>
-						<strong>Components</strong>
-						{#each categories as category}
-							<span class="mobile-nav__heading">{category}</span>
-							{#each components.filter((component) => component.category === category) as component}
-								<a href={`/components/${component.slug}`} onclick={closeMobileNav}>{component.name}</a>
-							{/each}
-						{/each}
-						<strong>Docs</strong>
-						<a href="/guides" onclick={closeMobileNav}>Overview</a>
-						{#each guides as guide}
-							<a href={`/guides/${guide.slug}`} onclick={closeMobileNav}>{guide.title}</a>
-						{/each}
-					</div>
-				</details>
+				<ModeToggle/>
+				<button
+					class="is-icon mobile-menu"
+					type="button"
+					aria-label="Toggle navigation menu"
+					aria-expanded={mobileNavOpen}
+					onclick={() => (mobileNavOpen = !mobileNavOpen)}
+				>
+					<Menu />
+				</button>
 			</div>
 		</header>
+		<div
+			class="mobile-nav-backdrop"
+			class:open={mobileNavOpen}
+			onclick={closeMobileNav}
+			aria-hidden="true"
+		></div>
+		<aside
+			class="mobile-nav-panel"
+			class:open={mobileNavOpen}
+			aria-label="Mobile navigation"
+			aria-hidden={!mobileNavOpen}
+		>
+			<div class="mobile-nav-header row ycenter xright pad-md shrink-0">
+				<button
+					type="button"
+					class="is-icon text-secondary"
+					aria-label="Close menu"
+					onclick={closeMobileNav}
+				>
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<line x1="18" y1="6" x2="6" y2="18"></line>
+						<line x1="6" y1="6" x2="18" y2="18"></line>
+					</svg>
+				</button>
+			</div>
+			<div class="mobile-nav-body grow pad-md">
+				<DocsNav onSelect={closeMobileNav} />
+			</div>
+		</aside>
 		<main class="app-main">
-			<aside class="sidebar-left">
-			<nav class="docs-nav navtree" aria-label="Documentation navigation">
-				<div class="navtree-group">
-					<div class="navtree-title">Library</div>
-					<a class="navtree-link" aria-current={page.url.pathname === '/' ? 'page' : undefined} href="/">Introduction</a>
-				</div>
-				<div class="navtree-group">
-					<button class="navtree-link" type="button" aria-expanded={openSidebarSection === 'docs'} onclick={() => toggleSidebarSection('docs')}>
-						<span>Docs</span><span class="sidebar-section__chevron" aria-hidden="true">⌄</span>
-					</button>
-					{#if openSidebarSection === 'docs'}
-						<div class="navtree-sub">
-							<a class="navtree-link" aria-current={page.url.pathname === '/guides' ? 'page' : undefined} href="/guides">Overview</a>
-							{#each guides as guide}
-								<a class="navtree-link" aria-current={page.url.pathname === `/guides/${guide.slug}` ? 'page' : undefined} href={`/guides/${guide.slug}`}>{guide.title}</a>
-							{/each}
-						</div>
-					{/if}
-				</div>
-				{#each categories as category}
-					<div class="navtree-group">
-						<button class="navtree-link" type="button" aria-expanded={openSidebarSection === category} onclick={() => toggleSidebarSection(category)}>
-							<span>{category}</span><span class="sidebar-section__chevron" aria-hidden="true">⌄</span>
-						</button>
-						{#if openSidebarSection === category}
-							<div class="navtree-sub">
-								{#each components.filter((component) => component.category === category) as component}
-									<a class="navtree-link" aria-current={page.url.pathname === `/components/${component.slug}` ? 'page' : undefined} href={`/components/${component.slug}`}>{component.name}</a>
-								{/each}
-							</div>
-						{/if}
-					</div>
-				{/each}
-			</nav>
-			</aside>
-			<main class="docs-main">
-				<div class="app-content prose">{@render children()}</div>
-			</main>
-			<aside class="sidebar-right">
-			{#if tocItems.length}
-				<nav class="docs-toc toc" aria-label="On this page">
-					<div class="toc-title">On this page</div>
-					<nav class="toc-list" aria-label="Table of contents">
-						{#each tocItems as item}
-							<a class="toc-link" data-depth={item.level} href={`#${item.id}`} onclick={closeToc}>{item.label}</a>
-						{/each}
-					</nav>
-				</nav>
-			{/if}
-			</aside>
+			{@render children()}
 		</main>
+		<footer class="app-footer row ycenter xbetween bt">
+			<p class="text-sm">fractalmandala | 2026</p>
+			<a class="is-icon" href="https://github.com/fractalmandala" target="_blank" rel="noreferrer"><Github/></a>
+		</footer>
 	</div>
 </MotionConfig>

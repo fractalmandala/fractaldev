@@ -236,3 +236,25 @@
 		</motion.div>
 	</div>
 {/if}
+
+<style lang="sass">
+[data-slot="context-menu-portal"]
+	position: fixed
+	z-index: var(--z-modal)
+	filter: drop-shadow(0 18px 28px rgb(0 0 0 / 0.2))
+	pointer-events: none
+
+	&[data-state="open"]
+		pointer-events: auto
+
+:global([data-slot="context-menu-content"])
+	min-width: 14rem
+	overflow: hidden
+	background: var(--bg-popover)
+	color: var(--text-primary)
+	padding: var(--space-2xs)
+	border-radius: var(--radius-6)
+	box-shadow: var(--shadow-md)
+	border: 1px solid var(--border)
+	outline: none
+</style>

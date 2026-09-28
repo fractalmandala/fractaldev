@@ -56,6 +56,8 @@
 		class: className
 	}: Props = $props();
 
+	const rootClass = $derived(['datepicker', className].filter(Boolean).join(' '));
+
 	const reduce = useReducedMotion();
 
 	let internal = $state<string | null>(untrack(() => defaultValue));
@@ -113,7 +115,7 @@
 
 <div
 	bind:this={rootEl}
-	class={className}
+	class={rootClass}
 	data-slot="datepicker"
 	data-open={open || undefined}
 	data-clearable={clearable && current ? 'true' : undefined}
@@ -176,6 +178,7 @@
 	<AnimatePresence>
 		{#if open}
 			<motion.div
+				key="panel"
 				id={`${uid}-panel`}
 				data-slot="datepicker-panel"
 				role="dialog"
@@ -198,3 +201,91 @@
 		{/if}
 	</AnimatePresence>
 </div>
+
+<style lang="sass">
+.datepicker
+	position: relative
+	display: inline-flex
+	align-items: center
+	width: 100%
+	max-width: 280px
+
+	&[data-disabled]
+		opacity: 0.5
+		pointer-events: none
+
+	[data-slot='datepicker-input']
+		display: block
+		width: 100%
+		height: var(--control-h-md)
+		padding-left: var(--space-sm)
+		padding-right: 32px
+		font-size: var(--text-sm)
+		background: var(--bg-input)
+		color: var(--text-primary)
+		border: 1px solid var(--border)
+		border-radius: var(--radius-sm)
+		cursor: pointer
+		transition: border-color var(--motion-fast) ease
+		&:focus-visible
+			outline: none
+			border-color: var(--theme-color)
+			box-shadow: 0 0 0 2px var(--ring)
+		&::placeholder
+			color: var(--text-muted)
+
+	&[data-clearable] [data-slot='datepicker-input']
+		padding-right: 56px
+
+	[data-slot='datepicker-clear']
+		position: absolute
+		right: 30px
+		top: 50%
+		transform: translateY(-50%)
+		display: inline-flex
+		align-items: center
+		justify-content: center
+		width: 20px
+		height: 20px
+		border: 0
+		border-radius: var(--radius-full)
+		background: transparent
+		color: var(--text-muted)
+		cursor: pointer
+		transition: all var(--motion-fast) ease
+		&:hover
+			background: var(--state-hover)
+			color: var(--text-primary)
+
+	[data-slot='datepicker-toggle']
+		position: absolute
+		right: 6px
+		top: 50%
+		transform: translateY(-50%)
+		display: inline-flex
+		align-items: center
+		justify-content: center
+		width: 24px
+		height: 24px
+		border: 0
+		border-radius: var(--radius-sm)
+		background: transparent
+		color: var(--text-muted)
+		cursor: pointer
+		transition: all var(--motion-fast) ease
+		&:hover
+			color: var(--text-primary)
+
+:global([data-slot='datepicker-panel'])
+	position: absolute
+	z-index: var(--z-modal)
+	top: calc(100% + 4px)
+	left: 0
+	border-radius: var(--radius-lg)
+	box-shadow: var(--shadow-popover)
+
+:global([data-slot='datepicker-panel'] > [data-slot='calendar'])
+	border: 1px solid var(--border)
+	box-shadow: none
+</style>
+

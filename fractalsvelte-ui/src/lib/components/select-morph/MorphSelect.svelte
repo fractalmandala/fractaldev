@@ -39,19 +39,25 @@
 	}
 
 	function register(v: string, label: string) {
-		labels = new Map(labels).set(v, {
-			label,
-			count: (labels.get(v)?.count ?? 0) + 1
+		untrack(() => {
+			const current = labels;
+			labels = new Map(current).set(v, {
+				label,
+				count: (current.get(v)?.count ?? 0) + 1
+			});
 		});
 	}
 
 	function unregister(v: string) {
-		const entry = labels.get(v);
-		if (!entry) return;
-		const next = new Map(labels);
-		if (entry.count <= 1) next.delete(v);
-		else next.set(v, { label: entry.label, count: entry.count - 1 });
-		labels = next;
+		untrack(() => {
+			const current = labels;
+			const entry = current.get(v);
+			if (!entry) return;
+			const next = new Map(current);
+			if (entry.count <= 1) next.delete(v);
+			else next.set(v, { label: entry.label, count: entry.count - 1 });
+			labels = next;
+		});
 	}
 
 	function labelFor(v: string | undefined) {
@@ -112,3 +118,120 @@
 <div bind:this={rootEl} data-slot="select-morph" class={className}>
 	{@render children()}
 </div>
+
+<style lang="sass">
+[data-slot='select-morph']
+	position: relative
+	display: inline-flex
+	flex-direction: column
+	width: 100%
+
+:global([data-slot='select-morph-sizer']),
+:global([data-slot='select-morph-registrar'])
+	visibility: hidden
+	height: 0
+	overflow: hidden
+	position: absolute
+	pointer-events: none
+
+:global([data-slot='select-morph-trigger'])
+	position: relative
+	display: flex
+	align-items: center
+	justify-content: space-between
+	gap: var(--space-2xs)
+	min-height: var(--control-h-md)
+	padding: 0 var(--space-sm)
+	border: 1px solid var(--border)
+	border-radius: var(--radius-4)
+	background: var(--bg-input)
+	color: var(--text-primary)
+	font-size: var(--text-md)
+	cursor: pointer
+
+	&:focus-visible
+		outline: 2px solid var(--ring)
+		outline-offset: 1px
+
+	&[data-disabled='true']
+		opacity: 0.5
+		pointer-events: none
+
+:global([data-slot='select-morph-trigger-label']),
+:global([data-slot='select-morph-value'])
+	overflow: hidden
+	text-overflow: ellipsis
+	white-space: nowrap
+
+:global([data-slot='select-morph-trigger-chevron'])
+	display: inline-flex
+	color: var(--text-muted)
+
+:global([data-slot='select-morph-panel'])
+	position: absolute
+	z-index: var(--z-modal)
+	top: calc(100% + 6px)
+	left: 0
+	right: 0
+	padding: 4px
+	background: var(--bg-popover)
+	border: 1px solid var(--border)
+	border-radius: var(--radius-6)
+	box-shadow: var(--shadow-popover)
+
+:global([data-slot='select-morph-header'])
+	display: flex
+	align-items: center
+	justify-content: space-between
+	gap: var(--space-2xs)
+	padding: var(--space-2xs) var(--space-2xs)
+	border-bottom: 1px solid var(--border-subtle)
+	font-size: var(--text-sm)
+	font-weight: 500
+	color: var(--text-primary)
+
+:global([data-slot='select-morph-header-chevron'])
+	display: inline-flex
+	color: var(--text-muted)
+
+:global([data-slot='select-morph-list'])
+	display: flex
+	flex-direction: column
+	max-height: 240px
+	overflow-y: auto
+
+:global([data-slot='select-morph-item'])
+	display: flex
+
+:global([data-slot='select-morph-item-button'])
+	display: flex
+	align-items: center
+	gap: var(--space-2xs)
+	width: 100%
+	padding: var(--space-2xs) var(--space-2xs)
+	border: 0
+	border-radius: var(--radius-4)
+	background: transparent
+	color: var(--text-secondary)
+	font-size: var(--text-md)
+	text-align: left
+	cursor: pointer
+
+	&:hover
+		background: var(--state-hover)
+		color: var(--text-primary)
+
+	&:focus-visible
+		outline: 2px solid var(--ring)
+		outline-offset: -2px
+
+	&[data-selected='true']
+		background: var(--state-selected)
+		color: var(--text-primary)
+		font-weight: 500
+
+:global([data-slot='select-morph-divider'])
+	height: 1px
+	margin: 4px 4px
+	background: var(--border-subtle)
+</style>

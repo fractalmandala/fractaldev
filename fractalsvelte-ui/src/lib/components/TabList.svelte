@@ -1,4 +1,6 @@
 <script lang="ts">
+	import type { Orientation } from '#lib/data/componentTypes.ts';
+
 	export interface Tab<T extends string = string> {
 		value: T;
 		label: string;
@@ -10,11 +12,12 @@
 		value?: T;
 		onValueChange?: (value: T) => void;
 		tabs: Tab<T>[];
-		orientation?: 'horizontal' | 'vertical';
+		orientation?: Orientation;
 		label?: string;
 		/** Snippet invoked with the active value — renders the active panel. */
 		panel?: import('svelte').Snippet<[T]>;
 		class?: string;
+		[key: string]: unknown;
 	}
 
 	let {
@@ -24,10 +27,12 @@
 		orientation = 'horizontal',
 		label = 'Tabs',
 		panel,
-		class: className = ''
+		class: className = '',
+		...rest
 	}: Props = $props();
 
 	let tabRefs: (HTMLButtonElement | undefined)[] = $state([]);
+	const rootClass = $derived(`tab-container ${className}`.trim());
 
 	function select(v: string) {
 		if (tabs.find((t) => t.value === v)?.disabled) return;
@@ -62,7 +67,7 @@
 	}
 </script>
 
-<div class="box {className}">
+<div class={rootClass} {...rest}>
 	<div
 		class="k-tablist"
 		data-orientation={orientation}
@@ -101,3 +106,61 @@
 		</div>
 	{/if}
 </div>
+
+<style lang="sass">
+
+.tab-container
+	display: flex
+	flex-direction: column
+	width: 100%
+
+.k-tablist
+	display: inline-flex
+	gap: 2px
+	padding: 2px
+	background: var(--bg-raised)
+	border: 1px solid var(--border)
+	border-radius: var(--radius-md)
+
+	&[data-orientation='vertical']
+		flex-direction: column
+		align-items: stretch
+
+.k-tab
+	display: inline-flex
+	align-items: center
+	justify-content: center
+	gap: 6px
+	padding: 7px 14px
+	font-family: inherit
+	font-size: var(--text-sm)
+	font-weight: 500
+	border: none
+	border-radius: var(--radius-sm)
+	background: transparent
+	color: var(--text-secondary)
+	cursor: pointer
+	transition: background var(--motionin1), color var(--motionin1)
+
+	&:hover
+		color: var(--text-primary)
+
+	&:focus-visible
+		outline: 2px solid var(--ring)
+		outline-offset: 2px
+
+	&:disabled
+		opacity: 0.5
+		cursor: not-allowed
+
+	&[data-state='active']
+		background: var(--bg)
+		color: var(--text-primary)
+		box-shadow: var(--shadow-sm)
+
+.k-tab-panel
+	padding: 16px
+	border: 1px solid var(--border)
+	border-radius: 0 0 var(--radius-md) var(--radius-md)
+	background: var(--bg-surface)
+</style>

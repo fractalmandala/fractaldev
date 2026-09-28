@@ -105,6 +105,8 @@ fractal-svelte-scaffold/
 fractalicons/.claude
 fractalicons/.vscode
 fractalicons/vendor/
+fractalsvelte-ui/
+fractalsvelte/src/lib
 
 fractalpop/.claude/
 

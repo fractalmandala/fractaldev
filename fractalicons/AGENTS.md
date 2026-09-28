@@ -4,20 +4,11 @@
 
 > All colors, spacing, radii, and shadows resolve from the shared 30-token vocabulary (source of truth: fractalstyler2 _00_tokens.sass, mirrored by fractalthemer CORE_TOKENS). Never invent token names, never use legacy aliases (--theme, --theme-hover), never hardcode a value a token covers.
 
-**You MUST understand and use the `fractalstyler2` SASS system. Learn it here - https://github.com/fractalmandala/fractalstyler2/blob/main/docs/agents/registry.md.**
-
-NPM link - https://www.npmjs.com/package/fractalstyler2
-
 If you find existing violations of these rules. Drop a comment to user. The project is in flux and they might be known, temporary violations. The project is part of a core set that should always be in sync. You are never working in any one of these projects alone. You are working in a WIP ecosystem.
 
 1. `fractalsvelte` is a website to front various Sveltekit projects, docs, and resources.
-2. `Fractalsvelte UI` - WIP components library at `/Users/amrit/fractalmandala/fractalcodex`.
-3. `Fractalstyler2` - SASS styling system at `/Users/amrit/fractalmandala/fractalstyler2`. [NPM](https://www.npmjs.com/package/fractalstyler2) and [Github](https://github.com/fractalmandala/fractalstyler2).
-4. `Fractalthemer` - Themeing and theme building system for Fractalstyler2, at `/Users/amrit/fractalmandala/fractalthemer`. [NPM](https://www.npmjs.com/package/fractalthemer) and [Github](https://github.com/fractalmandala/fractalthemer).
-
-Contract changes start in `fractalstyler2` → mirror to `fractalthemer` → run pnpm tokens:generate in `fractalcodex` if applicable → verify all three build. And a change in one repo usually means a version bump in another.
-
-> `fractalcodex` is folder name of the `fractalsvelte-ui` components library.
+2. `Fractalsvelte UI` - WIP components library at `/Users/amrit/fractalmandala/fractalsvelte-ui`.
+3. `Fractalthemer` - SASS styling system at `/Users/amrit/fractalmandala/fractalthemer`.
 
 ## Dev Servers
 

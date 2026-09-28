@@ -92,3 +92,38 @@
 <div bind:this={rootEl} data-slot="popover-morph" class={className}>
 	{@render children()}
 </div>
+
+<style lang="sass">
+[data-slot='popover-morph']
+	position: relative
+	display: inline-flex
+
+:global([data-slot='popover-morph-trigger'])
+	display: inline-flex
+	cursor: pointer
+
+:global([data-slot='popover-morph-panel'])
+	position: absolute
+	z-index: var(--z-modal)
+	top: calc(100% + 8px)
+	left: 0
+	min-width: 220px
+	padding: var(--space-sm)
+	background: var(--bg-popover)
+	border: 1px solid var(--border)
+	border-radius: var(--radius-8)
+	box-shadow: var(--shadow-popover)
+
+	&[data-side='top']
+		top: auto
+		bottom: calc(100% + 8px)
+
+	&[data-side='left']
+		top: 0
+		left: auto
+		right: calc(100% + 8px)
+
+	&[data-side='right']
+		top: 0
+		left: calc(100% + 8px)
+</style>

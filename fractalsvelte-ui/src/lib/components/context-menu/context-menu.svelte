@@ -113,3 +113,8 @@
 <div data-slot="context-menu" class={className}>
 	{@render children()}
 </div>
+
+<style lang="sass">
+[data-slot="context-menu"]
+	display: contents
+</style>

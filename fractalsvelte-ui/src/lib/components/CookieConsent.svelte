@@ -4,6 +4,7 @@
 	import { EASE_OUT } from '../ease.js';
 	import { Icon } from 'fractalicons';
 	import { luCookie } from 'fractalicons/lucide';
+	import type { CookieConsentPosition, CookieConsentDecision } from '#lib/data/componentTypes.ts';
 
 	interface Props {
 		title?: string;
@@ -12,11 +13,11 @@
 		rejectLabel?: string;
 		/** localStorage key remembering the decision. */
 		storageKey?: string;
-		position?: 'bottom-right' | 'bottom-left' | 'bottom-center';
+		position?: CookieConsentPosition;
 		/** Extra content between the description and the actions (e.g. a "learn more" link). */
 		children?: Snippet;
 		/** Fires once per fresh decision — not on restored sessions. */
-		onDecision?: (decision: 'accepted' | 'rejected') => void;
+		onDecision?: (decision: CookieConsentDecision) => void;
 		class?: string;
 	}
 
@@ -32,6 +33,8 @@
 		class: className
 	}: Props = $props();
 
+	const rootClass = $derived(['cookie-consent', className].filter(Boolean).join(' '));
+
 	const reduce = useReducedMotion();
 
 	let visible = $state(false);
@@ -46,7 +49,7 @@
 		if (stored !== 'accepted' && stored !== 'rejected') visible = true;
 	});
 
-	function decide(decision: 'accepted' | 'rejected') {
+	function decide(decision: CookieConsentDecision) {
 		try {
 			localStorage.setItem(storageKey, decision);
 		} catch {}
@@ -58,7 +61,8 @@
 <AnimatePresence>
 	{#if visible}
 		<motion.section
-			class={className}
+			key="consent"
+			class={rootClass}
 			data-slot="consent-root"
 			data-position={position}
 			role="region"
@@ -85,3 +89,83 @@
 		</motion.section>
 	{/if}
 </AnimatePresence>
+
+<style lang="sass">
+:global(.cookie-consent)
+	position: relative
+	display: flex
+	align-items: flex-start
+	gap: var(--space-sm)
+	width: min(440px, 94vw)
+	padding: var(--space-md)
+	background: var(--bg-popover)
+	border: 1px solid var(--border)
+	border-radius: var(--radius-lg)
+	box-shadow: var(--shadow-lg)
+
+	[data-slot='consent-icon']
+		display: inline-flex
+		align-items: center
+		justify-content: center
+		width: 36px
+		height: 36px
+		border-radius: var(--radius-full)
+		background: color-mix(in srgb, var(--theme-color) 14%, transparent)
+		color: var(--theme-color)
+		font-size: var(--text-lg)
+		flex-shrink: 0
+
+	[data-slot='consent-body']
+		flex: 1
+		display: flex
+		flex-direction: column
+		gap: var(--space-3xs)
+		min-width: 0
+
+	[data-slot='consent-title']
+		margin: 0
+		font-size: var(--text-md)
+		font-weight: 600
+		color: var(--text-primary)
+		line-height: 1.3
+
+	[data-slot='consent-description']
+		margin: 0
+		font-size: var(--text-sm)
+		color: var(--text-secondary)
+		line-height: 1.45
+
+	[data-slot='consent-actions']
+		display: flex
+		align-items: center
+		justify-content: flex-end
+		gap: var(--space-xs)
+		margin-top: var(--space-xs)
+
+	[data-slot='consent-reject']
+		padding: var(--space-2xs) var(--space-sm)
+		font-size: var(--text-xs)
+		font-weight: 500
+		color: var(--text-secondary)
+		background: var(--bg-surface)
+		border: 1px solid var(--border)
+		border-radius: var(--radius-sm)
+		cursor: pointer
+		transition: all var(--motion-fast) ease
+		&:hover
+			background: var(--state-hover)
+			color: var(--text-primary)
+
+	[data-slot='consent-accept']
+		padding: var(--space-2xs) var(--space-sm)
+		font-size: var(--text-xs)
+		font-weight: 500
+		color: var(--text-inverse)
+		background: var(--theme-color)
+		border: 1px solid var(--theme-color)
+		border-radius: var(--radius-sm)
+		cursor: pointer
+		transition: all var(--motion-fast) ease
+		&:hover
+			background: var(--theme-color-alt)
+</style>

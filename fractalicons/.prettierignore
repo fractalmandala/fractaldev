@@ -24,6 +24,10 @@ bun.lockb
 /src/lib/heroiconsfill.ts
 /src/lib/iconoir.ts
 /src/lib/iconoirfill.ts
+/src/lib/keylineduo.ts
+/src/lib/keylinefill.ts
+/src/lib/keylinesharp.ts
+/src/lib/keylinestroke.ts
 /src/lib/lucide.ts
 /src/lib/materialanim.ts
 /src/lib/octicons.ts

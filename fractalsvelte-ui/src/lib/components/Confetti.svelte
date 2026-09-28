@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { useReducedMotion } from '@humanspeak/svelte-motion';
+	import type { ConfettiShape } from '#lib/data/componentTypes.ts';
 
 	interface FireOptions {
 		/** Horizontal origin as a fraction of viewport width (0..1). */
@@ -20,6 +21,8 @@
 
 	let { colors, class: className }: Props = $props();
 
+	const rootClass = $derived(['confetti-canvas', className].filter(Boolean).join(' '));
+
 	const reduce = useReducedMotion();
 
 	let canvasEl = $state<HTMLCanvasElement | null>(null);
@@ -32,7 +35,7 @@
 		vy: number;
 		size: number;
 		color: string;
-		shape: 'rect' | 'circle';
+		shape: ConfettiShape;
 		rotation: number;
 		rotationSpeed: number;
 		born: number;
@@ -144,4 +147,14 @@
 	});
 </script>
 
-<canvas bind:this={canvasEl} class={className} data-slot="confetti-canvas" aria-hidden="true"></canvas>
+<canvas bind:this={canvasEl} class={rootClass} data-slot="confetti-canvas" aria-hidden="true"></canvas>
+
+<style lang="sass">
+.confetti-canvas
+	position: fixed
+	inset: 0
+	pointer-events: none
+	z-index: var(--z-modal)
+	width: 100vw
+	height: 100vh
+</style>

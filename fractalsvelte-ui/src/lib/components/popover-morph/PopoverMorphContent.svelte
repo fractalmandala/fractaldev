@@ -68,17 +68,17 @@
 	);
 
 	const left = $derived(
-		layout
+		layout.current
 			? align === 'end'
-				? layout.trigger.left + layout.trigger.width - layout.content.width
-				: layout.trigger.left
+				? layout.current.trigger.left + layout.current.trigger.width - layout.current.content.width
+				: layout.current.trigger.left
 			: 0
 	);
 	const top = $derived(
-		layout
+		layout.current
 			? side === 'bottom'
-				? layout.trigger.top + layout.trigger.height + sideOffset
-				: layout.trigger.top - layout.content.height - sideOffset
+				? layout.current.trigger.top + layout.current.trigger.height + sideOffset
+				: layout.current.trigger.top - layout.current.content.height - sideOffset
 			: 0
 	);
 
@@ -128,7 +128,7 @@
 				exit={reduce.current ? { opacity: 0 } : 'hidden'}
 				transition={reduce.current ? { duration: 0.12 } : undefined}
 				data-slot="popover-morph-portal"
-				style={`left:${left}px;top:${top}px;visibility:${layout ? 'visible' : 'hidden'};transform-origin:${originFor(side, align)}`}
+				style={`left:${left}px;top:${top}px;visibility:${layout.current ? 'visible' : 'hidden'};transform-origin:${originFor(side, align)}`}
 			>
 				<motion.div
 					bind:ref={contentEl}

@@ -8,9 +8,11 @@
 		maxOffset?: number;
 		disabled?: boolean;
 		children?: Snippet;
+		class?: string;
 	};
 
-	let { strength = 0.16, maxOffset = 12, disabled = false, children }: Props = $props();
+	let { strength = 0.16, maxOffset = 12, disabled = false, children, class: className = '' }: Props = $props();
+	const rootClass = $derived(['magnetic', className].filter(Boolean).join(' '));
 	let offset = $state({ x: 0, y: 0 });
 
 	function move(event: PointerEvent) {
@@ -27,6 +29,11 @@
 	}
 </script>
 
-<MotionDiv class="magnetic" data-disabled={disabled || undefined} animate={offset} transition={springFeedback} onpointermove={move} onpointerleave={reset}>
+<MotionDiv class={rootClass} data-disabled={disabled || undefined} animate={offset} transition={springFeedback} onpointermove={move} onpointerleave={reset}>
 	{@render children?.()}
 </MotionDiv>
+
+<style lang="sass">
+:global(.magnetic)
+	display: inline-block
+</style>

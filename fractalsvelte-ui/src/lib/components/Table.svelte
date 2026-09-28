@@ -1,4 +1,6 @@
 <script module lang="ts">
+	import type { TextAlign, SortDirection } from '#lib/data/componentTypes.ts';
+
 	// Exported types live in module context — a generics-bearing instance
 	// script cannot carry `export interface` modifiers.
 	export interface TableColumn<TRow extends Record<string, unknown>> {
@@ -8,7 +10,7 @@
 		/** Sort accessor override (e.g. a derived comparable value). */
 		value?: (row: TRow) => string | number;
 		width?: string;
-		align?: 'left' | 'center' | 'right';
+		align?: TextAlign;
 		/** Whether clicking the header sorts by this column. */
 		sortable?: boolean;
 		/** Custom cell rendering. */
@@ -22,7 +24,7 @@
 	import { luArrowDown, luArrowUp, luArrowUpDown } from 'fractalicons/lucide';
 	import CheckIndicator from './CheckIndicator.svelte';
 
-	type SortState = { key: string; dir: 'asc' | 'desc' };
+	type SortState = { key: string; dir: SortDirection };
 
 	interface Props {
 		columns: TableColumn<T>[];
@@ -81,6 +83,8 @@
 		onRowClick,
 		class: className
 	}: Props = $props();
+
+	const rootClass = $derived(['table-root', className].filter(Boolean).join(' '));
 
 	let internalSelected = $state<string[]>(untrack(() => defaultSelected));
 	const selectedControlled = $derived(selected !== undefined);
@@ -167,7 +171,7 @@
 </script>
 
 <div
-	class={className}
+	class={rootClass}
 	data-slot="table-root"
 	style={rootStyle}
 	data-sticky={stickyHeader || undefined}
@@ -258,3 +262,124 @@
 		</div>
 	{/if}
 </div>
+
+<style lang="sass">
+.table-root
+	position: relative
+	width: 100%
+	overflow: auto
+	border: 1px solid var(--border)
+	border-radius: var(--radius-md)
+	background: var(--bg-surface)
+
+	&[data-sticky]
+		thead [data-slot='table-head-cell']
+			position: sticky
+			top: 0
+			z-index: 1
+			background: var(--bg-surface)
+
+	&[data-striped]
+		tbody tr:nth-child(even)
+			background: color-mix(in srgb, var(--text-primary) 2%, transparent)
+
+	&[data-dense]
+		[data-slot='table-head-cell'],
+		[data-slot='table-cell']
+			padding: var(--space-2xs) var(--space-xs)
+			font-size: var(--text-xs)
+
+	[data-slot='table']
+		width: 100%
+		border-collapse: collapse
+		text-align: left
+		font-size: var(--text-sm)
+		color: var(--text-primary)
+
+	[data-slot='table-caption']
+		padding: var(--space-xs) var(--space-sm)
+		font-size: var(--text-xs)
+		color: var(--text-muted)
+		text-align: left
+		caption-side: bottom
+
+	[data-slot='table-head']
+		border-bottom: 1px solid var(--border)
+		background: color-mix(in srgb, var(--text-primary) 3%, transparent)
+
+	[data-slot='table-head-cell']
+		padding: var(--space-xs) var(--space-sm)
+		font-weight: 600
+		color: var(--text-secondary)
+		white-space: nowrap
+		border-bottom: 1px solid var(--border)
+
+		&[data-align='center']
+			text-align: center
+		&[data-align='right']
+			text-align: right
+		&[data-check]
+			width: 40px
+			padding: var(--space-xs)
+
+	[data-slot='table-sort']
+		display: inline-flex
+		align-items: center
+		gap: var(--space-2xs)
+		background: transparent
+		border: 0
+		padding: 0
+		font: inherit
+		color: inherit
+		font-weight: 600
+		cursor: pointer
+		border-radius: var(--radius-sm)
+		transition: color var(--motion-fast) ease
+
+		&:hover
+			color: var(--text-primary)
+
+	[data-slot='table-row']
+		border-bottom: 1px solid var(--border-subtle)
+		transition: background var(--motion-fast) ease
+
+		&:last-child
+			border-bottom: 0
+
+		&:hover
+			background: var(--state-hover)
+
+		&[data-selected]
+			background: color-mix(in srgb, var(--theme-color) 8%, transparent)
+
+	[data-slot='table-cell']
+		padding: var(--space-xs) var(--space-sm)
+		color: var(--text-primary)
+		vertical-align: middle
+
+		&[data-align='center']
+			text-align: center
+		&[data-align='right']
+			text-align: right
+		&[data-check]
+			width: 40px
+			padding: var(--space-xs)
+
+	[data-slot='table-check']
+		display: inline-flex
+		align-items: center
+		justify-content: center
+		background: transparent
+		border: 0
+		padding: 0
+		cursor: pointer
+		color: inherit
+		border-radius: var(--radius-sm)
+
+	[data-slot='table-empty']
+		padding: var(--space-xl) var(--space-md)
+		text-align: center
+		color: var(--text-muted)
+		font-size: var(--text-sm)
+</style>
+

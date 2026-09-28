@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { tick, untrack } from 'svelte';
+	import type { NavigationEdge } from '#lib/data/componentTypes.ts';
 	import { Icon } from 'fractalicons';
 	import { luChevronLeft, luChevronRight } from 'fractalicons/lucide';
 
@@ -38,6 +39,8 @@
 		onValueChange,
 		class: className
 	}: Props = $props();
+
+	const rootClass = $derived(['calendar', className].filter(Boolean).join(' '));
 
 	let internal = $state<string | null>(untrack(() => defaultValue));
 	const controlled = $derived(value !== undefined);
@@ -165,7 +168,7 @@
 		});
 	}
 
-	function weekEdge(edge: 'first' | 'last') {
+	function weekEdge(edge: NavigationEdge) {
 		for (const week of weeks) {
 			const inMonth = week.filter((c) => c.inMonth);
 			if (inMonth.some((c) => c.iso === focusedInView)) {
@@ -207,7 +210,7 @@
 	}
 </script>
 
-<div class={className} data-slot="calendar" role="group" aria-label={ariaLabel}>
+<div class={rootClass} data-slot="calendar" role="group" aria-label={ariaLabel}>
 	<div data-slot="calendar-header">
 		<button
 			type="button"
@@ -273,3 +276,115 @@
 		{/each}
 	</div>
 </div>
+
+<style lang="sass">
+.calendar
+	display: inline-flex
+	flex-direction: column
+	gap: var(--space-xs)
+	padding: var(--space-sm)
+	background: var(--bg-surface)
+	border: 1px solid var(--border)
+	border-radius: var(--radius-lg)
+	width: fit-content
+	user-select: none
+
+	[data-slot='calendar-header']
+		display: flex
+		align-items: center
+		justify-content: space-between
+		gap: var(--space-xs)
+
+	[data-slot='calendar-month']
+		font-size: var(--text-sm)
+		font-weight: 600
+		color: var(--text-primary)
+		text-align: center
+		flex: 1
+
+	[data-slot='calendar-nav']
+		display: inline-flex
+		align-items: center
+		justify-content: center
+		width: 28px
+		height: 28px
+		border: 1px solid var(--border)
+		border-radius: var(--radius-sm)
+		background: var(--bg-raised)
+		color: var(--text-secondary)
+		cursor: pointer
+		transition: all var(--motion-fast) ease
+		&:hover
+			background: var(--state-hover)
+			color: var(--text-primary)
+			border-color: var(--border-strong)
+
+	[data-slot='calendar-grid']
+		display: flex
+		flex-direction: column
+		gap: 2px
+		&:focus-visible
+			outline: none
+
+	[data-slot='calendar-weekdays']
+		display: grid
+		grid-template-columns: repeat(7, 32px)
+		gap: 2px
+		margin-bottom: 4px
+
+	[data-slot='calendar-weekday']
+		display: flex
+		align-items: center
+		justify-content: center
+		height: 28px
+		font-size: var(--text-xs)
+		font-weight: 500
+		color: var(--text-muted)
+
+	[data-slot='calendar-week']
+		display: grid
+		grid-template-columns: repeat(7, 32px)
+		gap: 2px
+
+	[data-slot='calendar-cell']
+		display: flex
+		align-items: center
+		justify-content: center
+
+	[data-slot='calendar-day']
+		display: inline-flex
+		align-items: center
+		justify-content: center
+		width: 32px
+		height: 32px
+		border-radius: var(--radius-sm)
+		font-size: var(--text-xs)
+		font-weight: 500
+		border: 0
+		background: transparent
+		color: var(--text-primary)
+		cursor: pointer
+		transition: all var(--motion-fast) ease
+		&:hover:not([aria-disabled='true'])
+			background: var(--state-hover)
+			color: var(--text-primary)
+		&[data-outside]
+			color: var(--text-muted)
+			opacity: 0.35
+			cursor: default
+			pointer-events: none
+		&[data-today]
+			border: 1px solid var(--theme-color)
+			font-weight: 600
+		&[data-selected]
+			background: var(--theme-color)
+			color: var(--text-inverse)
+			font-weight: 600
+		&:focus-visible
+			outline: 2px solid var(--ring)
+			outline-offset: -1px
+		&[aria-disabled='true']
+			opacity: 0.4
+			cursor: not-allowed
+</style>
+

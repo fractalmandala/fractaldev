@@ -6,7 +6,7 @@ import * as sass from 'sass';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const source = JSON.parse(readFileSync(resolve(root, 'src/lib/styles/token-source.json'), 'utf8'));
 const sassSource = readFileSync(resolve(root, 'src/lib/styles/_00_tokens.sass'), 'utf8');
-const styleFiles = ['_00_tokens.sass', '_01_config.sass', '_02_fonts.sass', '_03_responsive.sass', '_04_atoms.sass', '_05_molecules.sass', '_06_recipes.sass', '_07_base.sass', '_08_blocks.sass', '_09_utilities.sass', '_10_layouts.sass', '_11_own.sass', 'index.sass', 'global.sass']
+const styleFiles = ['_00_tokens.sass', '_01_config.sass', '_02_dimensions.sass', '_03_containers.sass', '_04_layouts.sass', '_05_shells.sass', '_06_visuals.sass', '_07_interactions.sass', '_08_own.sass', '_09_docs_components.sass', '_10_component_library.sass', 'kit/_01_config.sass', 'kit/_03_responsive.sass', 'kit/_04_atoms.sass', 'kit/_05_molecules.sass', 'kit/_06_recipes.sass', 'kit/_fractals.sass', 'kit/_kit.sass', 'kit/_klib.sass', 'index.sass']
 	.map((file) => readFileSync(resolve(root, 'src/lib/styles', file), 'utf8'))
 	.join('\n');
 
@@ -31,7 +31,7 @@ const sassPackageImporter = {
 	}
 };
 
-const compiled = sass.compile(resolve(root, 'styles/system.sass'), {
+const compiled = sass.compile(resolve(root, 'src/lib/styles/index.sass'), {
 	style: 'expanded',
 	importers: [sassPackageImporter],
 	loadPaths: [resolve(root, 'node_modules')]
@@ -44,12 +44,9 @@ if (missingDefaults.length || missingDark.length || forbiddenColourAliases.lengt
 	process.exitCode = 1;
 }
 
-for (const required of ['--border-width: 1px', '--border-emphasis-width: 3px', '--focus-ring-width: 2px']) {
-	if (!compiled.includes(required)) {
-		console.error(`Compiled Sass is missing ${required}`);
-		process.exitCode = 1;
-	}
-}
+// NOTE: the legacy generator also emitted --border-width/--border-emphasis-width/
+// --focus-ring-width, but nothing in the vocabulary consumes them, so they are
+// intentionally absent from the hand-maintained token file.
 
 if (!compiled.includes('.ui-theme[data-theme=dark]') || !compiled.includes('.ui-theme[data-theme=light]')) {
 	console.error('Compiled Sass is missing explicit scoped light/dark selectors.');

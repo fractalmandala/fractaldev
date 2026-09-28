@@ -33,7 +33,7 @@
 		variant?: PortedButtonVariant;
 		size?: PortedButtonSize;
 		href?: string;
-		type?: 'button' | 'submit' | 'reset';
+		type?: ButtonType;
 		disabled?: boolean;
 		ref?: HTMLElement | null;
 		class?: string;
@@ -45,9 +45,12 @@
 
 <script lang="ts">
 	import Button from '../components/Button.svelte';
+	import type { ButtonSize, ButtonType, ButtonVariant } from '#lib/data/componentTypes.ts';
 
-	type FractalVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive' | 'link';
-	type FractalSize = 'sm' | 'md' | 'lg' | 'icon-sm' | 'icon' | 'icon-lg';
+	// Single source: the map targets are members of the shared ButtonVariant /
+	// ButtonSize unions, so any rename in componentTypes.ts fails here, not silently.
+	type FractalVariant = ButtonVariant;
+	type FractalSize = ButtonSize;
 
 	let {
 		variant = 'default',

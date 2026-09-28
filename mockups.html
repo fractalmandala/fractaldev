@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Agent UI Mockups</title>
+<style>
+:root{
+  --bg:#fff; --canvas:#f6f6f6; --text:#1c1c1e; --muted:#8a8a8e; --faint:#b9b9bd;
+  --line:#e6e6e8; --chip:#ececee; --hover:#e9e9eb; --shadow:0 12px 40px rgba(0,0,0,.10),0 2px 6px rgba(0,0,0,.05);
+  --green:#2cc84d; --blue:#2f7fe0; --sidebar:#f7f7f8;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter",system-ui,sans-serif;
+  --mono:"SF Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);background:var(--canvas);color:var(--text);-webkit-font-smoothing:antialiased;padding:32px 16px 80px}
+h2.label{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:48px auto 12px;max-width:1000px}
+h2.label:first-child{margin-top:0}
+.screen{max-width:1000px;margin:0 auto;background:var(--bg);border:1px solid var(--line);border-radius:4px;overflow:hidden;position:relative}
+svg{display:block}
+
+/* ---------- Composer ---------- */
+.composer{background:#fff;border:1px solid #efeff1;border-radius:4px;box-shadow:0 4px 24px rgba(0,0,0,.05);padding:18px 18px 12px}
+.composer .input{font-size:17px;color:var(--faint);height:56px;display:flex;align-items:flex-start;gap:1px}
+.caret{width:1.5px;height:22px;background:var(--text);animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.bar{display:flex;align-items:center;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:7px;font:inherit;font-size:15px;color:#3a3a3c;background:transparent;border:0;border-radius:4px;padding:7px 12px;cursor:default;white-space:nowrap}
+.btn:hover,.btn.active{background:var(--chip)}
+.btn.icon{padding:7px}
+.btn b{font-weight:600;color:var(--text)}
+.spacer{flex:1}
+.send{width:38px;height:38px;border-radius:50%;background:#8e8e93;display:grid;place-items:center;border:0}
+.ico{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- Empty state ---------- */
+.empty{height:640px;display:flex;flex-direction:column}
+.hero{flex:1;display:grid;place-items:center;align-content:center;gap:22px}
+.hero h1{font-size:38px;font-weight:500;letter-spacing:-.02em}
+.dock-comp{padding:0 24px 24px}
+
+/* ---------- File picker ---------- */
+.picker-stage{height:620px;padding:36px;background:linear-gradient(#fff,#fafafa)}
+.dialog{display:flex;border-radius:4px;background:#fff;box-shadow:var(--shadow);border:1px solid #e4e4e6;overflow:hidden;height:420px}
+.side{width:210px;background:var(--sidebar);padding:14px 10px;overflow:hidden;border-right:1px solid #eee}
+.side .sec{font-size:11.5px;font-weight:600;color:var(--muted);margin:14px 8px 6px}
+.side .it{display:flex;align-items:center;gap:9px;font-size:13.5px;padding:5px 8px;border-radius:4px}
+.side .it .ico{width:16px;height:16px;color:#555}
+.side .it.sel{background:#e8e8ea;color:var(--green)}
+.side .it.sel .ico{color:var(--green)}
+.main{flex:1;display:flex;flex-direction:column;min-width:0}
+.toolbar{display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid #eee}
+.seg{display:flex;align-items:center;gap:4px;background:#f1f1f3;border-radius:4px;padding:5px 9px;color:#666;font-size:13px}
+.seg .ico{width:15px;height:15px}
+.path{flex:1;display:flex;align-items:center;gap:7px;background:#f1f1f3;border-radius:4px;padding:5px 10px;font-size:13.5px}
+.search{width:180px;display:flex;align-items:center;gap:6px;border:1px solid #e6e6e8;border-radius:4px;padding:5px 9px;font-size:13.5px;color:var(--muted)}
+.grid{flex:1;display:grid;grid-template-columns:repeat(5,1fr);gap:16px 8px;padding:18px 14px;overflow:hidden}
+.file{display:flex;flex-direction:column;align-items:center;text-align:center;font-size:12.5px;line-height:1.3}
+.file .meta{color:var(--blue);font-size:11px;margin-top:2px}
+.file .name{margin-top:8px;max-width:120px}
+.file.sel .name{background:var(--blue);color:#fff;border-radius:4px;padding:0 4px}
+.doc{width:46px;height:58px;background:#fff;border:1px solid #ddd;border-radius:3px;position:relative;box-shadow:0 1px 2px rgba(0,0,0,.06);display:grid;place-items:center}
+.doc::after{content:"";position:absolute;top:-1px;right:-1px;width:12px;height:12px;background:linear-gradient(225deg,var(--canvas) 50%,#e3e3e3 50%)}
+.doc small{position:absolute;bottom:6px;font-size:7px;color:#aaa}
+.zip-line{width:5px;height:22px;background:repeating-linear-gradient(#bbb 0 3px,transparent 3px 5px);margin-top:-10px}
+.folder{width:66px;height:50px;position:relative;margin-top:8px}
+.folder::before{content:"";position:absolute;top:-5px;left:0;width:26px;height:10px;background:#27b546;border-radius:3px 3px 0 0}
+.folder::after{content:"";position:absolute;inset:0;background:var(--green);border-radius:3px 4px 4px 4px;box-shadow:inset 0 2px 0 rgba(255,255,255,.35)}
+.footer{display:flex;justify-content:flex-end;gap:10px;padding:10px 14px;border-top:1px solid #eee}
+.pbtn{font:inherit;font-size:14px;border:0;border-radius:4px;padding:6px 16px;background:#f0f0f2;color:var(--text)}
+.pbtn.dis{color:#b5b5b8;background:#f6f6f7}
+.pbtn.primary{background:var(--blue);color:#fff}
+.tooltip{position:absolute;background:#f6f6f6;border:1px solid #cfcfcf;font-size:12.5px;padding:2px 6px;border-radius:3px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+
+/* ---------- Popovers ---------- */
+.pop-stage{height:520px;display:flex;flex-direction:column;justify-content:flex-end;padding:0 24px 24px;position:relative}
+.pop-stage .composer{position:relative}
+.pop-stage.screen{overflow:visible}
+.popover{position:absolute;bottom:calc(100% + 10px);max-width:100%;background:#fff;border:1px solid #ededef;border-radius:4px;box-shadow:var(--shadow);padding:8px}
+.menu-item{display:flex;align-items:center;justify-content:space-between;gap:24px;font-size:15px;padding:10px 12px;border-radius:4px}
+.menu-item:hover,.menu-item.on{background:var(--hover)}
+.menu-item .sub{font-size:12px;color:var(--muted);display:block;margin-top:2px}
+
+.model{width:330px;max-width:100%;padding:14px 8px 8px}
+.model .head{display:flex;align-items:center;gap:10px;padding:2px 10px 12px;font-size:15px;font-weight:500}
+.model .msearch{display:flex;align-items:center;gap:8px;background:#f0f0f2;border-radius:4px;padding:9px 12px;margin:0 6px 10px;font-size:14px;color:var(--muted)}
+.model .list{max-height:250px;overflow:auto;padding-right:2px}
+.model .group{font-size:12px;font-weight:700;letter-spacing:.06em;color:#6a6a6e;margin:12px 12px 6px}
+.mrow{display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:4px;font-size:14px}
+.mrow:hover,.mrow.hl{background:#f1f1f3}
+.mrow .n{margin-right:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px}
+.tag{font-size:11px;color:#a5a5a9;background:#eeeef0;border-radius:4px;padding:2px 6px}
+.ctx{font-family:var(--mono);font-size:11px;color:#b0b0b4;width:36px;text-align:right}
+.mrow.cur .ctx{color:var(--text)}
+.check{width:14px}
+.effort{display:flex;gap:4px;margin:10px 6px 0;padding-top:10px;border-top:1px solid #efeff1}
+.effort span{flex:1;text-align:center;font-size:12.5px;padding:6px 0;border-radius:4px;color:#555}
+.effort span.on{background:var(--text);color:#fff}
+
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:1000px;margin:0 auto}
+.row2 .screen{max-width:none}
+@media (max-width:760px){
+  .row2{grid-template-columns:1fr}
+  .grid{grid-template-columns:repeat(3,1fr)}
+  .side{display:none}
+  .search{display:none}
+  .hide-sm{display:none}
+  .hero h1{font-size:28px}
+}
+</style>
+</head>
+<body>
+
+<!-- 1. Empty state -->
+<h2 class="label">01 — New session / empty state</h2>
+<div class="screen empty">
+  <div class="hero">
+    <svg width="110" height="100" viewBox="0 0 110 100" fill="none" stroke="#111" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto">
+      <path d="M30 40c-6-2-12 3-10 10 1 4 5 6 8 5 1 10 8 17 18 17 5 6 16 7 22 1 8 2 15-4 13-12 6-4 6-13 0-17 3-10-5-19-15-17-4-8-17-10-24-3-8-1-14 6-12 16z"/>
+      <path d="M44 38l7 6-7 6" stroke-width="4"/>
+      <path d="M64 37v12" stroke-width="4.5"/>
+      <circle cx="46" cy="86" r="6"/><circle cx="68" cy="86" r="6"/>
+    </svg>
+    <h1>What can I help you build?</h1>
+  </div>
+  <div class="dock-comp">
+    <div class="composer">
+      <div class="input"><span class="caret"></span>Ask anything</div>
+      <div class="bar">
+        <button class="btn icon"><svg class="ico" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+        <button class="btn"><svg class="ico" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6z"/></svg>Agent</button>
+        <button class="btn">Ask every time <svg class="ico" style="width:14px" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+        <span class="spacer"></span>
+        <button class="btn"><svg class="ico" viewBox="0 0 24 24"><rect x="5" y="8" width="14" height="11" rx="2"/><path d="M12 4v4M9 13h.01M15 13h.01M3 13h2M19 13h2"/></svg><span class="hide-sm">Gemini 3.8 Flash ·</span> <b>Medium</b> <svg class="ico" style="width:14px" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+        <button class="btn icon" style="color:#999"><svg class="ico" viewBox="0 0 24 24"><path d="M11 3l1.8 5.2L18 10l-5.2 1.8L11 17l-1.8-5.2L4 10l5.2-1.8z"/><path d="M18 3v4M16 5h4"/><circle cx="5" cy="19" r="1.2"/></svg></button>
+        <button class="send"><svg class="ico" style="color:#fff" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2. File picker -->
+<h2 class="label">02 — Attach file (＋) → system file picker</h2>
+<div class="screen picker-stage">
+  <div class="dialog">
+    <aside class="side">
+      <div class="it"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Recents</div>
+      <div class="it"><svg class="ico" viewBox="0 0 24 24"><path d="M3 7h6l2 2h10v10H3z"/></svg>Shared</div>
+      <div class="sec">Favorites</div>
+      <div class="it"><svg class="ico" viewBox="0 0 24 24"><path d="M3 6h6l2 2h10v11H3z"/></svg>mandala</div>
+      <div class="it"><svg class="ico" viewBox="0 0 24 24"><path d="M3 6h6l2 2h10v11H3z"/></svg>fractaldev</div>
+      <div class="it"><svg class="ico" viewBox="0 0 24 24"><path d="M3 6h6l2 2h10v11H3z"/></svg>fractalmandala</div>
+      <div class="it"><svg class="ico" viewBox="0 0 24 24"><path d="M3 6h6l2 2h10v11H3z"/></svg>100cabinet</div>
+      <div class="it"><svg class="ico" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9H3z"/><path d="M10 20v-6h4v6"/></svg>amrit</div>
+      <div class="it"><svg class="ico" viewBox="0 0 24 24"><path d="M3 6h6l2 2h10v11H3z"/></svg>GitHub</div>
+      <div class="it"><svg class="ico" viewBox="0 0 24 24"><path d="M3 6h6l2 2h10v11H3z"/></svg>Screenshots</div>
+      <div class="it"><svg class="ico" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/></svg>Documents</div>
+      <div class="it sel"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v9M8 12l4 4 4-4"/></svg>Downloads</div>
+    </aside>
+    <div class="main">
+      <div class="toolbar">
+        <div class="seg">‹ ›</div>
+        <div class="seg"><svg class="ico" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg>⌄</div>
+        <div class="path"><span style="width:14px;height:11px;background:var(--green);border-radius:2px"></span>Downloads<span class="spacer"></span>⇕</div>
+        <div class="search"><svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4-4"/></svg>Search</div>
+      </div>
+      <div class="grid">
+        <div class="file"><div class="doc"><div class="zip-line"></div><small>ZIP</small></div><div class="name">Delta.app.zip</div><div class="meta">74.2 MB</div></div>
+        <div class="file"><div class="doc">⬇</div><div class="name">brilliant-0.1.0-beta.dmg</div><div class="meta">89.7 MB</div></div>
+        <div class="file"><div class="folder"></div><div class="name">odishatemps</div><div class="meta">44 items</div></div>
+        <div class="file"><div class="folder"></div><div class="name">Pictures</div><div class="meta">22 items</div></div>
+        <div class="file"><div class="doc"><div class="zip-line"></div><small>ZIP</small></div><div class="name">Pictures-2026…-001.zip</div><div class="meta">58.6 MB</div></div>
+        <div class="file"><div class="doc" style="font-size:6px;color:#bbb;line-height:1">≡≡≡<br>≡≡≡<br>≡≡≡</div><div class="name">the avadhva…its.docx</div></div>
+        <div class="file"><div class="doc">⬇</div><div class="name">Cline_0.0.28_universal.dmg</div><div class="meta">77.1 MB</div></div>
+        <div class="file"><div class="doc">⬇</div><div class="name">Zed-aarch64.dmg</div><div class="meta">146.9 MB</div></div>
+        <div class="file sel"><div class="folder"></div><div class="name">ABCAreal_2026-09-14…_mlsx</div><div class="meta">6 items</div></div>
+        <div class="file"><div class="doc"><div class="zip-line"></div><small>ZIP</small></div><div class="name">ABCAreal_2026-09-14…mlsx.zip</div><div class="meta">4.3 MB</div></div>
+      </div>
+      <div class="footer">
+        <button class="pbtn">Cancel</button>
+        <button class="pbtn primary">Open</button>
+      </div>
+    </div>
+  </div>
+  <div class="tooltip" style="left:38%;top:525px">ABCAreal_2026-09-14-074527_mlsx</div>
+</div>
+
+<!-- 3 & 4. Popovers -->
+<h2 class="label" style="max-width:1000px">03 — Permission mode &nbsp;·&nbsp; 04 — Model picker</h2>
+<div class="row2">
+  <div class="screen pop-stage">
+    <div class="composer" style="padding:12px 14px">
+      <div class="popover" style="left:0;width:240px">
+      <div class="menu-item on"><span>Ask every time<span class="sub">Approve each action</span></span><svg class="ico" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></div>
+      <div class="menu-item"><span>Accept edits<span class="sub">Auto-approve file changes</span></span></div>
+      <div class="menu-item"><span>Auto<span class="sub">Run without asking</span></span></div>
+    </div>
+      <div class="bar">
+        <button class="btn"><svg class="ico" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6z"/></svg>Agent</button>
+        <button class="btn active">Ask every time <svg class="ico" style="width:14px" viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen pop-stage">
+    <div class="composer" style="padding:12px 14px">
+      <div class="popover model" style="right:0">
+      <div class="head"><svg class="ico" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>Model</div>
+      <div class="msearch"><svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4-4"/></svg><span class="caret" style="height:16px"></span>Search models</div>
+      <div class="list">
+        <div class="group">XAI</div>
+        <div class="mrow hl"><span class="n">Grok 4.6</span><span class="tag">reasoning</span><span class="tag">vision</span><span class="ctx">500K</span><span class="check"></span></div>
+        <div class="mrow"><span class="n">Grok Build 0.1</span><span class="tag">reasoning</span><span class="tag">vision</span><span class="ctx">256K</span><span class="check"></span></div>
+        <div class="mrow"><span class="n">Grok 4.5</span><span class="tag">reasoning</span><span class="tag">vision</span><span class="ctx">500K</span><span class="check"></span></div>
+        <div class="mrow"><span class="n">Grok 4.20 Multi…</span><span class="tag">reasoning</span><span class="tag">vision</span><span class="ctx">1M</span><span class="check"></span></div>
+        <div class="group">GOOGLE GEMINI</div>
+        <div class="mrow"><span class="n">Deep Research…</span><span class="tag">reasoning</span><span class="tag">vision</span><span class="ctx">131K</span><span class="check"></span></div>
+        <div class="mrow cur"><span class="n">Gemini 3.8 Flash</span><span class="tag">reasoning</span><span class="tag">vision</span><span class="ctx">1.0M</span><svg class="ico check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></div>
+      </div>
+      <div class="effort"><span>Low</span><span class="on">Medium</span><span>High</span></div>
+    </div>
+      <div class="bar">
+        <span class="spacer"></span>
+        <button class="btn active"><svg class="ico" viewBox="0 0 24 24"><rect x="5" y="8" width="14" height="11" rx="2"/><path d="M12 4v4M9 13h.01M15 13h.01"/></svg>Gemini 3.8 Flash · <b>Medium</b></button>
+        <button class="send"><svg class="ico" style="color:#fff" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

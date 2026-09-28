@@ -12,6 +12,7 @@
 		showDays?: boolean;
 		onComplete?: () => void;
 		class?: string;
+		[key: string]: unknown;
 	}
 
 	let {
@@ -20,17 +21,16 @@
 		running = true,
 		showDays = false,
 		onComplete,
-		class: className
+		class: className = '',
+		...rest
 	}: Props = $props();
 
 	const reduce = useReducedMotion();
 
-	// `seconds` anchors to mount time; `to` re-derives whenever it moves.
 	const mountedAt = Date.now();
 	let now = $state(mountedAt);
 	const target = $derived(to === undefined ? mountedAt + seconds * 1000 : new Date(to).getTime());
 
-	// Fire onComplete exactly once per deadline.
 	let fired = false;
 	$effect(() => {
 		void target;
@@ -68,9 +68,11 @@
 		exit: { y: '-55%', opacity: 0 },
 		transition: { duration: 0.28, ease: EASE_OUT }
 	} as const;
+
+	const rootClass = $derived(`countdown-root ${className}`.trim());
 </script>
 
-<div class={className} data-slot="countdown" role="timer">
+<div class={rootClass} data-slot="countdown" role="timer" {...rest}>
 	{#snippet unit(value: string, label: string)}
 		<div data-slot="countdown-unit">
 			<span data-slot="countdown-value">
@@ -80,6 +82,7 @@
 					<AnimatePresence mode="popLayout" initial={false}>
 						{#each [value] as v (v)}
 							<motion.span
+								key={v}
 								initial={ROLL.initial}
 								animate={ROLL.animate}
 								exit={ROLL.exit}
@@ -102,3 +105,45 @@
 	{@render unit(pad(minutes), 'min')}
 	{@render unit(pad(secs), 'sec')}
 </div>
+
+<style lang="sass">
+
+.countdown-root
+	display: inline-flex
+	align-items: center
+	gap: var(--space-xs)
+
+	[data-slot='countdown-unit']
+		display: flex
+		flex-direction: column
+		align-items: center
+		justify-content: center
+		min-width: 52px
+		padding: var(--space-2xs) var(--space-xs)
+		background: var(--bg-surface)
+		border: 1px solid var(--border)
+		border-radius: var(--radius-md)
+		box-shadow: var(--shadow-sm)
+
+	[data-slot='countdown-value']
+		position: relative
+		display: flex
+		align-items: center
+		justify-content: center
+		height: 32px
+		overflow: hidden
+		font-family: var(--font-mono, monospace)
+		font-size: var(--text-xl)
+		font-weight: 700
+		font-variant-numeric: tabular-nums
+		color: var(--text-primary)
+		line-height: 1
+
+	[data-slot='countdown-label']
+		font-size: 10px
+		font-weight: 600
+		text-transform: uppercase
+		letter-spacing: 0.06em
+		color: var(--text-muted)
+		margin-top: 2px
+</style>

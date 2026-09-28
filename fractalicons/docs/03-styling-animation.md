@@ -6,7 +6,7 @@ type: fractalicons
 
 Icons are unstyled SVG primitives, so you drive color, size, and motion entirely from CSS — including reacting to a **parent** element like a button.
 
-- **Color is automatic.** Every icon paints with `currentColor` (both fill and stroke), so it inherits the surrounding text color. Change `color` anywhere up the tree and the icon follows.
+- **Color is automatic.** Every icon paints with `currentColor` (both fill and stroke), so it inherits the surrounding text color. Change `color` anywhere up the tree and the icon follows. Keyline Duo (`kld`) keeps that rule on its plate and draws the plate at 40% opacity (`fill-opacity="0.4"`); the keyline stays full strength.
 - **A stable `.fractalicon` class** is on every icon's `<svg>` (plus `part="icon"` for shadow-DOM `::part()` styling), so you can target it without `:global` gymnastics.
 - Anything you pass through — `class`, `style`, `stroke`, `transform`, data attributes — lands on the `<svg>`.
 
@@ -64,7 +64,6 @@ Icons are unstyled SVG primitives, so you drive color, size, and motion entirely
 ```
 
 > In a plain (non-Svelte-scoped) stylesheet you can drop the `:global(...)` wrapper: `.settings:hover .fractalicon { … }`.
-
 
 ## Animations
 

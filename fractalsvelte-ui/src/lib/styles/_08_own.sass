@@ -2,10 +2,19 @@
 	border: 1px solid red
 
 .logomotif
-	height: 32px
-	width: 32px
-	transform-origin: center center
-	transition: transform var(--transin-2)
+	height: 28px
+	width: 28px
 
 .logotype
-	height: 18px
+	height: 21px
+	@media (max-width: 540px)
+		display: none
+
+::view-transition-old(root),
+::view-transition-new(root)
+	animation: none
+	mix-blend-mode: normal
+
+html.mode-wipe::view-transition-old(root),
+html.mode-wipe::view-transition-new(root)
+	animation: none

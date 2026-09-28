@@ -118,3 +118,124 @@
 >
 	{@render children()}
 </div>
+
+<style lang="sass">
+[data-slot='sidebar-wrapper']
+	display: flex
+	min-height: 240px
+	width: 100%
+
+:global([data-slot='sidebar'])
+	flex: 0 0 auto
+	overflow: hidden
+	background: var(--bg-panel)
+	border-right: 1px solid var(--border)
+	border-radius: var(--radius-8)
+
+:global([data-slot='sidebar-panel'])
+	display: flex
+	flex-direction: column
+	gap: var(--space-sm)
+	width: 224px
+	padding: var(--space-sm)
+
+:global([data-slot='sidebar-header'])
+	display: flex
+	align-items: center
+	padding: var(--space-2xs) var(--space-3xs)
+	color: var(--text-primary)
+
+:global([data-slot='sidebar-content'])
+	flex: 1 1 auto
+	display: flex
+	flex-direction: column
+	gap: var(--space-sm)
+	overflow-y: auto
+
+:global([data-slot='sidebar-footer'])
+	padding: var(--space-2xs) var(--space-3xs)
+	border-top: 1px solid var(--border-subtle)
+
+:global([data-slot='sidebar-group'])
+	display: flex
+	flex-direction: column
+	gap: var(--space-3xs)
+
+:global([data-slot='sidebar-group-label'])
+	padding: var(--space-3xs) var(--space-2xs)
+	font-size: var(--text-xs)
+	font-weight: 600
+	text-transform: uppercase
+	letter-spacing: 0.04em
+	color: var(--text-muted)
+
+:global([data-slot='sidebar-group-content'])
+	display: flex
+	flex-direction: column
+	gap: 2px
+
+:global([data-slot='sidebar-menu'])
+	display: flex
+	flex-direction: column
+	gap: 2px
+
+:global([data-slot='sidebar-menu-item'])
+	display: flex
+
+:global([data-slot='sidebar-menu-button'])
+	display: flex
+	align-items: center
+	gap: var(--space-2xs)
+	width: 100%
+	padding: var(--space-2xs)
+	border: 0
+	border-radius: var(--radius-4)
+	background: transparent
+	color: var(--text-secondary)
+	font-size: var(--text-sm)
+	text-align: left
+	text-decoration: none
+	cursor: pointer
+
+	&:hover
+		background: var(--state-hover)
+		color: var(--text-primary)
+
+	&:focus-visible
+		outline: 2px solid var(--ring)
+		outline-offset: -2px
+
+	&[data-active='true']
+		background: var(--state-selected)
+		color: var(--text-primary)
+		font-weight: 500
+
+:global([data-slot='sidebar-menu-button-icon'])
+	display: inline-flex
+	color: var(--text-muted)
+
+:global([data-slot='sidebar-menu-button'][data-active='true'] [data-slot='sidebar-menu-button-icon'])
+	color: var(--text-primary)
+
+:global([data-slot='sidebar-rail'])
+	position: absolute
+	inset: 0
+	width: 8px
+	cursor: ew-resize
+
+:global([data-slot='sidebar-trigger']),
+:global([data-slot='sidebar-close'])
+	display: inline-flex
+	align-items: center
+	justify-content: center
+	width: var(--control-h-sm, 28px)
+	height: var(--control-h-sm, 28px)
+	border: 1px solid var(--border)
+	border-radius: var(--radius-4)
+	background: var(--bg-raised)
+	color: var(--text-secondary)
+	cursor: pointer
+
+	&:hover
+		background: var(--state-hover)
+</style>

@@ -44,6 +44,7 @@
 <!-- svelte-ignore a11y_no_static_element_interactions — the li is a motion
      element carrying drag; the dismissible surface inside is a real button. -->
 <motion.li
+	key={toast.id}
 	layout
 	initial={reduce.current
 		? { opacity: 0 }

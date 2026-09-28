@@ -22,6 +22,10 @@
 	import { slAnchor } from '$lib/simpleline.js';
 	import { tbArrowMerge } from '$lib/tabler.js';
 	import { tbfAccessible } from '$lib/tablerfill.js';
+	import { klHeart, klBell } from '$lib/keylinestroke.js';
+	import { klfHeart } from '$lib/keylinefill.js';
+	import { kldHeart } from '$lib/keylineduo.js';
+	import { klsHeart } from '$lib/keylinesharp.js';
 
 	const sampleIcons = [
 		{ set: 'Lucide (lu)', name: 'luActivity', icon: luActivity },
@@ -54,7 +58,12 @@
 		{ set: 'Simple Icons (si)', name: 'siFigma', icon: siFigma },
 		{ set: 'Simple Line (sl)', name: 'slAnchor', icon: slAnchor },
 		{ set: 'Tabler (tb)', name: 'tbArrowMerge', icon: tbArrowMerge },
-		{ set: 'Tabler Filled (tbf)', name: 'tbfAccessible', icon: tbfAccessible }
+		{ set: 'Tabler Filled (tbf)', name: 'tbfAccessible', icon: tbfAccessible },
+		{ set: 'Keyline Stroke (kl)', name: 'klHeart', icon: klHeart },
+		{ set: 'Keyline Stroke (kl)', name: 'klBell', icon: klBell },
+		{ set: 'Keyline Fill (klf)', name: 'klfHeart', icon: klfHeart },
+		{ set: 'Keyline Duo (kld)', name: 'kldHeart', icon: kldHeart },
+		{ set: 'Keyline Sharp (kls)', name: 'klsHeart', icon: klsHeart }
 	];
 </script>
 
@@ -62,7 +71,7 @@
 	<header style="margin-bottom: 2rem;">
 		<h1 style="font-size: 2rem; margin-bottom: 0.5rem;">fractalicons</h1>
 		<p style="color: #64748b;">
-			27,000+ icons across 25 families with short, ergonomic prefixes for Svelte 5.
+			31,000+ icons across 29 families with short, ergonomic prefixes for Svelte 5.
 		</p>
 	</header>
 

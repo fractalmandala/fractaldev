@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { AnimatePresence, motion, useReducedMotion } from '@humanspeak/svelte-motion';
 	import type { Snippet } from 'svelte';
+	import type { DrawerSide } from '#lib/data/componentTypes.ts';
 	import { EASE_OUT, SPRING_PANEL } from '../ease.js';
 
 	let {
@@ -15,7 +16,7 @@
 	}: {
 		open: boolean;
 		onOpenChange: (open: boolean) => void;
-		side?: 'left' | 'right';
+		side?: DrawerSide;
 		children: Snippet;
 		/** Class for the panel surface. */
 		class?: string;
@@ -28,6 +29,8 @@
 
 	const reduce = useReducedMotion();
 	const offscreen = $derived(side === 'right' ? '100%' : '-100%');
+	const panelClass = $derived(['drawer-panel', className].filter(Boolean).join(' '));
+	const backdropClass = $derived(['drawer-backdrop', backdropClassName].filter(Boolean).join(' '));
 
 	$effect(() => {
 		if (!open) return;
@@ -59,7 +62,7 @@
 			exit={{ opacity: 0 }}
 			transition={{ duration: 0.25, ease: EASE_OUT }}
 			data-slot="drawer-backdrop"
-			class={backdropClassName}
+			class={backdropClass}
 		/>
 		<motion.aside
 			key="panel"
@@ -72,9 +75,43 @@
 			transition={$reduce ? { duration: 0.2, ease: EASE_OUT } : SPRING_PANEL}
 			data-slot="drawer-panel"
 			data-side={side}
-			class={className}
+			class={panelClass}
 		>
 			{@render children()}
 		</motion.aside>
 	{/if}
 </AnimatePresence>
+
+<style lang="sass">
+:global(.drawer-backdrop)
+	position: fixed
+	inset: 0
+	z-index: var(--z-modal)
+	background: rgba(0, 0, 0, 0.4)
+	border: 0
+	cursor: pointer
+
+:global(.drawer-panel)
+	position: fixed
+	top: 0
+	bottom: 0
+	z-index: var(--z-modal)
+	width: min(85vw, 360px)
+	max-width: 100%
+	background: var(--bg-surface)
+	border: 1px solid var(--border)
+	box-shadow: var(--shadow-xl)
+	padding: var(--space-md)
+	overflow-y: auto
+	display: flex
+	flex-direction: column
+
+	&[data-side='right']
+		right: 0
+		border-right: 0
+
+	&[data-side='left']
+		left: 0
+		border-left: 0
+</style>
+

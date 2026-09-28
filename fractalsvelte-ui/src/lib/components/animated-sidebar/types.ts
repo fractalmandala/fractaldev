@@ -1,9 +1,21 @@
 import type { Snippet } from 'svelte';
+import type {
+	SidebarState,
+	SidebarSide,
+	SidebarVariant,
+	SidebarCollapsible,
+	ButtonType,
+	LinkTarget
+} from '#lib/data/componentTypes.ts';
 
-export type SidebarState = 'expanded' | 'collapsed';
-export type SidebarSide = 'left' | 'right';
-export type SidebarVariant = 'sidebar' | 'floating' | 'inset';
-export type SidebarCollapsible = 'offcanvas' | 'icon' | 'none';
+export type {
+	SidebarState,
+	SidebarSide,
+	SidebarVariant,
+	SidebarCollapsible,
+	ButtonType,
+	LinkTarget
+};
 
 export interface AnimatedSidebarContextValue {
 	isMobile: boolean;
@@ -50,7 +62,7 @@ export interface AnimatedSidebarProps {
 
 export interface AnimatedSidebarTriggerProps {
 	'aria-label'?: string;
-	type?: 'submit' | 'reset' | 'button';
+	type?: ButtonType;
 	onclick?: (event: MouseEvent) => void;
 	class?: string;
 	children: Snippet;
@@ -58,7 +70,7 @@ export interface AnimatedSidebarTriggerProps {
 
 export interface AnimatedSidebarCloseProps {
 	'aria-label'?: string;
-	type?: 'submit' | 'reset' | 'button';
+	type?: ButtonType;
 	onclick?: (event: MouseEvent) => void;
 	class?: string;
 	children: Snippet;
@@ -66,7 +78,7 @@ export interface AnimatedSidebarCloseProps {
 
 export interface AnimatedSidebarRailProps {
 	'aria-label'?: string;
-	type?: 'submit' | 'reset' | 'button';
+	type?: ButtonType;
 	onclick?: (event: MouseEvent) => void;
 	class?: string;
 	children?: Snippet;
@@ -140,7 +152,7 @@ export interface AnimatedSidebarMenuButtonProps {
 	ariaExpanded?: boolean;
 	disabled?: boolean;
 	closeOnSelect?: boolean;
-	target?: '_blank' | '_self' | '_parent' | '_top';
+	target?: LinkTarget;
 	rel?: string;
 	label?: string;
 	onSelect?: () => void;
@@ -154,7 +166,7 @@ export interface AnimatedSidebarMenuSubButtonProps {
 	isActive?: boolean;
 	disabled?: boolean;
 	closeOnSelect?: boolean;
-	target?: '_blank' | '_self' | '_parent' | '_top';
+	target?: LinkTarget;
 	rel?: string;
 	onSelect?: () => void;
 	class?: string;

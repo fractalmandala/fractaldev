@@ -28,4 +28,4 @@ This directory contains the cross-project usage documentation for Fractalsvelte 
 22. [Troubleshooting and FAQ](guides/22-troubleshooting.md)
 23. [SvelteKit 3 migration](guides/23-sveltekit-3-migration.md)
 
-The source of truth for token values is [`src/lib/styles/token-source.json`](../src/lib/styles/token-source.json); its generated Sass output is [`src/lib/styles/_tokens.sass`](../src/lib/styles/_tokens.sass), and its typed inventory is [`src/lib/styles/tokens.schema.ts`](../src/lib/styles/tokens.schema.ts). The source of truth for component metadata is [`src/lib/docs/catalogue.ts`](../src/lib/docs/catalogue.ts).
+The source of truth for token values is [`src/lib/styles/token-source.json`](../src/lib/styles/token-source.json); its generated Sass output is [`src/lib/styles/_00_tokens.sass`](../src/lib/styles/_00_tokens.sass), and its typed inventory is [`src/lib/styles/tokens.schema.ts`](../src/lib/styles/tokens.schema.ts). The source of truth for component metadata is [`src/lib/docs/catalogue.ts`](../src/lib/docs/catalogue.ts).

@@ -27,6 +27,8 @@
 		class: className = ''
 	}: Props = $props();
 
+	const rootClass = $derived(['k-lightbox', className].filter(Boolean).join(' '));
+
 	let dialog: HTMLDialogElement | undefined = $state();
 	const uid = Math.random().toString(36).slice(2, 8);
 
@@ -63,7 +65,7 @@
 
 <dialog
 	bind:this={dialog}
-	class="k-lightbox {className}"
+	class={rootClass}
 	aria-label="Image lightbox"
 	aria-describedby={current?.alt ? `${uid}-desc` : undefined}
 	onclose={handleClose}
@@ -94,3 +96,55 @@
 		</IconButton>
 	{/if}
 </dialog>
+
+<style lang="sass">
+.k-lightbox
+	position: relative
+	display: flex
+	align-items: center
+	justify-content: center
+	width: min(1080px, 94vw)
+	height: min(80vh, 94vh)
+	padding: 24px
+	background: transparent
+	border: none
+	box-shadow: none
+
+	&::backdrop
+		background: rgba(0, 0, 0, 0.75)
+
+	.k-lightbox-img
+		max-width: 100%
+		max-height: 100%
+		object-fit: contain
+		border-radius: var(--radius-md)
+		box-shadow: var(--shadow-lg)
+
+	:global(.k-lightbox-close)
+		position: absolute
+		top: 16px
+		right: 16px
+		color: var(--text-primary)
+		background: var(--bg-button)
+		border: 1px solid var(--border)
+		&:hover
+			background: var(--state-hover)
+
+	:global(.k-lightbox-prev),
+	:global(.k-lightbox-next)
+		position: absolute
+		top: 50%
+		transform: translateY(-50%)
+		color: var(--text-primary)
+		background: var(--bg-button)
+		border: 1px solid var(--border)
+		&:hover
+			background: var(--state-hover)
+
+	:global(.k-lightbox-prev)
+		left: 16px
+
+	:global(.k-lightbox-next)
+		right: 16px
+</style>
+

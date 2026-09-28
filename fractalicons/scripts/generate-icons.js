@@ -56,6 +56,10 @@ export const familyPrefixMap = {
 	heroiconsfill: 'hef',
 	iconoir: 'ic',
 	iconoirfill: 'icf',
+	keylineduo: 'kld',
+	keylinefill: 'klf',
+	keylinesharp: 'kls',
+	keylinestroke: 'kl',
 	lucide: 'lu',
 	materialanim: 'maa',
 	octicons: 'oc',
@@ -240,7 +244,8 @@ function writeSetModule(setName, icons) {
 }
 
 // Main guard: only run generation when executed directly, not when imported for tests.
-const isMain = process.argv[1] && fileURLToPath(import.meta.url).endsWith(process.argv[1].replace(/\\/g, '/'));
+const isMain =
+	process.argv[1] && fileURLToPath(import.meta.url).endsWith(process.argv[1].replace(/\\/g, '/'));
 
 if (isMain) {
 	if (!fs.existsSync(sourceDir)) {

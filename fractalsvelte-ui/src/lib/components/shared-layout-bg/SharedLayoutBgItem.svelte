@@ -19,7 +19,7 @@
 
 {#if ctx}
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
-	<div class={className} onmouseenter={handleMouseEnter}>
+	<div class={className} data-slot="shared-layout-bg-item" style="position: relative;" onmouseenter={handleMouseEnter}>
 		<AnimatePresence>
 			{#if ctx.activeId === rowId}
 				<motion.div

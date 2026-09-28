@@ -28,56 +28,13 @@ export { default as Stepper } from './Stepper.svelte';
 export { default as Tabs } from './Tabs.svelte';
 export { default as Textarea } from './Textarea.svelte';
 export { default as TextLoop } from './TextLoop.svelte';
-export { default as Theme } from './Theme.svelte';
-export type { ThemeTokens } from './Theme.svelte';
-export { default as ThemeSetter } from './ThemeSetter.svelte';
 export { default as Toast } from './Toast.svelte';
 export { default as Tooltip } from './Tooltip.svelte';
-export { default as AsciiRenderer } from './AsciiRenderer.svelte';
 export { default as Card3D } from './Card3D.svelte';
 export { default as CardStack } from './CardStack.svelte';
-export { default as DitheredImage } from './DitheredImage.svelte';
-export { default as Fake3DImage } from './Fake3DImage.svelte';
-export { default as FlipCardStack } from './FlipCardStack.svelte';
-export { default as FlipGrid } from './FlipGrid.svelte';
-export { default as FloatingMenu } from './FloatingMenu.svelte';
-export { default as FluidImageReveal } from './FluidImageReveal.svelte';
-export { default as FluidSimulation } from './FluidSimulation.svelte';
-export { default as GlassLogo } from './GlassLogo.svelte';
-export { default as GlassPane } from './GlassPane.svelte';
-export { default as GlassSlideshow } from './GlassSlideshow.svelte';
-export { default as GlitterCloth } from './GlitterCloth.svelte';
-export { default as Globe } from './Globe.svelte';
-export { default as GodRays } from './GodRays.svelte';
-export { default as Halo } from './Halo.svelte';
-export { default as ImageTrail } from './ImageTrail.svelte';
-export { default as InfiniteGallery } from './InfiniteGallery.svelte';
-export { default as InfinitePhysicsGallery } from './InfinitePhysicsGallery.svelte';
-export { default as InteractiveGrid } from './InteractiveGrid.svelte';
-export { default as LavaLamp } from './LavaLamp.svelte';
-export { default as LiquidMetal } from './LiquidMetal.svelte';
-export { default as LogoCarousel } from './LogoCarousel.svelte';
 export { default as MacosDock } from './MacosDock.svelte';
 export type { DockItem } from './MacosDock.svelte';
-export { default as NeuralNoise } from './NeuralNoise.svelte';
-export { default as PixelatedImage } from './PixelatedImage.svelte';
-export { default as PlasmaGrid } from './PlasmaGrid.svelte';
-export { default as Preloader } from './Preloader.svelte';
-export { default as RadialGallery } from './RadialGallery.svelte';
-export { default as RubiksCube } from './RubiksCube.svelte';
-export { default as Slideshow } from './Slideshow.svelte';
-export { default as SpecularBand } from './SpecularBand.svelte';
-export { default as SplitHover } from './SplitHover.svelte';
-export { default as SplitReveal } from './SplitReveal.svelte';
-export { default as StackingWords } from './StackingWords.svelte';
-export { default as TextRepel } from './TextRepel.svelte';
 export { default as TextScramble } from './TextScramble.svelte';
-export { default as UnderlayNavigation } from './UnderlayNavigation.svelte';
-export { default as VideoPlayer } from './VideoPlayer.svelte';
-export { default as WaterRipple } from './WaterRipple.svelte';
-export { default as WatercolorImage } from './WatercolorImage.svelte';
-export { default as WeightWave } from './WeightWave.svelte';
-export { default as BitsEffect } from './BitsEffect.svelte';
 export { default as Kbd } from './Kbd.svelte';
 export { default as Breadcrumbs } from './Breadcrumbs.svelte';
 export { default as Blockquote } from './Blockquote.svelte';
@@ -146,4 +103,49 @@ export { default as ColorPicker } from './ColorPicker.svelte';
 export { default as Calendar } from './Calendar.svelte';
 export { default as DatePicker } from './DatePicker.svelte';
 export { default as TimePicker } from './TimePicker.svelte';
-export * from './svelte-bits';
+export type {
+	Variant,
+	Size,
+	Shape,
+	BannerVariant,
+	PadSize,
+	InputType,
+	CheckState,
+	RadioState,
+	TextAnimationTrigger,
+	SwipeDirection,
+	ConfettiShape,
+	PopoverPlacement,
+	TooltipPosition,
+	ToastPosition,
+	ToastStatus,
+	ToastPlacement,
+	DrawerSide,
+	MarqueeDirection,
+	CookieConsentPosition,
+	CookieConsentDecision,
+	Orientation,
+	MenuAlign,
+	TextAlign,
+	SortDirection,
+	BannerLayout,
+	NavigationEdge,
+	ButtonType,
+	ButtonVariant,
+	ButtonSize,
+	ButtonShape,
+	IconButtonVariant,
+	ButtonGroupVariant,
+	BadgeVariant,
+	SelectionType,
+	LinkTarget,
+	ContextMenuItemTone,
+	OpenModality,
+	MenuItemRole,
+	SidebarState,
+	SidebarSide,
+	SidebarVariant,
+	SidebarCollapsible,
+	MorphSide,
+	MorphAlign
+} from '../data/componentTypes.ts';

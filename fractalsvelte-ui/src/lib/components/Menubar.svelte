@@ -30,6 +30,8 @@
 
 	let { menus, ariaLabel = 'Menu bar', class: className }: Props = $props();
 
+	const rootClass = $derived(['menubar', className].filter(Boolean).join(' '));
+
 	const reduce = useReducedMotion();
 
 	let openMenu = $state(-1);
@@ -136,7 +138,7 @@
 	});
 </script>
 
-<div bind:this={rootEl} class={className} data-slot="menubar" role="menubar" aria-label={ariaLabel}>
+<div bind:this={rootEl} class={rootClass} data-slot="menubar" role="menubar" aria-label={ariaLabel}>
 	{#each menus as menu, i (menu.label)}
 		<span data-slot="menubar-menu">
 			<!-- Hover follows into sibling menus once a menu is open. -->
@@ -158,6 +160,7 @@
 			<AnimatePresence>
 				{#if openMenu === i}
 					<motion.div
+						key={menu.label || i}
 						data-slot="menubar-list"
 						role="menu"
 						aria-label={menu.label}
@@ -198,3 +201,102 @@
 		</span>
 	{/each}
 </div>
+
+<style lang="sass">
+.menubar
+	display: inline-flex
+	align-items: center
+	gap: 2px
+	padding: 4px
+	background: var(--bg-surface)
+	border: 1px solid var(--border)
+	border-radius: var(--radius-md)
+	box-shadow: var(--shadow-sm)
+
+	[data-slot='menubar-menu']
+		position: relative
+		display: inline-flex
+
+	[data-slot='menubar-trigger']
+		padding: var(--space-2xs) var(--space-xs)
+		font-size: var(--text-sm)
+		font-weight: 500
+		color: var(--text-secondary)
+		background: transparent
+		border: 0
+		border-radius: var(--radius-sm)
+		cursor: pointer
+		transition: all var(--motion-fast) ease
+		&:hover,
+		&[data-open]
+			background: var(--state-hover)
+			color: var(--text-primary)
+		&:focus-visible
+			outline: 2px solid var(--ring)
+			outline-offset: -1px
+
+	:global([data-slot='menubar-list'])
+		position: absolute
+		z-index: var(--z-modal)
+		top: calc(100% + 4px)
+		left: 0
+		min-width: 180px
+		padding: 4px
+		background: var(--bg-popover)
+		border: 1px solid var(--border)
+		border-radius: var(--radius-md)
+		box-shadow: var(--shadow-popover)
+		display: flex
+		flex-direction: column
+		gap: 1px
+
+	:global([data-slot='menubar-item'])
+		display: flex
+		align-items: center
+		gap: var(--space-xs)
+		width: 100%
+		padding: var(--space-2xs) var(--space-xs)
+		border: 0
+		border-radius: var(--radius-sm)
+		background: transparent
+		color: var(--text-primary)
+		font-size: var(--text-sm)
+		text-align: left
+		cursor: pointer
+		transition: background var(--motion-fast) ease
+		&:hover:not(:disabled)
+			background: var(--state-hover)
+		&:focus-visible
+			outline: none
+			background: var(--state-hover)
+		&[data-variant='danger']
+			color: var(--danger)
+			&:hover:not(:disabled)
+				background: color-mix(in srgb, var(--danger) 12%, transparent)
+		&:disabled
+			opacity: 0.4
+			cursor: not-allowed
+
+	:global([data-slot='menubar-item-check'])
+		display: inline-flex
+		align-items: center
+		justify-content: center
+		width: 16px
+		height: 16px
+		color: var(--theme-color)
+		flex-shrink: 0
+
+	:global([data-slot='menubar-item-label'])
+		flex: 1
+
+	:global([data-slot='menubar-shortcut'])
+		font-size: var(--text-xs)
+		font-family: var(--font-mono)
+		color: var(--text-muted)
+		letter-spacing: 0.05em
+
+	:global([data-slot='menubar-separator'])
+		height: 1px
+		background: var(--border-subtle)
+		margin: 4px 0
+</style>

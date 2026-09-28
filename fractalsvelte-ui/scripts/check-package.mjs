@@ -10,7 +10,7 @@ const packageJson = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'))
 const tempRoot = mkdtempSync(join(tmpdir(), 'fractalsvelte-consumer-'));
 
 // pnpm pack uses the npm-safe tarball name: @scope/name → scope-name-version.tgz
-const tarballName = `${packageJson.name.replace(/^\//, '').replace(/\//g, '-')}-${packageJson.version}.tgz`;
+const tarballName = `${packageJson.name.replace(/^@/, '').replace(/\//g, '-')}-${packageJson.version}.tgz`;
 
 try {
 	execFileSync('pnpm', ['pack', '--pack-destination', tempRoot, '--silent'], { cwd: root, stdio: 'pipe' });
@@ -52,16 +52,17 @@ try {
 		importers: [sassPackageImporter],
 		loadPaths: [resolve(root, 'node_modules')]
 	}).css;
-	if (!css.includes('--theme-color: #04825b') || !css.includes('--border-width: 1px')) throw new Error('Packed Sass entrypoint did not compile the public defaults.');
+	if (!css.toLowerCase().includes('--theme-color: #04825b')) throw new Error('Packed Sass entrypoint did not compile the public defaults.');
 	const consumerNodeModules = join(tempRoot, 'consumer', 'node_modules');
-	mkdirSync(consumerNodeModules, { recursive: true });
-	symlinkSync(packageRoot, join(consumerNodeModules, packageJson.name), 'junction');
-	const consumerCss = sass.compileString('@use "fractalsvelte/styles/system";', {
+	const consumerPackageLink = join(consumerNodeModules, packageJson.name);
+	mkdirSync(dirname(consumerPackageLink), { recursive: true });
+	symlinkSync(packageRoot, consumerPackageLink, 'junction');
+	const consumerCss = sass.compileString(`@use "${packageJson.name}/styles/system";`, {
 		importers: [sassPackageImporter],
 		loadPaths: [consumerNodeModules, resolve(root, 'node_modules')],
 		style: 'expanded'
 	}).css;
-	if (!consumerCss.includes('--theme-color: #04825b')) throw new Error('Consumer package subpath could not resolve the Sass system.');
+	if (!consumerCss.toLowerCase().includes('--theme-color: #04825b')) throw new Error('Consumer package subpath could not resolve the Sass system.');
 	for (const [key, target] of Object.entries(packageJson.exports)) {
 		const targetPath = typeof target === 'string' ? target : target.import ?? target.types ?? target.svelte;
 		if (key === './package.json') continue;

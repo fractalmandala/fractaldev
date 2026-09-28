@@ -1,7 +1,7 @@
 import { getContext, setContext } from 'svelte';
+import type { MorphSide, MorphAlign } from '#lib/data/componentTypes.ts';
 
-export type MorphSide = 'top' | 'bottom';
-export type MorphAlign = 'start' | 'end';
+export type { MorphSide, MorphAlign };
 
 export interface MorphPopoverContext {
 	open: boolean;

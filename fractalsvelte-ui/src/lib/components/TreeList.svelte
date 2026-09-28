@@ -27,6 +27,8 @@
 		class: className = ''
 	}: Props = $props();
 
+	const rootClass = $derived(['k-tree', className].filter(Boolean).join(' '));
+
 	function collectDefault(node: TreeNode): string[] {
 		const out: string[] = [];
 		if (node.defaultOpen) out.push(node.id);
@@ -147,8 +149,65 @@
 	</div>
 {/snippet}
 
-<div class="k-tree {className}" role="tree" aria-label={label} tabindex="0" onkeydown={onKeydown}>
+<div class={rootClass} role="tree" aria-label={label} tabindex="0" onkeydown={onKeydown}>
 	{#each items as node (node.id)}
 		{@render renderNode(node, 0)}
 	{/each}
 </div>
+
+<style lang="sass">
+.k-tree
+	display: flex
+	flex-direction: column
+	gap: 2px
+	font-size: var(--text-md)
+
+	.k-tree-item
+		display: flex
+		flex-direction: column
+
+	.k-tree-row
+		display: flex
+		align-items: center
+		gap: 6px
+		padding: 6px 8px
+		padding-inline-start: calc(8px + var(--k-tree-depth, 0) * 14px)
+		border: none
+		border-radius: var(--radius-xs)
+		background: transparent
+		color: var(--text-primary)
+		cursor: pointer
+		text-align: left
+		&:hover
+			background: var(--state-hover)
+		&:focus-visible
+			outline: 2px solid var(--ring)
+			outline-offset: -2px
+		&[aria-selected='true']
+			background: color-mix(in srgb, var(--theme-color) 10%, var(--bg-surface))
+
+	.k-tree-chevron
+		display: inline-flex
+		align-items: center
+		justify-content: center
+		width: 18px
+		height: 18px
+		flex-shrink: 0
+		color: var(--text-muted)
+		background: transparent
+		border: none
+		cursor: pointer
+		padding: 0
+		transition: transform var(--motion-fast) ease
+		&[data-state='open']
+			transform: rotate(90deg)
+
+	.k-tree-group
+		display: flex
+		flex-direction: column
+		gap: 2px
+		margin-inline-start: 14px
+		padding-inline-start: 10px
+		border-left: 1px solid var(--border)
+</style>
+

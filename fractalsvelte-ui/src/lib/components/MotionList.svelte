@@ -11,9 +11,12 @@
 	type Props = {
 		items: MotionListItem[];
 		label?: string;
+		class?: string;
 	};
 
-	let { items, label = 'Animated list' }: Props = $props();
+	let { items, label = 'Animated list', class: className = '' }: Props = $props();
+
+	const rootClass = $derived(['motion-list', className].filter(Boolean).join(' '));
 
 	const listVariants: Variants = {
 		hidden: {},
@@ -26,7 +29,7 @@
 	};
 </script>
 
-<MotionUl class="motion-list" aria-label={label} variants={listVariants} initial="hidden" whileInView="visible" transition={tweenContent}>
+<MotionUl class={rootClass} aria-label={label} variants={listVariants} initial="hidden" whileInView="visible" transition={tweenContent}>
 	{#each items as item (item.id)}
 		<MotionLi variants={itemVariants} class="motion-list-item" transition={tweenContent}>
 			<strong>{item.title}</strong>
@@ -34,3 +37,16 @@
 		</MotionLi>
 	{/each}
 </MotionUl>
+
+<style lang="sass">
+:global(.motion-list)
+	display: flex
+	flex-direction: column
+	gap: calc(var(--space-2xs) * var(--gap-scale, 1))
+	list-style: none
+	margin: 0
+	padding: 0
+
+:global(.motion-list-item)
+	will-change: transform, opacity
+</style>

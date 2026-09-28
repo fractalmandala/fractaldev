@@ -1,6 +1,7 @@
 import type { Snippet } from 'svelte';
+import type { ContextMenuItemTone } from '#lib/data/componentTypes.ts';
 
-export type ContextMenuItemTone = 'default' | 'destructive';
+export type { ContextMenuItemTone };
 
 export interface ContextMenuItemProps {
 	children: Snippet;

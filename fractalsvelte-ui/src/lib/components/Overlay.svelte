@@ -45,14 +45,34 @@
 	function onBackdrop(e: MouseEvent) {
 		if (closeOnBackdrop && e.target === dialog) dialog?.close();
 	}
+
+	const rootClass = $derived(`k-overlay-panel ${className}`.trim());
 </script>
 
 <dialog
 	bind:this={dialog}
-	class="k-overlay-panel {className}"
+	class={rootClass}
 	aria-label={label}
 	onclose={handleClose}
 	onclick={onBackdrop}
 >
 	{@render children?.()}
 </dialog>
+
+<style lang="sass">
+.k-overlay-panel
+	display: flex
+	flex-direction: column
+	max-width: min(560px, 92vw)
+	max-height: 85vh
+	overflow: auto
+	background: var(--bg-popover)
+	border: 1px solid var(--border)
+	border-radius: var(--radius-16)
+	box-shadow: var(--shadow-lg)
+	padding: 0
+	color: inherit
+
+	&::backdrop
+		background: rgba(0, 0, 0, 0.45)
+</style>

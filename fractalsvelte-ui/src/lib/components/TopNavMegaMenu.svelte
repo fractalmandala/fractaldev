@@ -49,9 +49,11 @@
 			document.removeEventListener('keydown', onDocKey);
 		};
 	});
+
+	const rootClass = $derived(`k-popover-wrap ${className}`.trim());
 </script>
 
-<span class="k-popover-wrap {className}" bind:this={wrap}>
+<span class={rootClass} bind:this={wrap}>
 	<button
 		class="k-topnav-item"
 		data-state={open ? 'open' : undefined}
@@ -86,3 +88,92 @@
 		</div>
 	</div>
 </span>
+
+<style lang="sass">
+.k-popover-wrap
+	position: relative
+	display: inline-flex
+
+.k-topnav-item
+	display: inline-flex
+	align-items: center
+	gap: 6px
+	padding: 7px 12px
+	font-size: var(--text-md)
+	font-weight: 500
+	border: none
+	border-radius: var(--radius-6)
+	background: transparent
+	color: var(--text-secondary)
+	cursor: pointer
+	text-decoration: none
+
+	&:hover
+		background: var(--state-hover)
+		color: var(--text-primary)
+
+	&:focus-visible
+		outline: 2px solid var(--ring)
+		outline-offset: 2px
+
+	&[data-state='open']
+		background: var(--state-hover)
+		color: var(--text-primary)
+
+.k-megamenu
+	position: absolute
+	top: calc(100% + 8px)
+	left: 50%
+	transform: translateX(-50%)
+	z-index: var(--z-modal)
+	width: min(720px, 92vw)
+	padding: 20px
+	background: var(--bg-popover)
+	border: 1px solid var(--border)
+	border-radius: var(--radius-12)
+	box-shadow: var(--shadow-popover)
+
+	&[data-open='false']
+		display: none
+
+.k-megamenu-grid
+	display: grid
+	grid-template-columns: repeat(auto-fit, minmax(160px, 1fr))
+	gap: 24px
+
+.box
+	display: flex
+	flex-direction: column
+
+	&.gap-3xs
+		gap: var(--space-3xs)
+
+.k-megamenu-heading
+	font-size: var(--text-xs)
+	font-weight: 600
+	text-transform: uppercase
+	letter-spacing: 0.05em
+	color: var(--text-muted)
+
+.k-megamenu-link
+	display: flex
+	flex-direction: column
+	gap: 1px
+	padding: 6px 8px
+	border-radius: var(--radius-4)
+	font-size: var(--text-md)
+	color: var(--text-primary)
+	text-decoration: none
+
+	&:hover
+		background: var(--state-hover)
+		color: var(--theme-color-alt)
+
+.k-megamenu-link-desc
+	font-size: var(--text-xs)
+	color: var(--text-muted)
+
+.k-megamenu-feature
+	grid-column: 1 / -1
+	margin-top: 4px
+</style>

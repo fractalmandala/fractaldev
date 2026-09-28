@@ -1,16 +1,25 @@
 {
-	"extends": "$app/tsconfig",
+	"extends": "./.svelte-kit/tsconfig.json",
 	"compilerOptions": {
+		"allowImportingTsExtensions": true,
 		"allowJs": true,
 		"checkJs": true,
-		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
 		"sourceMap": true,
 		"strict": true,
-		"moduleResolution": "bundler"
-	},
-	"include": ["src", "*.config.*"],
-	"exclude": ["src/service-worker"]
+		// NOTE: `paths` here *replaces* the generated `.svelte-kit/tsconfig.json`
+		// paths (TS does not merge them), so the generated $lib/$app entries are
+		// repeated verbatim in root-relative form. The #lib entries mirror the
+		// package.json `imports` map, which TypeScript cannot read on its own
+		// (Vite resolves it fine at dev/build time — this is editor-only).
+		"paths": {
+			"$lib": ["./src/lib"],
+			"$lib/*": ["./src/lib/*"],
+			"$app/types": ["./.svelte-kit/types/index.d.ts"],
+			"#lib": ["./src/lib/index.ts"],
+			"#lib/*": ["./src/lib/*"]
+		}
+	}
 }

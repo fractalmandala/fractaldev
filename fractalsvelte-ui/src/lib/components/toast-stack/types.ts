@@ -1,14 +1,7 @@
 import type { Snippet } from 'svelte';
+import type { ToastStatus, ToastPosition, ToastPlacement } from '#lib/data/componentTypes.ts';
 
-export type ToastStatus = 'neutral' | 'info' | 'loading' | 'success' | 'error';
-
-export type ToastPosition =
-	| 'top-left'
-	| 'top-center'
-	| 'top-right'
-	| 'bottom-left'
-	| 'bottom-center'
-	| 'bottom-right';
+export type { ToastStatus, ToastPosition, ToastPlacement };
 
 export type AnimatedToastAction = {
 	label: Snippet | string;
@@ -50,7 +43,7 @@ export interface AnimatedToastStackProps {
 	toasts: AnimatedToast[];
 	onDismiss?: (id: string) => void;
 	position?: ToastPosition;
-	placement?: 'static' | 'fixed' | 'absolute';
+	placement?: ToastPlacement;
 	fixed?: boolean;
 	portal?: boolean;
 	portalRoot?: Element | null;

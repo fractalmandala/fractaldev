@@ -487,3 +487,195 @@
 		</div>
 	</div>
 {/if}
+
+<style lang="sass">
+[data-slot='morphing-tabs-root']
+	position: relative
+	isolation: isolate
+	min-width: 0
+	overflow: hidden
+	border-radius: var(--radius-lg)
+	border: 1px solid var(--border)
+	background: var(--bg-raised)
+	color: var(--text-primary)
+	width: 100%
+
+[data-slot='morphing-tabs-rail-wrap']
+	position: relative
+	height: 80px
+
+[data-slot='morphing-tabs-surface']
+	position: absolute
+	top: 0
+	right: 0
+	left: 0
+	width: 100%
+	height: 108px
+	pointer-events: none
+	color: var(--bg-surface)
+
+	&[data-dragging='true']
+		z-index: 20
+
+	&:not([data-dragging='true'])
+		z-index: 0
+
+[data-slot='morphing-tabs-rail']
+	position: relative
+	z-index: 30
+	display: flex
+	align-items: flex-start
+	height: 80px
+	gap: 12px
+
+:global([data-slot='morphing-tabs-tab-wrap'])
+	position: absolute
+	top: 0
+	left: 0
+	display: flex
+	align-items: stretch
+	user-select: none
+	touch-action: pan-y
+	cursor: grab
+
+	&[data-disabled='true']
+		cursor: not-allowed
+
+	&[data-dragging='true']
+		cursor: grabbing
+
+:global([data-slot='morphing-tabs-tab-box'])
+	position: relative
+	display: flex
+	align-items: stretch
+	width: 176px
+	height: 56px
+	margin-top: 24px
+
+:global([data-slot='morphing-tabs-hover'])
+	position: absolute
+	inset: 0 0 8px 0
+	border-radius: 20px
+	background: var(--state-hover)
+	opacity: 0
+	transition: opacity var(--motion-fast) var(--ease-out)
+
+	&:hover
+		opacity: 1
+
+	&[data-dragging='true']
+		background: var(--state-hover)
+
+:global([data-slot='morphing-tabs-tab'])
+	position: relative
+	z-index: 10
+	display: flex
+	align-items: center
+	gap: var(--space-2xs)
+	width: 100%
+	height: 100%
+	min-width: 0
+	overflow: hidden
+	padding: 0 var(--space-sm) 8px
+	border: 0
+	border-radius: 24px 24px 0 0
+	background: transparent
+	color: var(--text-secondary)
+	font-size: var(--text-md)
+	font-weight: 500
+	text-align: left
+	cursor: pointer
+	transition: color var(--motion-fast) var(--ease-out)
+
+	&:hover
+		color: var(--text-primary)
+
+	&[data-active='true']
+		padding-bottom: 0
+		color: var(--text-primary)
+
+	&[data-disabled='true']
+		opacity: 0.5
+		cursor: not-allowed
+
+:global([data-slot='morphing-tabs-focus-ring'])
+	position: absolute
+	top: 4px
+	right: 4px
+	left: 4px
+	opacity: 0
+	pointer-events: none
+	transition: opacity var(--motion-fast) var(--ease-out)
+
+	&[data-active='true']
+		bottom: 0
+		border-radius: 20px 20px 0 0
+		border-top: 2px solid var(--ring)
+		border-right: 2px solid var(--ring)
+		border-left: 2px solid var(--ring)
+
+	&:not([data-active='true'])
+		bottom: 8px
+		border-radius: 16px
+		border: 2px solid var(--ring)
+
+:global([data-slot='morphing-tabs-tab']:focus-visible [data-slot='morphing-tabs-focus-ring'])
+	opacity: 1
+
+:global([data-slot='morphing-tabs-icon'])
+	display: grid
+	width: 28px
+	height: 28px
+	flex-shrink: 0
+	place-items: center
+	color: var(--text-muted)
+
+:global([data-slot='morphing-tabs-label'])
+	min-width: 0
+	overflow: hidden
+	text-overflow: ellipsis
+	white-space: nowrap
+	font-size: var(--text-md)
+	font-weight: 500
+
+:global([data-slot='morphing-tabs-close'])
+	position: absolute
+	top: 50%
+	right: 8px
+	z-index: 20
+	display: inline-flex
+	align-items: center
+	justify-content: center
+	width: 20px
+	height: 20px
+	border: 0
+	border-radius: var(--radius-full)
+	transform: translateY(-50%)
+	background: transparent
+	color: var(--text-muted)
+	cursor: pointer
+	transition: color var(--motion-fast) var(--ease-out), background-color var(--motion-fast) var(--ease-out)
+
+	&:hover
+		background: var(--state-hover)
+		color: var(--text-primary)
+
+	&[data-inactive='true']
+		top: calc(50% - 4px)
+		color: var(--text-muted)
+
+[data-slot='morphing-tabs-panel']
+	position: relative
+	z-index: 20
+	margin: 0 16px 16px
+	min-height: 10rem
+	overflow: hidden
+	border-radius: 28px
+	background: var(--bg-surface)
+	color: var(--text-primary)
+
+:global([data-slot='morphing-tabs-panel-content'])
+	min-height: 10rem
+	padding: var(--space-md)
+	color: var(--text-primary)
+</style>

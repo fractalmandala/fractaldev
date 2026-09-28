@@ -24,6 +24,8 @@
 		right
 	}: Props = $props();
 
+	const rootClass = $derived(['k-resize', className].filter(Boolean).join(' '));
+
 	let dragging = $state(false);
 	let container: HTMLDivElement | undefined = $state();
 
@@ -53,7 +55,7 @@
 </script>
 
 <div
-	class="k-resize {className}"
+	class={rootClass}
 	bind:this={container}
 	data-resizing={dragging ? 'true' : undefined}
 >
@@ -82,3 +84,49 @@
 		{#if right}{@render right?.()}{/if}
 	</div>
 </div>
+
+<style lang="sass">
+.k-resize
+	display: flex
+	align-items: stretch
+	width: 100%
+	min-height: 120px
+	border: 1px solid var(--border)
+	border-radius: var(--radius-lg)
+	overflow: hidden
+	background: var(--bg-surface)
+
+	.k-resize-pane
+		flex: 0 0 var(--k-resize-value, 30%)
+		min-width: 0
+		overflow: auto
+		padding: 16px
+		&.grow
+			flex: 1 1 0%
+
+	.k-resize-handle
+		flex: 0 0 8px
+		cursor: col-resize
+		background: var(--border)
+		transition: background-color var(--motion-fast) ease
+		position: relative
+		border: none
+		padding: 0
+		display: block
+		&::after
+			content: ''
+			position: absolute
+			inset-block: 0
+			inset-inline: 3px
+			border-radius: var(--radius-full)
+			background: var(--border-strong)
+		&:hover,
+		&:focus-visible
+			background: var(--theme-color)
+		&:focus-visible
+			outline: 2px solid var(--ring)
+			outline-offset: -2px
+
+	&[data-resizing] .k-resize-handle
+		background: var(--theme-color)
+</style>

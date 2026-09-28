@@ -8,6 +8,7 @@
 @use 'sass:list'
 @use 'sass:math'
 @use '01_config' as *
+@use '00_tokens' as *
 
 // The literal ladder, built once: the fine tail, then every $literal-step up
 // to $literal-max. Radius and sizing iterate all of it.
@@ -26,22 +27,22 @@ $radius-literals: ()
 @each $n in $literals
 	@if $n <= $literal-radius-max
 		$radius-literals: list.append($radius-literals, $n)
-$steps: ('3xs' '2xs' 'xs' 'sm' 'md' 'lg' 'xl' '2xl' '3xl')
+$steps: ('3xs' '2xs' 'xs' 'sm' 'bs' 'md' 'lg' 'xl' '2xl' '3xl')
 
 // Space families, role-split for the layout preset: gaps/margins separate
 // content (× --gap-scale); paddings are the container's breathing (× --pad-scale).
 $gap-families: (gap: gap, rgap: row-gap, cgap: column-gap)
 
-$pad-families: (pad: padding, pad-x: padding-inline, pad-y: padding-block, pad-top: padding-top, pad-right: padding-right, pad-bottom: padding-bottom, pad-left: padding-left)
+$pad-families: (pad: padding, px: padding-inline, py: padding-block, pt: padding-top, pr: padding-right, pb: padding-bottom, pl: padding-left)
 
 // Negatives ride margin families only (Contract: `--` infix).
-$marg-families: (marg: margin, marg-x: margin-inline, marg-y: margin-block, marg-top: margin-top, marg-right: margin-right, marg-bottom: margin-bottom, marg-left: margin-left)
+$marg-families: (marg: margin, mx: margin-inline, my: margin-block, mt: margin-top, mr: margin-right, mb: margin-bottom, ml: margin-left)
 
 // --- Base band ---------------------------------------------------------------
 @each $name, $prop in $gap-families
 	@each $step in $steps
 		.#{$name}-#{$step}
-			#{$prop}: calc(var(--space-#{$step}) * var(--gap-scale, 1))
+			#{$prop}: var(--space-#{$step})
 	@each $n in $space-literals
 		.#{$name}-#{$n}
 			#{$prop}: #{$n}px
@@ -49,7 +50,7 @@ $marg-families: (marg: margin, marg-x: margin-inline, marg-y: margin-block, marg
 @each $name, $prop in $pad-families
 	@each $step in $steps
 		.#{$name}-#{$step}
-			#{$prop}: calc(var(--space-#{$step}) * var(--pad-scale, 1))
+			#{$prop}: var(--space-#{$step})
 	@each $n in $space-literals
 		.#{$name}-#{$n}
 			#{$prop}: #{$n}px
@@ -57,9 +58,7 @@ $marg-families: (marg: margin, marg-x: margin-inline, marg-y: margin-block, marg
 @each $name, $prop in $marg-families
 	@each $step in $steps
 		.#{$name}-#{$step}
-			#{$prop}: calc(var(--space-#{$step}) * var(--gap-scale, 1))
-		.#{$name}--#{$step}
-			#{$prop}: calc(var(--space-#{$step}) * var(--gap-scale, 1) * -1)
+			#{$prop}: var(--space-#{$step})
 	@each $n in $space-literals
 		.#{$name}-#{$n}
 			#{$prop}: #{$n}px
@@ -108,67 +107,9 @@ $marg-families: (marg: margin, marg-x: margin-inline, marg-y: margin-block, marg
 .hfull-vh-fitted
 	min-height: calc(100vh - var(--header-height, 48px) - var(--footer-height))
 
-// --- Responsive bands: -mob / -desk, generated wholesale (Contract 7) --------
-@each $mode, $query in $responsive-modes
-	@media #{string.unquote($query)}
-		@each $name, $prop in $gap-families
-			@each $step in $steps
-				.#{$name}-#{$step}-#{$mode}
-					#{$prop}: calc(var(--space-#{$step}) * var(--gap-scale, 1))
-			@each $n in $space-literals
-				.#{$name}-#{$n}-#{$mode}
-					#{$prop}: #{$n}px
-		@each $name, $prop in $pad-families
-			@each $step in $steps
-				.#{$name}-#{$step}-#{$mode}
-					#{$prop}: calc(var(--space-#{$step}) * var(--pad-scale, 1))
-			@each $n in $space-literals
-				.#{$name}-#{$n}-#{$mode}
-					#{$prop}: #{$n}px
-		@each $name, $prop in $marg-families
-			@each $step in $steps
-				.#{$name}-#{$step}-#{$mode}
-					#{$prop}: calc(var(--space-#{$step}) * var(--gap-scale, 1))
-				.#{$name}--#{$step}-#{$mode}
-					#{$prop}: calc(var(--space-#{$step}) * var(--gap-scale, 1) * -1)
-			@each $n in $space-literals
-				.#{$name}-#{$n}-#{$mode}
-					#{$prop}: #{$n}px
-				.#{$name}--#{$n}-#{$mode}
-					#{$prop}: -#{$n}px
-		@each $n in $radius-literals
-			.radius-#{$n}-#{$mode}
-				border-radius: #{$n}px
-		.radius-full-#{$mode}
-			border-radius: var(--radius-full)
-		@each $step in ('sm' 'md' 'lg')
-			.radius-#{$step}-#{$mode}
-				border-radius: var(--radius-#{$step})
-		@each $n in $literals
-			.w-#{$n}-#{$mode}
-				width: #{$n}px
-			.h-#{$n}-#{$mode}
-				height: #{$n}px
-			.square-#{$n}-#{$mode}
-				width: #{$n}px
-				height: #{$n}px
-		.wfull-#{$mode}
-			width: 100%
-		.hfull-#{$mode}
-			height: 100%
-		.full-#{$mode}
-			width: 100%
-			height: 100%
-		.min0-#{$mode}
-			min-width: 0
-			min-height: 0
-		.hfull-vh-#{$mode}
-			min-height: 100vh
-		.hfull-vh-fitted-#{$mode}
-			min-height: calc(100vh - var(--header-height, 48px) - var(--footer-height))
-		.shadow-sm-#{$mode}
-			box-shadow: var(--shadow-sm)
-		.shadow-md-#{$mode}
-			box-shadow: var(--shadow-md)
-		.shadow-lg-#{$mode}
-			box-shadow: var(--shadow-lg)
+.h32
+	height: var(--h32)
+.h28
+	height: var(--h28)
+.h24
+	height: var(--h24)

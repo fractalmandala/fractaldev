@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.0 (2026-09-28)
+
+- Added Keyline Icons families: `keylinestroke` (`kl`), `keylinefill` (`klf`), `keylineduo` (`kld`), `keylinesharp` (`kls`) — 1,000 icons each
+
 ## 0.3.1 (2026-09-10)
 
 - Added `repository`, `homepage`, and `bugs` fields to package.json

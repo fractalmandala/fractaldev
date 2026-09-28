@@ -1,245 +1,195 @@
 <script lang="ts">
-	import { Button } from '#lib/components/index.ts';
-	import DemoCard from './DemoCard.svelte';
-	import { Icon } from 'fractalicons';
-	import { luSettings, luBell, luArchive, luMail, luArrowRight } from 'fractalicons/lucide';
+	import DemoCard, { type DemoOption } from './DemoCard.svelte';
+	import ButtonIntents from './demos/button/ButtonIntents.svelte';
+	import buttonIntentsRaw from './demos/button/ButtonIntents.svelte?raw';
+	import ButtonStates from './demos/button/ButtonStates.svelte';
+	import buttonStatesRaw from './demos/button/ButtonStates.svelte?raw';
+	import ButtonSizes from './demos/button/ButtonSizes.svelte';
+	import buttonSizesRaw from './demos/button/ButtonSizes.svelte?raw';
+	import ButtonPill from './demos/button/ButtonPill.svelte';
+	import buttonPillRaw from './demos/button/ButtonPill.svelte?raw';
+	import ButtonShapes from './demos/button/ButtonShapes.svelte';
+	import buttonShapesRaw from './demos/button/ButtonShapes.svelte?raw';
+	import ButtonIcons from './demos/button/ButtonIcons.svelte';
+	import buttonIconsRaw from './demos/button/ButtonIcons.svelte?raw';
+	import ButtonIconOnly from './demos/button/ButtonIconOnly.svelte';
+	import buttonIconOnlyRaw from './demos/button/ButtonIconOnly.svelte?raw';
+	import ButtonLoading from './demos/button/ButtonLoading.svelte';
+	import buttonLoadingRaw from './demos/button/ButtonLoading.svelte?raw';
+	import ButtonFullWidth from './demos/button/ButtonFullWidth.svelte';
+	import buttonFullWidthRaw from './demos/button/ButtonFullWidth.svelte?raw';
+	import ButtonAnchor from './demos/button/ButtonAnchor.svelte';
+	import buttonAnchorRaw from './demos/button/ButtonAnchor.svelte?raw';
+	// Enumerations (variant/size/shape/icon-size) read the unions; curated
+	// scenarios (states/pill/icons) read the single list in `scenarios.ts`.
+	// Either way there is exactly one declaration per member/scenario.
+	import { BUTTON_SIZES, BUTTON_VARIANTS, SIZES, SHAPES } from '#lib/data/componentTypes.ts';
+	import {
+		BTN_IMPORT,
+		ICON_ONLY_IMPORT,
+		ICON_ONLY_META,
+		BUTTON_ICON_SCENARIOS,
+		BUTTON_PILL_SCENARIOS,
+		BUTTON_STATE_SCENARIOS,
+		optionsFrom
+	} from './demos/button/scenarios.ts';
 
-	let saving = $state(false);
+	/** Demo copy only — the member set itself comes from componentTypes. */
+	const sizeLabels: Record<string, string> = { sm: 'Small', md: 'Medium', bs: 'Base', lg: 'Large' };
+	const titleCase = (v: string) => v.replace(/-/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase());
 
-	// Auto-reset the loading demo shortly after triggering it.
-	$effect(() => {
-		if (!saving) return;
-		const timer = setTimeout(() => (saving = false), 1600);
-		return () => clearTimeout(timer);
-	});
+	const all = (code: string): DemoOption => ({ value: 'all', label: 'All', code });
+	const clause = (attr: 'variant' | 'size' | 'shape', value: string, text: string): string =>
+		`${BTN_IMPORT}\n\n<Button ${attr}="${value}">${text}</Button>`;
 
-	const intentsCode = `<script>
-	import { Button } from 'fractalsvelte/components';
-<\/script>
+	const variantOptions: DemoOption[] = [
+		all(buttonIntentsRaw),
+		...BUTTON_VARIANTS.map((value) => ({ value, label: titleCase(value), code: clause('variant', value, titleCase(value)) }))
+	];
 
-<div class="row wrap gap-2xs">
-	<Button variant="primary">Primary</Button>
-	<Button variant="secondary">Secondary</Button>
-	<Button variant="soft">Soft</Button>
-	<Button variant="outline">Outline</Button>
-	<Button variant="ghost">Ghost</Button>
-	<Button variant="link">Link</Button>
-	<Button variant="destructive">Destructive</Button>
-</div>`;
+	const stateOptions: DemoOption[] = [all(buttonStatesRaw), ...optionsFrom(BUTTON_STATE_SCENARIOS)];
 
-	const statesCode = `<script>
-	import { Button } from 'fractalsvelte/components';
-<\/script>
+	// Base sizes only — the icon sizes are demonstrated in the "Icon only" card.
+	const sizeOptions: DemoOption[] = [
+		all(buttonSizesRaw),
+		...SIZES.map((value) => {
+			const label = sizeLabels[value] ?? titleCase(value);
+			return { value, label, code: clause('size', value, `${label} (${value})`) };
+		})
+	];
 
-<div class="row wrap gap-2xs">
-	<Button disabled>Disabled</Button>
-	<Button variant="outline" disabled>Disabled</Button>
-	<Button variant="destructive" disabled>Delete workspace</Button>
-	<Button loading>Working</Button>
-</div>`;
+	const pillOptions: DemoOption[] = [all(buttonPillRaw), ...optionsFrom(BUTTON_PILL_SCENARIOS)];
 
-	const sizesCode = `<script>
-	import { Button } from 'fractalsvelte/components';
-<\/script>
+	// Base shapes only — `pill` is a ButtonShape member with its own card below.
+	const shapeOptions: DemoOption[] = [
+		all(buttonShapesRaw),
+		...SHAPES.map((value) => ({ value, label: titleCase(value), code: clause('shape', value, titleCase(value)) }))
+	];
 
-<div class="row wrap gap-2xs">
-	<Button size="sm">Compact</Button>
-	<Button size="md">Default</Button>
-	<Button size="lg">Prominent</Button>
-</div>`;
+	const iconOptions: DemoOption[] = [all(buttonIconsRaw), ...optionsFrom(BUTTON_ICON_SCENARIOS)];
 
-	const pillCode = `<script>
-	import { Button } from 'fractalsvelte/components';
-	import { Icon } from 'fractalicons';
-	import { luArrowRight } from 'fractalicons/lucide';
-<\/script>
-
-<div class="row wrap gap-2xs">
-	<Button>Default</Button>
-	<Button shape="pill">Pill</Button>
-	<Button shape="pill" variant="secondary">
-		Next
-		<Icon icon={luArrowRight} />
-	</Button>
-</div>`;
-
-	const iconsCode = `<script>
-	import { Button } from 'fractalsvelte/components';
-	import { Icon } from 'fractalicons';
-	import { luMail, luArrowRight } from 'fractalicons/lucide';
-<\/script>
-
-<div class="row wrap gap-2xs">
-	<Button variant="secondary">
-		<Icon icon={luMail} />
-		Email us
-	</Button>
-	<Button variant="outline">
-		Continue
-		<Icon icon={luArrowRight} />
-	</Button>
-</div>`;
-
-	const iconOnlyCode = `<script>
-	import { Button } from 'fractalsvelte/components';
-	import { Icon } from 'fractalicons';
-	import { luSettings, luBell, luArchive } from 'fractalicons/lucide';
-<\/script>
-
-<div class="row wrap gap-2xs">
-	<Button size="icon-sm" variant="ghost" aria-label="Settings"><Icon icon={luSettings} /></Button>
-	<Button size="icon" variant="outline" aria-label="Notifications"><Icon icon={luBell} /></Button>
-	<Button size="icon-lg" variant="soft" aria-label="Archive"><Icon icon={luArchive} /></Button>
-</div>`;
-
-	const loadingCode = `<script>
-	import { Button } from 'fractalsvelte/components';
-
-	let saving = $state(false);
-
-	$effect(() => {
-		if (!saving) return;
-		const timer = setTimeout(() => (saving = false), 1600);
-		return () => clearTimeout(timer);
-	});
-<\/script>
-
-<div class="row wrap gap-2xs">
-	<Button loading={saving} onclick={() => (saving = true)}>Save changes</Button>
-	<Button variant="outline" loading>Uploading…</Button>
-</div>`;
-
-	const fullWidthCode = `<script>
-	import { Button } from 'fractalsvelte/components';
-<\/script>
-
-<div class="stack gap-2xs" style="width: 100%">
-	<Button>Create workspace</Button>
-	<Button variant="outline">Import from backup</Button>
-</div>`;
-
-	const anchorCode = `<script>
-	import { Button } from 'fractalsvelte/components';
-<\/script>
-
-<div class="row wrap gap-2xs">
-	<Button href="https://svelte.dev" variant="outline">External link</Button>
-	<Button href="/guides" variant="link">Read the guide</Button>
-</div>`;
+	// The sizes are whatever the union marks as icon-only; the copy per size comes
+	// from the shared scenario file, with a fallback so a newly-added icon size
+	// still renders.
+	const iconOnlyOptions: DemoOption[] = [
+		all(buttonIconOnlyRaw),
+		...BUTTON_SIZES.filter((size) => size.startsWith('icon')).map((size) => {
+			const meta = ICON_ONLY_META[size];
+			const label = meta?.label ?? titleCase(size);
+			const code = meta
+				? `${ICON_ONLY_IMPORT}\n\n<Button size="${size}" variant="${meta.variant}" aria-label="${meta.aria}">\n\t<Icon icon={${meta.iconName}} />\n</Button>`
+				: `${ICON_ONLY_IMPORT}\n\n<Button size="${size}" aria-label="${label}">\n\t<Icon icon={luSettings} />\n</Button>`;
+			return { value: size, label, code };
+		})
+	];
 </script>
 
-<div class="stack gap-m">
+<div class="box gap-2xl">
 	<DemoCard
-		title="Intents"
-		description="Seven visual intents share one geometry. The legacy danger value still works as an alias of destructive."
-		code={intentsCode}
+		title="Variants"
+		description="Activated by using the `variant=` clause in markup inline."
+		code={buttonIntentsRaw}
+		options={variantOptions}
+		styleProps={{ selector: '.button' }}
 	>
-		<div class="row wrap gap-2xs ycenter">
-			<Button variant="primary">Primary</Button>
-			<Button variant="secondary">Secondary</Button>
-			<Button variant="soft">Soft</Button>
-			<Button variant="outline">Outline</Button>
-			<Button variant="ghost">Ghost</Button>
-			<Button variant="link">Link</Button>
-			<Button variant="destructive">Destructive</Button>
-		</div>
+		{#snippet children(selected)}
+			<ButtonIntents {selected} />
+		{/snippet}
 	</DemoCard>
 
 	<DemoCard
 		title="States"
-		description="Disabled and loading both block interaction; loading also sets aria-busy and swaps in a spinner."
-		code={statesCode}
+		description="Disabled, loading, and combinations with intents. Interactive buttons suppress clicks during loading."
+		code={buttonStatesRaw}
+		options={stateOptions}
+		styleProps={{ selector: '.button' }}
 	>
-		<div class="row wrap gap-2xs ycenter">
-			<Button disabled>Disabled</Button>
-			<Button variant="outline" disabled>Disabled</Button>
-			<Button variant="destructive" disabled>Delete workspace</Button>
-			<Button loading>Working</Button>
-		</div>
-	</DemoCard>
-
-	<DemoCard title="Sizes" description="Three text densities share one height scale." code={sizesCode}>
-		<div class="row wrap gap-2xs ycenter">
-			<Button size="sm">Compact</Button>
-			<Button size="md">Default</Button>
-			<Button size="lg">Prominent</Button>
-		</div>
+		{#snippet children(selected)}
+			<ButtonStates {selected} />
+		{/snippet}
 	</DemoCard>
 
 	<DemoCard
-		title="Pill"
-		description="The pill shape swaps the corner radius without touching size or intent."
-		code={pillCode}
+		title="Sizes"
+		description="Three scale steps keep typography and touch targets aligned with the fluid type ladder."
+		code={buttonSizesRaw}
+		options={sizeOptions}
+		styleProps={{ selector: '.button' }}
 	>
-		<div class="row wrap gap-2xs ycenter">
-			<Button>Default</Button>
-			<Button shape="pill">Pill</Button>
-			<Button shape="pill" variant="secondary">
-				Next
-				<Icon icon={luArrowRight} />
-			</Button>
-		</div>
+		{#snippet children(selected)}
+			<ButtonSizes {selected} />
+		{/snippet}
 	</DemoCard>
 
 	<DemoCard
-		title="Icons"
-		description="Compose fractalicons' Icon with any intent; the default 1em icon size tracks the button's type scale."
-		code={iconsCode}
+		title="Pill shape"
+		description="Capsule geometry using fully rounded borders; pairs with any intent or size."
+		code={buttonPillRaw}
+		options={pillOptions}
+		styleProps={{ selector: '.button' }}
 	>
-		<div class="row wrap gap-2xs ycenter">
-			<Button variant="secondary">
-				<Icon icon={luMail} />
-				Email us
-			</Button>
-			<Button variant="outline">
-				Continue
-				<Icon icon={luArrowRight} />
-			</Button>
-		</div>
+		{#snippet children(selected)}
+			<ButtonPill {selected} />
+		{/snippet}
 	</DemoCard>
 
 	<DemoCard
-		title="Icon-only"
-		description="Square icon sizes require an aria-label — the icon itself is hidden from assistive tech."
-		code={iconOnlyCode}
+		title="Shapes"
+		description="Standardized shape geometry: square (0px), modern (4px), curved (8px), and round (pill/capsule)."
+		code={buttonShapesRaw}
+		options={shapeOptions}
+		styleProps={{ selector: '.button' }}
 	>
-		<div class="row wrap gap-2xs ycenter">
-			<Button size="icon-sm" variant="ghost" aria-label="Settings"><Icon icon={luSettings} /></Button>
-			<Button size="icon" variant="outline" aria-label="Notifications"><Icon icon={luBell} /></Button>
-			<Button size="icon-lg" variant="soft" aria-label="Archive"><Icon icon={luArchive} /></Button>
-		</div>
+		{#snippet children(selected)}
+			<ButtonShapes {selected} />
+		{/snippet}
 	</DemoCard>
 
 	<DemoCard
-		title="Loading"
-		description="The first button resets itself after 1.6s; the second shows the static loading state."
-		code={loadingCode}
+		title="With icons"
+		description="Drop an SVG icon directly inside the default slot alongside text."
+		code={buttonIconsRaw}
+		options={iconOptions}
+		styleProps={{ selector: '.button' }}
 	>
-		<div class="row wrap gap-2xs ycenter">
-			<Button loading={saving} onclick={() => (saving = true)}>Save changes</Button>
-			<Button variant="outline" loading>Uploading…</Button>
-		</div>
+		{#snippet children(selected)}
+			<ButtonIcons {selected} />
+		{/snippet}
 	</DemoCard>
 
 	<DemoCard
-		title="Full-width"
-		description="Buttons are inline-flex; stretch them with plain width when a form needs a full-column action."
-		code={fullWidthCode}
+		title="Icon only"
+		description="Square proportions with aria-label for assistive tech."
+		code={buttonIconOnlyRaw}
+		options={iconOnlyOptions}
+		styleProps={{ selector: '.button' }}
 	>
-		<div class="stack gap-2xs" style="width: 100%">
-			<Button>Create workspace</Button>
-			<Button variant="outline">Import from backup</Button>
-		</div>
+		{#snippet children(selected)}
+			<ButtonIconOnly {selected} />
+		{/snippet}
 	</DemoCard>
 
 	<DemoCard
-		title="Anchor"
-		description="Passing href renders an anchor that keeps every visual state; target and rel flow through rest props."
-		code={anchorCode}
+		title="Loading trigger"
+		description="Click to see the loading spinner replace the label, then auto-reset."
+		code={buttonLoadingRaw}
 	>
-		<div class="row wrap gap-2xs ycenter">
-			<Button href="https://svelte.dev" variant="outline">External link</Button>
-			<Button href="/guides" variant="link">Read the guide</Button>
-		</div>
+		<ButtonLoading />
+	</DemoCard>
+
+	<DemoCard
+		title="Full width"
+		description="Stretch across the parent container using layout utility classes."
+		code={buttonFullWidthRaw}
+	>
+		<ButtonFullWidth />
+	</DemoCard>
+
+	<DemoCard
+		title="Rendered as link"
+		description="Passing an href attribute renders an accessible <a> styled as a button."
+		code={buttonAnchorRaw}
+	>
+		<ButtonAnchor />
 	</DemoCard>
 </div>

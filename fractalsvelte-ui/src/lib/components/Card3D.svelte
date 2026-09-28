@@ -9,6 +9,7 @@
 		title?: string;
 		description?: string;
 		children?: Snippet;
+		class?: string;
 	};
 
 	let {
@@ -18,8 +19,11 @@
 		scale = 1.02,
 		title,
 		description,
-		children
+		children,
+		class: className = ''
 	}: Props = $props();
+
+	const rootClass = $derived(['card-3d', className].filter(Boolean).join(' '));
 
 	let cardEl = $state<HTMLDivElement | null>(null);
 	let rotateX = $state(0);
@@ -62,7 +66,7 @@
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
 	bind:this={cardEl}
-	class="card-3d"
+	class={rootClass}
 	onpointermove={handlePointerMove}
 	onpointerleave={handlePointerLeave}
 	style="
@@ -98,4 +102,52 @@
 		></div>
 	{/if}
 </div>
+
+<style lang="sass">
+.card-3d
+	position: relative
+	display: grid
+	place-items: center
+	perspective: var(--card-3d-perspective, 900px)
+	inline-size: min(100%, 420px)
+	touch-action: none
+
+	&-inner
+		position: relative
+		inline-size: 100%
+		border-radius: var(--radius-lg)
+		border: 1px solid var(--border)
+		background: var(--bg-raised)
+		padding: calc(var(--space-lg) * var(--pad-scale, 1))
+		transform-style: preserve-3d
+		transition: box-shadow var(--motion-base) var(--ease-out)
+
+	&-content
+		display: flex
+		flex-direction: column
+		gap: calc(var(--space-2xs) * var(--gap-scale, 1))
+		transform: translateZ(24px)
+
+	&-title
+		font-size: var(--text-lg)
+		font-weight: 600
+
+	&-description
+		font-size: var(--text-sm)
+		color: var(--text-secondary)
+
+	&-glare
+		position: absolute
+		inset: 0
+		pointer-events: none
+		padding: 0
+		border-radius: inherit
+		mix-blend-mode: soft-light
+		opacity: 0
+		transition: opacity var(--motion-base) var(--ease-out)
+
+	&:hover .card-3d-glare
+		opacity: 1
+</style>
+
 

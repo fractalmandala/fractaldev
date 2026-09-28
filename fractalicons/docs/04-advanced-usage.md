@@ -71,7 +71,6 @@ export interface IconData {
 
 The `Icon` component wraps `body` in an `<svg>` with the right `viewBox`, size, accessibility attributes, and the `.fractalicon` class. Colors are normalized to `currentColor` at generation time and presentation attributes (stroke widths, line caps, embedded `<style>`/`@keyframes` for animated sets) are preserved.
 
-
 ## Local Development & Contributing
 
 Icons are generated from raw SVG source folders under `vendor/icons/<family>/` into single-file typed modules at `src/lib/<family>.ts`. Vendor sources live outside `src/lib` so they never ship in the published package.
@@ -85,4 +84,13 @@ pnpm check        # svelte-check
 pnpm lint         # prettier + eslint
 ```
 
-To add or update a family, drop its `.svg` files into `vendor/icons/<family>/`, add the family's short prefix to `familyPrefixMap` in `scripts/generate-icons.js`, and run `pnpm generate`. Colors are normalized to `currentColor` and export names are derived automatically.
+To add or update a family:
+
+1. Drop its `.svg` files into `vendor/icons/<family>/` (one SVG per icon, flat in that folder).
+2. Add the family's short prefix to `familyPrefixMap` in `scripts/generate-icons.js`.
+3. Add the `./<family>` subpath to `exports` and `typesVersions` in `package.json`.
+4. Add `/src/lib/<family>.ts` to `.prettierignore`.
+5. Run `pnpm generate`.
+6. Record the family in `docs/02-naming-aliases-props.md` and its upstream license in `docs/05-licenses.md`. Update the counts and examples in `README.md` and `docs/01-getting-started.md`, and add a sample to `src/routes/+page.svelte`.
+
+Colors are normalized to `currentColor` and export names are derived automatically.

@@ -69,9 +69,11 @@
 		document.addEventListener('click', onDocClick);
 		return () => document.removeEventListener('click', onDocClick);
 	});
+
+	const rootClass = $derived(`k-popover-wrap ${className}`.trim());
 </script>
 
-<span class="k-popover-wrap {className}" bind:this={wrap}>
+<span class={rootClass} bind:this={wrap}>
 	<button
 		bind:this={triggerBtn}
 		class="k-topnav-item"
@@ -113,3 +115,90 @@
 		{/each}
 	</div>
 </span>
+
+<style lang="sass">
+.k-popover-wrap
+	position: relative
+	display: inline-flex
+
+.k-topnav-item
+	display: inline-flex
+	align-items: center
+	gap: 6px
+	padding: 7px 12px
+	font-size: var(--text-md)
+	font-weight: 500
+	border: none
+	border-radius: var(--radius-6)
+	background: transparent
+	color: var(--text-secondary)
+	cursor: pointer
+	text-decoration: none
+
+	&:hover
+		background: var(--state-hover)
+		color: var(--text-primary)
+
+	&:focus-visible
+		outline: 2px solid var(--ring)
+		outline-offset: 2px
+
+	&[data-state='active']
+		color: var(--theme-color-alt)
+
+	&[data-state='open']
+		background: var(--state-hover)
+		color: var(--text-primary)
+
+.k-menu
+	display: flex
+	flex-direction: column
+	min-width: 180px
+	padding: 6px
+	background: var(--bg-popover)
+	border: 1px solid var(--border)
+	border-radius: var(--radius-8)
+	box-shadow: var(--shadow-popover)
+	position: absolute
+	z-index: var(--z-modal)
+	top: calc(100% + 8px)
+	left: 50%
+	transform: translateX(-50%)
+
+	&[data-open='false']
+		display: none
+
+.k-menu-item
+	display: flex
+	align-items: center
+	gap: 10px
+	width: 100%
+	padding: 8px 12px
+	font-size: var(--text-md)
+	text-align: left
+	border: none
+	border-radius: var(--radius-4)
+	background: transparent
+	color: var(--text-primary)
+	cursor: pointer
+
+	&:hover, &[data-highlighted='true']
+		background: var(--state-hover)
+
+	&:focus-visible
+		outline: 2px solid var(--ring)
+		outline-offset: -2px
+
+	&[data-state='disabled']
+		opacity: 0.5
+		pointer-events: none
+
+	&[data-variant='danger']
+		color: var(--danger)
+
+		&:hover, &[data-highlighted='true']
+			background: color-mix(in srgb, var(--danger) 12%, transparent)
+
+	.grow
+		flex-grow: 1
+</style>

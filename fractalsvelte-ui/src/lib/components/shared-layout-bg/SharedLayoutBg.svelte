@@ -63,3 +63,30 @@
 		{@render children()}
 	</motion.div>
 {/if}
+
+<style lang="sass">
+[data-slot='shared-layout-bg']
+	position: relative
+	list-style: none
+	margin: 0
+	padding: var(--space-3xs)
+
+:global([data-slot='shared-layout-bg-pill-wrap'])
+	position: absolute
+	inset: 0
+	pointer-events: none
+
+:global([data-slot='shared-layout-bg-pill'])
+	position: absolute
+	background: var(--state-selected)
+	border: 1px solid var(--border-strong)
+	border-radius: var(--radius-6)
+
+:global([data-slot='shared-layout-bg-item-content'])
+	position: relative
+	z-index: 1
+	padding: var(--space-2xs) var(--space-sm)
+	color: var(--text-secondary)
+	font-size: var(--text-md)
+	cursor: default
+</style>

@@ -13,6 +13,7 @@
 		items?: DockItem[];
 		magnification?: number;
 		distance?: number;
+		class?: string;
 	};
 
 	let {
@@ -24,8 +25,11 @@
 			{ id: 'settings', label: 'Settings', icon: '⚙️' }
 		],
 		magnification = 1.6,
-		distance = 110
+		distance = 110,
+		class: className = ''
 	}: Props = $props();
+
+	const rootClass = $derived(['macos-dock', className].filter(Boolean).join(' '));
 
 	let dockEl = $state<HTMLDivElement | null>(null);
 	let mouseX = $state<number | null>(null);
@@ -61,7 +65,7 @@
 
 <div
 	bind:this={dockEl}
-	class="macos-dock"
+	class={rootClass}
 	role="toolbar"
 	tabindex={0}
 	aria-label="Application dock"
@@ -97,4 +101,56 @@
 		</button>
 	{/each}
 </div>
+
+<style lang="sass">
+.macos-dock
+	display: flex
+	align-items: flex-end
+	gap: calc(var(--space-2xs) * var(--gap-scale, 1))
+	padding: calc(var(--space-2xs) * var(--pad-scale, 1)) calc(var(--space-xs) * var(--pad-scale, 1))
+	border-radius: var(--radius-lg)
+	border: 1px solid var(--border)
+	background: color-mix(in srgb, var(--bg-raised) 72%, transparent)
+	backdrop-filter: blur(14px)
+
+	&-item
+		position: relative
+		display: grid
+		place-items: center
+		inline-size: var(--dock-icon-size, 44px)
+		block-size: var(--dock-icon-size, 44px)
+		border-radius: var(--radius-md)
+		transform-origin: bottom center
+		transition: transform var(--motion-fast) var(--ease-out)
+		background: transparent
+		border: none
+		cursor: pointer
+
+		&:hover
+			.macos-dock-tooltip
+				opacity: 1
+
+	&-icon
+		inline-size: 70%
+		block-size: 70%
+		display: block
+		font-size: var(--text-xl)
+
+	&-tooltip
+		position: absolute
+		bottom: calc(100% + var(--space-3xs))
+		left: 50%
+		translate: -50% 0
+		padding: 2px 8px
+		border-radius: var(--radius-sm)
+		border: 1px solid var(--border)
+		background: var(--bg-surface)
+		color: var(--text-primary)
+		font-size: var(--text-2xs)
+		white-space: nowrap
+		opacity: 0
+		pointer-events: none
+		transition: opacity var(--motion-fast) var(--ease-out)
+</style>
+
 

@@ -25,15 +25,16 @@ $xl: map.get($breakpoints, xl)
 	display: flex
 	flex-direction: row
 	align-items: center
+	justify-content: space-between
 	position: sticky
 	top: 0
 	z-index: var(--z-sticky)
 	height: var(--header-height)
-	padding-inline: calc(var(--space-sm) * var(--pad-scale, 1))
-	background: color-mix(in srgb, var(--bg-surface) 88%, transparent)
-	backdrop-filter: blur(12px)
+	padding-inline: var(--app-inline)
 	-webkit-backdrop-filter: blur(12px)
-	border-bottom: 1px solid var(--border)
+	background: var(--bg-header)
+	@media (max-width: 768px)
+		padding-inline: var(--space-md)
 
 .app-main
 	flex: 1 1 0%
@@ -41,10 +42,13 @@ $xl: map.get($breakpoints, xl)
 	min-height: calc(100vh - var(--header-height) - var(--footer-height))
 	display: flex
 	flex-direction: row
+	@media (max-width: 1024px)
+		padding-inline: var(--app-inline)
 
 .main-section
 	flex: 1 1 0%
 	min-width: 0
+	padding-block: var(--app-inline)
 
 // --- Role-bound rails (Amendment A1) -------------------------------------------
 // Left = nav: visible ≥ lg; below, .open on .app-shell resurrects it as an
@@ -56,48 +60,88 @@ $xl: map.get($breakpoints, xl)
 	flex-shrink: 0
 	position: sticky
 	top: var(--header-height)
-	height: calc(100vh - var(--header-height) - var(--footer-height))
+	height: calc(100vh - var(--fit-height))
 	overflow-y: auto
-	padding: calc(var(--space-sm) * var(--pad-scale, 1))
 
 .sidebar-left
 	width: var(--sidebar-width)
+	@media (min-width: 1025px)
+		padding: var(--app-inline)
 
 .sidebar-right
 	width: var(--toc-width)
+	@media (min-width: 1281px)
+		padding: var(--app-inline)
 
-@media (max-width: #{$lg - 1})
-	.app-shell.open .sidebar-left
-		display: block
-		position: fixed
-		left: 0
-		z-index: var(--z-modal)
-		width: min(85vw, var(--sidebar-width))
-		height: calc(100vh - var(--header-height) - var(--footer-height))
-		background: var(--bg)
-		border-right: 1px solid var(--border)
-
-@media #{string.unquote('(min-width: #{$lg})')}
+@media (min-width: 1025px)
 	.sidebar-left
 		display: block
-		border-right: 1px solid var(--border)
 
-@media #{string.unquote('(min-width: #{$xl})')}
+@media (max-width: 1024px)
+	.sidebar-left
+		display: none !important
+
+@media (min-width: 1281px)
 	.sidebar-right
 		display: block
-		border-left: 1px solid var(--border)
 
-.content-shell
-	max-width: var(--measure)
-	margin-inline: auto
+@media (max-width: 1280px)
+	.sidebar-right
+		display: none !important
+
+.sidebar-left
+	&::-webkit-scrollbar
+		width: 6px
+	&::-webkit-scrollbar-track
+		background: transparent
+	&::-webkit-scrollbar-thumb
+		background: transparent
+		border-radius: var(--radius-sm)
+		&:hover
+			background: var(--border-subtle)
+
+.content-section
+	width: 100%
+	&.null
+		padding: 0 var(--space-bs)
+	@media (min-width: 769px)
+		&.narrow-half
+			width: 640px
+			margin-inline: auto
+		&.narrow-wide
+			width: 720px
+			margin-inline: auto
+	@media (min-width: 1025px)
+		&.narrow-full
+			width: 640px
+			margin-inline: auto
+		&.narrow-half
+			width: 750px
+		&.narrow-wide
+			width: 750px
+	@media (min-width: 1281px)
+		&.narrow-full
+			width: 680px
+		&.narrow-half
+			width: 800px
+		&.narrow-wide
+			width: 1024px
+	@media (min-width: 1441px)
+		&.narrow-wide
+			width: 1280px
+	&.solo
+		@media (min-width: 1025px)
+			padding-inline: var(--app-inline)
 
 .app-footer
 	display: flex
 	flex-direction: row
 	align-items: center
-	padding-inline: calc(var(--space-sm) * var(--pad-scale, 1))
+	padding-inline: var(--app-inline)
 	min-height: var(--footer-height)
 	border-top: 1px solid var(--border)
+	background: #272727
+	color: var(--white-fixed)
 
 // Page-top TOC dropdown — where the TOC lives below xl: <details class="mobile-toc">.
 .mobile-toc
@@ -131,7 +175,11 @@ $xl: map.get($breakpoints, xl)
 .navtree
 	display: flex
 	flex-direction: column
-	gap: calc(var(--space-sm) * var(--gap-scale, 1))
+	gap: var(--space-md)
+
+.navtree-group
+	display: flex
+	flex-direction: column
 
 // Flat group label — for groups that don't collapse (collapsible groups ride
 // the accordion family: trigger carries the title, content carries the links).
@@ -146,25 +194,35 @@ $xl: map.get($breakpoints, xl)
 .navtree-link
 	display: flex
 	align-items: center
-	padding-block: calc(var(--space-3xs) * var(--pad-scale, 1))
-	padding-inline: calc(var(--space-xs) * var(--pad-scale, 1))
-	font-size: var(--text-sm)
+	justify-content: space-between
+	font-size: var(--text-md)
 	color: var(--text-secondary)
+	letter-spacing: -0.01rem
 	text-decoration: none
-	border-radius: var(--radius-sm)
+	height: 32px
+	width: 100%
+	border: none
+	background: transparent
+	font-weight: 400
 	transition: background var(--motion-fast) ease, color var(--motion-fast) ease
+	border-radius: var(--radius-sm)
 	&:hover
-		background: var(--state-hover-subtle)
+		background: var(--state-hover)
 		color: var(--text-primary)
-	&.active
-		background: var(--state-selected)
+	&.level2
 		color: var(--text-primary)
+		height: 32px
+		padding-inline: var(--space-sm)
+		font-weight: 500
+		&.active
+			background: var(--state-selected)
+			color: var(--text-primary)
 
 .navtree-sub
 	display: flex
 	flex-direction: column
-	gap: calc(var(--space-3xs) * var(--gap-scale, 1))
-	padding-left: calc(var(--space-sm) * var(--pad-scale, 1))
+	gap: var(--space-xs)
+	padding-left: var(--space-sm)
 
 .toc
 	display: flex
@@ -281,7 +339,7 @@ $xl: map.get($breakpoints, xl)
 	z-index: var(--z-modal)
 	max-width: min(92vw, 540px)
 	width: 100%
-	background: var(--bg-dialog)
+	background: var(--bg-popover)
 	border: 1px solid var(--border)
 	border-radius: var(--radius-lg)
 	box-shadow: var(--shadow-lg)
@@ -371,4 +429,4 @@ $xl: map.get($breakpoints, xl)
 	align-items: center
 	justify-content: center
 	gap: calc(var(--space-lg) * var(--gap-scale, 1))
-	padding-block: calc(var(--space-xl) * var(--pad-scale, 1))
+

@@ -4,9 +4,9 @@
 	"description": "A Sass-first, token-driven Svelte component library.",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/fractalmandala/fractaldev.git"
+		"url": "https://github.com/fractalmandala/fractalsvelte-ui.git"
 	},
-	"homepage": "https://github.com/fractalmandala/fractaldev#readme",
+	"homepage": "https://github.com/fractalmandala/fractalsvelte-ui#readme",
 	"keywords": [
 		"svelte",
 		"sveltekit",
@@ -32,7 +32,6 @@
 	"files": [
 		"src/lib",
 		"styles",
-		"scripts",
 		"README.md",
 		"docs/DESIGN-SYSTEM.md"
 	],
@@ -66,21 +65,24 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"tokens:generate": "node scripts/generate-tokens.mjs",
 		"style:check": "node scripts/check-style-contract.mjs",
+		"visual:test": "node scripts/visual-regression.mjs",
+		"visual:update": "node scripts/visual-regression.mjs --update",
 		"verify:style": "node scripts/generate-tokens.mjs --check && pnpm style:check",
 		"package:check": "node scripts/check-package.mjs",
 		"a11y:check": "node scripts/check-accessibility-contract.mjs",
 		"docs:check": "node scripts/check-docs.mjs",
 		"shiki:check": "node scripts/check-shiki-contract.mjs",
 		"kit3:check": "node scripts/check-sveltekit3-contract.mjs",
-		"verify": "pnpm check && pnpm kit3:check && pnpm shiki:check && pnpm verify:style && pnpm a11y:check && pnpm docs:check && pnpm package:check"
+		"verify": "pnpm check && pnpm kit3:check && pnpm shiki:check && pnpm verify:style && pnpm a11y:check && pnpm docs:check && pnpm package:check && pnpm visual:test"
 	},
 	"peerDependencies": {
 		"svelte": "^5.56.4"
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-auto": "8.0.0-next.3",
-		"@sveltejs/kit": "3.0.0-next.25",
+		"@sveltejs/adapter-auto": "7.0.1",
+		"@sveltejs/kit": "2.70.3",
 		"@sveltejs/vite-plugin-svelte": "7.3.0",
+		"@types/node": "^26.6.2",
 		"mdsvex": "^0.12.8",
 		"sass": "^1.77.0",
 		"shiki": "4.4.3",
@@ -93,7 +95,6 @@
 		"@humanspeak/svelte-motion": "^0.9.4",
 		"@mediapipe/tasks-vision": "^0.10.35",
 		"fractalicons": "^0.0.2",
-		"fractalstyler2": "^0.8.0",
 		"ogl": "^1.0.11"
 	}
 }

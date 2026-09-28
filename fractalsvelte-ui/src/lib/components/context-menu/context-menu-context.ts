@@ -1,6 +1,7 @@
 import { getContext, setContext } from 'svelte';
+import type { OpenModality } from '#lib/data/componentTypes.ts';
 
-export type OpenModality = 'pointer' | 'keyboard' | 'touch';
+export type { OpenModality };
 export type MenuPoint = { x: number; y: number };
 
 export interface ContextMenuContextValue {

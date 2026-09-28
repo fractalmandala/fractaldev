@@ -104,3 +104,12 @@
 >
 	{@render children()}
 </span>
+
+<style lang="sass">
+[data-slot="context-menu-trigger"]
+	display: inline-flex
+
+	&[data-disabled="true"]
+		pointer-events: none
+		opacity: 0.5
+</style>

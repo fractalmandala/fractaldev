@@ -21,6 +21,8 @@
 		children
 	}: Props = $props();
 
+	const rootClass = $derived(['k-selectable-card', className].filter(Boolean).join(' '));
+
 	function toggle() {
 		if (disabled) return;
 		selected = !selected;
@@ -30,7 +32,7 @@
 
 <button
 	type="button"
-	class="k-selectable-card {className}"
+	class={rootClass}
 	data-state={selected ? 'selected' : undefined}
 	aria-pressed={selected}
 	{disabled}
@@ -43,3 +45,39 @@
 		{@render children?.()}
 	</span>
 </button>
+
+<style lang="sass">
+.k-selectable-card
+	display: flex
+	align-items: flex-start
+	gap: 12px
+	width: 100%
+	padding: var(--space-sm)
+	text-align: left
+	background: var(--bg-surface)
+	border: 1px solid var(--border)
+	border-radius: var(--radius-md)
+	color: var(--text-primary)
+	cursor: pointer
+	transition: border-color var(--motion-fast) ease, background-color var(--motion-fast) ease, box-shadow var(--motion-fast) ease
+	&:hover
+		background: var(--state-hover)
+	&:focus-visible
+		outline: 2px solid var(--ring)
+		outline-offset: 2px
+	&[data-state='selected']
+		border-color: var(--theme-color)
+		background: color-mix(in srgb, var(--theme-color) 6%, var(--bg-surface))
+		box-shadow: 0 0 0 1px color-mix(in srgb, var(--theme-color) 30%, transparent)
+	&:disabled
+		opacity: 0.5
+		cursor: not-allowed
+
+.k-card-title
+	font-size: var(--text-lg)
+	font-weight: 600
+
+.k-card-desc
+	font-size: var(--text-sm)
+	color: var(--text-muted)
+</style>

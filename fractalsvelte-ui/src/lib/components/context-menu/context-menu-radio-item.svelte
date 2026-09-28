@@ -22,3 +22,24 @@
 	</span>
 	{@render children()}
 </ContextMenuItemBase>
+
+<style lang="sass">
+[data-slot="context-menu-icon"]
+	display: flex
+	width: 1rem
+	height: 1rem
+	flex-shrink: 0
+	align-items: center
+	justify-content: center
+
+[data-slot="context-menu-radio-dot"]
+	width: 0.375rem
+	height: 0.375rem
+	border-radius: var(--radius-full)
+	background: currentColor
+	opacity: 0
+	transition: opacity 0.15s ease
+
+	&[data-checked="true"]
+		opacity: 1
+</style>

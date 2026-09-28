@@ -6,15 +6,22 @@
 	type Props = {
 		present?: boolean;
 		children?: Snippet;
+		class?: string;
 	};
 
-	let { present = false, children }: Props = $props();
+	let { present = false, children, class: className = '' }: Props = $props();
+	const rootClass = $derived(['presence', className].filter(Boolean).join(' '));
 </script>
 
 <AnimatePresence mode="wait">
 	{#if present}
-		<MotionDiv key="presence-content" class="presence" initial={fadeUp.initial} animate={fadeUp.animate} exit={fadeUp.exit} transition={springPresence}>
+		<MotionDiv key="presence-content" class={rootClass} initial={fadeUp.initial} animate={fadeUp.animate} exit={fadeUp.exit} transition={springPresence}>
 			{@render children?.()}
 		</MotionDiv>
 	{/if}
 </AnimatePresence>
+
+<style lang="sass">
+:global(.presence)
+	display: grid
+</style>

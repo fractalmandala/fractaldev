@@ -1,3 +1,6 @@
+@use '01_config' as *
+@use '00_tokens' as *
+
 .badge
 	display: inline-flex
 	align-items: center
@@ -49,6 +52,19 @@
 		border-color: var(--theme-color)
 		box-shadow: 0 0 0 2px var(--ring)
 
+.card
+	header
+		margin-bottom: auto
+	footer
+		div
+			transition: transform var(--motionout2)
+	&:hover
+		border: 1px solid var(--border-strong)
+		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)
+		footer
+			div
+				transform: translateX(8px)
+
 // --- The link family -------------------------------------------------------------
 .link
 	color: var(--theme-color)
@@ -59,6 +75,8 @@
 .link-plain
 	color: inherit
 	text-decoration: none
+	&:hover
+		color: var(--theme-color)
 
 .link-parent
 	&:hover
@@ -66,21 +84,33 @@
 		.link-plain
 			color: var(--theme-color-alt)
 
+.breadcrumb-link, .breadcrumb-spacer
+	color: var(--text-muted)
+	font-size: var(--text-xs)
+	text-transform: uppercase
+
+.breadcrumb-link
+	&:hover
+		color: var(--theme-color)
+
+.breadcrumb
+	display: flex
+	justify-content: flex-start
+	margin-left: -0.5rem
+
 // --- The button quartet (nested — never standalone) -----------------------------
-.button
+button, a
 	display: inline-flex
 	align-items: center
 	justify-content: center
-	height: var(--control-h-md)
 	padding-inline: calc(var(--space-sm) * var(--pad-scale, 1))
 	border: 1px solid transparent
-	border-radius: var(--radius-sm)
-	font-weight: 500
 	font-size: var(--text-sm)
 	text-decoration: none
 	cursor: pointer
 	user-select: none
-	transition: background var(--motion-fast) ease, border-color var(--motion-fast) ease, color var(--motion-fast) ease
+	transition: background var(--motionin1), border-color var(--motionin1), color var(--motionin1)
+	transform-origin: center center
 	&:focus-visible
 		outline: 2px solid var(--ring)
 		outline-offset: 1px
@@ -91,6 +121,7 @@
 	&.primary
 		background: var(--theme-color)
 		color: var(--text-inverse)
+		height: var(--height-bs)
 		&:hover
 			background: var(--theme-color-alt)
 	&.ghost
@@ -99,14 +130,32 @@
 		color: var(--text-primary)
 		&:hover
 			background: var(--bg-raised)
-	&.active
-		background: var(--state-selected)
-		border-color: var(--border)
-		color: var(--text-primary)
 	&.is-icon
 		padding: 0
 		background: 0
 		border: 0
-		color: var(--text-primary)
 		&:hover
 			color: var(--theme-color)
+	&.small
+		height: 27px
+		font-size: var(--text-sm)
+		letter-spacing: -0.01rem
+		border: 1px solid var(--border-strong)
+		background: var(--bg-surface)
+		&:hover
+			background: var(--state-hover)
+	&[data-shape="square"]
+		border-radius: 0
+	&[data-shape="modern"]
+		border-radius: var(--radius-sm)
+	&[data-shape="curved"]
+		border-radius: var(--radius-bs)
+	&[data-shape="round"]
+		border-radius: var(--radius-full)
+	&[data-variant="active"]
+		background: var(--theme-color)
+		color: #FFFFFF
+		&:hover
+			background: var(--theme-color)
+			color: #FFFFFF
+			cursor: none

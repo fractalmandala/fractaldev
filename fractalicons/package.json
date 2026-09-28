@@ -1,7 +1,7 @@
 {
 	"name": "@fractaldev/fractalicons",
-	"version": "0.3.1",
-	"description": "A comprehensive, tree-shakeable icon library for Svelte 5 — 27,000+ icons across 25 families with ergonomic short-prefix imports.",
+	"version": "0.4.0",
+	"description": "A comprehensive, tree-shakeable icon library for Svelte 5 — 31,000+ icons across 29 families with ergonomic short-prefix imports.",
 	"license": "MIT",
 	"scripts": {
 		"dev": "vite dev",
@@ -106,6 +106,26 @@
 			"types": "./dist/iconoirfill.d.ts",
 			"svelte": "./dist/iconoirfill.js",
 			"default": "./dist/iconoirfill.js"
+		},
+		"./keylineduo": {
+			"types": "./dist/keylineduo.d.ts",
+			"svelte": "./dist/keylineduo.js",
+			"default": "./dist/keylineduo.js"
+		},
+		"./keylinefill": {
+			"types": "./dist/keylinefill.d.ts",
+			"svelte": "./dist/keylinefill.js",
+			"default": "./dist/keylinefill.js"
+		},
+		"./keylinesharp": {
+			"types": "./dist/keylinesharp.d.ts",
+			"svelte": "./dist/keylinesharp.js",
+			"default": "./dist/keylinesharp.js"
+		},
+		"./keylinestroke": {
+			"types": "./dist/keylinestroke.d.ts",
+			"svelte": "./dist/keylinestroke.js",
+			"default": "./dist/keylinestroke.js"
 		},
 		"./lucide": {
 			"types": "./dist/lucide.d.ts",
@@ -213,6 +233,18 @@
 			"iconoirfill": [
 				"./dist/iconoirfill.d.ts"
 			],
+			"keylineduo": [
+				"./dist/keylineduo.d.ts"
+			],
+			"keylinefill": [
+				"./dist/keylinefill.d.ts"
+			],
+			"keylinesharp": [
+				"./dist/keylinesharp.d.ts"
+			],
+			"keylinestroke": [
+				"./dist/keylinestroke.d.ts"
+			],
 			"lucide": [
 				"./dist/lucide.d.ts"
 			],
@@ -299,6 +331,7 @@
 		"feather",
 		"fontawesome",
 		"heroicons",
+		"keyline",
 		"octicons",
 		"simple-icons",
 		"tabler"

@@ -31,19 +31,34 @@ type: fractalicons
 | **Simple Line Icons**  | `sl`   | 189   | `fractalicons/simpleline`       | `slActionRedo`, `slAnchor`              | `simplelineActionRedo`         |
 | **Tabler**             | `tb`   | 5,130 | `fractalicons/tabler`           | `tbBell`, `tbBrandGithub`               | `tablerBell`                   |
 | **Tabler Filled**      | `tbf`  | 1,054 | `fractalicons/tablerfill`       | `tbfAccessible`, `tbfAdCircle`          | `tablerfillAccessible`         |
+| **Keyline Stroke**     | `kl`   | 1,000 | `fractalicons/keylinestroke`    | `klHeart`, `klBell`                     | `keylinestrokeHeart`           |
+| **Keyline Fill**       | `klf`  | 1,000 | `fractalicons/keylinefill`      | `klfHeart`, `klfBell`                   | `keylinefillHeart`             |
+| **Keyline Duo**        | `kld`  | 1,000 | `fractalicons/keylineduo`       | `kldHeart`, `kldBell`                   | `keylineduoHeart`              |
+| **Keyline Sharp**      | `kls`  | 1,000 | `fractalicons/keylinesharp`     | `klsHeart`, `klsBell`                   | `keylinesharpHeart`            |
 
-**Total: 27,469 icons across 25 families.**
+**Total: 31,469 icons across 29 families.**
 
+## Keyline styles
+
+Keyline is one drawing on a 24×24 grid, shipped as four families of 1,000. The upstream file name is the same in each folder, so a single glyph lines up across prefixes:
+
+| Style  | Prefix | Import                       | Drawing                                                    |
+| :----- | :----- | :--------------------------- | :--------------------------------------------------------- |
+| Stroke | `kl`   | `fractalicons/keylinestroke` | 2px keyline, rounded caps and corners                      |
+| Fill   | `klf`  | `fractalicons/keylinefill`   | Solid. A glyph with no interior keeps its stroke drawing   |
+| Duo    | `kld`  | `fractalicons/keylineduo`    | Keyline over a plate at 40% opacity (`fill-opacity="0.4"`) |
+| Sharp  | `kls`  | `fractalicons/keylinesharp`  | Stroke cut with square corners and butt caps               |
+
+`klHeart`, `klfHeart`, `kldHeart`, and `klsHeart` are that heart. The plate and the stroke both use `currentColor`.
 
 ## Naming & Aliases
 
 Every icon is exported under **two names**, both pointing at the same `IconData` object:
 
-- **Prefix name** (short, ergonomic): `luActivity`, `phHeart`, `maaLoadingLoop`.
-- **Full-name alias** (explicit family): `lucideActivity`, `phosphorHeart`, `materialanimLoadingLoop`.
+- **Prefix name** (short, ergonomic): `luActivity`, `phHeart`, `klHeart`, `kldHeart`.
+- **Full-name alias** (explicit family): `lucideActivity`, `phosphorHeart`, `keylinestrokeHeart`, `keylineduoHeart`.
 
 Use whichever reads better in your codebase — they are interchangeable. Names are derived from the upstream icon file name in `camelCase`; icons that begin with a digit are prefixed with `icon` (e.g. a `24-hours` icon becomes `re24HoursLine`).
-
 
 ## Component Props
 

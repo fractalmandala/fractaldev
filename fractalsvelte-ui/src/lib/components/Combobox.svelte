@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount, untrack } from 'svelte';
+	import type { NavigationEdge } from '#lib/data/componentTypes.ts';
 	import { AnimatePresence, motion, useReducedMotion } from '@humanspeak/svelte-motion';
 	import { EASE_OUT } from '../ease.js';
 	import { Icon } from 'fractalicons';
@@ -48,9 +49,10 @@
 		id,
 		ariaLabel = 'Combobox',
 		onValueChange,
-		class: className
+		class: className = ''
 	}: Props = $props();
 
+	const rootClass = $derived(`combobox-root ${className}`.trim());
 	const reduce = useReducedMotion();
 
 	let internal = $state(untrack(() => defaultValue));
@@ -135,7 +137,7 @@
 		scrollActive();
 	}
 
-	function jump(edge: 'first' | 'last') {
+	function jump(edge: NavigationEdge) {
 		if (!enabled.length) return;
 		const target = edge === 'first' ? enabled[0] : enabled[enabled.length - 1];
 		if (!target) return;
@@ -187,7 +189,7 @@
 
 <div
 	bind:this={rootEl}
-	class={className}
+	class={rootClass}
 	data-slot="combobox"
 	data-open={open || undefined}
 	data-disabled={disabled || undefined}
@@ -245,6 +247,7 @@
 	<AnimatePresence>
 		{#if open}
 			<motion.div
+				key="list"
 				id={`${uid}-list`}
 				data-slot="combobox-list"
 				role="listbox"
@@ -282,3 +285,153 @@
 		{/if}
 	</AnimatePresence>
 </div>
+
+<style lang="sass">
+
+.combobox-root
+	position: relative
+	display: inline-flex
+	align-items: center
+	width: 100%
+	font-family: inherit
+
+	&[data-disabled='true']
+		opacity: 0.5
+		pointer-events: none
+
+	[data-slot='combobox-input']
+		display: block
+		width: 100%
+		height: var(--control-h-md)
+		padding-left: var(--space-sm)
+		padding-right: 32px
+		font-family: inherit
+		font-size: var(--text-sm)
+		background: var(--bg-input)
+		color: var(--text-primary)
+		border: 1px solid var(--border)
+		border-radius: var(--radius-sm)
+		transition: border-color var(--motionin1)
+
+		&:focus-visible
+			outline: none
+			border-color: var(--theme-color)
+			box-shadow: 0 0 0 2px var(--ring)
+
+		&::placeholder
+			color: var(--text-muted)
+
+	&[data-clearable='true'] [data-slot='combobox-input']
+		padding-right: 56px
+
+	[data-slot='combobox-clear']
+		position: absolute
+		right: 30px
+		top: 50%
+		transform: translateY(-50%)
+		display: inline-flex
+		align-items: center
+		justify-content: center
+		width: 20px
+		height: 20px
+		border: 0
+		border-radius: var(--radius-full)
+		background: transparent
+		color: var(--text-muted)
+		cursor: pointer
+		transition: background var(--motionin1), color var(--motionin1)
+
+		&:hover
+			background: var(--state-hover)
+			color: var(--text-primary)
+
+	[data-slot='combobox-toggle']
+		position: absolute
+		right: 6px
+		top: 50%
+		transform: translateY(-50%)
+		display: inline-flex
+		align-items: center
+		justify-content: center
+		width: 24px
+		height: 24px
+		border: 0
+		border-radius: var(--radius-sm)
+		background: transparent
+		color: var(--text-muted)
+		cursor: pointer
+		transition: transform var(--motionin1), color var(--motionin1)
+
+		&:hover
+			color: var(--text-primary)
+
+	&[data-open='true'] [data-slot='combobox-toggle']
+		transform: translateY(-50%) rotate(180deg)
+
+	:global([data-slot='combobox-list'])
+		position: absolute
+		z-index: var(--z-modal, 1000)
+		top: calc(100% + 4px)
+		left: 0
+		right: 0
+		max-height: 240px
+		overflow-y: auto
+		padding: 4px
+		background: var(--bg-popover, var(--bg-surface))
+		border: 1px solid var(--border)
+		border-radius: var(--radius-md)
+		box-shadow: var(--shadow-md, 0 8px 24px rgba(0, 0, 0, 0.15))
+		display: flex
+		flex-direction: column
+		gap: 1px
+
+	:global([data-slot='combobox-option'])
+		display: flex
+		align-items: center
+		justify-content: space-between
+		gap: var(--space-xs)
+		width: 100%
+		padding: var(--space-2xs) var(--space-xs)
+		border: 0
+		border-radius: var(--radius-sm)
+		background: transparent
+		color: var(--text-primary)
+		font-family: inherit
+		font-size: var(--text-sm)
+		text-align: left
+		cursor: pointer
+		transition: background var(--motionin1)
+
+		&[data-highlighted='true'],
+		&:hover:not(:disabled)
+			background: var(--state-hover)
+
+		&[data-selected='true']
+			background: var(--state-selected)
+			font-weight: 500
+
+		&:disabled
+			opacity: 0.4
+			cursor: not-allowed
+
+	:global([data-slot='combobox-option-label'])
+		flex: 1
+		overflow: hidden
+		text-overflow: ellipsis
+		white-space: nowrap
+
+	:global([data-slot='combobox-option-hint'])
+		font-size: var(--text-xs)
+		color: var(--text-muted)
+
+	:global([data-slot='combobox-check'])
+		display: inline-flex
+		color: var(--theme-color)
+		flex-shrink: 0
+
+	:global([data-slot='combobox-empty'])
+		padding: var(--space-sm)
+		font-size: var(--text-sm)
+		color: var(--text-muted)
+		text-align: center
+</style>

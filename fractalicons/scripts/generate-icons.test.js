@@ -44,6 +44,10 @@ describe('toNamedExport', () => {
 		assert.equal(toNamedExport('lucide', 'activity'), 'luActivity');
 		assert.equal(toNamedExport('phosphor', 'arrow-up'), 'phArrowUp');
 		assert.equal(toNamedExport('tabler', 'chevron-right'), 'tbChevronRight');
+		assert.equal(toNamedExport('keylinestroke', 'heart'), 'klHeart');
+		assert.equal(toNamedExport('keylinefill', 'heart'), 'klfHeart');
+		assert.equal(toNamedExport('keylineduo', 'heart'), 'kldHeart');
+		assert.equal(toNamedExport('keylinesharp', 'heart'), 'klsHeart');
 	});
 
 	it('falls back to the set name when no prefix is mapped', () => {

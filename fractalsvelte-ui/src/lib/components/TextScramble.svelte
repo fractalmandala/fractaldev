@@ -1,12 +1,15 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import type { TextAnimationTrigger } from '#lib/data/componentTypes.ts';
 
 	type Props = {
 		text: string;
-		trigger?: 'hover' | 'click' | 'mount';
+		trigger?: TextAnimationTrigger;
 		speed?: number;
 		charset?: string;
+		class?: string;
 		oncomplete?: () => void;
+		[key: string]: unknown;
 	};
 
 	let {
@@ -14,11 +17,14 @@
 		trigger = 'hover',
 		speed = 30,
 		charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*',
-		oncomplete
+		class: className = '',
+		oncomplete,
+		...rest
 	}: Props = $props();
 
 	let displayText = $state('');
 	let isScrambling = $state(false);
+	const rootClass = $derived(`text-scramble ${className}`.trim());
 
 	$effect(() => {
 		displayText = text;
@@ -62,22 +68,45 @@
 {#if trigger === 'click'}
 	<button
 		type="button"
-		class="text-scramble"
+		class={rootClass}
+		data-trigger="click"
 		aria-label={text}
 		onclick={scramble}
-		style="cursor: pointer; background: none; border: none; padding: 0; font: inherit; text-align: inherit;"
+		{...rest}
 	>
 		{displayText}
 	</button>
 {:else}
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<span
-		class="text-scramble"
+		class={rootClass}
+		data-trigger={trigger}
 		aria-label={text}
 		onpointerenter={trigger === 'hover' ? scramble : undefined}
-		style="cursor: {trigger === 'hover' ? 'pointer' : 'default'};"
+		{...rest}
 	>
 		{displayText}
 	</span>
 {/if}
 
+<style lang="sass">
+
+.text-scramble
+	font-family: inherit
+	font-variant-numeric: tabular-nums
+	display: inline-block
+	background: none
+	border: none
+	padding: 0
+	color: inherit
+	text-align: inherit
+
+	&[data-trigger='hover']
+		cursor: pointer
+
+	&[data-trigger='click']
+		cursor: pointer
+
+	&[data-trigger='mount']
+		cursor: default
+</style>

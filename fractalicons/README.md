@@ -4,13 +4,13 @@
 
 ![license](https://img.shields.io/npm/l/fractalicons.svg)
 
-A comprehensive, tree-shakeable icon library for **Svelte 5** featuring **27,000+ icons across 25 popular open-source icon families** with short, ergonomic import prefixes.
+A comprehensive, tree-shakeable icon library for **Svelte 5** featuring **31,000+ icons across 29 popular open-source icon families** with short, ergonomic import prefixes.
 
 I built this to be able to sample and use multiple icon families through a single workflow and pipeline. Built with love on SvelteKit.
 
 - **Svelte 5 Runes** — built specifically for Svelte 5 with native rune reactivity.
 - **Tree-Shakeable** — each family compiles to a single module of `IconData` payloads; named imports shake down to just the icons you reference (~0.3 KB per icon in your bundle).
-- **Prefix-cased** — fast to type (`lu` for Lucide, `ph` for Phosphor, `re` for Remix, etc.) with full-name aliases preserved.
+- **Prefix-cased** — fast to type (`lu` Lucide, `ph` Phosphor, `re` Remix, `kl` / `klf` / `kld` / `kls` Keyline) with full-name aliases preserved.
 - **Color & Stroke Preserved** — colors are normalized to `currentColor` and presentation attributes (strokes, stroke-widths, animations, fill styles) are kept intact.
 - **Animated icons** — the Material Animated family plays CSS animations with a configurable `trigger` (hover, click, on-view, loop…).
 - **Accessible** — automatic `role="img"`, `aria-hidden`, and `<title>` / `aria-labelledby` handling.
@@ -52,6 +52,10 @@ Import the `Icon` component once, then import individual icons from any family's
 	import { heAcademicCap } from 'fractalicons/heroicons';
 	import { feActivity } from 'fractalicons/feathericons';
 	import { maaLoadingLoop } from 'fractalicons/materialanim';
+	import { klHeart } from 'fractalicons/keylinestroke';
+	import { klfHeart } from 'fractalicons/keylinefill';
+	import { kldHeart } from 'fractalicons/keylineduo';
+	import { klsHeart } from 'fractalicons/keylinesharp';
 </script>
 
 <!-- Basic icon (defaults to 1em, follows font-size and color) -->
@@ -69,7 +73,28 @@ Import the `Icon` component once, then import individual icons from any family's
 
 <!-- Animated icon with a play trigger -->
 <Icon icon={maaLoadingLoop} size={32} trigger="hover" />
+
+<!-- Keyline: same drawing, four cuts -->
+<Icon icon={klHeart} />
+<Icon icon={klfHeart} />
+<Icon icon={kldHeart} />
+<Icon icon={klsHeart} />
 ```
+
+## Keyline Icons
+
+[Keyline Icons](https://github.com/keyline-icons/keyline-icons) is one 24×24 drawing shipped here as four families, 1,000 icons each. The icon name is shared, so `heart` is `klHeart`, `klfHeart`, `kldHeart`, and `klsHeart`.
+
+| Style      | Prefix | Import                       | Drawing                                                        |
+| :--------- | :----- | :--------------------------- | :------------------------------------------------------------- |
+| **Stroke** | `kl`   | `fractalicons/keylinestroke` | 2px keyline, rounded caps and corners                          |
+| **Fill**   | `klf`  | `fractalicons/keylinefill`   | Solid. A glyph with no interior keeps its stroke drawing       |
+| **Duo**    | `kld`  | `fractalicons/keylineduo`    | The keyline over a plate at 40% opacity (`fill-opacity="0.4"`) |
+| **Sharp**  | `kls`  | `fractalicons/keylinesharp`  | The stroke cut with square corners and butt caps               |
+
+Both the keyline and the duo plate paint with `currentColor`, so they follow the surrounding text color. Full-name aliases (`keylinestrokeHeart`, `keylinefillHeart`, `keylineduoHeart`, `keylinesharpHeart`) point at the same objects. The set is MIT; see [Licenses](https://github.com/fractalmandala/fractalicons/blob/main/docs/05-licenses.md).
+
+The complete prefix table for all 29 families is in [Naming, Aliases, Props](https://github.com/fractalmandala/fractalicons/blob/main/docs/02-naming-aliases-props.md).
 
 ## Docs
 

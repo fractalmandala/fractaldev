@@ -1,0 +1,5 @@
+allowBuilds:
+  '@parcel/watcher': set this to true or false
+  esbuild: true
+minimumReleaseAgeExclude:
+  - fractalthemer@0.6.0 || 0.8.0

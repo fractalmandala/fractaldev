@@ -37,3 +37,13 @@
 	</span>
 	{@render children()}
 </ContextMenuItemBase>
+
+<style lang="sass">
+[data-slot="context-menu-icon"]
+	display: flex
+	width: 1rem
+	height: 1rem
+	flex-shrink: 0
+	align-items: center
+	justify-content: center
+</style>

@@ -4,12 +4,25 @@
 		from?: number;
 		duration?: number;
 		locale?: string;
+		class?: string;
+		[key: string]: unknown;
 	};
 
-	let { value, from = 0, duration = 700, locale }: Props = $props();
+	let {
+		value,
+		from = 0,
+		duration = 700,
+		locale,
+		class: className = '',
+		...rest
+	}: Props = $props();
+
 	let display = $state(0);
 	let hasAnimated = false;
-	let formatter = $derived(new Intl.NumberFormat(locale, { maximumFractionDigits: Number.isInteger(value) ? 0 : 2 }));
+	const rootClass = $derived(`counter ${className}`.trim());
+	let formatter = $derived(
+		new Intl.NumberFormat(locale, { maximumFractionDigits: Number.isInteger(value) ? 0 : 2 })
+	);
 
 	$effect(() => {
 		const startedAt = performance.now();
@@ -27,4 +40,12 @@
 	});
 </script>
 
-<output class="counter">{formatter.format(display)}</output>
+<output class={rootClass} {...rest}>{formatter.format(display)}</output>
+
+<style lang="sass">
+
+.counter
+	font-family: inherit
+	font-variant-numeric: tabular-nums
+	display: inline-block
+</style>

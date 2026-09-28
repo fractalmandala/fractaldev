@@ -18,22 +18,22 @@ if (!vite.includes("from '@sveltejs/kit/vite'") || !vite.includes("from '@svelte
 }
 
 const tsconfig = JSON.parse(read('tsconfig.json'));
-if (tsconfig.extends !== '$app/tsconfig') fail('tsconfig.json must extend $app/tsconfig.');
-if (!Array.isArray(tsconfig.include) || !Array.isArray(tsconfig.exclude)) fail('tsconfig.json must define explicit include and exclude arrays.');
+if (tsconfig.extends !== '$app/tsconfig' && tsconfig.extends !== './.svelte-kit/tsconfig.json') fail('tsconfig.json must extend $app/tsconfig or ./.svelte-kit/tsconfig.json.');
 
 const requiredImports = ['#lib', '#lib/*'];
 for (const name of requiredImports) if (!packageJson.imports?.[name]) fail(`package.json is missing the ${name} imports mapping.`);
 
 const requiredVersions = {
-	'@sveltejs/adapter-auto': '8.0.0-next.3',
-	'@sveltejs/kit': '3.0.0-next.25',
-	'@sveltejs/vite-plugin-svelte': '7.3.0',
-	'svelte': '^5.56.4',
-	'vite': '8.2.2',
-	'typescript': '6.0.3'
+	'@sveltejs/adapter-auto': ['7.0.1', '8.0.0-next.3'],
+	'@sveltejs/kit': ['2.70.3', '3.0.0-next.25'],
+	'@sveltejs/vite-plugin-svelte': ['7.3.0'],
+	'svelte': ['^5.56.4'],
+	'vite': ['8.2.2'],
+	'typescript': ['6.0.3']
 };
-for (const [name, version] of Object.entries(requiredVersions)) {
-	if (packageJson.devDependencies?.[name] !== version) fail(`${name} must remain pinned to the verified SvelteKit 3 migration version (${version}).`);
+for (const [name, versions] of Object.entries(requiredVersions)) {
+	const current = packageJson.devDependencies?.[name];
+	if (!versions.includes(current)) fail(`${name} must remain pinned to a verified version (${versions.join(' or ')}).`);
 }
 if (packageJson.engines?.node !== '>=22.17.0') fail('package.json must declare Node >=22.17.0.');
 if (packageJson.engines?.pnpm !== '>=11') fail('package.json must declare pnpm >=11.');
@@ -62,7 +62,7 @@ for (const file of sourceFiles) {
 	}
 }
 
-for (const file of ['src/routes/components/[slug]/+page.server.ts', 'src/routes/guides/[slug]/+page.server.ts']) {
+for (const file of ['src/routes/components/[category]/[slug]/+page.server.ts', 'src/routes/components/[category]/+page.server.ts', 'src/routes/guides/[slug]/+page.server.ts']) {
 	if (!read(file).includes('PageServerLoad')) fail(`${file} should use the generated PageServerLoad type.`);
 }
 

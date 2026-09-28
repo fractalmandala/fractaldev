@@ -4,30 +4,34 @@
 // Light is the marker-free default so tokens stay defined during SSR and with
 // JS disabled; dark comes from prefers-color-scheme and explicit [data-mode='dark'].
 // =============================================================================
+@use '00_presets' as *
+
 
 =light-theme-tokens
 	color-scheme: light
-	--bg: #fdfefe
-	--bg-surface: #f8f7f7
-	--bg-raised: #f1f5f9
-	--bg-panel: #F1F3F5
-	--bg-footer: #E9ECEF
-	--bg-popover: #FFFFFF
-	--bg-dialog: #FFFFFF
-	--bg-terminal: #0F172A
-	--bg-input: #FFFFFF
-	--bg-canvas: #F8F9FA
-	--text-primary: #0f172a
-	--text-secondary: #5b6472
-	--text-muted: #929497
+	--white-fixed: #FFFFFF
+	--black-fixed: #171717
+	--bg: #FAFAFA
+	--bg-surface: #E4E4E7
+	--bg-raised: #F4F4F5
+	--bg-panel: #FBFBF9
+	--bg-sunken: #FFFFFF
+	--bg-popover: #FAF7F7
+	--bg-button: #CED8D3
+	--bg-sidebar: #FAFAFA
+	--bg-input: #FAF7F7
+	--bg-button-soft: #F8FAFC
+	--border: #d8d8d8
+	--border-subtle: #eceaea
+	--border-strong: #cfcfcf
+	--text-primary: #262627
+	--text-secondary: #777777
+	--text-muted: #aeaeae
 	--text-inverse: #ffffff
-	--state-hover: #E2E8F0
-	--state-hover-subtle: #F1F5F9
-	--state-selected: #CBD5E1
-	--border: #E2E8F0
-	--border-subtle: #EDF2F7
-	--theme-color: #04825B
-	--theme-color-alt: #047857
+	--state-hover: #eae9e8
+	--state-selected: #eaeae9
+	--theme-color: #FF3E00
+	--theme-color-alt: #c84b21
 	--success: #10B981
 	--success-hover: #059669
 	--warning: #F59E0B
@@ -36,36 +40,33 @@
 	--danger-hover: #DC2626
 	--info: #3B82F6
 	--info-hover: #2563EB
-	--feedback-error: #DC2626
 	--ring: rgba(0, 127, 78, 0.35)
-	// Per-mode shadows (registry v1)
-	--shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06)
-	--shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08)
-	--shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.12)
 
 =dark-theme-tokens
 	color-scheme: dark
-	--bg: #0E1118
-	--bg-surface: #141824
-	--bg-raised: #1C2232
-	--bg-panel: #101420
-	--bg-footer: #0B0D14
-	--bg-popover: #20273A
-	--bg-dialog: #20273A
-	--bg-terminal: #080A0F
-	--bg-input: #121622
-	--bg-canvas: #0E1118
-	--border: #28324A
-	--border-subtle: #1E2538
+	--white-fixed: #FFFFFF
+	--black-fixed: #171717
+	--bg: #101010
+	--bg-surface: #202021
+	--bg-raised: #3a3a3a
+	--bg-panel: #1f1f20
+	--bg-sunken: #1f1f20
+	--bg-popover: #111111
+	--bg-button: #171818
+	--bg-sidebar: #666668
+	--bg-input: #1c1c1d
+	--bg-button-soft: #7c7c7c
+	--border: #2f2f2f
+	--border-subtle: #1e1e1f
+	--border-strong: #7c7c7c
 	--text-primary: #EDF2F7
-	--text-secondary: #9BB0C7
-	--text-muted: #5D7087
-	--state-hover: #263047
-	--state-hover-subtle: #1B2233
-	--state-selected: #32405E
-	--theme-color: #38BDF8
-	--theme-color-alt: #0EA5E9
-	--text-inverse: #0E1118
+	--text-secondary: #c7c7c7
+	--text-muted: #7c7c7c
+	--text-inverse: #7c7c7c
+	--state-hover: #4a4a4b
+	--state-selected: #666668
+	--theme-color: #FF3E00
+	--theme-color-alt: #c84b21
 	--success: #34D399
 	--success-hover: #6EE7B7
 	--warning: #FBBF24
@@ -74,42 +75,40 @@
 	--danger-hover: #FCA5A5
 	--info: #60A5FA
 	--info-hover: #93C5FD
-	--feedback-error: #F87171
 	--ring: rgba(16, 185, 129, 0.4)
-	// Per-mode shadows (registry v1)
-	--shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4)
-	--shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35)
-	--shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.45)
 
 :root
 	color-scheme: light
-
+	+light-theme-tokens
 	// Fonts
 	--font-sans: "Google Sans Flex", sans-serif
-	--font-mono: "JetBrains Mono", monospace
+	--font-mono: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace
 
-	// Fluid type scale (Utopia 360→1240)
-	--text-xs: 0.75rem
-	--text-sm: clamp(0.9375rem, 0.9119rem + 0.1136vw, 1rem)
-	--text-md: clamp(1.125rem, 1.0739rem + 0.2273vw, 1.25rem)
-	--text-lg: clamp(1.35rem, 1.2631rem + 0.3864vw, 1.5625rem)
-	--text-xl: clamp(1.62rem, 1.4837rem + 0.6057vw, 1.9531rem)
-	--text-2xl: clamp(1.944rem, 1.7405rem + 0.9044vw, 2.4414rem)
-	--text-3xl: clamp(2.3328rem, 2.0387rem + 1.3072vw, 3.0518rem)
-	--text-4xl: clamp(2.7994rem, 2.384rem + 1.8461vw, 3.8147rem)
+	--text-xs: 0.67rem
+	--text-sm: 0.75rem
+	--text-md: 0.85rem
+	--text-bs: 1rem
+	--text-lg: 1.125rem
+	--text-xl: 1.25rem
+	--text-2xl: 1.5rem
+	--text-3xl: 1.875rem
+	--text-4xl: 2.25rem
+	--text-5xl: 2.75rem
+	--text-6xl: 3.5rem
 
-	// Fluid space scale — the comfortable values. data-layout scales at USE
-	// sites: gaps/margins × var(--gap-scale), paddings × var(--pad-scale).
-	--space-3xs: clamp(0.3125rem, 0.3125rem + 0vw, 0.3125rem)
-	--space-2xs: clamp(0.5625rem, 0.5369rem + 0.1136vw, 0.625rem)
-	--space-xs: clamp(0.875rem, 0.8494rem + 0.1136vw, 0.9375rem)
-	--space-sm: clamp(1.125rem, 1.0739rem + 0.2273vw, 1.25rem)
-	--space-md: clamp(1.6875rem, 1.6108rem + 0.3409vw, 1.875rem)
-	--space-lg: clamp(2.25rem, 2.1477rem + 0.4545vw, 2.5rem)
-	--space-xl: clamp(3.375rem, 3.2216rem + 0.6818vw, 3.75rem)
-	--space-2xl: clamp(4.5rem, 4.2955rem + 0.9091vw, 5rem)
-	--space-3xl: clamp(6.75rem, 6.4432rem + 1.3636vw, 7.5rem)
+	--unit-space: 0.25rem
+	--space-3xs: calc(var(--unit-space) * 0.25)
+	--space-2xs: calc(var(--unit-space) * 0.5)
+	--space-xs: var(--unit-space)
+	--space-sm: calc(var(--unit-space) * 2)
+	--space-md: calc(var(--unit-space) * 3)
+	--space-bs: calc(var(--unit-space) * 4)
+	--space-lg: calc(var(--unit-space) * 6)
+	--space-xl: calc(var(--unit-space) * 8)
+	--space-2xl: calc(var(--unit-space) * 12)
+	--space-3xl: calc(var(--unit-space) * 16)
 
+	--app-inline: var(--space-lg)
 	// Radius (Concentric hierarchy)
 	--radius-0: 0
 	--radius-2: 2px
@@ -117,16 +116,18 @@
 	--radius-4: 4px
 	--radius-6: 6px
 	--radius-8: 8px
+	--radius-10: 10px
 	--radius-12: 12px
 	--radius-16: 16px
 	--radius-24: 24px
-	--radius-full: 9999px
 
 	// Radius channels — compositions read these; shape presets remap them.
 	// Defaults = curved (registry v1); unset data-shape IS curved.
-	--radius-sm: 8px
-	--radius-md: 16px
-	--radius-lg: 24px
+	--radius-sm: 4px
+	--radius-md: 8px
+	--radius-bs: 12px
+	--radius-lg: 16px
+	--radius-full: 9999px
 
 	// Motion language (registry v1) — durations and easings all compositions read.
 	--motion-fast: 120ms
@@ -134,11 +135,32 @@
 	--motion-slow: 240ms
 	--ease-out: cubic-bezier(0.16, 1, 0.3, 1)
 	--ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1)
+	--transin1: cubic-bezier(0.470, 0.000, 0.745, 0.715)
+	--transin2: cubic-bezier(0.550, 0.055, 0.675, 0.190)
+	--transin3: cubic-bezier(0.755, 0.050, 0.855, 0.060)
+	--transout1: cubic-bezier(0.390, 0.575, 0.565, 1.000)
+	--transout2: cubic-bezier(0.215, 0.610, 0.355, 1.000)
+	--transout3: cubic-bezier(0.230, 1.000, 0.320, 1.000)
+	--speed1: 90ms
+	--speed2: 140ms
+	--speed3: 220ms
+	--motionin1: var(--speed1) var(--transin1)
+	--motionout1: var(--speed1) var(--transout1)
+	--motionin2: var(--speed2) var(--transin2)
+	--motionout2: var(--speed2) var(--transout2)
+	--motionin3: var(--speed3) var(--transin3)
+	--motionout3: var(--speed3) var(--transout3)
 
 	// Control Heights
-	--control-h-sm: 26px
-	--control-h-md: 32px
-	--control-h-lg: 38px
+	--control-h-sm: 20px
+	--control-h-md: 24px
+	--control-h-bs: 32px
+	--height-bs: 32px
+	--height-md: 24px
+	--h32: 32px
+	--h28: 28px
+	--h24: 24px
+	--h20: 20px
 
 	// Shadow values live in the theme mixins (per-mode since registry v1).
 
@@ -150,17 +172,16 @@
 	--z-toast: 300
 
 	// Layout
-	--header-height: 48px
-	--footer-height: 32px
+	--header-height: 64px
+	--footer-height: 36px
+	--fit-height: calc(var(--header-height) + var(--footer-height))
 	--measure: 65ch
 	--page-gutter: clamp(1rem, 4vw, 2rem)
 	--sidebar-width: 260px
+	--widebar-width: 480px
 	--toc-width: 240px
 	--card-min: 16rem
 	--breakpoint: 768px
-
-	// Default Light Palette
-	+light-theme-tokens
 
 // Plain :root, NOT :root:not([data-mode='light']). The :not() was redundant —
 // [data-mode='light'] is emitted below and wins on source order at equal

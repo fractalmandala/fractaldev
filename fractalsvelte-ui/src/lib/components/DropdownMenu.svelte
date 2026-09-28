@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { Icon } from 'fractalicons';
 	import { luChevronDown } from 'fractalicons/lucide';
+	import type { MenuAlign } from '#lib/data/componentTypes.ts';
 
 	export interface MenuItem {
 		label: string;
@@ -18,7 +19,7 @@
 		label?: string;
 		/** Custom trigger (overrides label). Receives wiring props — aria state, click, Escape — to spread on your element. */
 		trigger?: import('svelte').Snippet<[Record<string, unknown>]>;
-		align?: 'start' | 'end';
+		align?: MenuAlign;
 		open?: boolean;
 		onOpenChange?: (open: boolean) => void;
 		/** Optional extra content rendered below the items. */
@@ -36,6 +37,8 @@
 		children,
 		class: className = ''
 	}: Props = $props();
+
+	const rootClass = $derived(['dropdown-menu', 'popover-wrap', className].filter(Boolean).join(' '));
 
 	let wrap: HTMLSpanElement | undefined = $state();
 	let triggerBtn: HTMLButtonElement | undefined = $state();
@@ -114,7 +117,7 @@
 	});
 </script>
 
-<span class="popover-wrap {className}" bind:this={wrap}>
+<span class={rootClass} bind:this={wrap}>
 	{#if trigger}
 		{@render trigger(triggerProps)}
 	{:else}
@@ -171,3 +174,86 @@
 		{/if}
 	</div>
 </span>
+
+<style lang="sass">
+.dropdown-menu
+	position: relative
+	display: inline-flex
+
+	.button
+		display: inline-flex
+		align-items: center
+		justify-content: center
+		gap: var(--space-2xs)
+		height: var(--control-h-md)
+		padding: 0 var(--space-sm)
+		font-family: inherit
+		font-size: var(--text-sm)
+		font-weight: 500
+		border-radius: var(--radius-sm)
+		border: 1px solid var(--border)
+		background: var(--bg-surface)
+		color: var(--text-primary)
+		cursor: pointer
+		transition: all var(--motion-fast) ease
+		&:hover
+			background: var(--state-hover)
+
+	.menu
+		position: absolute
+		top: calc(100% + 8px)
+		left: 0
+		z-index: var(--z-modal)
+		min-width: 180px
+		padding: 4px
+		background: var(--bg-popover)
+		border: 1px solid var(--border)
+		border-radius: var(--radius-md)
+		box-shadow: var(--shadow-popover)
+		display: flex
+		flex-direction: column
+		gap: 1px
+
+		&[data-align='end']
+			left: auto
+			right: 0
+
+		&[data-placement='top']
+			top: auto
+			bottom: calc(100% + 8px)
+
+	.menu-item
+		display: flex
+		align-items: center
+		gap: var(--space-xs)
+		width: 100%
+		padding: var(--space-2xs) var(--space-xs)
+		border: 0
+		border-radius: var(--radius-sm)
+		background: transparent
+		color: var(--text-primary)
+		font-size: var(--text-sm)
+		text-align: left
+		cursor: pointer
+		transition: background var(--motion-fast) ease
+		&:hover:not(:disabled)
+			background: var(--state-hover)
+		&:focus-visible
+			outline: none
+			background: var(--state-hover)
+		&[data-variant='danger']
+			color: var(--danger)
+			&:hover:not(:disabled)
+				background: color-mix(in srgb, var(--danger) 12%, transparent)
+		&:disabled,
+		&[data-state='disabled']
+			opacity: 0.4
+			cursor: not-allowed
+			pointer-events: none
+
+	.menu-sep
+		height: 1px
+		background: var(--border-subtle)
+		margin: 4px 0
+</style>
+

@@ -32,8 +32,12 @@ All icons included in this library belong to their respective creators and open-
 | **Simple Line Icons**     | Sabbir Ahmed                               | **MIT License**                                    | [thesabbir/simple-line-icons LICENSE](https://github.com/thesabbir/simple-line-icons/blob/master/LICENSE.md) |
 | **Tabler Icons**          | Paweł Kuna                                 | **MIT License**                                    | [tabler/tabler-icons LICENSE](https://github.com/tabler/tabler-icons/blob/master/LICENSE)                    |
 | **Material Design Icons** | Google LLC                                 | **Apache License 2.0**                             | [google/material-design-icons LICENSE](https://github.com/google/material-design-icons/blob/master/LICENSE)  |
+| **Keyline Icons**         | Keyline Icons                              | **MIT License**                                    | [keyline-icons/keyline-icons LICENSE](https://github.com/keyline-icons/keyline-icons/blob/main/LICENSE)      |
 
 Each family remains under its original license; retain the relevant attribution when redistributing.
 
 > **Simple Icons note:** the icon files are CC0, but the brands they depict are trademarks of their
 > respective owners. Use them to refer to the brand, not to imply endorsement.
+
+> **Keyline Icons note:** MIT covers the drawings in `keylinestroke`, `keylinefill`, `keylineduo`, and
+> `keylinesharp`. It does not grant rights in the name "Keyline Icons".
